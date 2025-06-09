@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 白色背景 -->
+  <rect width="800" height="450" fill="white"/>
+  
+  <!-- Flutter 標誌 -->
+  <path d="M180 225 L280 125 L480 325 L380 425 Z" fill="#54C5F8"/>
+  <path d="M280 325 L380 225 L480 325 L380 425 Z" fill="#01579B"/>
+  <path d="M480 125 L380 225 L480 325 L580 225 Z" fill="#29B6F6"/>
+  
+  <!-- 文字：什麼是 Flutter？ -->
+  <text x="400" y="125" font-family="Arial, sans-serif" font-size="48" font-weight="bold" text-anchor="middle" fill="#212121">什麼是 Flutter？</text>
+  
+  <!-- 裝飾線 -->
+  <line x1="250" y1="160" x2="550" y2="160" stroke="#54C5F8" stroke-width="4"/>
+  
+  <!-- 副標題 -->
+  <text x="400" y="355" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" fill="#616161">跨平台 UI 開發框架</text>
+  
+  <!-- 日期 -->
+  <text x="400" y="385" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="#9E9E9E">2025-03-13</text>
+</svg>

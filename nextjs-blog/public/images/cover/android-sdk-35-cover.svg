@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f5f5f5"/>
+  
+  <!-- 漸層背景 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3DDC84" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3DDC84" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#bg-gradient)"/>
+  
+  <!-- Android 機器人 -->
+  <g transform="translate(150, 180) scale(0.8)">
+    <!-- 頭 -->
+    <path d="M80,40 L220,40 C240,40 250,60 250,80 L250,120 C250,140 240,160 220,160 L80,160 C60,160 50,140 50,120 L50,80 C50,60 60,40 80,40 Z" fill="#3DDC84"/>
+    
+    <!-- 天線 -->
+    <line x1="120" y1="40" x2="120" y2="20" stroke="#3DDC84" stroke-width="8" stroke-linecap="round"/>
+    <line x1="180" y1="40" x2="180" y2="20" stroke="#3DDC84" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- 眼睛 -->
+    <circle cx="110" cy="80" r="10" fill="white"/>
+    <circle cx="190" cy="80" r="10" fill="white"/>
+    
+    <!-- 身體 -->
+    <rect x="80" y="160" width="140" height="100" rx="20" ry="20" fill="#3DDC84"/>
+    
+    <!-- 手臂 -->
+    <rect x="30" y="180" width="50" height="20" rx="10" ry="10" fill="#3DDC84"/>
+    <rect x="220" y="180" width="50" height="20" rx="10" ry="10" fill="#3DDC84"/>
+    
+    <!-- 腿 -->
+    <rect x="100" y="260" width="20" height="40" rx="10" ry="10" fill="#3DDC84"/>
+    <rect x="180" y="260" width="20" height="40" rx="10" ry="10" fill="#3DDC84"/>
+  </g>
+  
+  <!-- 升級箭頭和數字 -->
+  <g transform="translate(450, 150)">
+    <polygon points="0,30 60,30 30,0" fill="#FF5722"/>
+    <polygon points="0,70 60,70 30,100" fill="#FF5722"/>
+    <text x="80" y="60" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#263238">35</text>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="400" y="330" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#263238">舊專案升級 Target SDK 35 問題紀錄</text>
+  
+  <!-- 代碼片段背景 -->
+  <rect x="500" y="120" width="200" height="120" rx="10" ry="10" fill="#F8F9FA" stroke="#E0E0E0" stroke-width="2"/>
+  
+  <!-- 代碼片段內容 -->
+  <text x="520" y="145" font-family="Consolas, monospace" font-size="12" fill="#D32F2F">android {</text>
+  <text x="530" y="165" font-family="Consolas, monospace" font-size="12" fill="#1976D2">  targetSdkVersion 35</text>
+  <text x="530" y="185" font-family="Consolas, monospace" font-size="12" fill="#1976D2">  compileSdkVersion 35</text>
+  <text x="520" y="205" font-family="Consolas, monospace" font-size="12" fill="#D32F2F">}</text>
+  
+  <!-- Android 15 標籤 -->
+  <g transform="translate(630, 80)">
+    <rect x="0" y="0" width="120" height="30" rx="15" ry="15" fill="#3DDC84"/>
+    <text x="60" y="20" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Android 15</text>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 白色背景 -->
+  <rect width="800" height="450" fill="white"/>
+  
+  <!-- Cursor IDE 編輯器窗口 (左側) -->
+  <g transform="translate(250, 225)">
+    <!-- 編輯器窗口 -->
+    <rect x="-160" y="-100" width="320" height="200" rx="10" fill="#1E1E1E"/>
+    <rect x="-150" y="-90" width="300" height="180" rx="5" fill="#252526"/>
+    
+    <!-- 編輯器內的Android代碼 -->
+    <g fill="#D4D4D4" font-family="Courier New, monospace" font-size="11">
+      <text x="-140" y="-60">package com.example.myapp;</text>
+      <text x="-140" y="-40"><tspan fill="#569CD6">import</tspan> android.os.Bundle;</text>
+      <text x="-140" y="-20"><tspan fill="#569CD6">import</tspan> androidx.appcompat.app.AppCompatActivity;</text>
+      <text x="-140" y="10"><tspan fill="#569CD6">public class</tspan> <tspan fill="#4EC9B0">MainActivity</tspan> <tspan fill="#569CD6">extends</tspan> AppCompatActivity {</text>
+      <text x="-140" y="30">  <tspan fill="#C586C0">@Override</tspan></text>
+      <text x="-140" y="50">  <tspan fill="#569CD6">protected void</tspan> <tspan fill="#DCDCAA">onCreate</tspan>(Bundle savedInstanceState) {</text>
+      <text x="-140" y="70">    <tspan fill="#569CD6">super</tspan>.onCreate(savedInstanceState);</text>
+    </g>
+    
+    <!-- 游標閃爍 -->
+    <rect x="-140" y="80" width="2" height="11" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- AI圖標 -->
+    <g transform="translate(105, -70)">
+      <circle cx="0" cy="0" r="20" fill="#007ACC"/>
+      <text x="0" y="6" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">AI</text>
+    </g>
+  </g>
+  
+  <!-- Android 手機和機器人圖示 (右側) -->
+  <g transform="translate(550, 225)">
+    <!-- 手機輪廓 -->
+    <rect x="-70" y="-120" width="140" height="240" rx="15" fill="#EEEEEE" stroke="#333333" stroke-width="2"/>
+    <rect x="-60" y="-110" width="120" height="200" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="1"/>
+    
+    <!-- Android 機器人 -->
+    <g transform="translate(0, 0) scale(0.8)">
+      <!-- 機器人頭部 -->
+      <rect x="-30" y="-40" width="60" height="45" rx="10" fill="#3DDC84"/>
+      
+      <!-- 機器人身體 -->
+      <rect x="-25" y="5" width="50" height="45" rx="5" fill="#3DDC84"/>
+      
+      <!-- 機器人手臂 -->
+      <rect x="-40" y="5" width="15" height="35" rx="5" fill="#3DDC84"/>
+      <rect x="25" y="5" width="15" height="35" rx="5" fill="#3DDC84"/>
+      
+      <!-- 機器人腿部 -->
+      <rect x="-20" y="50" width="15" height="25" rx="3" fill="#3DDC84"/>
+      <rect x="5" y="50" width="15" height="25" rx="3" fill="#3DDC84"/>
+      
+      <!-- 機器人眼睛 -->
+      <circle cx="-12" cy="-22" r="4" fill="white"/>
+      <circle cx="12" cy="-22" r="4" fill="white"/>
+    </g>
+    
+    <!-- 連接線 -->
+    <path d="M-100,0 L-140,0" stroke="#007ACC" stroke-width="2" stroke-dasharray="5,3"/>
+  </g>
+  
+  <!-- 問號符號 (中間) -->
+  <g transform="translate(400, 225)">
+    <circle cx="0" cy="0" r="30" fill="#F5F5F5" stroke="#DDDDDD" stroke-width="2"/>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#555555">?</text>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="400" y="85" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#333333">用Cursor IDE 來開發Android可行性</text>
+  
+  <!-- 裝飾線 -->
+  <line x1="200" y1="105" x2="600" y2="105" stroke="#3DDC84" stroke-width="3"/>
+  
+  <!-- 底部標籤 -->
+  <rect x="330" y="350" width="140" height="30" rx="15" fill="#007ACC"/>
+  <text x="400" y="370" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">Cursor IDE</text>
+  
+  <!-- 日期 -->
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#888888">2025-03-24</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 白色背景 -->
+  <rect width="800" height="450" fill="white"/>
+  
+  <!-- Cursor IDE 標誌元素 -->
+  <g transform="translate(400, 230)">
+    <!-- 編輯器窗口 -->
+    <rect x="-200" y="-120" width="400" height="240" rx="10" fill="#1E1E1E"/>
+    <rect x="-190" y="-110" width="380" height="220" rx="5" fill="#252526"/>
+    
+    <!-- 編輯器內的代碼 -->
+    <g fill="#D4D4D4" font-family="Courier New, monospace" font-size="12">
+      <text x="-180" y="-80">function <tspan fill="#569CD6">getSmartSuggestion</tspan>() {</text>
+      <text x="-180" y="-60">  <tspan fill="#9CDCFE">const</tspan> <tspan fill="#4FC1FF">cursor</tspan> = <tspan fill="#DCDCAA">createCursor</tspan>();</text>
+      <text x="-180" y="-40">  <tspan fill="#9CDCFE">const</tspan> <tspan fill="#4FC1FF">context</tspan> = <tspan fill="#DCDCAA">analyzeCode</tspan>();</text>
+      <text x="-180" y="-20">  <tspan fill="#C586C0">return</tspan> <tspan fill="#DCDCAA">generateAISuggestion</tspan>(context);</text>
+      <text x="-180" y="0">}</text>
+      <text x="-180" y="30"><tspan fill="#6A9955">// AI 輔助生成的代碼</tspan></text>
+      <text x="-180" y="50"><tspan fill="#C586C0">async</tspan> <tspan fill="#569CD6">function</tspan> <tspan fill="#DCDCAA">improveCode</tspan>() {</text>
+      <text x="-180" y="70">  <tspan fill="#C586C0">await</tspan> <tspan fill="#4FC1FF">cursor</tspan>.<tspan fill="#DCDCAA">suggest</tspan>();</text>
+    </g>
+    
+    <!-- 游標閃爍 -->
+    <rect x="-110" y="70" width="2" height="14" fill="#FFFFFF">
+      <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- AI圖標 -->
+    <g transform="translate(120, -80)">
+      <circle cx="0" cy="0" r="25" fill="#007ACC"/>
+      <text x="0" y="7" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">AI</text>
+    </g>
+  </g>
+  
+  <!-- 標題 -->
+  <text x="400" y="80" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#333333">用Cursor IDE 來輔助開發code</text>
+  
+  <!-- 裝飾線 -->
+  <line x1="200" y1="100" x2="600" y2="100" stroke="#007ACC" stroke-width="3"/>
+  
+  <!-- 副標題 -->
+  <text x="400" y="390" font-family="Arial, sans-serif" font-size="22" text-anchor="middle" fill="#555555">什麼是 Cursor？</text>
+  
+  <!-- 日期 -->
+  <text x="400" y="420" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#888888">2025-03-23</text>
+</svg>

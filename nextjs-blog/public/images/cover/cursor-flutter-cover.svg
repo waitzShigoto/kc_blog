@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- 白色背景 -->
+  <rect width="800" height="450" fill="white"/>
+  
+  <!-- Flutter 標誌 (右側) -->
+  <g transform="translate(500, 225) scale(0.8)">
+    <path d="M-50 0 L50 -100 L150 0 L50 100 Z" fill="#54C5F8"/>
+    <path d="M50 0 L150 -100 L250 0 L150 100 Z" fill="#01579B"/>
+    <path d="M150 -100 L250 0 L150 100 L50 0 Z" fill="#29B6F6"/>
+  </g>
+  
+  <!-- VS Code/Cursor 標誌 (左側) -->
+  <g transform="translate(300, 225) scale(0.8)">
+    <!-- VS Code 形狀簡化版 -->
+    <path d="M-100,-75 L-100,75 L0,100 L100,75 L100,-75 L0,-100 Z" fill="#007ACC"/>
+    <!-- 游標圖示 -->
+    <rect x="-30" y="-50" width="10" height="100" fill="white"/>
+    <polygon points="0,30 -20,50 20,50" fill="white"/>
+  </g>
+  
+  <!-- 連接線 -->
+  <path d="M350 225 L450 225" stroke="#888" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- 主標題 -->
+  <text x="400" y="100" font-family="Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#333">Cursor (VSCode)</text>
+  <text x="400" y="150" font-family="Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#333">Build Flutter</text>
+  
+  <!-- 裝飾線 -->
+  <line x1="250" y1="170" x2="550" y2="170" stroke="#54C5F8" stroke-width="3"/>
+  
+  <!-- 底部標籤 -->
+  <rect x="300" y="350" width="100" height="30" rx="15" fill="#007ACC"/>
+  <text x="350" y="370" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">cursor</text>
+  
+  <rect x="410" y="350" width="100" height="30" rx="15" fill="#54C5F8"/>
+  <text x="460" y="370" font-family="Arial, sans-serif" font-size="16" text-anchor="middle" fill="white">flutter</text>
+  
+  <!-- 日期 -->
+  <text x="400" y="410" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#999">2025-03-14</text>
+</svg>
