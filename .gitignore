@@ -1,6 +1,6 @@
 images/.DS_Store
 .DS_Store
-
+.cursor/
 .sass-cache/
 *.DS_Store
 .jekyll-cache

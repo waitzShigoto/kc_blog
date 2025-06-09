@@ -39,51 +39,51 @@ export default function Navbar({ locale }: NavbarProps) {
   ];
 
   return (
-    <nav className="navbar bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
+    <nav className="border-b border-border/40 bg-background/80 backdrop-blur-sm">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14">
           {/* Brand */}
           <Link 
             href={`/${locale}`} 
-            className="text-white text-xl font-bold hover:text-gray-200 transition-colors"
+            className="text-lg font-semibold text-primary hover:text-primary/80 transition-colors"
           >
             elegantaccess
           </Link>
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden text-white hover:text-gray-200 focus:outline-none"
+            className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-1">
             {navItems.map((item, index) => (
               <div key={index} className="relative">
                 {item.hasDropdown ? (
                   <div className="relative">
                     <button
-                      className="text-white hover:text-gray-200 transition-colors flex items-center space-x-1"
+                      className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors flex items-center space-x-1"
                       onClick={() => setIsPortfolioOpen(!isPortfolioOpen)}
                     >
                       <span>{item.label}</span>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {isPortfolioOpen && (
-                      <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50">
+                      <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-md shadow-lg z-50">
                         {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
                           <a
                             key={dropdownIndex}
                             href={dropdownItem.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block px-4 py-2 text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
                           >
                             {dropdownItem.label}
                           </a>
@@ -94,7 +94,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-white hover:text-gray-200 transition-colors"
+                    className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
                     {item.label}
                   </Link>
@@ -106,29 +106,29 @@ export default function Navbar({ locale }: NavbarProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
+          <div className="md:hidden border-t border-border/40 py-4">
             {navItems.map((item, index) => (
-              <div key={index} className="py-2">
+              <div key={index} className="py-1">
                 {item.hasDropdown ? (
                   <div>
                     <button
-                      className="text-white hover:text-gray-200 transition-colors flex items-center justify-between w-full"
+                      className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors flex items-center justify-between"
                       onClick={() => setIsPortfolioOpen(!isPortfolioOpen)}
                     >
                       <span>{item.label}</span>
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
                     {isPortfolioOpen && (
-                      <div className="mt-2 ml-4">
+                      <div className="mt-1 ml-4">
                         {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
                           <a
                             key={dropdownIndex}
                             href={dropdownItem.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="block py-2 text-gray-200 hover:text-white transition-colors"
+                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
                           >
                             {dropdownItem.label}
                           </a>
@@ -139,7 +139,7 @@ export default function Navbar({ locale }: NavbarProps) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="block text-white hover:text-gray-200 transition-colors"
+                    className="block px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                   >
                     {item.label}
                   </Link>

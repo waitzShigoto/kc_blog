@@ -6,6 +6,29 @@ interface PostCardProps {
   post: BlogPost;
 }
 
+// 現代化顏色主題數組 - 低飽和度、高質感
+const colorThemes = [
+  'tag-slate',
+  'tag-gray',
+  'tag-zinc', 
+  'tag-stone',
+  'tag-blue',
+  'tag-indigo',
+  'tag-violet',
+  'tag-emerald'
+];
+
+// 根據字符串生成一致的顏色索引
+const getColorIndex = (str: string) => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash) % colorThemes.length;
+};
+
 export default function PostCard({ post }: PostCardProps) {
   const { slug, frontMatter, readingTime, locale } = post;
   const { title, date, excerpt, categories, tags } = frontMatter;
@@ -15,61 +38,93 @@ export default function PostCard({ post }: PostCardProps) {
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
 
   return (
-    <article className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden h-full">
+    <article className="group bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full hover:border-border/60">
       <div className="p-6 h-full flex flex-col">
         {/* Header: Date and Reading Time */}
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-3">
-          <time dateTime={date}>
-            {format(new Date(date), 'yyyy-MM-dd')}
+        <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+          <time dateTime={date} className="flex items-center space-x-1">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>{format(new Date(date), 'yyyy-MM-dd')}</span>
           </time>
-          <span>{readingTime}</span>
+          <div className="flex items-center space-x-1">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{readingTime}</span>
+          </div>
         </div>
         
         {/* Title */}
-        <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+        <h2 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
           <Link 
             href={`/${locale}/posts/${slug}`}
-            className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="hover:text-primary transition-colors line-clamp-2"
           >
             {title}
           </Link>
         </h2>
         
-        {/* Excerpt */}
-        {excerpt && (
-          <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3 flex-grow">
-            {excerpt}
-          </p>
-        )}
+        {/* Excerpt - 使用 flex-grow 讓它佔據剩餘空間 */}
+        <div className="flex-grow mb-4">
+          {excerpt && (
+            <p className="text-secondary-foreground line-clamp-3 leading-relaxed">
+              {excerpt}
+            </p>
+          )}
+        </div>
         
-        {/* Tags and Categories */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {categoryArray.map((category) => (
-            <span
-              key={category}
-              className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full font-medium"
-            >
-              {category}
-            </span>
-          ))}
-          {tagArray.slice(0, 3).map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full"
-            >
-              #{tag}
-            </span>
-          ))}
+        {/* Tags and Categories - 固定在底部 */}
+        <div className="space-y-3 mb-4">
+          {/* Categories */}
+          {categoryArray.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {categoryArray.map((category) => {
+                const colorClass = colorThemes[getColorIndex(category)];
+                return (
+                  <span
+                    key={category}
+                    className={`px-3 py-1.5 ${colorClass} text-xs font-semibold rounded-full border border-current/20 hover:scale-105 transition-transform cursor-default`}
+                  >
+                    📁 {category}
+                  </span>
+                );
+              })}
+            </div>
+          )}
+          
+          {/* Tags */}
+          {tagArray.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {tagArray.slice(0, 4).map((tag) => {
+                const colorClass = colorThemes[getColorIndex(tag + 'tag')]; // 加 'tag' 確保與分類顏色不同
+                return (
+                  <span
+                    key={tag}
+                    className={`px-2.5 py-1 ${colorClass} text-xs rounded-md border border-current/15 hover:scale-105 transition-transform cursor-default`}
+                  >
+                    #{tag}
+                  </span>
+                );
+              })}
+              {tagArray.length > 4 && (
+                <span className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md border border-border">
+                  +{tagArray.length - 4}
+                </span>
+              )}
+            </div>
+          )}
         </div>
         
         {/* Read More Button - Fixed at bottom */}
-        <div className="mt-auto">
+        <div className="pt-2">
           <Link
             href={`/${locale}/posts/${slug}`}
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium text-sm transition-colors group"
+            className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm transition-all duration-200 group/link"
           >
-            閱讀更多
-            <svg className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>閱讀更多</span>
+            <svg className="ml-2 w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>

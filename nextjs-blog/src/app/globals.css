@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
+/* 明亮模式配色 - 參考 Nextra 風格 */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-background: #ffffff;
+  --color-foreground: #1f2937;
+  --color-muted: #f9fafb;
+  --color-muted-foreground: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+  --color-card-border: #f3f4f6;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #475569;
+  
+  /* 現代化標籤配色系統 - 低飽和度、高質感 */
+  --color-slate: #64748b;
+  --color-slate-light: #f1f5f9;
+  --color-gray: #6b7280;
+  --color-gray-light: #f9fafb;
+  --color-zinc: #71717a;
+  --color-zinc-light: #fafafa;
+  --color-stone: #78716c;
+  --color-stone-light: #fafaf9;
+  --color-blue: #3b82f6;
+  --color-blue-light: #eff6ff;
+  --color-indigo: #6366f1;
+  --color-indigo-light: #eef2ff;
+  --color-violet: #8b5cf6;
+  --color-violet-light: #f5f3ff;
+  --color-emerald: #10b981;
+  --color-emerald-light: #ecfdf5;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 暗黑模式配色 - 參考 Nextra 風格 */
+.dark {
+  --color-background: #0f172a;
+  --color-foreground: #f1f5f9;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #334155;
+  --color-card: #1e293b;
+  --color-card-border: #334155;
+  --color-primary: #60a5fa;
+  --color-primary-foreground: #0f172a;
+  --color-secondary: #334155;
+  --color-secondary-foreground: #cbd5e1;
+  
+  /* 暗黑模式現代化標籤配色 */
+  --color-slate: #94a3b8;
+  --color-slate-light: #1e293b;
+  --color-gray: #9ca3af;
+  --color-gray-light: #1f2937;
+  --color-zinc: #a1a1aa;
+  --color-zinc-light: #18181b;
+  --color-stone: #a8a29e;
+  --color-stone-light: #1c1917;
+  --color-blue: #60a5fa;
+  --color-blue-light: #1e3a8a;
+  --color-indigo: #818cf8;
+  --color-indigo-light: #312e81;
+  --color-violet: #a78bfa;
+  --color-violet-light: #4c1d95;
+  --color-emerald: #34d399;
+  --color-emerald-light: #064e3b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 基礎樣式 */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+/* 確保 Tailwind 類別正確工作 */
+.bg-background {
+  background-color: var(--color-background) !important;
+}
+
+.text-foreground {
+  color: var(--color-foreground) !important;
+}
+
+.bg-muted {
+  background-color: var(--color-muted) !important;
+}
+
+.text-muted-foreground {
+  color: var(--color-muted-foreground) !important;
+}
+
+.bg-card {
+  background-color: var(--color-card) !important;
+}
+
+.border-border {
+  border-color: var(--color-border) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.text-primary {
+  color: var(--color-primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary) !important;
+}
+
+.text-secondary-foreground {
+  color: var(--color-secondary-foreground) !important;
+}
+
+/* 現代化標籤顏色類別 - 低飽和度、高質感 */
+.tag-slate {
+  background-color: var(--color-slate-light);
+  color: var(--color-slate);
+}
+
+.tag-gray {
+  background-color: var(--color-gray-light);
+  color: var(--color-gray);
+}
+
+.tag-zinc {
+  background-color: var(--color-zinc-light);
+  color: var(--color-zinc);
+}
+
+.tag-stone {
+  background-color: var(--color-stone-light);
+  color: var(--color-stone);
+}
+
+.tag-blue {
+  background-color: var(--color-blue-light);
+  color: var(--color-blue);
+}
+
+.tag-indigo {
+  background-color: var(--color-indigo-light);
+  color: var(--color-indigo);
+}
+
+.tag-violet {
+  background-color: var(--color-violet-light);
+  color: var(--color-violet);
+}
+
+.tag-emerald {
+  background-color: var(--color-emerald-light);
+  color: var(--color-emerald);
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted-foreground);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* 選擇文字的顏色 */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
 }
