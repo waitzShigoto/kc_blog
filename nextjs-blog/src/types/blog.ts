@@ -36,6 +36,9 @@ export interface SiteConfig {
   siteUrl: string;
   defaultLocale: string;
   locales: string[];
+  featuredPosts?: {
+    [locale: string]: string[];
+  };
 }
 
 export interface PaginationInfo {

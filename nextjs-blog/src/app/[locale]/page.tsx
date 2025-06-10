@@ -1,9 +1,10 @@
-import { getAllPosts, getAllTags } from '@/lib/posts';
+import { getAllPosts, getAllTags, getFeaturedPosts } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import Header from '@/components/layout/Header';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import PostCard from '@/components/blog/PostCard';
+import FeaturedPosts from '@/components/blog/FeaturedPosts';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -19,6 +20,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const posts = await getAllPosts(locale);
   const allTags = await getAllTags(locale);
+  const featuredPosts = await getFeaturedPosts(locale);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -71,6 +73,9 @@ export default async function HomePage({ params }: HomePageProps) {
                 </div>
               </div>
             </div>
+
+            {/* Featured Posts */}
+            <FeaturedPosts featuredPosts={featuredPosts} locale={locale} />
 
             {/* Posts Section */}
             <div className="mb-8">

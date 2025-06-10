@@ -123,11 +123,36 @@ export async function getPostsByPage(
   };
 }
 
-export async function getFeaturedPosts(locale: string, limit: number = 2): Promise<BlogPost[]> {
+export async function getFeaturedPosts(locale: string): Promise<BlogPost[]> {
+  const { siteConfig } = await import('./config');
   const allPosts = await getAllPosts(locale);
-  return allPosts
-    .filter(post => post.frontMatter.featured)
-    .slice(0, limit);
+  
+  // 獲取該語言的特色文章 slug 列表
+  const featuredSlugs = siteConfig.featuredPosts?.[locale] || [];
+  
+  if (featuredSlugs.length === 0) {
+    // 如果沒有配置特色文章，返回前兩篇文章
+    return allPosts.slice(0, 2);
+  }
+  
+  // 根據 slug 查找對應的文章
+  const featuredPosts: BlogPost[] = [];
+  
+  for (const slug of featuredSlugs) {
+    const post = allPosts.find(p => p.slug === slug);
+    if (post) {
+      featuredPosts.push(post);
+    }
+  }
+  
+  // 如果找到的特色文章少於 2 篇，用最新文章補足
+  if (featuredPosts.length < 2) {
+    const remainingPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug));
+    const needed = 2 - featuredPosts.length;
+    featuredPosts.push(...remainingPosts.slice(0, needed));
+  }
+  
+  return featuredPosts.slice(0, 2); // 確保最多返回 2 篇
 }
 
 export async function getPostsByCategory(locale: string, category: string): Promise<BlogPost[]> {

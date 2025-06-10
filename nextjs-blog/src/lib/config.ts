@@ -19,6 +19,20 @@ export const siteConfig: SiteConfig = {
   siteUrl: 'https://elegantaccess.org',
   defaultLocale: 'zh',
   locales: ['zh', 'en', 'ja'],
+  featuredPosts: {
+    zh: [
+      '2023-06-26-review-my-android-app-portfolio',
+      '2024-05-23-android-qrcode-scanner-with-mlkit'
+    ],
+    en: [
+      '2023-06-26-review-my-android-app-portfolio',
+      '2024-05-23-android-qrcode-scanner-with-mlkit'
+    ],
+    ja: [
+      '2023-06-26-review-my-android-app-portfolio',
+      '2024-05-23-android-qrcode-scanner-with-mlkit'
+    ]
+  }
 };
 
 export const POSTS_PER_PAGE = 10; 
