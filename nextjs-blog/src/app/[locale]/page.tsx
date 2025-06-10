@@ -1,11 +1,12 @@
 import { getAllPosts, getAllTags, getFeaturedPosts } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
-import Header from '@/components/layout/Header';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import PostCard from '@/components/blog/PostCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -19,6 +20,12 @@ export async function generateStaticParams() {
 
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
+  
+  // 驗證語言是否有效
+  if (!siteConfig.locales.includes(locale)) {
+    notFound();
+  }
+  
   const posts = await getAllPosts(locale);
   const allTags = await getAllTags(locale);
   const featuredPosts = await getFeaturedPosts(locale);
@@ -33,7 +40,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
         {/* Main Content */}
         <div className="flex-1 lg:ml-80">
-          <Header locale={locale} />
+          <HeaderWrapper locale={locale} />
           <Navbar locale={locale} />
           
           <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">

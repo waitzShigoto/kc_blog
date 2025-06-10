@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import remarkHtml from 'remark-html';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeStringify from 'rehype-stringify';
@@ -193,4 +192,40 @@ export async function getAllTags(locale: string): Promise<string[]> {
   });
   
   return Array.from(tags).sort();
+}
+
+// 新增：獲取搜尋索引資料
+export interface SearchIndex {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  tags: string[];
+  categories: string[];
+  date: string;
+  locale: string;
+}
+
+export async function getSearchIndex(locale: string): Promise<SearchIndex[]> {
+  const allPosts = await getAllPosts(locale);
+  
+  return allPosts.map(post => {
+    // 確保 tags 和 categories 總是陣列
+    const tags = Array.isArray(post.frontMatter.tags) 
+      ? post.frontMatter.tags 
+      : (post.frontMatter.tags ? [post.frontMatter.tags] : []);
+    
+    const categories = Array.isArray(post.frontMatter.categories) 
+      ? post.frontMatter.categories 
+      : (post.frontMatter.categories ? [post.frontMatter.categories] : []);
+    
+    return {
+      slug: post.slug,
+      title: post.frontMatter.title,
+      excerpt: post.frontMatter.excerpt || '',
+      tags,
+      categories,
+      date: post.frontMatter.date,
+      locale: post.locale,
+    };
+  });
 } 

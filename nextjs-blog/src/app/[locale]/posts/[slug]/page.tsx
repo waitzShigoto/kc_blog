@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
-import Header from '@/components/layout/Header';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
 
 interface PostPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -23,6 +23,12 @@ export async function generateStaticParams() {
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale, slug } = await params;
+  
+  // 驗證語言是否有效
+  if (!siteConfig.locales.includes(locale)) {
+    notFound();
+  }
+  
   const post = await getPostBySlug(slug, locale);
 
   if (!post) {
@@ -38,7 +44,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <Header locale={locale} />
+      <HeaderWrapper locale={locale} />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">

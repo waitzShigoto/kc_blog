@@ -1,33 +1,36 @@
-import { getAllPosts, getAllTags } from '@/lib/posts';
+import { getSearchIndex } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
-import TagsPageClient from '@/components/blog/TagsPageClient';
+import SearchPageClient from '@/components/blog/SearchPageClient';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 
-interface TagsPageProps {
+interface SearchPageProps {
   params: Promise<{ locale: string }>;
 }
 
 export async function generateStaticParams() {
-  return siteConfig.locales.map((locale) => ({
-    locale,
-  }));
+  return [
+    { locale: 'zh' },
+    { locale: 'en' },
+    { locale: 'ja' },
+  ];
 }
 
 // Loading 組件
-function TagsSkeleton() {
+function SearchSkeleton() {
   return (
     <div className="space-y-8">
-      <div className="flex flex-wrap gap-2 mb-8">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="w-20 h-8 bg-muted rounded-lg animate-pulse"></div>
-        ))}
+      <div className="max-w-2xl mx-auto">
+        <div className="w-full h-16 bg-muted rounded-2xl animate-pulse"></div>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
+      <div className="text-center">
+        <div className="w-48 h-6 bg-muted rounded mx-auto animate-pulse"></div>
+      </div>
+      <div className="space-y-6">
+        {[1, 2, 3].map((i) => (
           <div key={i} className="bg-card border border-border rounded-xl p-6">
             <div className="space-y-4">
               <div className="w-3/4 h-6 bg-muted rounded animate-pulse"></div>
@@ -41,7 +44,7 @@ function TagsSkeleton() {
   );
 }
 
-export default async function TagsPage({ params }: TagsPageProps) {
+export default async function SearchPage({ params }: SearchPageProps) {
   const { locale } = await params;
   
   // 驗證語言是否有效
@@ -49,8 +52,7 @@ export default async function TagsPage({ params }: TagsPageProps) {
     notFound();
   }
   
-  const posts = await getAllPosts(locale);
-  const allTags = await getAllTags(locale);
+  const searchIndex = await getSearchIndex(locale);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -69,20 +71,19 @@ export default async function TagsPage({ params }: TagsPageProps) {
             {/* Page Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-foreground mb-2">
-                {locale === 'zh' ? '標籤' : locale === 'en' ? 'Tags' : 'タグ'}
+                {locale === 'zh' ? '搜尋' : locale === 'en' ? 'Search' : '検索'}
               </h1>
               <p className="text-muted-foreground">
-                {locale === 'zh' ? '透過標籤探索相關文章' :
-                 locale === 'en' ? 'Explore related articles by tags' :
-                 'タグで関連する記事を探索'}
+                {locale === 'zh' ? '搜尋文章、標籤和分類' :
+                 locale === 'en' ? 'Search articles, tags and categories' :
+                 '記事、タグ、カテゴリを検索'}
               </p>
             </div>
 
-            {/* Tags Page Client Component */}
-            <Suspense fallback={<TagsSkeleton />}>
-              <TagsPageClient 
-                posts={posts} 
-                allTags={allTags} 
+            {/* Search Page Client Component */}
+            <Suspense fallback={<SearchSkeleton />}>
+              <SearchPageClient 
+                searchIndex={searchIndex} 
                 locale={locale} 
               />
             </Suspense>

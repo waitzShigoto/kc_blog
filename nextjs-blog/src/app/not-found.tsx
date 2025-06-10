@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Home, ArrowLeft, Mail, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import Header from '@/components/layout/Header';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 
 const NotFound = () => {
@@ -51,8 +51,7 @@ const NotFound = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      // 可以導向搜尋頁面或首頁
-      router.push(`/${locale}?search=${encodeURIComponent(searchQuery)}`);
+      router.push(`/${locale}/search?q=${encodeURIComponent(searchQuery)}`);
     }
   };
 
@@ -235,7 +234,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Header */}
-      <Header locale={locale} />
+      <HeaderWrapper locale={locale} />
       
       {/* Navbar */}
       <Navbar locale={locale} />
