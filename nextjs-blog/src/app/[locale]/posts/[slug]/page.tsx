@@ -43,19 +43,19 @@ export default async function PostPage({ params }: PostPageProps) {
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-background">
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <article className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <article className="bg-card rounded-lg shadow-lg overflow-hidden">
           <div className="p-8">
             {/* Article Header */}
             <header className="mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-4xl font-bold text-foreground mb-4">
                 {title}
               </h1>
               
-              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-6">
+              <div className="flex items-center justify-between text-sm text-muted-foreground mb-6">
                 <time dateTime={date}>
                   {format(new Date(date), 'yyyy年MM月dd日')}
                 </time>
@@ -67,7 +67,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {categoryArray.map((category) => (
                   <span
                     key={category}
-                    className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm rounded-full"
+                    className="px-3 py-1 tag-blue text-sm rounded-full"
                   >
                     {category}
                   </span>
@@ -75,7 +75,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 {tagArray.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full"
+                    className="px-3 py-1 tag-gray text-sm rounded-full"
                   >
                     #{tag}
                   </span>
@@ -85,7 +85,7 @@ export default async function PostPage({ params }: PostPageProps) {
             
             {/* Article Content */}
             <div 
-              className="prose prose-lg dark:prose-invert max-w-none"
+              className="prose prose-lg dark:prose-invert max-w-none prose-container"
               dangerouslySetInnerHTML={{ __html: content }}
             />
           </div>
