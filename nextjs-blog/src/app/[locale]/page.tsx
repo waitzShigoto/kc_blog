@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import PostCard from '@/components/blog/PostCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
+import Link from 'next/link';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -104,20 +105,36 @@ export default async function HomePage({ params }: HomePageProps) {
                      '関連する技術コンテンツを探索'}
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
+                <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mb-6">
                   {allTags.slice(0, 20).map((tag) => (
-                    <span
+                    <Link
                       key={tag}
+                      href={`/${locale}/tags?tag=${encodeURIComponent(tag)}`}
                       className="px-3 py-1.5 tag-gray text-xs font-medium rounded-md border border-current/10 hover:scale-105 hover:border-current/20 transition-all duration-200 cursor-pointer"
                     >
                       {tag}
-                    </span>
+                    </Link>
                   ))}
                   {allTags.length > 20 && (
                     <span className="px-3 py-1.5 bg-muted/50 text-muted-foreground text-xs font-medium rounded-md border border-border/50">
                       +{allTags.length - 20}
                     </span>
                   )}
+                </div>
+                
+                {/* 查看全部標籤按鈕 */}
+                <div className="text-center">
+                  <Link
+                    href={`/${locale}/tags`}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-200 text-sm font-medium"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 713 12V7a4 4 0 714-4z" />
+                    </svg>
+                    {locale === 'zh' ? '查看全部標籤' : 
+                     locale === 'en' ? 'View All Tags' : 
+                     'すべてのタグを見る'}
+                  </Link>
                 </div>
               </div>
             )}

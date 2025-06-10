@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { ThemeToggle } from '@/components/ThemeSwitcher';
 
 interface HeaderProps {
@@ -8,11 +9,35 @@ interface HeaderProps {
 }
 
 export default function Header({ locale }: HeaderProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  
   const languages = [
     { code: 'zh', name: '中文' },
     { code: 'en', name: 'English' },
     { code: 'ja', name: '日本語' },
   ];
+
+  // 獲取當前路徑，移除語言前綴
+  const getCurrentPath = () => {
+    // 移除當前語言前綴，例如 /en/tags -> /tags
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+    return pathWithoutLocale;
+  };
+
+  // 處理語言切換
+  const handleLanguageChange = (newLocale: string) => {
+    const currentPath = getCurrentPath();
+    const queryString = searchParams.toString();
+    
+    // 構建新的 URL，保留查詢參數
+    let newUrl = `/${newLocale}${currentPath === '/' ? '' : currentPath}`;
+    if (queryString) {
+      newUrl += `?${queryString}`;
+    }
+    
+    window.location.href = newUrl;
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -63,10 +88,7 @@ export default function Header({ locale }: HeaderProps) {
             <div className="relative">
               <select
                 value={locale}
-                onChange={(e) => {
-                  const newLocale = e.target.value;
-                  window.location.href = `/${newLocale}`;
-                }}
+                onChange={(e) => handleLanguageChange(e.target.value)}
                 className="appearance-none bg-transparent border-0 rounded-md px-3 py-1.5 text-sm text-foreground hover:bg-muted focus:bg-muted focus:outline-none transition-colors cursor-pointer"
               >
                 {languages.map((lang) => (
