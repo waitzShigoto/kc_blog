@@ -202,3 +202,23 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* 明確的 hover 樣式 - 確保 hover 效果正常工作 */
+.hover\:text-foreground:hover {
+  color: var(--color-foreground) !important;
+}
+
+.hover\:bg-muted:hover {
+  background-color: var(--color-muted) !important;
+}
+
+.hover\:text-primary\/80:hover {
+  color: color-mix(in oklab, var(--color-primary) 80%, transparent) !important;
+}
+
+/* 過渡動畫 */
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}

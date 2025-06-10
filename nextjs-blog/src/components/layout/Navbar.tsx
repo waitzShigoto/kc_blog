@@ -7,17 +7,39 @@ interface NavbarProps {
   locale: string;
 }
 
+interface DropdownItem {
+  label: string;
+  href: string;
+  isInternal?: boolean;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  hasDropdown?: boolean;
+  dropdownItems?: DropdownItem[];
+}
+
 export default function Navbar({ locale }: NavbarProps) {
   const [isPortfolioOpen, setIsPortfolioOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     {
       label: locale === 'zh' ? '作品集' : locale === 'en' ? 'Portfolio' : 'ポートフォリオ',
       href: '#',
       hasDropdown: true,
       dropdownItems: [
-        { label: 'Gist', href: 'https://gist.github.com/KuanChunChen' },
+        { 
+          label: 'Android Portfolio', 
+          href: `/${locale}/posts/2023-06-26-review-my-android-app-portfolio`,
+          isInternal: true
+        },
+        { 
+          label: 'Gist', 
+          href: 'https://gist.github.com/waitzShigoto',
+          isInternal: false
+        },
       ]
     },
     {
@@ -76,17 +98,34 @@ export default function Navbar({ locale }: NavbarProps) {
                       </svg>
                     </button>
                     {isPortfolioOpen && (
-                      <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-md shadow-lg z-50">
+                      <div className="absolute top-full left-0 mt-1 w-64 bg-background border border-border rounded-md shadow-lg z-50">
                         {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
-                          <a
-                            key={dropdownIndex}
-                            href={dropdownItem.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
-                          >
-                            {dropdownItem.label}
-                          </a>
+                          dropdownItem.isInternal ? (
+                            <Link
+                              key={dropdownIndex}
+                              href={dropdownItem.href}
+                              className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
+                              onClick={() => setIsPortfolioOpen(false)}
+                            >
+                              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                              </svg>
+                              {dropdownItem.label}
+                            </Link>
+                          ) : (
+                            <a
+                              key={dropdownIndex}
+                              href={dropdownItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
+                            >
+                              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                              </svg>
+                              {dropdownItem.label}
+                            </a>
+                          )
                         ))}
                       </div>
                     )}
@@ -123,15 +162,32 @@ export default function Navbar({ locale }: NavbarProps) {
                     {isPortfolioOpen && (
                       <div className="mt-1 ml-4">
                         {item.dropdownItems?.map((dropdownItem, dropdownIndex) => (
-                          <a
-                            key={dropdownIndex}
-                            href={dropdownItem.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
-                          >
-                            {dropdownItem.label}
-                          </a>
+                          dropdownItem.isInternal ? (
+                            <Link
+                              key={dropdownIndex}
+                              href={dropdownItem.href}
+                              className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                              onClick={() => setIsPortfolioOpen(false)}
+                            >
+                              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                              </svg>
+                              {dropdownItem.label}
+                            </Link>
+                          ) : (
+                            <a
+                              key={dropdownIndex}
+                              href={dropdownItem.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded-md transition-colors"
+                            >
+                              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                              </svg>
+                              {dropdownItem.label}
+                            </a>
+                          )
                         ))}
                       </div>
                     )}
