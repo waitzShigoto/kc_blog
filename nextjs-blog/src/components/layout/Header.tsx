@@ -40,7 +40,7 @@ export default function Header({ locale }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-border">
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
@@ -79,7 +79,7 @@ export default function Header({ locale }: HeaderProps) {
             </div>
 
             {/* Divider */}
-            <div className="hidden sm:block w-px h-6 bg-border"></div>
+            <div className="hidden sm:block w-px h-6 bg-border/60"></div>
 
             {/* Theme Toggle */}
             <ThemeToggle />

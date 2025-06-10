@@ -61,7 +61,7 @@ export default function Navbar({ locale }: NavbarProps) {
   ];
 
   return (
-    <nav className="border-b border-border/40 bg-background/80 backdrop-blur-sm">
+    <nav className="bg-background/70 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-14">
           {/* Brand */}
@@ -145,7 +145,7 @@ export default function Navbar({ locale }: NavbarProps) {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border/40 py-4">
+          <div className="md:hidden border-t border-border/20 py-4">
             {navItems.map((item, index) => (
               <div key={index} className="py-1">
                 {item.hasDropdown ? (
