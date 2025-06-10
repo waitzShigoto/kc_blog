@@ -6,29 +6,6 @@ interface PostCardProps {
   post: BlogPost;
 }
 
-// 現代化顏色主題數組 - 低飽和度、高質感
-const colorThemes = [
-  'tag-slate',
-  'tag-gray',
-  'tag-zinc', 
-  'tag-stone',
-  'tag-blue',
-  'tag-indigo',
-  'tag-violet',
-  'tag-emerald'
-];
-
-// 根據字符串生成一致的顏色索引
-const getColorIndex = (str: string) => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = ((hash << 5) - hash) + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return Math.abs(hash) % colorThemes.length;
-};
-
 export default function PostCard({ post }: PostCardProps) {
   const { slug, frontMatter, readingTime, locale } = post;
   const { title, date, excerpt, categories, tags } = frontMatter;
@@ -80,34 +57,28 @@ export default function PostCard({ post }: PostCardProps) {
           {/* Categories */}
           {categoryArray.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {categoryArray.map((category) => {
-                const colorClass = colorThemes[getColorIndex(category)];
-                return (
-                  <span
-                    key={category}
-                    className={`px-3 py-1.5 ${colorClass} text-xs font-semibold rounded-full border border-current/20 hover:scale-105 transition-transform cursor-default`}
-                  >
-                    📁 {category}
-                  </span>
-                );
-              })}
+              {categoryArray.map((category) => (
+                <span
+                  key={category}
+                  className="px-3 py-1.5 tag-blue text-xs font-semibold rounded-full border border-current/20 hover:scale-105 transition-transform cursor-default"
+                >
+                  📁 {category}
+                </span>
+              ))}
             </div>
           )}
           
           {/* Tags */}
           {tagArray.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {tagArray.slice(0, 4).map((tag) => {
-                const colorClass = colorThemes[getColorIndex(tag + 'tag')]; // 加 'tag' 確保與分類顏色不同
-                return (
-                  <span
-                    key={tag}
-                    className={`px-2.5 py-1 ${colorClass} text-xs rounded-md border border-current/15 hover:scale-105 transition-transform cursor-default`}
-                  >
-                    #{tag}
-                  </span>
-                );
-              })}
+              {tagArray.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-1 tag-gray text-xs rounded-md border border-current/15 hover:scale-105 transition-transform cursor-default"
+                >
+                  #{tag}
+                </span>
+              ))}
               {tagArray.length > 4 && (
                 <span className="px-2.5 py-1 bg-muted text-muted-foreground text-xs rounded-md border border-border">
                   +{tagArray.length - 4}

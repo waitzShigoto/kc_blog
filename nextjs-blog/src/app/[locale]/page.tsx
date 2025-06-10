@@ -1,4 +1,4 @@
-import { getAllPosts } from '@/lib/posts';
+import { getAllPosts, getAllTags } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import Header from '@/components/layout/Header';
 import Navbar from '@/components/layout/Navbar';
@@ -15,21 +15,10 @@ export async function generateStaticParams() {
   }));
 }
 
-// 技術標籤顏色映射 - 現代化配色
-const techColors = {
-  'Kotlin': 'tag-violet',
-  'Android SDK': 'tag-emerald',
-  'Jetpack Compose': 'tag-blue',
-  'MVVM': 'tag-indigo',
-  'Room': 'tag-slate',
-  'Retrofit': 'tag-stone',
-  'Coroutines': 'tag-zinc',
-  'Hilt': 'tag-gray'
-};
-
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
   const posts = await getAllPosts(locale);
+  const allTags = await getAllTags(locale);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -83,23 +72,6 @@ export default async function HomePage({ params }: HomePageProps) {
               </div>
             </div>
 
-            {/* Featured Technologies */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-semibold text-foreground mb-6">
-                {locale === 'zh' ? '主要技術領域' : locale === 'en' ? 'Main Technologies' : '主要技術分野'}
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {Object.entries(techColors).map(([tech, colorClass]) => (
-                  <span
-                    key={tech}
-                    className={`px-4 py-2 ${colorClass} rounded-full text-sm font-medium border border-current/20 hover:scale-105 hover:shadow-sm transition-all duration-200 cursor-default`}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
             {/* Posts Section */}
             <div className="mb-8">
               <h2 className="text-2xl font-semibold text-foreground mb-6">
@@ -108,11 +80,42 @@ export default async function HomePage({ params }: HomePageProps) {
             </div>
 
             {/* Posts Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mb-16">
               {posts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}
             </div>
+
+            {/* Tech Tags Section - 精緻現代設計 */}
+            {allTags.length > 0 && (
+              <div className="border-t border-border pt-12 pb-8">
+                <div className="text-center mb-8">
+                  <h3 className="text-lg font-medium text-foreground mb-2">
+                    {locale === 'zh' ? '技術標籤' : locale === 'en' ? 'Tech Tags' : '技術タグ'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {locale === 'zh' ? '探索更多相關技術內容' : 
+                     locale === 'en' ? 'Explore more related tech content' : 
+                     '関連する技術コンテンツを探索'}
+                  </p>
+                </div>
+                <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto">
+                  {allTags.slice(0, 20).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1.5 tag-gray text-xs font-medium rounded-md border border-current/10 hover:scale-105 hover:border-current/20 transition-all duration-200 cursor-pointer"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                  {allTags.length > 20 && (
+                    <span className="px-3 py-1.5 bg-muted/50 text-muted-foreground text-xs font-medium rounded-md border border-border/50">
+                      +{allTags.length - 20}
+                    </span>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Empty State */}
             {posts.length === 0 && (
