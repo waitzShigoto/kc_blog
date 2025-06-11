@@ -32,6 +32,12 @@ export const siteConfig: SiteConfig = {
       '2023-06-26-review-my-android-app-portfolio',
       '2024-05-23-android-qrcode-scanner-with-mlkit'
     ]
+  },
+  analytics: {
+    googleAnalyticsId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
+  },
+  ads: {
+    googleAdSenseId: process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID,
   }
 };
 
