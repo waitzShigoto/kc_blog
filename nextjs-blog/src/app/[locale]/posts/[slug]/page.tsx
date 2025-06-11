@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
+import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 
 interface PostPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -41,6 +43,15 @@ export default async function PostPage({ params }: PostPageProps) {
   // 確保 categories 和 tags 是數組
   const categoryArray = Array.isArray(categories) ? categories : (categories ? [categories] : []);
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
+
+  const isPortfolioPost = slug === '2023-06-26-review-my-android-app-portfolio';
+
+  const getPortfolioComponent = () => {
+    if (locale === 'en' || locale === 'ja') {
+      return <AndroidPortfolioContentEn />;
+    }
+    return <AndroidPortfolioContent />;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -84,10 +95,29 @@ export default async function PostPage({ params }: PostPageProps) {
             </header>
             
             {/* Article Content */}
-            <div 
-              className="prose prose-lg dark:prose-invert max-w-none prose-container"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
+            <div className="prose prose-lg dark:prose-invert max-w-none prose-container">
+              {isPortfolioPost ? (
+                <div>
+                  {/* 渲染 Markdown 內容，但替換 portfolio-content div */}
+                  <div 
+                    className="mb-12"
+                    dangerouslySetInnerHTML={{ 
+                      __html: content.replace(
+                        '<div id="portfolio-content"></div>',
+                        ''
+                      )
+                    }} 
+                  />
+                  
+                  {/* 插入對應語言的 Portfolio 組件 */}
+                  <div className="mt-12">
+                    {getPortfolioComponent()}
+                  </div>
+                </div>
+              ) : (
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+              )}
+            </div>
           </div>
         </article>
       </main>
