@@ -124,7 +124,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         'ここでは主にKotlinを使用して複数のアプリを保守・開発しています。これらのアプリは完全なUI/UXデザインとグラフィックを提供し、私はそれらを完全に実装することができます。ViewBinding、ViewModel、LiveDataなどのライブラリを使用して堅牢な機能を実現しています。'
       ),
       image: '/images/about/airdroid.jpeg',
-      link: '/app_portfolio#airdroid',
+      link: '/posts/app_portfolio#airdroid',
       external: 'https://play.google.com/store/apps/developer?id=SAND+STUDIO&hl=en&gl=US',
       tags: ['Android', 'Kotlin', 'Java']
     },
@@ -136,7 +136,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         '私たちのアプリは、バックエンドGISシステムへのリクエストを通じて関連サービスを取得するオンデマンドタクシー配車プラットフォームです。VIPERアーキテクチャを使用し、Kotlinでアプリをリファクタリングしました。私の責任には、新機能の開発、カスタムUIの開発、バックエンドサービスやサードパーティサービスとの統合が含まれていました。'
       ),
       image: '/images/about/55688.jpeg',
-      link: '/app_portfolio#dispatch_car',
+      link: '/posts/app_portfolio#dispatch_car',
       external: 'https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=en_US&gl=US',
       tags: ['Android', 'Kotlin', 'Java']
     },
@@ -148,7 +148,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         'このアプリは、Modbusレジスタを使用してBluetoothデバイスをリモート制御するように設計されています。ユーザーはアプリと対話して、さまざまなModbusアドレスを通じてBluetoothデバイスのステータスを操作できます。さらに、このプロジェクトの自動テストにAppiumも使用しました。'
       ),
       image: '/images/about/wm.jpeg',
-      link: '/app_portfolio#wm_app',
+      link: '/posts/app_portfolio#wm_app',
       external: 'https://kuanchunchen.github.io/WM_Evt_Site/evtReports/android/full-test/r6/evt',
       tags: ['Android', 'Kotlin', 'Java', 'Appium']
     },
@@ -160,7 +160,7 @@ export default function AboutPage({ params }: AboutPageProps) {
         'このアプリの「バイタリティコーチ」セクションを担当し、主にKotlinを使用して開発しました。開発プロセス中に、NavGraph、viewbinding、MVVMアーキテクチャ、MPAndroidchartなどのツールも使用しました。'
       ),
       image: '/images/about/app_exercise.png',
-      link: '/app_portfolio#exercise',
+      link: '/posts/app_portfolio#exercise',
       tags: ['Android', 'Kotlin']
     }
   ];
