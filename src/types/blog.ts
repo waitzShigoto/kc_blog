@@ -40,6 +40,12 @@ export interface SiteConfig {
   featuredPosts?: {
     [locale: string]: string[];
   };
+  analytics?: {
+    googleAnalyticsId?: string;
+  };
+  ads?: {
+    googleAdSenseId?: string;
+  };
 }
 
 export interface PaginationInfo {
