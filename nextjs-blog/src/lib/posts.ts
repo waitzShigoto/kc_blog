@@ -156,9 +156,16 @@ export async function getFeaturedPosts(locale: string): Promise<BlogPost[]> {
 
 export async function getPostsByCategory(locale: string, category: string): Promise<BlogPost[]> {
   const allPosts = await getAllPosts(locale);
-  return allPosts.filter(post => 
-    post.frontMatter.categories?.includes(category)
-  );
+  return allPosts.filter(post => {
+    const categories = post.frontMatter.categories;
+    if (!categories) return false;
+    
+    if (Array.isArray(categories)) {
+      return categories.includes(category);
+    } else {
+      return categories === category;
+    }
+  });
 }
 
 export async function getPostsByTag(locale: string, tag: string): Promise<BlogPost[]> {
@@ -173,9 +180,17 @@ export async function getAllCategories(locale: string): Promise<string[]> {
   const categories = new Set<string>();
   
   allPosts.forEach(post => {
-    post.frontMatter.categories?.forEach(category => {
-      categories.add(category);
-    });
+    const postCategories = post.frontMatter.categories;
+    if (postCategories) {
+      if (Array.isArray(postCategories)) {
+        postCategories.forEach(category => {
+          categories.add(category);
+        });
+      } else {
+        // 如果是字符串，直接添加
+        categories.add(postCategories);
+      }
+    }
   });
   
   return Array.from(categories).sort();
