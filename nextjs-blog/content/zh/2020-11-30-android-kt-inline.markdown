@@ -186,7 +186,7 @@ noinline的概念，其實更簡單了，
         <h4 class="text-uppercase m-0">inline / noinline / crossinline範例程式碼</h4>
         <hr class="my-4 mx-auto" />
         <div style="font-size: 1.5em;">
-          <a href="https://github.com/KuanChunChen/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
+          <a href="https://github.com/waitzShigoto/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
 Sample Code</a>
         </div>
     </div>

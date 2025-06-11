@@ -511,6 +511,6 @@ Android手機藍芽4.x都是雙模藍芽(既有經典藍芽也有低功耗藍芽
 ## Kotlin + jetpack compose 藍芽app範例
 
 最後我之前寫了一個範例，最近終於整理上來，有需要的可以參考看看
-  <a style ="color:white;" herf="https://github.com/KuanChunChen/elegantAccessApp">可參考此篇</a>
+  <a style ="color:white;" href="https://github.com/waitzShigoto/elegantAccessApp">可參考此篇</a>
 
 <a>{% include google/google_ad_client.html %}</a>

@@ -185,7 +185,7 @@ crossinlineを使用することで、lambda内のreturnが外部のプログラ
         <h4 class="text-uppercase m-0">inline / noinline / crossinlineのサンプルコード</h4>
         <hr class="my-4 mx-auto" />
         <div style="font-size: 1.5em;">
-          <a href="https://github.com/KuanChunChen/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
+          <a href="https://github.com/waitzShigoto/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
 サンプルコード</a>
         </div>
     </div>

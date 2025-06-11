@@ -54,9 +54,9 @@ export default async function HomePage({ params }: HomePageProps) {
                 </h1>
               </div>
               <p className="text-lg text-secondary-foreground max-w-2xl mx-auto lg:mx-0">
-                {locale === 'zh' ? 'Android 開發技術分享與經驗交流，探索移動端開發的無限可能' :
-                 locale === 'en' ? 'Android development tips and experience sharing, exploring endless possibilities in mobile development' :
-                 'Android 開発技術の共有と経験交流、モバイル開発の無限の可能性を探る'}
+                {locale === 'zh' ? '開發技術分享與經驗交流，探索開發的無限可能' :
+                 locale === 'en' ? 'Development tips and experience sharing, exploring endless possibilities in software development' :
+                 '開発技術の共有と経験交流、開発の無限の可能性を探る'}
               </p>
               
               {/* Stats */}

@@ -513,6 +513,6 @@ Android phones with Bluetooth 4.x are all dual-mode Bluetooth (both Classic Blue
 ## Kotlin + Jetpack Compose Bluetooth App Example
 
 Finally, I wrote an example before, and recently organized it. Those who need it can refer to it
-  <a style ="color:white;" href="https://github.com/KuanChunChen/elegantAccessApp">You can refer to this article</a>
+  <a style ="color:white;" href="https://github.com/waitzShigoto/elegantAccessApp">You can refer to this article</a>
 
 <a>{% include google/google_ad_client.html %}</a>

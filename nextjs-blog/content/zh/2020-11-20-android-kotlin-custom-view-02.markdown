@@ -79,5 +79,5 @@ Copyright (c) 2024 All rights reserved.
 
 Instagram  : https://www.instagram.com/eleg.aces.kc/
 
-Github : https://github.com/KuanChunChen
+Github : https://github.com/waitzShigoto
 

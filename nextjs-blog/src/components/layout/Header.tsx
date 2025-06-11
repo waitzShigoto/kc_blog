@@ -57,7 +57,7 @@ export default function Header({ locale }: HeaderProps) {
             {/* Social Links */}
             <div className="hidden sm:flex items-center space-x-3">
               <a
-                href="https://github.com/KuanChunChen"
+                href="https://github.com/waitzShigoto"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200"

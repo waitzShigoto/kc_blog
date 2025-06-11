@@ -294,7 +294,7 @@ findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment,null, o
         <h4 class="text-uppercase m-0">Navigation Sample code</h4>
         <hr class="my-4 mx-auto" />
         <div style="font-size: 1.5em;">
-          <a href="https://github.com/KuanChunChen/NavigationGraphDemo">Github Source code</a>
+          <a href="https://github.com/waitzShigoto/NavigationGraphDemo">Github Source code</a>
         </div>
     </div>
 </div>

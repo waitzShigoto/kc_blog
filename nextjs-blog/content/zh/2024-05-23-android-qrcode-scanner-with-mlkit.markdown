@@ -16,7 +16,7 @@ excerpt: "如何提升Qr Code掃描器的效能，我使用Google MLKit & Camera
 這個專案中使用了Kotlin、Google的MLKit跟native的AndroidX camera搭配來實作QR掃瞄器
 
 <div style="text-align: center">
-	<a href="https://github.com/KuanChunChen/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">Demo source code</a>
+	<a href="https://github.com/waitzShigoto/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">Demo source code</a>
 </div>
 
 <div class="c-border-content-title-4">實作效果</div>

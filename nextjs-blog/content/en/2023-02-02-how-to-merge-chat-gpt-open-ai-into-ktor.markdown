@@ -348,7 +348,7 @@ Quite convenient.
         <h4 class="text-uppercase m-0">ChatGpt + LineBot</h4>
         <hr class="my-4 mx-auto" />
         <div style="font-size: 1.5em;">
-          <a href="https://github.com/KuanChunChen/Chat-gpt-with-line-bot-messaging-exmaple">Sample Code</a>
+          <a href="https://github.com/waitzShigoto/Chat-gpt-with-line-bot-messaging-exmaple">Sample Code</a>
         </div>
     </div>
 </div>

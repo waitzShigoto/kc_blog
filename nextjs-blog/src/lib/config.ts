@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
     avatar: '/images/C1.jpg',
     bio: 'I am a Android developer focusing on Kotlin and Jetpack Compose development. Always hungry to keep learning.',
     social: {
-      github: 'https://github.com/KuanChunChen',
+      github: 'https://github.com/waitzShigoto',
       twitter: 'https://twitter.com/intent/follow?screen_name=eleg_aces',
       linkedin: 'https://linkedin.com/in/yourusername',
       facebook: 'https://facebook.com/eleg.aces',

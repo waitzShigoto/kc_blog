@@ -16,7 +16,7 @@ excerpt: "QRコードスキャナーの性能を向上させる方法として�
 このプロジェクトでは、Kotlin、GoogleのMLKit、およびネイティブのAndroidXカメラを使用してQRスキャナーを実装しています
 
 <div style="text-align: center">
-	<a href="https://github.com/KuanChunChen/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">デモソースコード</a>
+	<a href="https://github.com/waitzShigoto/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">デモソースコード</a>
 </div>
 
 <div class="c-border-content-title-4">実装効果</div>

@@ -183,7 +183,7 @@ Using crossinline can prevent a return in a lambda from affecting the external p
         <h4 class="text-uppercase m-0">inline / noinline / crossinline Sample Code</h4>
         <hr class="my-4 mx-auto" />
         <div style="font-size: 1.5em;">
-          <a href="https://github.com/KuanChunChen/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
+          <a href="https://github.com/waitzShigoto/KC_InlineDemo/blob/master/app/src/main/java/k/c/horialtal/move/sheet/kc_inlinedemo/InlineUtil.kt">
 Sample Code</a>
         </div>
     </div>

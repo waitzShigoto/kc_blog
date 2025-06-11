@@ -16,7 +16,7 @@ If you want to see how the code is written directly, you can: <a href="#tutorial
 In this project, Kotlin, Google's MLKit, and the native AndroidX camera are used to implement the QR scanner.
 
 <div style="text-align: center">
-	<a href="https://github.com/KuanChunChen/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">Demo source code</a>
+	<a href="https://github.com/waitzShigoto/MLKit_qr_code_scanner_example" target="_blank" class="btn btn-primary" role="button">Demo source code</a>
 </div>
 
 <div class="c-border-content-title-4">Implementation Effect</div>

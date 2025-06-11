@@ -304,8 +304,8 @@ const NotFound = () => {
               
               <Link
                 href={`/${locale}`}
-                className="group flex items-center gap-3 px-6 py-3 bg-primary hover:bg-primary/90 
-                         text-primary-foreground rounded-xl transition-all duration-300 hover:scale-105
+                className="group flex items-center gap-3 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 
+                         text-white rounded-xl transition-all duration-300 hover:scale-105
                          shadow-lg hover:shadow-xl w-full sm:w-auto"
               >
                 <Home className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />

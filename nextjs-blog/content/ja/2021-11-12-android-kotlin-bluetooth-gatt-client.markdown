@@ -513,6 +513,6 @@ AndroidスマートフォンのBluetooth 4.xはすべてデュアルモードBlu
 ## Kotlin + Jetpack Compose Bluetoothアプリの例
 
 最後に、以前書いた例を最近整理してアップしました。必要な方は参考にしてください
-  <a style ="color:white;" herf="https://github.com/KuanChunChen/elegantAccessApp">こちらを参照</a>
+  <a style ="color:white;" href="https://github.com/waitzShigoto/elegantAccessApp">こちらを参照</a>
 
 <a>{% include google/google_ad_client.html %}</a>
