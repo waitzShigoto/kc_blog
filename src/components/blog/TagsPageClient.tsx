@@ -127,8 +127,8 @@ export default function TagsPageClient({ posts, allTags, locale }: TagsPageClien
             onClick={() => handleTagSelect('全部')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
               selectedTag === '全部'
-                ? 'bg-primary text-primary-foreground border-primary shadow-md scale-105'
-                : 'bg-background hover:bg-muted border-border hover:border-primary/50 text-foreground hover:scale-105'
+                ? 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white border-blue-600 dark:border-blue-500 shadow-md scale-105'
+                : 'bg-muted hover:bg-muted/80 border-border hover:border-primary/50 text-foreground hover:scale-105 shadow-sm'
             }`}
           >
             {getLocalizedText('all')} ({tagCounts['全部']})
@@ -142,7 +142,7 @@ export default function TagsPageClient({ posts, allTags, locale }: TagsPageClien
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border ${
                 selectedTag === tag
                   ? `${getTagColorClass(tag)} border-current shadow-md scale-105`
-                  : 'bg-background hover:bg-muted border-border hover:border-current/50 text-foreground hover:scale-105'
+                  : 'bg-muted hover:bg-muted/80 border-border hover:border-current/50 text-foreground hover:scale-105 shadow-sm'
               }`}
             >
               {tag} ({tagCounts[tag] || 0})
