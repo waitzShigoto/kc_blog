@@ -1,3 +1,6 @@
+'use client';
+
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/config';
@@ -22,8 +25,14 @@ interface AboutPageProps {
   params: Promise<{ locale: string }>;
 }
 
-export default async function AboutPage({ params }: AboutPageProps) {
-  const { locale } = await params;
+export default function AboutPage({ params }: AboutPageProps) {
+  const [locale, setLocale] = React.useState<string>('zh');
+  
+  React.useEffect(() => {
+    params.then(({ locale: resolvedLocale }) => {
+      setLocale(resolvedLocale);
+    });
+  }, [params]);
   
   // 驗證語言是否有效
   if (!siteConfig.locales.includes(locale)) {
@@ -178,6 +187,17 @@ export default async function AboutPage({ params }: AboutPageProps) {
     getText('可以協助使用 Git 指令並在需要時提供指導', 'Can assist in using Git commands and provide guidance if needed.', 'Gitコマンドの使用を支援し、必要に応じて指導を提供可能')
   ];
 
+  // 滾動到下一個區塊的函數
+  const scrollToNextSection = () => {
+    const aboutSection = document.getElementById('about-section');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <HeaderWrapper locale={locale} />
@@ -196,7 +216,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
             />
           </div>
           
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
             Willy Chen
           </h1>
           
@@ -240,14 +260,18 @@ export default async function AboutPage({ params }: AboutPageProps) {
             </a>
           </div>
           
-          <div className="animate-bounce">
-            <ChevronDown className="w-8 h-8 mx-auto text-muted-foreground" />
-          </div>
+          <button 
+            onClick={scrollToNextSection}
+            className="animate-bounce cursor-pointer hover:text-primary transition-colors"
+            aria-label={getText('滾動到下一個區塊', 'Scroll to next section', '次のセクションにスクロール')}
+          >
+            <ChevronDown className="w-8 h-8 mx-auto text-muted-foreground hover:text-primary transition-colors" />
+          </button>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="about-section" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
