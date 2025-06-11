@@ -48,9 +48,9 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="mb-12 text-center lg:text-left">
               <div className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
                 <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                  {locale === 'zh' ? '歡迎來到 KC Blog' : 
-                   locale === 'en' ? 'Welcome to KC Blog' : 
-                   'KC Blog へようこそ'}
+                  {locale === 'zh' ? '歡迎來到 elegantaccess' :
+                   locale === 'en' ? 'Welcome to elegantaccess' :
+                   'elegantaccess へようこそ'}
                 </h1>
               </div>
               <p className="text-lg text-secondary-foreground max-w-2xl mx-auto lg:mx-0">
@@ -87,9 +87,12 @@ export default async function HomePage({ params }: HomePageProps) {
 
             {/* Posts Section */}
             <div className="mb-8">
-              <h2 className="text-2xl font-semibold text-foreground mb-6">
-                {locale === 'zh' ? '最新文章' : locale === 'en' ? 'Latest Articles' : '最新記事'}
-              </h2>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-emerald-500 rounded-full"></div>
+                <h2 className="text-2xl font-bold text-foreground">
+                  {locale === 'zh' ? '最新文章' : locale === 'en' ? 'Latest Articles' : '最新記事'}
+                </h2>
+              </div>
             </div>
 
             {/* Posts Grid */}
@@ -133,7 +136,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <div className="text-center">
                   <Link
                     href={`/${locale}/tags`}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-200 text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 713 12V7a4 4 0 714-4z" />

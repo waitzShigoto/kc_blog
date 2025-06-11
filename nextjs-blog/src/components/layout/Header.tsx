@@ -46,7 +46,7 @@ export default function Header({ locale }: HeaderProps) {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href={`/${locale}`} className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-              KC Blog
+              Home
             </Link>
           </div>
 

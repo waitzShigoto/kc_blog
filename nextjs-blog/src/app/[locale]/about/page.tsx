@@ -395,7 +395,7 @@ export default function AboutPage({ params }: AboutPageProps) {
                   <div className="flex flex-wrap gap-4">
                     <Link
                       href={`/${locale}${project.link}`}
-                      className="inline-flex items-center space-x-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                      className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors shadow-sm hover:shadow-md"
                     >
                       <span>{getText('更多詳情', 'More Details', '詳細を見る')}</span>
                     </Link>
