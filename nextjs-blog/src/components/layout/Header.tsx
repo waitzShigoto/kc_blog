@@ -21,14 +21,14 @@ export default function Header({ locale }: HeaderProps) {
   // 獲取當前路徑，移除語言前綴
   const getCurrentPath = () => {
     // 移除當前語言前綴，例如 /en/tags -> /tags
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+    const pathWithoutLocale = pathname ? pathname.replace(`/${locale}`, '') || '/' : '/';
     return pathWithoutLocale;
   };
 
   // 處理語言切換
   const handleLanguageChange = (newLocale: string) => {
     const currentPath = getCurrentPath();
-    const queryString = searchParams.toString();
+    const queryString = searchParams ? searchParams.toString() : '';
     
     // 構建新的 URL，保留查詢參數
     let newUrl = `/${newLocale}${currentPath === '/' ? '' : currentPath}`;

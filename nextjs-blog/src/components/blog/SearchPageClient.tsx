@@ -62,9 +62,11 @@ export default function SearchPageClient({ searchIndex, locale }: SearchPageClie
 
   // 從 URL 參數讀取初始搜尋關鍵字
   useEffect(() => {
-    const queryFromUrl = searchParams.get('q') || searchParams.get('search');
-    if (queryFromUrl) {
-      setSearchQuery(queryFromUrl);
+    if (searchParams) {
+      const queryFromUrl = searchParams.get('q') || searchParams.get('search');
+      if (queryFromUrl) {
+        setSearchQuery(queryFromUrl);
+      }
     }
   }, [searchParams]);
 

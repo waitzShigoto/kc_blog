@@ -18,9 +18,11 @@ export default function TagsPageClient({ posts, allTags, locale }: TagsPageClien
 
   // 從 URL 參數讀取初始標籤
   useEffect(() => {
-    const tagFromUrl = searchParams.get('tag');
-    if (tagFromUrl && allTags.includes(tagFromUrl)) {
-      setSelectedTag(tagFromUrl);
+    if (searchParams) {
+      const tagFromUrl = searchParams.get('tag');
+      if (tagFromUrl && allTags.includes(tagFromUrl)) {
+        setSelectedTag(tagFromUrl);
+      }
     }
   }, [searchParams, allTags]);
 

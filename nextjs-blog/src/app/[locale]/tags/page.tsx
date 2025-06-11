@@ -57,7 +57,7 @@ export default async function TagsPage({ params }: TagsPageProps) {
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden lg:block w-80 fixed left-0 top-0 h-full overflow-y-auto">
-          <Sidebar />
+          <Sidebar locale={locale} />
         </div>
 
         {/* Main Content */}

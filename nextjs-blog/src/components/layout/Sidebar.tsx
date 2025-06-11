@@ -2,7 +2,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/config';
 
-export default function Sidebar() {
+interface SidebarProps {
+  locale?: string;
+}
+
+export default function Sidebar({ locale = 'zh' }: SidebarProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -10,7 +14,7 @@ export default function Sidebar() {
       {/* Author Section */}
       <div className="flex-1 p-6">
         <div className="mb-6">
-          <Link href="/about" className="block">
+          <Link href={`/${locale}/about`} className="block">
             <div className="relative w-24 h-24 mx-auto rounded-full overflow-hidden mb-4">
               <Image
                 src={siteConfig.author.avatar}
