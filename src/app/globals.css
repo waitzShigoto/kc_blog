@@ -288,28 +288,45 @@ body {
 /* Prose 樣式 - 確保文章內容使用正確的顏色變數 */
 .prose {
   color: var(--color-foreground);
+  max-width: none;
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   color: var(--color-foreground);
   position: relative;
   scroll-margin-top: 2rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
-/* 標題特效 - 漸變底線 */
+/* 標題字體大小和特效 */
 .prose h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
   background: linear-gradient(135deg, var(--color-primary), var(--color-emerald));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-top: 0;
   margin-bottom: 1.5rem;
 }
 
 .prose h2 {
+  font-size: 1.875rem;
+  line-height: 1.3;
   border-bottom: 2px solid transparent;
   background: linear-gradient(90deg, var(--color-primary), transparent) bottom / 100% 2px no-repeat;
   padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
 }
 
 .prose h3::before {
@@ -324,9 +341,100 @@ body {
   border-radius: 2px;
 }
 
+.prose h4 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h5 {
+  font-size: 1.125rem;
+  line-height: 1.4;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h6 {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .prose p, .prose li {
   color: var(--color-foreground);
   line-height: 1.8;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* 第一個段落緊跟標題，減少上邊距 */
+.prose h1 + p,
+.prose h2 + p,
+.prose h3 + p,
+.prose h4 + p,
+.prose h5 + p,
+.prose h6 + p {
+  margin-top: 0.5rem;
+}
+
+/* 代碼塊緊跟標題的間距 */
+.prose h1 + pre,
+.prose h2 + pre,
+.prose h3 + pre,
+.prose h4 + pre,
+.prose h5 + pre,
+.prose h6 + pre {
+  margin-top: 0.75rem;
+}
+
+/* 列表緊跟標題的間距 */
+.prose h1 + ul,
+.prose h1 + ol,
+.prose h2 + ul,
+.prose h2 + ol,
+.prose h3 + ul,
+.prose h3 + ol,
+.prose h4 + ul,
+.prose h4 + ol,
+.prose h5 + ul,
+.prose h5 + ol,
+.prose h6 + ul,
+.prose h6 + ol {
+  margin-top: 0.75rem;
+}
+
+/* 引用塊緊跟標題的間距 */
+.prose h1 + blockquote,
+.prose h2 + blockquote,
+.prose h3 + blockquote,
+.prose h4 + blockquote,
+.prose h5 + blockquote,
+.prose h6 + blockquote {
+  margin-top: 0.75rem;
+}
+
+/* 確保段落之間有適當間距 */
+.prose p + p {
+  margin-top: 1.25rem;
+}
+
+/* 代碼塊後的段落間距 */
+.prose pre + p {
+  margin-top: 1.25rem;
+}
+
+/* 列表後的段落間距 */
+.prose ul + p,
+.prose ol + p {
+  margin-top: 1.25rem;
+}
+
+/* 引用塊後的段落間距 */
+.prose blockquote + p {
+  margin-top: 1.25rem;
 }
 
 .prose strong {
@@ -383,6 +491,8 @@ body {
   overflow-x: auto;
   position: relative;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .prose pre::before {
@@ -413,6 +523,8 @@ body {
   position: relative;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-style: italic;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .prose blockquote::before {
@@ -427,6 +539,12 @@ body {
 }
 
 /* 列表特效 */
+.prose ul, .prose ol {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
 .prose ul li::marker {
   color: var(--color-primary);
 }
@@ -437,12 +555,20 @@ body {
 }
 
 .prose li {
-  margin: 0.5rem 0;
+  margin: 0.25rem 0;
   transition: transform 0.2s ease;
+  line-height: 1.7;
 }
 
 .prose li:hover {
   transform: translateX(4px);
+}
+
+/* 嵌套列表間距 */
+.prose li > ul,
+.prose li > ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* 表格特效 */
@@ -452,6 +578,9 @@ body {
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
 }
 
 .prose th {
@@ -479,6 +608,8 @@ body {
   border-radius: 0.75rem;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .prose img:hover {
@@ -491,7 +622,7 @@ body {
   border: none;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-  margin: 2rem 0;
+  margin: 2.5rem 0;
   border-radius: 1px;
 }
 
@@ -688,7 +819,7 @@ html {
 
 /* 選中文字的特效 */
 .prose ::selection {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-violet));
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
   text-shadow: none;
 }
