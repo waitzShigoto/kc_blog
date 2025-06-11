@@ -3,7 +3,7 @@ layout: post
 title: "Android Kotlin カスタムUIのテクニック－左右スワイプビューとアニメーションのドロップダウンメニューのチュートリアル - 03"
 date: 2020-11-21 15:44:20 +0800
 image: cover/android-photo.jpg
-permalink: /android/custom03
+permalink: /android_custom03
 tags: [Android]
 categories: Android實作
 excerpt: "このチュートリアル記事では、Android Kotlinを使用してカスタムUIのテクニックを学びます。具体的には、左右スワイプビューとアニメーションのドロップダウンメニューを実現する方法について説明します。"

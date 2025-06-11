@@ -228,4 +228,42 @@ export async function getSearchIndex(locale: string): Promise<SearchIndex[]> {
       locale: post.locale,
     };
   });
+}
+
+export async function getPostByPermalink(permalink: string, locale?: string): Promise<BlogPost | null> {
+  // 如果指定了語言，只在該語言中查找
+  if (locale) {
+    const allPosts = await getAllPosts(locale);
+    const post = allPosts.find(p => p.frontMatter.permalink === permalink);
+    return post || null;
+  }
+  
+  // 如果沒有指定語言，在所有語言中查找，優先返回中文版
+  const { siteConfig } = await import('./config');
+  const locales = siteConfig.locales;
+  
+  // 優先查找中文版
+  if (locales.includes('zh')) {
+    const zhPosts = await getAllPosts('zh');
+    const zhPost = zhPosts.find(p => p.frontMatter.permalink === permalink);
+    if (zhPost) return zhPost;
+  }
+  
+  // 然後查找英文版
+  if (locales.includes('en')) {
+    const enPosts = await getAllPosts('en');
+    const enPost = enPosts.find(p => p.frontMatter.permalink === permalink);
+    if (enPost) return enPost;
+  }
+  
+  // 最後查找其他語言版本
+  for (const loc of locales) {
+    if (loc !== 'zh' && loc !== 'en') {
+      const posts = await getAllPosts(loc);
+      const post = posts.find(p => p.frontMatter.permalink === permalink);
+      if (post) return post;
+    }
+  }
+  
+  return null;
 } 

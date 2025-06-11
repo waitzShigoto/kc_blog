@@ -3,7 +3,7 @@ layout: post
 title: "學習Android Kotlin 客製UI的技巧－左右切換view與動畫的下拉欄教學 - 01"
 date: 2020-11-14 15:30:18 +0800
 image: cover/android-photo.jpg
-permalink: /android/custom01
+permalink: /android_custom01
 tags: [Android]
 categories: Android實作
 excerpt: "在這篇教學文章中，你將學習如何使用Android Kotlin客製UI的技巧，具體來說是如何實現左右切換view和動畫的下拉欄。"

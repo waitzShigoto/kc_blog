@@ -3,7 +3,7 @@ layout: post
 title: "実装ガイド：AndroidアプリにHuawei HMS Core 4.0 SDKを成功導入する方法"
 date: 2020-09-15 10:06:32 +0800
 image: cover/android-hms-sdk-1.png
-permalink: /android/huawei_map
+permalink: /android_huawei_map
 tags: [Android]
 categories: Android教學
 ---

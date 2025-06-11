@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
-import { getPostBySlug, getAllPostSlugs } from '@/lib/posts';
+import { getPostBySlug, getAllPostSlugs, getPostByPermalink } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
@@ -15,8 +15,24 @@ export async function generateStaticParams() {
   
   for (const locale of siteConfig.locales) {
     const slugs = getAllPostSlugs(locale);
-    for (const slug of slugs) {
-      paths.push({ locale, slug });
+    
+    // 使用 Promise.all 來並行處理所有文章
+    const posts = await Promise.all(
+      slugs.map(slug => getPostBySlug(slug, locale))
+    );
+    
+    for (let i = 0; i < slugs.length; i++) {
+      const slug = slugs[i];
+      const post = posts[i];
+      
+      if (post?.frontMatter.permalink) {
+        // 如果有 permalink，只生成 permalink 路徑
+        const permalinkSlug = post.frontMatter.permalink.replace(/^\//, '');
+        paths.push({ locale, slug: permalinkSlug });
+      } else {
+        // 如果沒有 permalink，使用原始 slug
+        paths.push({ locale, slug });
+      }
     }
   }
   
@@ -31,8 +47,14 @@ export default async function PostPage({ params }: PostPageProps) {
     notFound();
   }
   
-  const post = await getPostBySlug(slug, locale);
+  let post = await getPostBySlug(slug, locale);
 
+  // 如果通過原始 slug 找不到文章，嘗試作為 permalink 查找
+  if (!post) {
+    const permalinkPath = `/${slug}`;
+    post = await getPostByPermalink(permalinkPath, locale);
+  }
+  
   if (!post) {
     notFound();
   }
@@ -44,7 +66,9 @@ export default async function PostPage({ params }: PostPageProps) {
   const categoryArray = Array.isArray(categories) ? categories : (categories ? [categories] : []);
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
 
-  const isPortfolioPost = slug === '2023-06-26-review-my-android-app-portfolio';
+  // 檢查是否為 portfolio 文章 - 支援原始 slug 和 permalink
+  const isPortfolioPost = post.slug === '2023-06-26-review-my-android-app-portfolio' || 
+                          frontMatter.permalink === '/app_portfolio';
 
   const getPortfolioComponent = () => {
     if (locale === 'en' || locale === 'ja') {

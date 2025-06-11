@@ -3,7 +3,7 @@ layout: post
 title: "「[アプリ開発] AIDLを使ってAndroidアプリのクロスプロセス開発を始めましょう！」"
 date: 2020-08-21 09:41:01 +0800
 image: cover/android-aidl-1.png
-permalink: /android/aidl
+permalink: /android_aidl
 tags: [Android]
 categories: Android教學
 excerpt: "作为一名アプリエンジニア、さまざまな要求に応える必要がありますが、アプリ間でプロセスをまたいでコミュニケーションを取る必要がある場合、どうすればよいでしょうか？"

@@ -3,7 +3,7 @@ layout: post
 title: "Learning Android Kotlin Custom UI Techniques - Swipe View and Dropdown Animation Tutorial - 03"
 date: 2020-11-21 15:44:20 +0800
 image: cover/android-photo.jpg
-permalink: /android/custom03
+permalink: /android_custom03
 tags: [Android]
 categories: Android實作
 excerpt: "In this tutorial, you will learn how to use Android Kotlin to customize UI techniques, specifically how to implement swipe views and dropdown animations."

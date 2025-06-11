@@ -7,6 +7,7 @@ export interface BlogFrontMatter {
   author?: string;
   image?: string;
   featured?: boolean;
+  permalink?: string;
 }
 
 export interface BlogPost {

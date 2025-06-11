@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BlogPost } from '@/types/blog';
 import { siteConfig } from '@/lib/config';
+import { getPostUrl } from '@/lib/utils';
 
 interface FeaturedPostsProps {
   featuredPosts: BlogPost[];
@@ -96,7 +97,7 @@ export default function FeaturedPosts({ featuredPosts, locale }: FeaturedPostsPr
         {/* Main Featured Post */}
         {featuredPosts[0] && (
           <Link 
-            href={`/${locale}/posts/${featuredPosts[0].slug}`}
+            href={getPostUrl(featuredPosts[0], locale)}
             className="lg:col-span-2 group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500"
           >
             {/* Background Image with Overlay */}
@@ -185,7 +186,7 @@ export default function FeaturedPosts({ featuredPosts, locale }: FeaturedPostsPr
         {/* Secondary Featured Post */}
         {featuredPosts[1] && (
           <Link 
-            href={`/${locale}/posts/${featuredPosts[1].slug}`}
+            href={getPostUrl(featuredPosts[1], locale)}
             className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-border hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500"
           >
             {/* Background Image */}

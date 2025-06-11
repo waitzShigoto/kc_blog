@@ -68,6 +68,11 @@ export default function SearchPageClient({ searchIndex, locale }: SearchPageClie
     }
   }, [searchParams]);
 
+  // 生成文章 URL（簡化版本，直接使用 slug）
+  const getPostUrl = (slug: string) => {
+    return `/${locale}/posts/${slug}`;
+  };
+
   // 搜尋結果
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -185,7 +190,7 @@ export default function SearchPageClient({ searchIndex, locale }: SearchPageClie
                   {/* 文章標題 */}
                   <div>
                     <Link 
-                      href={`/${locale}/posts/${post.slug}`}
+                      href={getPostUrl(post.slug)}
                       className="group"
                     >
                       <h2 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
@@ -245,7 +250,7 @@ export default function SearchPageClient({ searchIndex, locale }: SearchPageClie
                   {/* 閱讀更多 */}
                   <div className="pt-2">
                     <Link 
-                      href={`/${locale}/posts/${post.slug}`}
+                      href={getPostUrl(post.slug)}
                       className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors duration-300 text-sm font-medium"
                     >
                       {getText('閱讀更多', 'Read more', 'もっと読む')}

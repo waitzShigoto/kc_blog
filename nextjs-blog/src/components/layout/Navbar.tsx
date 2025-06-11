@@ -32,7 +32,7 @@ export default function Navbar({ locale }: NavbarProps) {
       dropdownItems: [
         { 
           label: 'Android Portfolio', 
-          href: `/${locale}/posts/2023-06-26-review-my-android-app-portfolio`,
+          href: `/${locale}/posts/app_portfolio`,
           isInternal: true
         },
         { 

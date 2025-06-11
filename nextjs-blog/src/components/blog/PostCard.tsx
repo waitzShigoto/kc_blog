@@ -1,18 +1,22 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { BlogPost } from '@/types/blog';
+import { getPostUrl } from '@/lib/utils';
 
 interface PostCardProps {
   post: BlogPost;
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  const { slug, frontMatter, readingTime, locale } = post;
+  const { frontMatter, readingTime, locale } = post;
   const { title, date, excerpt, categories, tags } = frontMatter;
 
   // 確保 categories 是數組
   const categoryArray = Array.isArray(categories) ? categories : (categories ? [categories] : []);
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
+
+  // 使用 getPostUrl 生成正確的 URL
+  const postUrl = getPostUrl(post, locale);
 
   return (
     <article className="group bg-card border border-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden h-full hover:border-border/60">
@@ -36,7 +40,7 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Title */}
         <h2 className="text-xl font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">
           <Link 
-            href={`/${locale}/posts/${slug}`}
+            href={postUrl}
             className="hover:text-primary transition-colors line-clamp-2"
           >
             {title}
@@ -91,7 +95,7 @@ export default function PostCard({ post }: PostCardProps) {
         {/* Read More Button - Fixed at bottom */}
         <div className="pt-2">
           <Link
-            href={`/${locale}/posts/${slug}`}
+            href={postUrl}
             className="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm transition-all duration-200 group/link"
           >
             <span>閱讀更多</span>
