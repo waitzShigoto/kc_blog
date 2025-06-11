@@ -1,0 +1,284 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { remark } from 'remark';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeStringify from 'rehype-stringify';
+import readingTime from 'reading-time';
+import { BlogPost, BlogFrontMatter, PaginationInfo } from '@/types/blog';
+import { POSTS_PER_PAGE } from './config';
+
+const contentDirectory = path.join(process.cwd(), 'content');
+
+export function getPostsDirectory(locale: string): string {
+  return path.join(contentDirectory, locale);
+}
+
+export function getAllPostSlugs(locale: string): string[] {
+  const postsDirectory = getPostsDirectory(locale);
+  
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
+  
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames
+    .filter(name => name.endsWith('.markdown') || name.endsWith('.md'))
+    .map(name => name.replace(/\.(markdown|md)$/, ''));
+}
+
+export async function getPostBySlug(slug: string, locale: string): Promise<BlogPost | null> {
+  try {
+    const postsDirectory = getPostsDirectory(locale);
+    const fullPath = path.join(postsDirectory, `${slug}.markdown`);
+    
+    if (!fs.existsSync(fullPath)) {
+      const mdPath = path.join(postsDirectory, `${slug}.md`);
+      if (!fs.existsSync(mdPath)) {
+        return null;
+      }
+      const fileContents = fs.readFileSync(mdPath, 'utf8');
+      const { data, content } = matter(fileContents);
+      
+      const processedContent = await remark()
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
+        .use(rehypeStringify)
+        .process(content);
+      
+      const contentHtml = processedContent.toString();
+      const readingTimeResult = readingTime(content);
+      
+      return {
+        slug,
+        frontMatter: data as BlogFrontMatter,
+        content: contentHtml,
+        readingTime: readingTimeResult.text,
+        locale,
+      };
+    }
+    
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+    
+    const processedContent = await remark()
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeStringify)
+      .process(content);
+    
+    const contentHtml = processedContent.toString();
+    const readingTimeResult = readingTime(content);
+    
+    return {
+      slug,
+      frontMatter: data as BlogFrontMatter,
+      content: contentHtml,
+      readingTime: readingTimeResult.text,
+      locale,
+    };
+  } catch (error) {
+    console.error(`Error reading post ${slug}:`, error);
+    return null;
+  }
+}
+
+export async function getAllPosts(locale: string): Promise<BlogPost[]> {
+  const slugs = getAllPostSlugs(locale);
+  const posts = await Promise.all(
+    slugs.map(slug => getPostBySlug(slug, locale))
+  );
+  
+  return posts
+    .filter((post): post is BlogPost => post !== null)
+    .sort((a, b) => {
+      const dateA = new Date(a.frontMatter.date);
+      const dateB = new Date(b.frontMatter.date);
+      return dateB.getTime() - dateA.getTime();
+    });
+}
+
+export async function getPostsByPage(
+  locale: string,
+  page: number = 1
+): Promise<{ posts: BlogPost[]; pagination: PaginationInfo }> {
+  const allPosts = await getAllPosts(locale);
+  const totalPosts = allPosts.length;
+  const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
+  const startIndex = (page - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const posts = allPosts.slice(startIndex, endIndex);
+  
+  return {
+    posts,
+    pagination: {
+      currentPage: page,
+      totalPages,
+      totalPosts,
+      hasNextPage: page < totalPages,
+      hasPrevPage: page > 1,
+    },
+  };
+}
+
+export async function getFeaturedPosts(locale: string): Promise<BlogPost[]> {
+  const { siteConfig } = await import('./config');
+  const allPosts = await getAllPosts(locale);
+  
+  // 獲取該語言的特色文章 slug 列表
+  const featuredSlugs = siteConfig.featuredPosts?.[locale] || [];
+  
+  if (featuredSlugs.length === 0) {
+    // 如果沒有配置特色文章，返回前兩篇文章
+    return allPosts.slice(0, 2);
+  }
+  
+  // 根據 slug 查找對應的文章
+  const featuredPosts: BlogPost[] = [];
+  
+  for (const slug of featuredSlugs) {
+    const post = allPosts.find(p => p.slug === slug);
+    if (post) {
+      featuredPosts.push(post);
+    }
+  }
+  
+  // 如果找到的特色文章少於 2 篇，用最新文章補足
+  if (featuredPosts.length < 2) {
+    const remainingPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug));
+    const needed = 2 - featuredPosts.length;
+    featuredPosts.push(...remainingPosts.slice(0, needed));
+  }
+  
+  return featuredPosts.slice(0, 2); // 確保最多返回 2 篇
+}
+
+export async function getPostsByCategory(locale: string, category: string): Promise<BlogPost[]> {
+  const allPosts = await getAllPosts(locale);
+  return allPosts.filter(post => {
+    const categories = post.frontMatter.categories;
+    if (!categories) return false;
+    
+    if (Array.isArray(categories)) {
+      return categories.includes(category);
+    } else {
+      return categories === category;
+    }
+  });
+}
+
+export async function getPostsByTag(locale: string, tag: string): Promise<BlogPost[]> {
+  const allPosts = await getAllPosts(locale);
+  return allPosts.filter(post => 
+    post.frontMatter.tags?.includes(tag)
+  );
+}
+
+export async function getAllCategories(locale: string): Promise<string[]> {
+  const allPosts = await getAllPosts(locale);
+  const categories = new Set<string>();
+  
+  allPosts.forEach(post => {
+    const postCategories = post.frontMatter.categories;
+    if (postCategories) {
+      if (Array.isArray(postCategories)) {
+        postCategories.forEach(category => {
+          categories.add(category);
+        });
+      } else {
+        // 如果是字符串，直接添加
+        categories.add(postCategories);
+      }
+    }
+  });
+  
+  return Array.from(categories).sort();
+}
+
+export async function getAllTags(locale: string): Promise<string[]> {
+  const allPosts = await getAllPosts(locale);
+  const tags = new Set<string>();
+  
+  allPosts.forEach(post => {
+    post.frontMatter.tags?.forEach(tag => {
+      tags.add(tag);
+    });
+  });
+  
+  return Array.from(tags).sort();
+}
+
+// 新增：獲取搜尋索引資料
+export interface SearchIndex {
+  slug: string;
+  title: string;
+  excerpt?: string;
+  tags: string[];
+  categories: string[];
+  date: string;
+  locale: string;
+}
+
+export async function getSearchIndex(locale: string): Promise<SearchIndex[]> {
+  const allPosts = await getAllPosts(locale);
+  
+  return allPosts.map(post => {
+    // 確保 tags 和 categories 總是陣列
+    const tags = Array.isArray(post.frontMatter.tags) 
+      ? post.frontMatter.tags 
+      : (post.frontMatter.tags ? [post.frontMatter.tags] : []);
+    
+    const categories = Array.isArray(post.frontMatter.categories) 
+      ? post.frontMatter.categories 
+      : (post.frontMatter.categories ? [post.frontMatter.categories] : []);
+    
+    return {
+      slug: post.slug,
+      title: post.frontMatter.title,
+      excerpt: post.frontMatter.excerpt || '',
+      tags,
+      categories,
+      date: post.frontMatter.date,
+      locale: post.locale,
+    };
+  });
+}
+
+export async function getPostByPermalink(permalink: string, locale?: string): Promise<BlogPost | null> {
+  // 如果指定了語言，只在該語言中查找
+  if (locale) {
+    const allPosts = await getAllPosts(locale);
+    const post = allPosts.find(p => p.frontMatter.permalink === permalink);
+    return post || null;
+  }
+  
+  // 如果沒有指定語言，在所有語言中查找，優先返回中文版
+  const { siteConfig } = await import('./config');
+  const locales = siteConfig.locales;
+  
+  // 優先查找中文版
+  if (locales.includes('zh')) {
+    const zhPosts = await getAllPosts('zh');
+    const zhPost = zhPosts.find(p => p.frontMatter.permalink === permalink);
+    if (zhPost) return zhPost;
+  }
+  
+  // 然後查找英文版
+  if (locales.includes('en')) {
+    const enPosts = await getAllPosts('en');
+    const enPost = enPosts.find(p => p.frontMatter.permalink === permalink);
+    if (enPost) return enPost;
+  }
+  
+  // 最後查找其他語言版本
+  for (const loc of locales) {
+    if (loc !== 'zh' && loc !== 'en') {
+      const posts = await getAllPosts(loc);
+      const post = posts.find(p => p.frontMatter.permalink === permalink);
+      if (post) return post;
+    }
+  }
+  
+  return null;
+} 
