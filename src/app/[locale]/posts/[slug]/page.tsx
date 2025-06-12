@@ -5,9 +5,43 @@ import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
+import { Metadata } from 'next';
 
 interface PostPageProps {
   params: Promise<{ locale: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { locale, slug } = await params;
+  
+  // 驗證語言是否有效
+  if (!siteConfig.locales.includes(locale)) {
+    return {
+      title: siteConfig.title,
+    };
+  }
+  
+  let post = await getPostBySlug(slug, locale);
+
+  // 如果通過原始 slug 找不到文章，嘗試作為 permalink 查找
+  if (!post) {
+    const permalinkPath = `/${slug}`;
+    post = await getPostByPermalink(permalinkPath, locale);
+  }
+  
+  if (!post) {
+    return {
+      title: siteConfig.title,
+    };
+  }
+
+  const { frontMatter } = post;
+  const { title, excerpt } = frontMatter;
+
+  return {
+    title: title || siteConfig.title,
+    description: excerpt || siteConfig.description,
+  };
 }
 
 export async function generateStaticParams() {

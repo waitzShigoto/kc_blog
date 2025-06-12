@@ -7,6 +7,7 @@ import PostCard from '@/components/blog/PostCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -16,6 +17,28 @@ export async function generateStaticParams() {
   return siteConfig.locales.map((locale) => ({
     locale,
   }));
+}
+
+// 設定首頁的獨立標題
+export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const titles = {
+    zh: 'Elegant Access - 開發技術分享',
+    en: 'Elegant Access - Development Blog',
+    ja: 'Elegant Acce ss - 開発技術ブログ'
+  };
+  
+  const descriptions = {
+    zh: '開發技術分享與經驗交流，探索開發的無限可能',
+    en: 'Development tips and experience sharing, exploring endless possibilities in software development',
+    ja: '開発技術の共有と経験交流、開発の無限の可能性を探る'
+  };
+
+  return {
+    title: titles[locale as keyof typeof titles] || titles.zh,
+    description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+  };
 }
 
 export default async function HomePage({ params }: HomePageProps) {
