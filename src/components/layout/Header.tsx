@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useState, useRef, useEffect } from 'react';
 import { ThemeToggle } from '@/components/ThemeSwitcher';
 
 interface HeaderProps {
@@ -11,11 +12,27 @@ interface HeaderProps {
 export default function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [isToolboxOpen, setIsToolboxOpen] = useState(false);
+  const toolboxRef = useRef<HTMLDivElement>(null);
   
   const languages = [
     { code: 'zh', name: '中文' },
     { code: 'en', name: 'English' },
     { code: 'ja', name: '日本語' },
+  ];
+
+  // 工具箱選項
+  const toolboxItems = [
+    {
+      name: 'JSON Parser',
+      href: `/${locale}/tools/json-parser-online`,
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+      description: 'JSON 解析和格式化工具'
+    }
   ];
 
   // 獲取當前路徑，移除語言前綴
@@ -39,6 +56,20 @@ export default function Header({ locale }: HeaderProps) {
     window.location.href = newUrl;
   };
 
+  // 點擊外部關閉下拉選單
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (toolboxRef.current && !toolboxRef.current.contains(event.target as Node)) {
+        setIsToolboxOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 shadow-sm border-b border-border">
       <div className="w-full px-4 sm:px-6 lg:px-8">
@@ -56,6 +87,46 @@ export default function Header({ locale }: HeaderProps) {
           <div className="flex items-center space-x-4">
             {/* Social Links */}
             <div className="hidden sm:flex items-center space-x-3">
+              {/* 工具箱下拉選單 */}
+              <div className="relative" ref={toolboxRef}>
+                <button
+                  onClick={() => setIsToolboxOpen(!isToolboxOpen)}
+                  className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200 flex items-center gap-1"
+                  title="工具箱"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="text-xs">工具箱</span>
+                  <svg className={`w-3 h-3 transition-transform ${isToolboxOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {/* 下拉選單 */}
+                {isToolboxOpen && (
+                  <div className="absolute right-0 mt-2 w-64 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
+                    {toolboxItems.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="flex items-center gap-3 px-4 py-3 text-sm text-foreground hover:bg-muted transition-colors"
+                        onClick={() => setIsToolboxOpen(false)}
+                      >
+                        <div className="text-muted-foreground">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="font-medium">{item.name}</div>
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <a
                 href="https://github.com/waitzShigoto"
                 target="_blank"

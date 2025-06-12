@@ -1,7 +1,7 @@
 import { siteConfig } from '@/lib/config';
 
 interface JsonLdProps {
-  type: 'website' | 'article' | 'person';
+  type?: 'website' | 'article' | 'person';
   data?: {
     title?: string;
     description?: string;
@@ -11,10 +11,23 @@ interface JsonLdProps {
     dateModified?: string;
     author?: string;
     tags?: string[];
-  };
+  } | Record<string, unknown>; // 使用 unknown 而不是 any
 }
 
 export default function JsonLd({ type, data }: JsonLdProps) {
+  // 如果直接傳遞了完整的 JSON-LD 數據，直接使用
+  if (data && typeof data === 'object' && '@context' in data) {
+    return (
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(data, null, 2),
+        }}
+      />
+    );
+  }
+
+  // 否則使用原有的邏輯
   const getStructuredData = () => {
     const baseData = {
       '@context': 'https://schema.org',
@@ -73,7 +86,7 @@ export default function JsonLd({ type, data }: JsonLdProps) {
             '@type': 'WebPage',
             '@id': data?.url || siteConfig.siteUrl,
           },
-          keywords: data?.tags?.join(', ') || '',
+          keywords: (data && 'tags' in data && Array.isArray(data.tags)) ? data.tags.join(', ') : '',
         };
 
       case 'person':
