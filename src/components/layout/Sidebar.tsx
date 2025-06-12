@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/config';
@@ -7,7 +10,12 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ locale = 'zh' }: SidebarProps) {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    // 在客戶端設置當前年份，避免 hydration mismatch
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   return (
     <aside className="w-full h-screen bg-card shadow-xl border-r border-border flex flex-col">
@@ -126,7 +134,7 @@ export default function Sidebar({ locale = 'zh' }: SidebarProps) {
         {/* Copyright */}
         <div className="text-center">
           <p className="text-xs text-muted-foreground">
-            {currentYear} &copy; {siteConfig.author.name}
+            {currentYear || '2025'} &copy; {siteConfig.author.name}
           </p>
         </div>
       </div>

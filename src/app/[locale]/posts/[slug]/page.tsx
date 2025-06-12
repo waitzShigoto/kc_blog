@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
+import JsonLd from '@/components/seo/JsonLd';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -36,11 +37,75 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   }
 
   const { frontMatter } = post;
-  const { title, excerpt } = frontMatter;
+  const { title, excerpt, date, tags, image, categories } = frontMatter;
+  
+  // 構建文章 URL
+  const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}`;
+  
+  // 構建 OpenGraph 圖片 URL
+  const ogImage = image 
+    ? `${siteConfig.siteUrl}/images/${image}`
+    : `${siteConfig.siteUrl}/images/og-image.png`;
+  
+  // 構建關鍵字
+  const keywords = [];
+  if (tags && Array.isArray(tags)) {
+    keywords.push(...tags);
+  }
+  if (categories) {
+    const categoryArray = Array.isArray(categories) ? categories : [categories];
+    keywords.push(...categoryArray);
+  }
+  // 添加預設關鍵字
+  keywords.push('Android開發', 'Kotlin', '程式設計', '技術部落格');
 
   return {
     title: title || siteConfig.title,
     description: excerpt || siteConfig.description,
+    keywords: keywords.join(', '),
+    authors: [{ name: siteConfig.author.name, url: siteConfig.siteUrl }],
+    creator: siteConfig.author.name,
+    publisher: siteConfig.author.name,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    openGraph: {
+      type: 'article',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: postUrl,
+      title: title || siteConfig.title,
+      description: excerpt || siteConfig.description,
+      siteName: siteConfig.title,
+      publishedTime: date,
+      authors: [siteConfig.author.name],
+      tags: tags || [],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title || siteConfig.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: title || siteConfig.title,
+      description: excerpt || siteConfig.description,
+      creator: '@eleg_aces',
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: postUrl,
+    },
   };
 }
 
@@ -94,7 +159,7 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const { frontMatter, content, readingTime } = post;
-  const { title, date, categories, tags } = frontMatter;
+  const { title, date, categories, tags, excerpt, image } = frontMatter;
 
   // 確保 categories 和 tags 是數組
   const categoryArray = Array.isArray(categories) ? categories : (categories ? [categories] : []);
@@ -111,8 +176,28 @@ export default async function PostPage({ params }: PostPageProps) {
     return <AndroidPortfolioContent />;
   };
 
+  // 構建文章 URL 和圖片 URL
+  const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}`;
+  const ogImage = image 
+    ? `${siteConfig.siteUrl}/images/${image}`
+    : `${siteConfig.siteUrl}/images/og-image.png`;
+
   return (
     <div className="min-h-screen bg-background">
+      {/* JSON-LD 結構化數據 */}
+      <JsonLd 
+        type="article" 
+        data={{
+          title,
+          description: excerpt,
+          url: postUrl,
+          image: ogImage,
+          datePublished: date,
+          author: siteConfig.author.name,
+          tags: tagArray,
+        }}
+      />
+      
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
