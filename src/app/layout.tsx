@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
-import GoogleAdSense from "@/components/ads/GoogleAdSense";
+import { GoogleAnalytics } from '@next/third-parties/google';
+import GoogleAdSense from '@/components/ads/GoogleAdSense';
+import { siteConfig } from '@/lib/config';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +20,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh" suppressHydrationWarning>
-      <head>
-        <GoogleAnalytics />
-        <GoogleAdSense />
-      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
@@ -32,6 +29,10 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+        {siteConfig.analytics?.googleAnalyticsId && (
+          <GoogleAnalytics gaId={siteConfig.analytics.googleAnalyticsId} />
+        )}
+        <GoogleAdSense />
       </body>
     </html>
   );

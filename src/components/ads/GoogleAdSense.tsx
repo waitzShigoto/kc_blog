@@ -4,18 +4,16 @@ import Script from 'next/script'
 import { siteConfig } from '@/lib/config'
 
 export default function GoogleAdSense() {
-  const GOOGLE_ADSENSE_ID = siteConfig.ads?.googleAdSenseId;
-
-  if (!GOOGLE_ADSENSE_ID) {
+  if (!siteConfig.ads?.googleAdSenseId) {
     return null;
   }
 
   return (
     <Script
       async
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GOOGLE_ADSENSE_ID}`}
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${siteConfig.ads.googleAdSenseId}`}
       crossOrigin="anonymous"
-      strategy="afterInteractive"
+      strategy="lazyOnload"
     />
   )
 } 
