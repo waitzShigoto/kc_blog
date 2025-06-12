@@ -2,7 +2,7 @@ import { SiteConfig } from '@/types/blog';
 
 export const siteConfig: SiteConfig = {
   title: 'Elegant Access',
-  description: 'Elegant Access is a blog that share android know-how.',
+  description: 'Elegant Access is a blog that shares whatever comes to mind.',
   author: {
     name: 'WaitZ',
     email: 'your-email@example.com',

@@ -9,8 +9,11 @@ import { siteConfig } from '@/lib/config';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "KC Blog",
-  description: "開發技術分享",
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.title}`,
+  },
+  description: siteConfig.description,
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
