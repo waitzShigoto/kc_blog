@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Compose Multiplatform in Action: Continuing the Battle, Creating a CMP Project with Wizard"
-date: 2024-08-18 17:13:10 +0800
+title: >-
+  Compose Multiplatform in Action: Continuing the Battle, Creating a CMP Project
+  with Wizard
+date: '2024-08-18 17:13:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-3
-categories: ComposeMultiplatform
-excerpt: "This series focuses on Compose Multiplatform in Action: Developing Cross-platform Apps from Scratch with Kotlin. We'll focus on cross-platform Android and iOS app development, and discuss findings and insights in the final days."
+categories: CrossPlatform
+excerpt: >-
+  This series focuses on Compose Multiplatform in Action: Developing
+  Cross-platform Apps from Scratch with Kotlin. We'll focus on cross-platform
+  Android and iOS app development, and discuss findings and insights in the
+  final days.
 ---
 
 ## Introduction

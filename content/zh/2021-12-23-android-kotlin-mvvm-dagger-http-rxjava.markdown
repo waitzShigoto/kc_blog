@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "打造流暢自動加載分頁的Github API Demo：MVVM、DI、RxJava與Paging在Android Kotlin的實踐教學"
-date: 2021-12-23 13:06:12 +0800
+title: 打造流暢自動加載分頁的Github API Demo：MVVM、DI、RxJava與Paging在Android Kotlin的實踐教學
+date: '2021-12-23 13:06:12 +0800'
 image: cover/kotlin-mvvm+rxjava+retrofit+okHttp+dagger.png
-tags: [Android]
-categories: Android實作
-excerpt: "在這個教學中，我們將探索如何使用MVVM、DI、RxJava和Paging這些技術在Android Kotlin上打造一個Github API Demo。通過這個Demo，你將學會如何建立一個流暢自動加載分頁的應用程式，同時也能了解到如何在Kotlin上使用這些重要的技術。"
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  在這個教學中，我們將探索如何使用MVVM、DI、RxJava和Paging這些技術在Android Kotlin上打造一個Github API
+  Demo。通過這個Demo，你將學會如何建立一個流暢自動加載分頁的應用程式，同時也能了解到如何在Kotlin上使用這些重要的技術。
 ---
 
 ## 前言

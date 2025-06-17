@@ -1,10 +1,14 @@
 ---
 layout: post
-title: "より安全なAndroidアプリを作成する！ Samsung Knox SDKの簡単な導入方法を学ぶ"
-date: 2022-09-16 14:41:08 +0800
+title: より安全なAndroidアプリを作成する！ Samsung Knox SDKの簡単な導入方法を学ぶ
+date: '2022-09-16 14:41:08 +0800'
 image: cover/samsung-android-knox-1.png
-tags: [Android,Debug,Samsung,knox]
-categories: Android教學
+tags:
+  - Android
+  - Debug
+  - Samsung
+  - knox
+categories: AndroidDev
 ---
 
 ## Samsung Knox SDK はセキュリティソリューションです

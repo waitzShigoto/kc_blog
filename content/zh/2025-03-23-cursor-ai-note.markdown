@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "用Cursor IDE 來輔助開發code"
-date: 2025-03-23 09:29:10 +0800
+title: 用Cursor IDE 來輔助開發code
+date: '2025-03-23 09:29:10 +0800'
 image: cover/cursor-ide-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-note
-categories: cursor
-excerpt: "什麼是 Cursor？"
+categories: AI
+excerpt: 什麼是 Cursor？
 ---
 
 ## 實際效果

@@ -1,11 +1,19 @@
 ---
 layout: post
-title: "[Android Enterprise] In-depth Explanation and Comprehensive Study Notes on Android Enterprise"
-date: 2022-05-25 16:05:01 +0800
+title: >-
+  [Android Enterprise] In-depth Explanation and Comprehensive Study Notes on
+  Android Enterprise
+date: '2022-05-25 16:05:01 +0800'
 image: cover/android-enterprise-1.png
-tags: [Android,Enterprise]
-categories: Android教學
-excerpt: "Want to master Android Enterprise skills? This comprehensive study note is for you! It provides an in-depth explanation of Android Enterprise concepts and implementation methods, helping you quickly learn how to manage enterprise-level Android devices."
+tags:
+  - Android
+  - Enterprise
+categories: AndroidDev
+excerpt: >-
+  Want to master Android Enterprise skills? This comprehensive study note is for
+  you! It provides an in-depth explanation of Android Enterprise concepts and
+  implementation methods, helping you quickly learn how to manage
+  enterprise-level Android devices.
 ---
 
 ## 0. Introduction

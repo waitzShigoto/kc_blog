@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "[Android Tutorial] Master Android Device Owner Permissions, Enterprise Management Made Easy!"
-date: 2022-04-25 18:19:28 +0800
+title: >-
+  [Android Tutorial] Master Android Device Owner Permissions, Enterprise
+  Management Made Easy!
+date: '2022-04-25 18:19:28 +0800'
 image: cover/android-device-owner-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "Want to easily manage enterprise-level Android devices? This article provides a comprehensive guide on requesting and utilizing Android Device Owner permissions."
-
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: >-
+  Want to easily manage enterprise-level Android devices? This article provides
+  a comprehensive guide on requesting and utilizing Android Device Owner
+  permissions.
 ---
 
 ## Introduction: Exploring Device Owner Permissions

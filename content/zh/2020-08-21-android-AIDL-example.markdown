@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "[App開發]用 AIDL 來跨進程開發Android app吧 ！"
-date: 2020-08-21 09:41:01 +0800
+title: '[App開發]用 AIDL 來跨進程開發Android app吧 ！'
+date: '2020-08-21 09:41:01 +0800'
 image: cover/android-aidl-1.png
 permalink: /android_aidl
-tags: [Android]
-categories: Android教學
-excerpt: "身為一個App工程師，總會被要求實現需求，當你遇到要跨進程在app之間溝通，該怎麼做呢？"
-
+tags:
+  - Android
+categories: AndroidDev
+excerpt: 身為一個App工程師，總會被要求實現需求，當你遇到要跨進程在app之間溝通，該怎麼做呢？
 ---
 
 <h1 class="c-border-main-title">AIDL介紹</h1>

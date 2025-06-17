@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "My Ultimate MacOS Development Environment Setup: Unlock Your Terminal Potential with These Zshrc config!"
-date: 2022-08-08 14:46:12 +0800
+title: >-
+  My Ultimate MacOS Development Environment Setup: Unlock Your Terminal
+  Potential with These Zshrc config!
+date: '2022-08-08 14:46:12 +0800'
 image: env/neofetch.png
-tags: [macOS, environment]
-categories: macOS
-excerpt: "Are you a developer looking to enhance your terminal look on macOS? Look no further! In this guide, I'll show you how I set up with zshrc configurations."
-
+tags:
+  - environment
+  - macOS
+categories: Others
+excerpt: >-
+  Are you a developer looking to enhance your terminal look on macOS? Look no
+  further! In this guide, I'll show you how I set up with zshrc configurations.
 ---
 
 As a developer who primarily works on a MacBook Pro 13',

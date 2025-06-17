@@ -4,7 +4,7 @@ title: "Accelerate Your Understanding of WebRtc and Mqtt: Glossary Notes Sharing
 date: 2022-02-14 13:50:12 +0800
 image: cover/mqtt-noun-1.png
 tags: [Coding]
-categories: Other Notes
+categories: Others
 excerpt: "This article organizes glossary notes for WebRtc and Mqtt, allowing you to gain a deeper understanding of the application and principles of these two technologies. If you are interested in WebRtc and Mqtt, this article is a must-read!"
 ---
 

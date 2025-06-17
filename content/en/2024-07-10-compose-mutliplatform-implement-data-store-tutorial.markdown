@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "【Compose Multiplatform】Implementing Local Persistent Storage with DataStore"
-date: 2024-07-10 13:10:10 +0800
+title: 【Compose Multiplatform】Implementing Local Persistent Storage with DataStore
+date: '2024-07-10 13:10:10 +0800'
 image: cover/compose_multiplatform_datastore.png
-tags: [Kotlin, Compose Multiplatform, DataStore]
+tags:
+  - CMP
+  - DataStore
+  - Kotlin
 permalink: /compose-multiplatform-datastore
-categories: ComposeMultiplatform
-excerpt: "This article introduces how to implement cross-platform DataStore local storage in Compose Multiplatform projects, including library imports, implementing DataStore for different platforms, and methods for using DataStore in commonMain."
+categories: CrossPlatform
+excerpt: >-
+  This article introduces how to implement cross-platform DataStore local
+  storage in Compose Multiplatform projects, including library imports,
+  implementing DataStore for different platforms, and methods for using
+  DataStore in commonMain.
 ---
 
 ## Introduction

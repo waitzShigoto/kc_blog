@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "Android Kotlin Tutorial: Decoding Google Maps Polyline Paths and Drawing Lines"
-date: 2020-12-07 21:22:14 +0800
+title: 'Android Kotlin Tutorial: Decoding Google Maps Polyline Paths and Drawing Lines'
+date: '2020-12-07 21:22:14 +0800'
 image: cover/kotlin_tutorial_google_map-1.png
-tags: [Android]
-categories: Android實作
-excerpt: "This tutorial introduces how to use Kotlin in Android to decode polyline using Google Map API and draw lines based on the estimated path."
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  This tutorial introduces how to use Kotlin in Android to decode polyline using
+  Google Map API and draw lines based on the estimated path.
 ---
 
 ## Introduction

@@ -1,11 +1,16 @@
 ---
 layout: post
-title: "How to Handle Version Differences in Android 14 Development? Quick Adaptation Guide for Android 14!"
-date: 2024-05-15 10:33:18 +0800
+title: >-
+  How to Handle Version Differences in Android 14 Development? Quick Adaptation
+  Guide for Android 14!
+date: '2024-05-15 10:33:18 +0800'
 image: cover/android-version-adaptation-14.png
-tags: [Android]
-categories: SDK升級
-excerpt: "This article will introduce the development challenges and solutions brought by the Android 14 version upgrade."
+tags:
+  - Android
+categories: DebugAndOptimize
+excerpt: >-
+  This article will introduce the development challenges and solutions brought
+  by the Android 14 version upgrade.
 ---
 <div class="c-border-content-title-4">Summary of some important changes in the Android 14 platform, all applications will behave differently on this platform</div>
 <div class="c-border-content-title-1">Core Features</div>

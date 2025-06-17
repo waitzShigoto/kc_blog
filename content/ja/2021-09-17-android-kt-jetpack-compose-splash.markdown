@@ -1,14 +1,17 @@
 ---
 layout: post
-title: "Jetpack Composeでスプラッシュページにアニメーションを追加しよう！"
-date: 2021-09-17 15:02:11 +0800
+title: Jetpack Composeでスプラッシュページにアニメーションを追加しよう！
+date: '2021-09-17 15:02:11 +0800'
 image: cover/ea-website-splash-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-splash
-excerpt: "Jetpack Composeを使えば、アプリケーションに動的で生き生きとしたスプラッシュページを簡単に追加できます。
-この記事では、Jetpack Composeを使ってアニメーションページを作成する方法をステップバイステップで学びます。"
-
+excerpt: >-
+  Jetpack Composeを使えば、アプリケーションに動的で生き生きとしたスプラッシュページを簡単に追加できます。 この記事では、Jetpack
+  Composeを使ってアニメーションページを作成する方法をステップバイステップで学びます。
 ---
 
 ## 目標

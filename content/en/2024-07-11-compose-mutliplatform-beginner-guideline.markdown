@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【Compose Multiplatform】Project Migration Discussion and Development Guide"
-date: 2024-07-11 18:30:20 +0800
+title: 【Compose Multiplatform】Project Migration Discussion and Development Guide
+date: '2024-07-11 18:30:20 +0800'
 image: cover/compose_multiplatform_guide.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-guide
-categories: ComposeMultiplatform
-excerpt: "This article details the process of migrating from a Compose project to Compose Multiplatform, including initial migration costs, library equivalents, potential issues, and future outlook."
+categories: CrossPlatform
+excerpt: >-
+  This article details the process of migrating from a Compose project to
+  Compose Multiplatform, including initial migration costs, library equivalents,
+  potential issues, and future outlook.
 ---
 
 ## Introduction

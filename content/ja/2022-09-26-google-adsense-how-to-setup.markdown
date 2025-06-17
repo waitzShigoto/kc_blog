@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "サイト収益を増やしたい？Google AdSenseをサイトに追加する方法 - 教程"
-date: 2022-09-26 14:44:32 +0800
+title: サイト収益を増やしたい？Google AdSenseをサイトに追加する方法 - 教程
+date: '2022-09-26 14:44:32 +0800'
 image: cover/html-google-adsense-2022-1.png
-tags: [html,adsense,google,extra income,tutorial]
-categories: 其他筆記
-excerpt: "サイト収益を増やしたいですか？このチュートリアルでは、Google AdSenseをサイトに追加する方法を学び、広告収益を簡単に得る方法を教えます。さあ、学びましょう！"
+tags:
+  - HTML
+  - adsense
+  - extra income
+  - google
+  - tutorial
+categories: Others
+excerpt: >-
+  サイト収益を増やしたいですか？このチュートリアルでは、Google
+  AdSenseをサイトに追加する方法を学び、広告収益を簡単に得る方法を教えます。さあ、学びましょう！
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;前言</h1>

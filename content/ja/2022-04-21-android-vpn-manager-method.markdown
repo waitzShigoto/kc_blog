@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "[Android開発の考え方] 自分のVPNアプリを作成する：Android VpnManager開発の考え方と心得"
-date: 2022-04-21 18:09:28 +0800
+title: '[Android開発の考え方] 自分のVPNアプリを作成する：Android VpnManager開発の考え方と心得'
+date: '2022-04-21 18:09:28 +0800'
 image: cover/android-vpn-app-develop-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "以下は私が過去にAndroidを開発していた際に直面した問題です：アプリ内でVPNソリューションを実現する方法。この投稿では、その時の研究ノートと関連する解決策を共有します。"
-
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: >-
+  以下は私が過去にAndroidを開発していた際に直面した問題です：アプリ内でVPNソリューションを実現する方法。この投稿では、その時の研究ノートと関連する解決策を共有します。
 ---
 
 ## 前書き

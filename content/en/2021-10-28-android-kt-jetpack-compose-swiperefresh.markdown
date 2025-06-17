@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "Android Jetpack Compose SwipeRefresh: Easily Implement Pull-to-Refresh for Lists!"
-date: 2021-10-28 14:41:12 +0800
+title: >-
+  Android Jetpack Compose SwipeRefresh: Easily Implement Pull-to-Refresh for
+  Lists!
+date: '2021-10-28 14:41:12 +0800'
 image: cover/ea_swiperefresh_app-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-swiperefresh
-excerpt: "This article introduces how to use LazyColumn and SwipeRefresh in Jetpack Compose to easily implement dynamically updating list data."
+excerpt: >-
+  This article introduces how to use LazyColumn and SwipeRefresh in Jetpack
+  Compose to easily implement dynamically updating list data.
 ---
 
 ## Introduction

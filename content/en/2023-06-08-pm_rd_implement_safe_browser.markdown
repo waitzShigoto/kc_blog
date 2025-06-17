@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "PMs and RDs, Look Here: Starting from Scratch to Develop or Create an App Browser!"
-date: 2023-06-08 18:35:06 +0800
+title: >-
+  PMs and RDs, Look Here: Starting from Scratch to Develop or Create an App
+  Browser!
+date: '2023-06-08 18:35:06 +0800'
 image: cover/safe_browser_post-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /safe_browser
-categories: 其他筆記
-excerpt: "Having a convenient and easy-to-use app browser has become an indispensable part of modern life. This article will explore the direction of developing or creating an app browser solution."
+categories: Others
+excerpt: >-
+  Having a convenient and easy-to-use app browser has become an indispensable
+  part of modern life. This article will explore the direction of developing or
+  creating an app browser solution.
 ---
 
 ## Introduction

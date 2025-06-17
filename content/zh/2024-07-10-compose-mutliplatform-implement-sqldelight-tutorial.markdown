@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【Compose Multiplatform】手機資料庫SqlDelight實作"
-date: 2024-07-10 15:38:40 +0800
+title: 【Compose Multiplatform】手機資料庫SqlDelight實作
+date: '2024-07-10 15:38:40 +0800'
 image: cover/compose_multiplatform_sqldelight.png
-tags: [Kotlin, Compose Multiplatform, SqlDelight]
+tags:
+  - CMP
+  - Kotlin
+  - SqlDelight
 permalink: /compose-multiplatform-sqldelight
-categories: ComposeMultiplatform
-excerpt: "本文詳細介紹了如何在 Compose Multiplatform 專案中使用 SqlDelight 實現跨平台的資料庫操作，包括導入庫、實作資料表、建立平台特定實現以及實際使用方法。"
+categories: CrossPlatform
+excerpt: >-
+  本文詳細介紹了如何在 Compose Multiplatform 專案中使用 SqlDelight
+  實現跨平台的資料庫操作，包括導入庫、實作資料表、建立平台特定實現以及實際使用方法。
 ---
 
 ## 前言

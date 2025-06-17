@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "[Android Development Insights] Build Your VPN App: Insights on Developing with Android VpnManager"
-date: 2022-04-21 18:09:28 +0800
+title: >-
+  [Android Development Insights] Build Your VPN App: Insights on Developing with
+  Android VpnManager
+date: '2022-04-21 18:09:28 +0800'
 image: cover/android-vpn-app-develop-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "Here is a problem I encountered while developing for Android: how to implement a VPN solution within an application. In this article, I will share my research notes and related solutions."
-
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: >-
+  Here is a problem I encountered while developing for Android: how to implement
+  a VPN solution within an application. In this article, I will share my
+  research notes and related solutions.
 ---
 
 ## Introduction

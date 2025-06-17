@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "打造自己的LINE聊天室機器人！從零開始學習使用Kotlin Ktor建置教學，讓你輕鬆上手"
-date: 2021-12-07 17:36:12 +0800
+title: 打造自己的LINE聊天室機器人！從零開始學習使用Kotlin Ktor建置教學，讓你輕鬆上手
+date: '2021-12-07 17:36:12 +0800'
 image: cover/kotlin-line-bot-ktor-server.png
-tags: [Ktor]
-categories: Ktor
-excerpt: "打造自己的LINE聊天室機器人！從零開始學習使用Kotlin Ktor建置，讓你輕鬆上手。本課程將帶領你了解如何使用Kotlin Ktor框架建立簡單的聊天室機器人"
+tags:
+  - Ktor
+categories: ProgrammingLang
+excerpt: >-
+  打造自己的LINE聊天室機器人！從零開始學習使用Kotlin Ktor建置，讓你輕鬆上手。本課程將帶領你了解如何使用Kotlin
+  Ktor框架建立簡單的聊天室機器人
 ---
 
 ## 前言

@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "【Android/Kotlin】極速掌握 inline / noinline / crossinline 三大キーワードの教え！"
-date: 2020-11-30 21:01:43 +0800
+title: 【Android/Kotlin】極速掌握 inline / noinline / crossinline 三大キーワードの教え！
+date: '2020-11-30 21:01:43 +0800'
 image: cover/android-kt-inline-1.png
-tags: [Android]
-categories: Kotlin
-excerpt: "Kotlinプログラミングでは、inline、noinline、crossinlineは一般的なキーワードです。これらのキーワードは関数宣言で使用でき、関数の動作を変更し、コードの実行方法やパフォーマンスに影響を与えることができます。"
+tags:
+  - Android
+categories: ProgrammingLang
+excerpt: >-
+  Kotlinプログラミングでは、inline、noinline、crossinlineは一般的なキーワードです。これらのキーワードは関数宣言で使用でき、関数の動作を変更し、コードの実行方法やパフォーマンスに影響を与えることができます。
 ---
 
 ## 前書き

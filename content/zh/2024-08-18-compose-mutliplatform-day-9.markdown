@@ -1,13 +1,16 @@
 ---
 layout: post
-title: "Compose Multiplatform 實戰：使用 expect 和 actual 實現跨平台程式碼"
-date: 2024-08-18 17:23:10 +0800
+title: Compose Multiplatform 實戰：使用 expect 和 actual 實現跨平台程式碼
+date: '2024-08-18 17:23:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-9
-categories: ComposeMultiplatform
-excerpt: "這次的主題是用Compose Multiplatform 實戰：用Kotlin從零開始開發跨平台App
-這次我會聚焦在 開發 跨平台Android 跟 IOS 的App上在最後幾天也會談談目前研究下來的概況以及心得"
+categories: CrossPlatform
+excerpt: >-
+  這次的主題是用Compose Multiplatform 實戰：用Kotlin從零開始開發跨平台App 這次我會聚焦在 開發 跨平台Android 跟
+  IOS 的App上在最後幾天也會談談目前研究下來的概況以及心得
 ---
 
 ## 前言

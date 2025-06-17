@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Learning Android Kotlin Custom UI Techniques - Switching Views and Dropdown Animation Tutorial - 02"
-date: 2020-11-20 16:04:13 +0800
+title: >-
+  Learning Android Kotlin Custom UI Techniques - Switching Views and Dropdown
+  Animation Tutorial - 02
+date: '2020-11-20 16:04:13 +0800'
 image: cover/android-photo.jpg
 permalink: /android_custom02
-tags: [Android]
-categories: Android實作
-excerpt: "In this tutorial, you will learn how to use Android Kotlin custom UI techniques, specifically how to implement switching views and dropdown animations."
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  In this tutorial, you will learn how to use Android Kotlin custom UI
+  techniques, specifically how to implement switching views and dropdown
+  animations.
 ---
 
 Hello, everyone, this is KC from Elegant Access,

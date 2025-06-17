@@ -3,9 +3,9 @@ layout: post
 title: "Issues when Updating Old Projects to TargetSDK 35"
 date: 2025-03-12 09:29:10 +0800
 image: cover/android-sdk-35-cover.svg
-tags: [Android]
+tags: [Android, SDK]
 permalink: /android-target-sdk-35
-categories: SDK Update
+categories: DebugAndOptimize
 excerpt: "Android15 Compatibility Notes"
 ---
 

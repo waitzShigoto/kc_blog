@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Android專案用.toml遷移至version catalogs會遇到的問題"
-date: 2024-05-24 18:24:24 +0800
+title: Android專案用.toml遷移至version catalogs會遇到的問題
+date: '2024-05-24 18:24:24 +0800'
 image: cover/android-upgrade-to-toml-tutorial.png
-tags: [Kotlin]
+tags:
+  - Kotlin
 permalink: /android-upgrade-to-toml-tutorial
-categories: Kotlin
-excerpt: ""
+categories: AndroidDev
+excerpt: ''
 ---
 
 <div class="c-border-content-title-4">前言</div>

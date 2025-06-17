@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "【Compose Multiplatform】Using Dependency Injection with Koin"
-date: 2024-07-10 14:12:20 +0800
+title: 【Compose Multiplatform】Using Dependency Injection with Koin
+date: '2024-07-10 14:12:20 +0800'
 image: cover/compose_multiplatform_koin.png
-tags: [Kotlin, Compose Multiplatform, Koin, Dependency Injection]
+tags:
+  - CMP
+  - Dependency Injection
+  - Koin
+  - Kotlin
 permalink: /compose-multiplatform-koin
-categories: ComposeMultiplatform
-excerpt: "This article provides a detailed guide on how to use Koin for dependency injection in Compose Multiplatform projects, including library imports, DI implementation, and methods to initialize Koin on different platforms."
+categories: CrossPlatform
+excerpt: >-
+  This article provides a detailed guide on how to use Koin for dependency
+  injection in Compose Multiplatform projects, including library imports, DI
+  implementation, and methods to initialize Koin on different platforms.
 ---
 
 ## Introduction

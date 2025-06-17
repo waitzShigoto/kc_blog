@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "Android Jetpack Compose SwipeRefresh：輕鬆實現列表的下拉刷新功能！"
-date: 2021-10-28 14:41:12 +0800
+title: Android Jetpack Compose SwipeRefresh：輕鬆實現列表的下拉刷新功能！
+date: '2021-10-28 14:41:12 +0800'
 image: cover/ea_swiperefresh_app-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-swiperefresh
-excerpt: "這篇文章介紹了如何使用 Jetpack Compose 中的 LazyColumn 和 SwipeRefresh運用，以輕鬆實現動態更新的列表資料。"
+excerpt: 這篇文章介紹了如何使用 Jetpack Compose 中的 LazyColumn 和 SwipeRefresh運用，以輕鬆實現動態更新的列表資料。
 ---
 
 ## 前言

@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "連接 Android アプリケーション：異なるプロセス間で簡単に通信するIPCソリューションのチュートリアル！"
-date: 2022-04-15 15:36:28 +0800
+title: 連接 Android アプリケーション：異なるプロセス間で簡単に通信するIPCソリューションのチュートリアル！
+date: '2022-04-15 15:36:28 +0800'
 image: cover/android-ipc-method-share-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "Androidアプリケーション間のプロセス間通信技術（IPC）を探求し、異なるプロセス間で簡単に通信し、より良い協力効果を達成する方法を紹介します。"
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: Androidアプリケーション間のプロセス間通信技術（IPC）を探求し、異なるプロセス間で簡単に通信し、より良い協力効果を達成する方法を紹介します。
 ---
 
 ## 前書き

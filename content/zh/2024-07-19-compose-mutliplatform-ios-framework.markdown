@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "【Compose Multiplatform】CMP專案中導入CocoaPods及無CocoaPods情況下使用IOS Swift/Obj-C"
-date: 2024-07-18 21:30:10 +0800
+title: 【Compose Multiplatform】CMP專案中導入CocoaPods及無CocoaPods情況下使用IOS Swift/Obj-C
+date: '2024-07-18 21:30:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-ios-cocoapods
-categories: ComposeMultiplatform
-excerpt: "本文詳細介紹了從 Compose 專案轉移到 Compose Multiplatform 的過程，怎麼導入使用ios的native code。"
+categories: CrossPlatform
+excerpt: 本文詳細介紹了從 Compose 專案轉移到 Compose Multiplatform 的過程，怎麼導入使用ios的native code。
 ---
 
 ## 前言

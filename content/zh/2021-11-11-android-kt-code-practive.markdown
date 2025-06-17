@@ -1,10 +1,11 @@
 ---
 layout: post
-title: "[Android][Kotlin][CodingTest]刷題練習紀錄"
-date: 2021-11-11 12:55:12 +0800
+title: '[Android][Kotlin][CodingTest]刷題練習紀錄'
+date: '2021-11-11 12:55:12 +0800'
 image: cover/android-photo.jpg
-tags: [Coding]
-categories: 其他筆記
+tags:
+  - Coding
+categories: Others
 ---
 
 其實這篇文章是想紀錄

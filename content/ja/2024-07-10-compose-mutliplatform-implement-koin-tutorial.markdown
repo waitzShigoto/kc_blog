@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【Compose Multiplatform】依存性注入Koinの使用方法"
-date: 2024-07-10 14:12:20 +0800
+title: 【Compose Multiplatform】依存性注入Koinの使用方法
+date: '2024-07-10 14:12:20 +0800'
 image: cover/compose_multiplatform_koin.png
-tags: [Kotlin, Compose Multiplatform, Koin, Dependency Injection]
+tags:
+  - CMP
+  - Dependency Injection
+  - Koin
+  - Kotlin
 permalink: /compose-multiplatform-koin
-categories: ComposeMultiplatform
-excerpt: "この記事では、Compose Multiplatformプロジェクトで依存性注入フレームワークKoinを使用する方法について詳しく説明します。ライブラリのインポート、DI実装、および異なるプラットフォームでKoinを初期化する方法を含みます。"
+categories: CrossPlatform
+excerpt: >-
+  この記事では、Compose
+  Multiplatformプロジェクトで依存性注入フレームワークKoinを使用する方法について詳しく説明します。ライブラリのインポート、DI実装、および異なるプラットフォームでKoinを初期化する方法を含みます。
 ---
 
 ## はじめに

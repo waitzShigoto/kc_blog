@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "[Android][Memory] Memory Optimization + GC Management Concepts Sharing"
-date: 2021-10-05 17:42:21 +0800
+title: '[Android][Memory] Memory Optimization + GC Management Concepts Sharing'
+date: '2021-10-05 17:42:21 +0800'
 image: cover/ea-website-android-memory.png
-tags: [Android,Kotlin]
-categories: Android教學
+tags:
+  - Android
+  - Kotlin
+categories: AndroidDev
 ---
 
 Today's post

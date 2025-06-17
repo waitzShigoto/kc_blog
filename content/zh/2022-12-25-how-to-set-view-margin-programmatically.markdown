@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "快速學會在Android App中調整元素間距 - 使用Kotlin extension程式碼設定間距"
-date: 2022-12-25 17:05:12 +0800
+title: 快速學會在Android App中調整元素間距 - 使用Kotlin extension程式碼設定間距
+date: '2022-12-25 17:05:12 +0800'
 image: cover/kotlin-clear-code-maring-layout-xml-constarint-layout-1.png
-tags: [Android,Kotlin,Extension]
+tags:
+  - Android
+  - Extension
+  - Kotlin
 permalink: /clear_use_extension_to_set_margin
-categories: Kotlin
-excerpt: "在Android App中，調整元素間距是一個常見的需求，而使用Kotlin extension程式碼設定間距可以快速且簡單地達成此目的。在這篇文章中，我們將一步一步地學習如何使用這個技巧，讓您的App看起來更加美觀和專業。"
+categories: ProgrammingLang
+excerpt: >-
+  在Android App中，調整元素間距是一個常見的需求，而使用Kotlin
+  extension程式碼設定間距可以快速且簡單地達成此目的。在這篇文章中，我們將一步一步地學習如何使用這個技巧，讓您的App看起來更加美觀和專業。
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;前言</h1>

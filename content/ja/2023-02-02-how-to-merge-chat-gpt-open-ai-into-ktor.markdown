@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "ChatGPT 教学 - Line BotでOpen AI ChatGPTを連携"
-date: 2023-02-02 16:24:56 +0800
+title: ChatGPT 教学 - Line BotでOpen AI ChatGPTを連携
+date: '2023-02-02 16:24:56 +0800'
 image: cover/kotlin-cht-gpt-line-bot-open-ai-1.png
-tags: [OpenAI,Chat GPT,AI]
+tags:
+  - AI
+  - ChatGPT
 permalink: /easy_use_chat_gpt_with_line_bot
 categories: AI
-excerpt: "今、Chat GPTの波が盛り上がっています。Chat GPTをあなたのメッセージアプリのチャットルームに組み込み、活用しましょう！"
+excerpt: 今、Chat GPTの波が盛り上がっています。Chat GPTをあなたのメッセージアプリのチャットルームに組み込み、活用しましょう！
 ---
 
 <div align="center">

@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "[Android Enterprise] 深入浅出的説明、Android Enterprise 完全研究ノートの共有"
-date: 2022-05-25 16:05:01 +0800
+title: '[Android Enterprise] 深入浅出的説明、Android Enterprise 完全研究ノートの共有'
+date: '2022-05-25 16:05:01 +0800'
 image: cover/android-enterprise-1.png
-tags: [Android,Enterprise]
-categories: Android教學
-excerpt: "Android Enterpriseの技術を習得したいですか？この完全な研究ノートを共有します！Android Enterpriseの関連概念と実装方法を分かりやすく説明し、企業向けのAndroidデバイスを迅速に管理する方法を学べます。"
+tags:
+  - Android
+  - Enterprise
+categories: AndroidDev
+excerpt: >-
+  Android Enterpriseの技術を習得したいですか？この完全な研究ノートを共有します！Android
+  Enterpriseの関連概念と実装方法を分かりやすく説明し、企業向けのAndroidデバイスを迅速に管理する方法を学べます。
 ---
 
 ## 0. 前書き

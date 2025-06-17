@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "【UseCase】Android 偵測App現在是否在模擬器上跑？"
-date: 2024-07-10 10:00:00 +0800
+title: 【UseCase】Android 偵測App現在是否在模擬器上跑？
+date: '2024-07-10 10:00:00 +0800'
 image: cover/android_emulator_detection.png
-tags: [Android, Kotlin]
+tags:
+  - Android
+  - Kotlin
 permalink: /android-emulator-detection
-categories: Android教學
-excerpt: "本文詳細介紹了在 Android App中檢測是否運行在模擬器環境的多種方法，包括使用內建屬性、檢查特定文件、檢查電話號碼等，並提供了實作。"
+categories: AndroidDev
+excerpt: 本文詳細介紹了在 Android App中檢測是否運行在模擬器環境的多種方法，包括使用內建屬性、檢查特定文件、檢查電話號碼等，並提供了實作。
 ---
 
 ## 前言

@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "Android 14 開発中のバージョン差異にどう対応するか？Android 14迅速適応ガイド！"
-date: 2024-05-15 10:33:18 +0800
+title: Android 14 開発中のバージョン差異にどう対応するか？Android 14迅速適応ガイド！
+date: '2024-05-15 10:33:18 +0800'
 image: cover/android-version-adaptation-14.png
-tags: [Android]
-categories: SDK升級
-excerpt: "この記事では、Android 14バージョンのアップグレードによる開発上の課題とその解決策について紹介します。"
+tags:
+  - Android
+categories: DebugAndOptimize
+excerpt: この記事では、Android 14バージョンのアップグレードによる開発上の課題とその解決策について紹介します。
 ---
 <div class="c-border-content-title-4">Android 14 プラットフォームのいくつかの重要な変更点の概要、すべてのアプリケーションの動作がこのプラットフォームで変更されます</div>
 <div class="c-border-content-title-1">コア機能</div>

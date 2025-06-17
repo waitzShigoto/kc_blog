@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "流暢なAndroidアプリの遷移体験を実現！KotlinでNavigationを使って、アプリの遷移問題を一気に解決！"
-date: 2023-05-15 16:06:16 +0800
+title: 流暢なAndroidアプリの遷移体験を実現！KotlinでNavigationを使って、アプリの遷移問題を一気に解決！
+date: '2023-05-15 16:06:16 +0800'
 image: cover/navigation_with_kotlin-1.png
-tags: [Kotlin,Navigation,Android]
+tags:
+  - Android
+  - Kotlin
+  - Navigation
 permalink: /navigation_with_kotlin
-categories: Android教學
-excerpt: "「流暢なAndroidアプリの遷移体験を実現！」Jetpack Navigation with Kotlinを使用して、アプリの遷移問題を解決します。Jetpack Navigation with Kotlinの強力な機能を活用することで、アプリ内の各画面や操作フローを簡単に管理し、よりスムーズで使いやすいユーザー体験を提供します。"
+categories: AndroidDev
+excerpt: >-
+  「流暢なAndroidアプリの遷移体験を実現！」Jetpack Navigation with
+  Kotlinを使用して、アプリの遷移問題を解決します。Jetpack Navigation with
+  Kotlinの強力な機能を活用することで、アプリ内の各画面や操作フローを簡単に管理し、よりスムーズで使いやすいユーザー体験を提供します。
 ---
 
 ## Navigation の紹介

@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Android Audio Troubleshooting: Exploring Solutions for Audio Issues on Android Devices"
-date: 2022-03-07 14:31:22 +0800
+title: >-
+  Android Audio Troubleshooting: Exploring Solutions for Audio Issues on Android
+  Devices
+date: '2022-03-07 14:31:22 +0800'
 image: cover/android-audio-share-1.png
-tags: [Android,Debug]
-categories: Debug探討
-excerpt: "We will explore how to solve audio issues on Android devices. If you are an Android developer or interested in audio technology, this share is a must-read!"
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
+excerpt: >-
+  We will explore how to solve audio issues on Android devices. If you are an
+  Android developer or interested in audio technology, this share is a
+  must-read!
 ---
 
 ## Introduction

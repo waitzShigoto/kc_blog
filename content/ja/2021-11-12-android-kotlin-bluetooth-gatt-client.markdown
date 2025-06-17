@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "Android低功耗ブルートゥースGatt接続チュートリアル：Kotlinを使用して実装"
-date: 2021-11-12 16:16:32 +0800
+title: Android低功耗ブルートゥースGatt接続チュートリアル：Kotlinを使用して実装
+date: '2021-11-12 16:16:32 +0800'
 image: cover/bluetooth_with_kotlin-1.png
-tags: [Android,Bluetooth]
-categories: Android教學
-excerpt: "この記事では、Androidプラットフォーム上でKotlin言語を使用して低功耗ブルートゥースGatt接続を実現する方法を紹介します。内容には、Gatt接続の確立、Gattサービスの読み取り、Gatt特性の設定およびデータ通信などが含まれます。"
+tags:
+  - Android
+  - Bluetooth
+categories: AndroidDev
+excerpt: >-
+  この記事では、Androidプラットフォーム上でKotlin言語を使用して低功耗ブルートゥースGatt接続を実現する方法を紹介します。内容には、Gatt接続の確立、Gattサービスの読み取り、Gatt特性の設定およびデータ通信などが含まれます。
 ---
 
 ## 前書き

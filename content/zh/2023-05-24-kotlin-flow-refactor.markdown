@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Kotlin Flow 重構網路連線 詳細步驟教學"
-date: 2023-05-24 15:56:16 +0800
+title: Kotlin Flow 重構網路連線 詳細步驟教學
+date: '2023-05-24 15:56:16 +0800'
 image: cover/retrofit_with_kotlin_flow-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_flow_refactor
-categories: Kotlin
-excerpt: "輕鬆掌握如何使用 Kotlin Flow 進行網路連線重構。本教學將為您提供詳細的步驟指南，讓您在實現高效、穩定的網路連線時能夠游刃有餘"
+categories: ProgrammingLang
+excerpt: 輕鬆掌握如何使用 Kotlin Flow 進行網路連線重構。本教學將為您提供詳細的步驟指南，讓您在實現高效、穩定的網路連線時能夠游刃有餘
 ---
 
 ## 前言

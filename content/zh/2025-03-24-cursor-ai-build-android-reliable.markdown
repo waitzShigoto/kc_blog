@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "用Cursor IDE 來開發Android可行性"
-date: 2025-03-24 09:29:10 +0800
+title: 用Cursor IDE 來開發Android可行性
+date: '2025-03-24 09:29:10 +0800'
 image: cover/cursor-android-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-with-android
-categories: cursor
-excerpt: "用Cursor IDE 來開發Android可行性"
+categories: AI
+excerpt: 用Cursor IDE 來開發Android可行性
 ---
 
 ## 實際效果

@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "流暢な自動ページングを実現するGithub APIデモの作成：MVVM、DI、RxJava、Pagingを用いたAndroid Kotlinの実践ガイド"
-date: 2021-12-23 13:06:12 +0800
+title: 流暢な自動ページングを実現するGithub APIデモの作成：MVVM、DI、RxJava、Pagingを用いたAndroid Kotlinの実践ガイド
+date: '2021-12-23 13:06:12 +0800'
 image: cover/kotlin-mvvm+rxjava+retrofit+okHttp+dagger.png
-tags: [Android]
-categories: Android實作
-excerpt: "このチュートリアルでは、MVVM、DI、RxJava、Pagingといった技術を使用して、Android KotlinでGithub APIデモを作成する方法を探ります。このデモを通じて、スムーズな自動ページングアプリケーションの構築方法を学び、Kotlinでこれらの重要な技術を使用する方法を理解できます。"
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  このチュートリアルでは、MVVM、DI、RxJava、Pagingといった技術を使用して、Android KotlinでGithub
+  APIデモを作成する方法を探ります。このデモを通じて、スムーズな自動ページングアプリケーションの構築方法を学び、Kotlinでこれらの重要な技術を使用する方法を理解できます。
 ---
 
 ## 前書き

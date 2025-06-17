@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Cursor (vscode) build flutter"
-date: 2025-03-14 09:29:10 +0800
+title: Cursor (vscode) build flutter
+date: '2025-03-14 09:29:10 +0800'
 image: cover/cursor-flutter-cover.svg
-tags: [flutter,cursor]
+tags:
+  - cursor
+  - flutter
 permalink: /flutter-use-cursor
-categories: flutter
-excerpt: "Cursor (vscode) build flutter"
+categories: AI
+excerpt: Cursor (vscode) build flutter
 ---
 
 ## 前言

@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "Android Jetpack Compose SwipeRefresh：簡単にリストのプルダウンリフレッシュ機能を実現！"
-date: 2021-10-28 14:41:12 +0800
+title: Android Jetpack Compose SwipeRefresh：簡単にリストのプルダウンリフレッシュ機能を実現！
+date: '2021-10-28 14:41:12 +0800'
 image: cover/ea_swiperefresh_app-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-swiperefresh
-excerpt: "この記事では、Jetpack Compose の LazyColumn と SwipeRefresh を使用して、動的に更新されるリストデータを簡単に実現する方法を紹介します。"
+excerpt: >-
+  この記事では、Jetpack Compose の LazyColumn と SwipeRefresh
+  を使用して、動的に更新されるリストデータを簡単に実現する方法を紹介します。
 ---
 
 ## 前書き

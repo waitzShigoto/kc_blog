@@ -1,11 +1,20 @@
 ---
 layout: post
-title: "Want to Increase Website Revenue? Learn How to Add Google AdSense to Your Site - Tutorial"
-date: 2022-09-26 14:44:32 +0800
+title: >-
+  Want to Increase Website Revenue? Learn How to Add Google AdSense to Your Site
+  - Tutorial
+date: '2022-09-26 14:44:32 +0800'
 image: cover/html-google-adsense-2022-1.png
-tags: [html,adsense,google,extra income,tutorial]
-categories: 其他筆記
-excerpt: "Want to increase website revenue? This tutorial teaches you how to add Google AdSense to your site and easily learn how to earn from ads. Come and learn!"
+tags:
+  - HTML
+  - adsense
+  - extra income
+  - google
+  - tutorial
+categories: Others
+excerpt: >-
+  Want to increase website revenue? This tutorial teaches you how to add Google
+  AdSense to your site and easily learn how to earn from ads. Come and learn!
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;Introduction</h1>

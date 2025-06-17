@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【Compose Multiplatform】手機本地持久化儲存DataStore實作"
-date: 2024-07-10 13:10:10 +0800
+title: 【Compose Multiplatform】手機本地持久化儲存DataStore實作
+date: '2024-07-10 13:10:10 +0800'
 image: cover/compose_multiplatform_datastore.png
-tags: [Kotlin, Compose Multiplatform, DataStore]
+tags:
+  - CMP
+  - DataStore
+  - Kotlin
 permalink: /compose-multiplatform-datastore
-categories: ComposeMultiplatform
-excerpt: "本文介紹了如何在 Compose Multiplatform 專案中實現跨平台的 DataStore 本地化儲存，包括導入庫、實作各平台 DataStore 以及在 commonMain 中使用 DataStore 的方法。"
+categories: CrossPlatform
+excerpt: >-
+  本文介紹了如何在 Compose Multiplatform 專案中實現跨平台的 DataStore 本地化儲存，包括導入庫、實作各平台 DataStore
+  以及在 commonMain 中使用 DataStore 的方法。
 ---
 
 ## 前言

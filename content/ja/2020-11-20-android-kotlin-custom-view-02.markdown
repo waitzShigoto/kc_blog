@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "Android Kotlin カスタムUIのテクニック－左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 02"
-date: 2020-11-20 16:04:13 +0800
+title: Android Kotlin カスタムUIのテクニック－左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 02
+date: '2020-11-20 16:04:13 +0800'
 image: cover/android-photo.jpg
 permalink: /android_custom02
-tags: [Android]
-categories: Android實作
-excerpt: "このチュートリアル記事では、Android Kotlinを使用してカスタムUIのテクニック、具体的には左右切り替えビューとアニメーションのドロップダウンメニューを実現する方法を学びます。"
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  このチュートリアル記事では、Android
+  Kotlinを使用してカスタムUIのテクニック、具体的には左右切り替えビューとアニメーションのドロップダウンメニューを実現する方法を学びます。
 ---
 
 Hello, 皆さんこんにちは、Elegant AccessのKCです。

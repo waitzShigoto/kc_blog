@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "Android Audio 適配疑難雜症分享：探討如何解決 Android 設備上的音頻問題"
-date: 2022-03-07 14:31:22 +0800
+title: Android Audio 適配疑難雜症分享：探討如何解決 Android 設備上的音頻問題
+date: '2022-03-07 14:31:22 +0800'
 image: cover/android-audio-share-1.png
-tags: [Android,Debug]
-categories: Debug探討
-excerpt: "我們將探討如何解決 Android 設備上的音頻問題，如果你是 Android 開發人員或對音頻技術感興趣，這份分享絕對不能錯過！"
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
+excerpt: 我們將探討如何解決 Android 設備上的音頻問題，如果你是 Android 開發人員或對音頻技術感興趣，這份分享絕對不能錯過！
 ---
 
 ## 前言

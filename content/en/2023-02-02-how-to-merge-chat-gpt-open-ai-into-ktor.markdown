@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "ChatGPT Tutorial - Integrating Line Bot with Open AI ChatGPT"
-date: 2023-02-02 16:24:56 +0800
+title: ChatGPT Tutorial - Integrating Line Bot with Open AI ChatGPT
+date: '2023-02-02 16:24:56 +0800'
 image: cover/kotlin-cht-gpt-line-bot-open-ai-1.png
-tags: [OpenAI,Chat GPT,AI]
+tags:
+  - AI
+  - ChatGPT
 permalink: /easy_use_chat_gpt_with_line_bot
 categories: AI
-excerpt: "The wave of Chat GPT is rising, integrate Chat GPT into your messaging app chat room and make it work for you!"
+excerpt: >-
+  The wave of Chat GPT is rising, integrate Chat GPT into your messaging app
+  chat room and make it work for you!
 ---
 
 <div class="c-border-main-title">Introduction: Chat with ChatGPT</div>

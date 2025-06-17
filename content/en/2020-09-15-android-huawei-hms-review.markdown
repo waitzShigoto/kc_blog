@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "Implementation Guide: How to Successfully Integrate Huawei HMS Core 4.0 SDK in an Android App"
-date: 2020-09-15 10:06:32 +0800
+title: >-
+  Implementation Guide: How to Successfully Integrate Huawei HMS Core 4.0 SDK in
+  an Android App
+date: '2020-09-15 10:06:32 +0800'
 image: cover/android-hms-sdk-1.png
 permalink: /android/huawei_map
-tags: [Android]
-categories: Android教學
+tags:
+  - Android
+categories: AndroidDev
 ---
 
 <h1 class="c-border-main-title">Introduction</h1>

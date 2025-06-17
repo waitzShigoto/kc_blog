@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "打造流暢Android App跳轉體驗！Navigation with Kotlin 一篇文章就能搞定你的APP跳轉問題！"
-date: 2023-05-15 16:06:16 +0800
+title: 打造流暢Android App跳轉體驗！Navigation with Kotlin 一篇文章就能搞定你的APP跳轉問題！
+date: '2023-05-15 16:06:16 +0800'
 image: cover/navigation_with_kotlin-1.png
-tags: [Kotlin,Navigation,Android]
+tags:
+  - Android
+  - Kotlin
+  - Navigation
 permalink: /navigation_with_kotlin
-categories: Android教學
-excerpt: "「打造流暢Android App跳轉體驗！」使用 Jetpack Navigation with Kotlin，讓您的 APP 跳轉問題不再是問題。透過 Jetpack Navigation with Kotlin 的強大功能，您可以輕鬆管理 APP 中的各個畫面和操作流程，打造出更加順暢和易用的用戶體驗。"
+categories: AndroidDev
+excerpt: >-
+  「打造流暢Android App跳轉體驗！」使用 Jetpack Navigation with Kotlin，讓您的 APP 跳轉問題不再是問題。透過
+  Jetpack Navigation with Kotlin 的強大功能，您可以輕鬆管理 APP 中的各個畫面和操作流程，打造出更加順暢和易用的用戶體驗。
 ---
 
 ## Navigation 簡介

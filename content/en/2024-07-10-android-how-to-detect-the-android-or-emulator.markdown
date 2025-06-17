@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【UseCase】How to detect if your Android app is running on an emulator?"
-date: 2024-07-10 10:00:00 +0800
+title: 【UseCase】How to detect if your Android app is running on an emulator?
+date: '2024-07-10 10:00:00 +0800'
 image: cover/android_emulator_detection.png
-tags: [Android, Kotlin]
+tags:
+  - Android
+  - Kotlin
 permalink: /android-emulator-detection
-categories: Android Tutorial
-excerpt: "This article details various methods to check if an Android app is running in an emulator environment, including using built-in properties, checking specific files, checking phone numbers, and provides practical implementations."
+categories: AndroidDev
+excerpt: >-
+  This article details various methods to check if an Android app is running in
+  an emulator environment, including using built-in properties, checking
+  specific files, checking phone numbers, and provides practical
+  implementations.
 ---
 
 ## Introduction

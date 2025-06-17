@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "什麼是 Flutter？"
-date: 2025-03-13 09:29:10 +0800
+title: 什麼是 Flutter？
+date: '2025-03-13 09:29:10 +0800'
 image: cover/flutter-cover.svg
-tags: [flutter]
+tags:
+  - flutter
 permalink: /flutter-newer
-categories: flutter
-excerpt: "什麼是 Flutter？"
+categories: CrossPlatform
+excerpt: 什麼是 Flutter？
 ---
 
 ## 什麼是 Flutter？

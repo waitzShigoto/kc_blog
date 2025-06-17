@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "加速あなたのWebRtcとMqttの理解：用語解説ノート共有"
-date: 2022-02-14 13:50:12 +0800
+title: 加速あなたのWebRtcとMqttの理解：用語解説ノート共有
+date: '2022-02-14 13:50:12 +0800'
 image: cover/mqtt-noun-1.png
-tags: [Coding]
-categories: 其他筆記
-excerpt: "この記事では、WebRtcとMqttの用語解説ノートを整理し、これらの技術の応用と原理をより深く理解できるようにします。WebRtcとMqttに興味があるなら、この記事は見逃せません！"
+tags:
+  - Coding
+categories: Others
+excerpt: >-
+  この記事では、WebRtcとMqttの用語解説ノートを整理し、これらの技術の応用と原理をより深く理解できるようにします。WebRtcとMqttに興味があるなら、この記事は見逃せません！
 ---
 
 ## 前書き

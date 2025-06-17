@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【Compose Multiplatform】ローカル永続ストレージをDataStoreで実装する方法"
-date: 2024-07-10 13:10:10 +0800
+title: 【Compose Multiplatform】ローカル永続ストレージをDataStoreで実装する方法
+date: '2024-07-10 13:10:10 +0800'
 image: cover/compose_multiplatform_datastore.png
-tags: [Kotlin, Compose Multiplatform, DataStore]
+tags:
+  - CMP
+  - DataStore
+  - Kotlin
 permalink: /compose-multiplatform-datastore
-categories: ComposeMultiplatform
-excerpt: "この記事では、Compose MultiplatformプロジェクトでクロスプラットフォームのDataStoreローカルストレージを実装する方法を紹介します。ライブラリのインポート、各プラットフォーム向けのDataStore実装、およびcommonMainでDataStoreを使用する方法を含みます。"
+categories: CrossPlatform
+excerpt: >-
+  この記事では、Compose
+  MultiplatformプロジェクトでクロスプラットフォームのDataStoreローカルストレージを実装する方法を紹介します。ライブラリのインポート、各プラットフォーム向けのDataStore実装、およびcommonMainでDataStoreを使用する方法を含みます。
 ---
 
 ## はじめに

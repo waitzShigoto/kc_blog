@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Android Portfolio: My Portfolio"
-date: 2023-06-26 18:35:06 +0800
+title: 'Android Portfolio: My Portfolio'
+date: '2023-06-26 18:35:06 +0800'
 image: cover/android_portfolio.png
-tags: [portfolio,android]
+tags:
+  - android
+  - portfolio
 permalink: /app_portfolio
-categories: 作品集
-excerpt: "Exploring Android Development: My Portfolio"
+categories: Portfolio
+excerpt: 'Exploring Android Development: My Portfolio'
 ---
 
 ## Skills Overview

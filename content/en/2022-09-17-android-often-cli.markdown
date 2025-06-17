@@ -1,11 +1,19 @@
 ---
 layout: post
-title: "Sharing the Most Frequently Used Commands in Android App Development in 2022"
-date: 2022-09-17 17:21:13 +0800
+title: Sharing the Most Frequently Used Commands in Android App Development in 2022
+date: '2022-09-17 17:21:13 +0800'
 image: cover/android-cmd-terminal-1.png
-tags: [Android,CLI,adb,brew,develop]
-categories: Android教學
-excerpt: "A developer shares the most frequently used commands during the development process in 2022, helping you become more familiar with these commands and enhance your development skills."
+tags:
+  - ADB
+  - Android
+  - Brew
+  - CLI
+  - Development
+categories: AndroidDev
+excerpt: >-
+  A developer shares the most frequently used commands during the development
+  process in 2022, helping you become more familiar with these commands and
+  enhance your development skills.
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;Preview</h1>

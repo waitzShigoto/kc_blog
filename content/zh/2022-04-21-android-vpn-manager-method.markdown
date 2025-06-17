@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "[Android開發思路]打造你的VPN app：Android VpnManager開發思路心得"
-date: 2022-04-21 18:09:28 +0800
+title: '[Android開發思路]打造你的VPN app：Android VpnManager開發思路心得'
+date: '2022-04-21 18:09:28 +0800'
 image: cover/android-vpn-app-develop-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "以下是我過去開發Android時遇到的一個問題：如何在應用程序內實現VPN方案。在這篇文章中，我將分享我當時的研究筆記和相關的解決方案。"
-
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: 以下是我過去開發Android時遇到的一個問題：如何在應用程序內實現VPN方案。在這篇文章中，我將分享我當時的研究筆記和相關的解決方案。
 ---
 
 ## 前言

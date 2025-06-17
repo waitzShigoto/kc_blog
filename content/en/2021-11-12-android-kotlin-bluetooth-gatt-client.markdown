@@ -1,11 +1,19 @@
 ---
 layout: post
-title: "Android Low Energy Bluetooth Gatt Connection Tutorial: Implementing with Kotlin"
-date: 2021-11-12 16:16:32 +0800
+title: >-
+  Android Low Energy Bluetooth Gatt Connection Tutorial: Implementing with
+  Kotlin
+date: '2021-11-12 16:16:32 +0800'
 image: cover/bluetooth_with_kotlin-1.png
-tags: [Android,Bluetooth]
-categories: Android教學
-excerpt: "This article introduces how to implement Low Energy Bluetooth Gatt connection using Kotlin on the Android platform. The content includes establishing Gatt connections, reading Gatt services, setting Gatt characteristics, and performing data communication."
+tags:
+  - Android
+  - Bluetooth
+categories: AndroidDev
+excerpt: >-
+  This article introduces how to implement Low Energy Bluetooth Gatt connection
+  using Kotlin on the Android platform. The content includes establishing Gatt
+  connections, reading Gatt services, setting Gatt characteristics, and
+  performing data communication.
 ---
 
 ## Introduction

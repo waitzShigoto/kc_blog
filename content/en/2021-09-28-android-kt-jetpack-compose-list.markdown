@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "Jetpack Compose: Easily Implement Dynamically Updating List Data with LazyColumn + ViewModel"
-date: 2021-09-28 11:03:41 +0800
+title: >-
+  Jetpack Compose: Easily Implement Dynamically Updating List Data with
+  LazyColumn + ViewModel
+date: '2021-09-28 11:03:41 +0800'
 image: cover/ea-website-lazy-colume-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-list
-excerpt: "This article introduces how to easily implement dynamically updating list data using LazyColumn and ViewModel in Jetpack Compose."
+excerpt: >-
+  This article introduces how to easily implement dynamically updating list data
+  using LazyColumn and ViewModel in Jetpack Compose.
 ---
 ## Introduction
 In the past, creating list views from ListView -> RecyclerView -> using different Adapters has been done,

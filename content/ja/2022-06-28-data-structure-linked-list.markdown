@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "資料構造復習、Linked List 全攻略！"
-date: 2022-06-28 11:46:12 +0800
+title: 資料構造復習、Linked List 全攻略！
+date: '2022-06-28 11:46:12 +0800'
 image: cover/data-structure/cpu-linked-list.jpg
-tags: [data structure, algorithm]
-categories: 其他筆記
-excerpt: "Linked List を学び、資料構造を復習します。利点、欠点、Kotlin の実装方法を含む完全攻略。Linked List の時間計算量と操作方法を理解するのに役立ちます。"
-
+tags:
+  - algorithm
+  - data structure
+categories: Others
+excerpt: >-
+  Linked List を学び、資料構造を復習します。利点、欠点、Kotlin の実装方法を含む完全攻略。Linked List
+  の時間計算量と操作方法を理解するのに役立ちます。
 ---
 
 ## Linked list の特性

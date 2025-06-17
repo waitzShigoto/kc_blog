@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【Compose Multiplatform】手機使用依賴注入Koin"
-date: 2024-07-10 14:12:20 +0800
+title: 【Compose Multiplatform】手機使用依賴注入Koin
+date: '2024-07-10 14:12:20 +0800'
 image: cover/compose_multiplatform_koin.png
-tags: [Kotlin, Compose Multiplatform, Koin, Dependency Injection]
+tags:
+  - CMP
+  - Dependency Injection
+  - Koin
+  - Kotlin
 permalink: /compose-multiplatform-koin
-categories: ComposeMultiplatform
-excerpt: "本文詳細介紹了在 Compose Multiplatform 專案中如何使用 Koin 進行依賴注入，包括導入庫、實作 DI 內容以及在不同平台上初始化 Koin 的方法。"
+categories: CrossPlatform
+excerpt: >-
+  本文詳細介紹了在 Compose Multiplatform 專案中如何使用 Koin 進行依賴注入，包括導入庫、實作 DI 內容以及在不同平台上初始化
+  Koin 的方法。
 ---
 
 ## 前言

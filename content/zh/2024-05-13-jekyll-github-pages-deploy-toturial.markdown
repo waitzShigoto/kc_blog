@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【部署教學】Github pages 遷移至Jekyll 4.x以上版本-2024.5月適用"
-date: 2024-05-13 14:21:13 +0800
+title: 【部署教學】Github pages 遷移至Jekyll 4.x以上版本-2024.5月適用
+date: '2024-05-13 14:21:13 +0800'
 image: cover/jekyll_github_deploy.png
-tags: [Jekyll,html,githubpages]
+tags:
+  - GitHub-Pages
+  - HTML
+  - Jekyll
 permalink: /jeykll_deploy_4_x
-categories: Jekyll部署
-excerpt: "本文提供了一個詳細的指南，幫助您將您的 Github pages 網站遷移至 Jekyll 4.x 以上版本。涵蓋了各個配置的每個步驟，確保您能夠順利升級並享受 Jekyll 最新版本的強大功能。"
+categories: ToolsAndDeploy
+excerpt: >-
+  本文提供了一個詳細的指南，幫助您將您的 Github pages 網站遷移至 Jekyll 4.x
+  以上版本。涵蓋了各個配置的每個步驟，確保您能夠順利升級並享受 Jekyll 最新版本的強大功能。
 ---
 
 ## 前言

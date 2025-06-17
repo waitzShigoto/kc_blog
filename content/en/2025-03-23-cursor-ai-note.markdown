@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Using Cursor IDE to Assist Code Development"
-date: 2025-03-23 09:29:10 +0800
+title: Using Cursor IDE to Assist Code Development
+date: '2025-03-23 09:29:10 +0800'
 image: cover/cursor-ide-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-note
-categories: cursor
-excerpt: "What is Cursor?"
+categories: AI
+excerpt: What is Cursor?
 ---
 
 ## Actual Results

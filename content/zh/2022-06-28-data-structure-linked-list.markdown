@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "資料結構複習，Linked List 全攻略！"
-date: 2022-06-28 11:46:12 +0800
+title: 資料結構複習，Linked List 全攻略！
+date: '2022-06-28 11:46:12 +0800'
 image: cover/data-structure/cpu-linked-list.jpg
-tags: [data structure, algorithm]
-categories: 其他筆記
-excerpt: "學習 Linked List 複習資料結構，包含優勢、缺點，以及 Kotlin 實作方式。完整攻略，助你了解 Linked List 的 Time Complexity 和操作方法。"
-
+tags:
+  - algorithm
+  - data structure
+categories: Others
+excerpt: >-
+  學習 Linked List 複習資料結構，包含優勢、缺點，以及 Kotlin 實作方式。完整攻略，助你了解 Linked List 的 Time
+  Complexity 和操作方法。
 ---
 
 ## Linked list 特性

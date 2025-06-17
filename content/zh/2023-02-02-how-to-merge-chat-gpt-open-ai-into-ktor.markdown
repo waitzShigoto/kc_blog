@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "ChatGPT 教學 - Line Bot串接Open AI ChatGPT"
-date: 2023-02-02 16:24:56 +0800
+title: ChatGPT 教學 - Line Bot串接Open AI ChatGPT
+date: '2023-02-02 16:24:56 +0800'
 image: cover/kotlin-cht-gpt-line-bot-open-ai-1.png
-tags: [OpenAI,Chat GPT,AI]
+tags:
+  - AI
+  - ChatGPT
 permalink: /easy_use_chat_gpt_with_line_bot
 categories: AI
-excerpt: "現在Chat GPT的浪潮盛起，把Chat GPT串進你的通訊軟體聊天室，為你所用吧！"
+excerpt: 現在Chat GPT的浪潮盛起，把Chat GPT串進你的通訊軟體聊天室，為你所用吧！
 ---
 
 <div class="c-border-main-title">前導：和ChatGPT聊聊天吧</div>

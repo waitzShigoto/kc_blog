@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "Android 15 Beta版本釋出!開發者如何應對新的版本限制？"
-date: 2024-05-16 13:59:07 +0800
+title: Android 15 Beta版本釋出!開發者如何應對新的版本限制？
+date: '2024-05-16 13:59:07 +0800'
 image: cover/android-version-adaptation-15.png
-tags: [Android]
-categories: SDK升級
-excerpt: "本文將介紹 Android 15 版本升級帶來的開發挑戰以及解決方案。"
+tags:
+  - Android
+categories: DebugAndOptimize
+excerpt: 本文將介紹 Android 15 版本升級帶來的開發挑戰以及解決方案。
 ---
 
 <div class="c-border-content-title-4">前言</div>

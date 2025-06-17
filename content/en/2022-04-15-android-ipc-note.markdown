@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Connecting Android Apps: A Guide to IPC Solutions for Seamless Communication Across Processes!"
-date: 2022-04-15 15:36:28 +0800
+title: >-
+  Connecting Android Apps: A Guide to IPC Solutions for Seamless Communication
+  Across Processes!
+date: '2022-04-15 15:36:28 +0800'
 image: cover/android-ipc-method-share-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "Explore inter-process communication (IPC) techniques between Android applications, enabling your apps to communicate seamlessly across different processes for better collaboration."
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: >-
+  Explore inter-process communication (IPC) techniques between Android
+  applications, enabling your apps to communicate seamlessly across different
+  processes for better collaboration.
 ---
 
 ## Introduction

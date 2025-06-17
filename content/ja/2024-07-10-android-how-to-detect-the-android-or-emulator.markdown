@@ -5,7 +5,7 @@ date: 2024-07-10 10:00:00 +0800
 image: cover/android_emulator_detection.png
 tags: [Android, Kotlin]
 permalink: /android-emulator-detection
-categories: Androidチュートリアル
+categories: AndroidDev
 excerpt: "この記事では、Androidアプリがエミュレーター環境で実行されているかどうかを確認するさまざまな方法について詳しく説明します。ビルトインプロパティの使用、特定ファイルのチェック、電話番号のチェックなどを含め、実装例も提供します。"
 ---
 

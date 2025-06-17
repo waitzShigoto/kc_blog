@@ -1,14 +1,17 @@
 ---
 layout: post
-title: "來學習Jetpack Compose 在splash頁面加入動畫吧！"
-date: 2021-09-17 15:02:11 +0800
+title: 來學習Jetpack Compose 在splash頁面加入動畫吧！
+date: '2021-09-17 15:02:11 +0800'
 image: cover/ea-website-splash-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-splash
-excerpt: "透過Jetpack Compose，你可以輕鬆地為你的應用程式添加動態、生動的啟動頁面。
-在這篇文章中，我們將帶你一步步學習如何使用Jetpack Compose創建動畫頁面"
-
+excerpt: >-
+  透過Jetpack Compose，你可以輕鬆地為你的應用程式添加動態、生動的啟動頁面。 在這篇文章中，我們將帶你一步步學習如何使用Jetpack
+  Compose創建動畫頁面
 ---
 
 ## 目標

@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "【Compose Multiplatform】Using ROOM Database in CMP - [KSP2] Annotation value is missing in nested annotations"
-date: 2024-07-18 20:46:20 +0800
+title: >-
+  【Compose Multiplatform】Using ROOM Database in CMP - [KSP2] Annotation value is
+  missing in nested annotations
+date: '2024-07-18 20:46:20 +0800'
 image: cover/compose_multiplatform_room.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-room
-categories: ComposeMultiplatform
-excerpt: "This article details the process of migrating from a Compose project to Compose Multiplatform, and how to implement Room, which is commonly used in Android development."
+categories: CrossPlatform
+excerpt: >-
+  This article details the process of migrating from a Compose project to
+  Compose Multiplatform, and how to implement Room, which is commonly used in
+  Android development.
 ---
 
 ## Introduction

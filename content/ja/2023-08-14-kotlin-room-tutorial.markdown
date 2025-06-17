@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "Androidの永続ストレージをマスターする：KotlinとRoomデータベース実践講座"
-date: 2023-08-14 09:45:01 +0800
+title: Androidの永続ストレージをマスターする：KotlinとRoomデータベース実践講座
+date: '2023-08-14 09:45:01 +0800'
 image: cover/kotlin_room-1.png
-tags: [Kotlin, Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_room
-categories: Android教學
-excerpt: "この実践講座では、AndroidアプリケーションでKotlinとRoomを使用して永続ストレージを実現する方法を詳しく探ります。初心者から経験豊富な開発者まで、この講座は実用的な知識とテクニックを提供し、Androidアプリケーションの開発をより効率的に行えるようにします。KotlinとRoomデータベースの強力な機能を一緒に探求し、次のAndroidプロジェクトに完璧に組み込みましょう！"
+categories: AndroidDev
+excerpt: >-
+  この実践講座では、AndroidアプリケーションでKotlinとRoomを使用して永続ストレージを実現する方法を詳しく探ります。初心者から経験豊富な開発者まで、この講座は実用的な知識とテクニックを提供し、Androidアプリケーションの開発をより効率的に行えるようにします。KotlinとRoomデータベースの強力な機能を一緒に探求し、次のAndroidプロジェクトに完璧に組み込みましょう！
 ---
 
 ## 前言

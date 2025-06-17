@@ -1,12 +1,22 @@
 ---
 layout: post
-title: "Create a Smooth Android App Navigation Experience! Navigation with Kotlin: Solve Your App Navigation Issues in One Article!"
-date: 2023-05-15 16:06:16 +0800
+title: >-
+  Create a Smooth Android App Navigation Experience! Navigation with Kotlin:
+  Solve Your App Navigation Issues in One Article!
+date: '2023-05-15 16:06:16 +0800'
 image: cover/navigation_with_kotlin-1.png
-tags: [Kotlin,Navigation,Android]
+tags:
+  - Android
+  - Kotlin
+  - Navigation
 permalink: /navigation_with_kotlin
-categories: Android教學
-excerpt: "Create a Smooth Android App Navigation Experience! Using Jetpack Navigation with Kotlin, your app navigation issues will no longer be a problem. With the powerful features of Jetpack Navigation with Kotlin, you can easily manage the various screens and workflows within your app, creating a smoother and more user-friendly experience."
+categories: AndroidDev
+excerpt: >-
+  Create a Smooth Android App Navigation Experience! Using Jetpack Navigation
+  with Kotlin, your app navigation issues will no longer be a problem. With the
+  powerful features of Jetpack Navigation with Kotlin, you can easily manage the
+  various screens and workflows within your app, creating a smoother and more
+  user-friendly experience.
 ---
 
 ## Introduction to Navigation

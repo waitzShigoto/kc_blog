@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "Android Audio 適応問題の共有：Android デバイスのオーディオ問題を解決する方法を探る"
-date: 2022-03-07 14:31:22 +0800
+title: Android Audio 適応問題の共有：Android デバイスのオーディオ問題を解決する方法を探る
+date: '2022-03-07 14:31:22 +0800'
 image: cover/android-audio-share-1.png
-tags: [Android,Debug]
-categories: Debug探討
-excerpt: "Android デバイスのオーディオ問題を解決する方法を探ります。Android 開発者やオーディオ技術に興味がある方は、この共有を見逃せません！"
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
+excerpt: Android デバイスのオーディオ問題を解決する方法を探ります。Android 開発者やオーディオ技術に興味がある方は、この共有を見逃せません！
 ---
 
 ## 前書き

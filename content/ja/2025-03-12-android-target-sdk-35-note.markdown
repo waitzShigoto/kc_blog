@@ -3,9 +3,9 @@ layout: post
 title: "旧プロジェクトをTargetSDK 35に更新する際の問題記録"
 date: 2025-03-12 09:29:10 +0800
 image: cover/android-sdk-35-cover.svg
-tags: [Android]
+tags: [Android, SDK]
 permalink: /android-target-sdk-35
-categories: SDK更新
+categories: DebugAndOptimize
 excerpt: "Android15 対応ノート"
 ---
 

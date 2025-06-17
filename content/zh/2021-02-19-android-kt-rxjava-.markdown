@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Android開發 - RxJava搭配網路請求：實現Token重取與重新執行網路請求"
-date: 2021-02-19 21:37:48 +0800
+title: Android開發 - RxJava搭配網路請求：實現Token重取與重新執行網路請求
+date: '2021-02-19 21:37:48 +0800'
 image: cover/ea-website-rxjava-cover-photo-new-1.png
-tags: [Android]
-categories: Android實作
+tags:
+  - Android
+categories: AndroidDev
 permalink: /android-kt-rxjava
-excerpt: "本文將介紹如何使用 RxJava 實現 Token 的重取並重新執行網路請求的方法，這將有助於提升應用程式的使用體驗"
+excerpt: 本文將介紹如何使用 RxJava 實現 Token 的重取並重新執行網路請求的方法，這將有助於提升應用程式的使用體驗
 ---
 
 ## 前言

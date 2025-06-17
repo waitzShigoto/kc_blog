@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "Android Logcat 抓取テクニック教本、簡単にマスター：開発者でなくても理解できるlog取得テクニック！"
-date: 2022-04-18 16:37:48 +0800
+title: Android Logcat 抓取テクニック教本、簡単にマスター：開発者でなくても理解できるlog取得テクニック！
+date: '2022-04-18 16:37:48 +0800'
 image: cover/android-catch-log-1.png
-tags: [Android,Debug]
-categories: Debug探討
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
 ---
 
 ## 前書き

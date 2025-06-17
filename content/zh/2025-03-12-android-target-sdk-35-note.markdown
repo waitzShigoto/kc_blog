@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "舊專案升級TargetSDK 35問題紀錄"
-date: 2025-03-12 09:29:10 +0800
+title: 舊專案升級TargetSDK 35問題紀錄
+date: '2025-03-12 09:29:10 +0800'
 image: cover/android-sdk-35-cover.svg
-tags: [Android]
+tags:
+  - Android
 permalink: /android-target-sdk-35
-categories: SDK升級
-excerpt: "Android15 適配筆記"
+categories: DebugAndOptimize
+excerpt: Android15 適配筆記
 ---
 
 ## 專案升級TargetSDK 35問題紀錄

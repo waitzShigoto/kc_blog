@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【Compose Multiplatform 】跨平台App但Android需要context作法並搭配Koin"
-date: 2024-07-10 16:44:11 +0800
+title: 【Compose Multiplatform 】跨平台App但Android需要context作法並搭配Koin
+date: '2024-07-10 16:44:11 +0800'
 image: cover/compose_multiplatform_di_context.png
-tags: [Kotlin, Compose Multiplatform, Dependency Injection, Koin]
+tags:
+  - CMP
+  - Dependency Injection
+  - Koin
+  - Kotlin
 permalink: /compose-multiplatform-di-context
-categories: ComposeMultiplatform
-excerpt: "本文詳細介紹了在 Compose Multiplatform 專案中，如何在使用 Koin 進行依賴注入時處理 Android 平台特有的 Context 問題，並提供了實際的代碼實現。"
+categories: CrossPlatform
+excerpt: >-
+  本文詳細介紹了在 Compose Multiplatform 專案中，如何在使用 Koin 進行依賴注入時處理 Android 平台特有的 Context
+  問題，並提供了實際的代碼實現。
 ---
 
 ## 前言

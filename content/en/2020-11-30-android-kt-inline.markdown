@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "【Android/Kotlin】Quickly Master the Three Keywords: inline / noinline / crossinline!"
-date: 2020-11-30 21:01:43 +0800
+title: >-
+  【Android/Kotlin】Quickly Master the Three Keywords: inline / noinline /
+  crossinline!
+date: '2020-11-30 21:01:43 +0800'
 image: cover/android-kt-inline-1.png
-tags: [Android]
-categories: Kotlin
-excerpt: "In Kotlin programming, inline, noinline, and crossinline are common keywords. These keywords can be used in function declarations to modify the behavior of functions in different ways, thereby affecting the way the code runs and its performance."
+tags:
+  - Android
+categories: ProgrammingLang
+excerpt: >-
+  In Kotlin programming, inline, noinline, and crossinline are common keywords.
+  These keywords can be used in function declarations to modify the behavior of
+  functions in different ways, thereby affecting the way the code runs and its
+  performance.
 ---
 
 ## Introduction

@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Creating a Smooth Auto-Loading Pagination Github API Demo: MVVM, DI, RxJava, and Paging in Android Kotlin"
-date: 2021-12-23 13:06:12 +0800
+title: >-
+  Creating a Smooth Auto-Loading Pagination Github API Demo: MVVM, DI, RxJava,
+  and Paging in Android Kotlin
+date: '2021-12-23 13:06:12 +0800'
 image: cover/kotlin-mvvm+rxjava+retrofit+okHttp+dagger.png
-tags: [Android]
-categories: Android實作
-excerpt: "In this tutorial, we will explore how to create a Github API Demo using MVVM, DI, RxJava, and Paging in Android Kotlin. Through this demo, you will learn how to build a smooth auto-loading pagination application and understand how to use these important technologies in Kotlin."
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  In this tutorial, we will explore how to create a Github API Demo using MVVM,
+  DI, RxJava, and Paging in Android Kotlin. Through this demo, you will learn
+  how to build a smooth auto-loading pagination application and understand how
+  to use these important technologies in Kotlin.
 ---
 
 ## Introduction

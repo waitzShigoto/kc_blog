@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "[Android教學]Android Device Owner権限をマスターし、企業レベルの管理を簡単に！"
-date: 2022-04-25 18:19:28 +0800
+title: '[Android教學]Android Device Owner権限をマスターし、企業レベルの管理を簡単に！'
+date: '2022-04-25 18:19:28 +0800'
 image: cover/android-device-owner-1.png
-tags: [Android,Debug]
-categories: Android教學
-excerpt: "企業レベルのAndroidデバイスを簡単に管理したいですか？この記事では、Android Device Owner権限のリクエストと実際の使用方法について詳しく説明します。"
+tags:
+  - Android
+  - Debug
+categories: AndroidDev
+excerpt: >-
+  企業レベルのAndroidデバイスを簡単に管理したいですか？この記事では、Android Device
+  Owner権限のリクエストと実際の使用方法について詳しく説明します。
 ---
 
 ## 前言：Device owner権限を探る

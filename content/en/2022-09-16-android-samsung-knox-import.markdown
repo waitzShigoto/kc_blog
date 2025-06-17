@@ -1,10 +1,16 @@
 ---
 layout: post
-title: "Create More Secure Android Applications! Learn the Simple Way to Integrate Samsung Knox SDK"
-date: 2022-09-16 14:41:08 +0800
+title: >-
+  Create More Secure Android Applications! Learn the Simple Way to Integrate
+  Samsung Knox SDK
+date: '2022-09-16 14:41:08 +0800'
 image: cover/samsung-android-knox-1.png
-tags: [Android,Debug,Samsung,knox]
-categories: Android教學
+tags:
+  - Android
+  - Debug
+  - Samsung
+  - knox
+categories: AndroidDev
 ---
 
 ## Samsung Knox SDK is a Security Solution

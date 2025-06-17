@@ -1,13 +1,17 @@
 ---
 layout: post
-title: "Android Jetpack Compose 基本アプリケーションチュートリアル"
-date: 2021-09-13 16:00:48 +0800
+title: Android Jetpack Compose 基本アプリケーションチュートリアル
+date: '2021-09-13 16:00:48 +0800'
 image: cover/ea-website-base-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-base
-excerpt: "Android Jetpack Compose 基本アプリケーションチュートリアルへようこそ！このチュートリアルでは、Jetpack Compose の世界に入り、ステップバイステップのガイドを通じて Compose の基本概念とスキルを習得します。"
-
+excerpt: >-
+  Android Jetpack Compose 基本アプリケーションチュートリアルへようこそ！このチュートリアルでは、Jetpack Compose
+  の世界に入り、ステップバイステップのガイドを通じて Compose の基本概念とスキルを習得します。
 ---
 
 ## 前書き

@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Compose Multiplatform in Action: Implementing a Bottom Navigation Bar in CMP"
-date: 2024-08-18 17:26:10 +0800
+title: 'Compose Multiplatform in Action: Implementing a Bottom Navigation Bar in CMP'
+date: '2024-08-18 17:26:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-12
-categories: ComposeMultiplatform
-excerpt: "This series focuses on Compose Multiplatform in action: developing cross-platform apps from scratch using Kotlin. This post will specifically focus on developing cross-platform apps for Android and iOS, and in the final days, I'll discuss my research findings and insights."
+categories: CrossPlatform
+excerpt: >-
+  This series focuses on Compose Multiplatform in action: developing
+  cross-platform apps from scratch using Kotlin. This post will specifically
+  focus on developing cross-platform apps for Android and iOS, and in the final
+  days, I'll discuss my research findings and insights.
 ---
 
 ## Introduction

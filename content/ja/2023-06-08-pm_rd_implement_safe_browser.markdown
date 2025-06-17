@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "PM、RDの皆さん、ゼロからアプリブラウザを作成・開発しよう！"
-date: 2023-06-08 18:35:06 +0800
+title: PM、RDの皆さん、ゼロからアプリブラウザを作成・開発しよう！
+date: '2023-06-08 18:35:06 +0800'
 image: cover/safe_browser_post-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /safe_browser
-categories: 其他筆記
-excerpt: "便利で使いやすいアプリブラウザは現代生活に欠かせないものとなっています。この記事では、アプリブラウザの作成・開発の方向性について探ります。"
+categories: Others
+excerpt: 便利で使いやすいアプリブラウザは現代生活に欠かせないものとなっています。この記事では、アプリブラウザの作成・開発の方向性について探ります。
 ---
 
 ## 前書き

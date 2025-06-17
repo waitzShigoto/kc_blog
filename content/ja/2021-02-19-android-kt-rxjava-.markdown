@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "Android開発 - RxJavaを使ったネットワークリクエスト：トークンの再取得と再実行"
-date: 2021-02-19 21:37:48 +0800
+title: Android開発 - RxJavaを使ったネットワークリクエスト：トークンの再取得と再実行
+date: '2021-02-19 21:37:48 +0800'
 image: cover/ea-website-rxjava-cover-photo-new-1.png
-tags: [Android]
-categories: Android實作
+tags:
+  - Android
+categories: AndroidDev
 permalink: /android-kt-rxjava
-excerpt: "この記事では、RxJavaを使用してトークンの再取得とネットワークリクエストの再実行を実現する方法を紹介します。これにより、アプリケーションのユーザー体験が向上します。"
+excerpt: >-
+  この記事では、RxJavaを使用してトークンの再取得とネットワークリクエストの再実行を実現する方法を紹介します。これにより、アプリケーションのユーザー体験が向上します。
 ---
 
 ## 前書き

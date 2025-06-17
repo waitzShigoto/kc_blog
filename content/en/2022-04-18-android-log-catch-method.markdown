@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "Android Logcat Capture Techniques Tutorial: Easy Grasp for Non-Developers!"
-date: 2022-04-18 16:37:48 +0800
+title: 'Android Logcat Capture Techniques Tutorial: Easy Grasp for Non-Developers!'
+date: '2022-04-18 16:37:48 +0800'
 image: cover/android-catch-log-1.png
-tags: [Android,Debug]
-categories: Debug探討
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
 ---
 
 ## Introduction

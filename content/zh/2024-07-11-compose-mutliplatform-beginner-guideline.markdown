@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "【Compose Multiplatform】專案轉移探討與開發指南"
-date: 2024-07-11 18:30:20 +0800
+title: 【Compose Multiplatform】專案轉移探討與開發指南
+date: '2024-07-11 18:30:20 +0800'
 image: cover/compose_multiplatform_guide.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-guide
-categories: ComposeMultiplatform
-excerpt: "本文詳細介紹了從 Compose 專案轉移到 Compose Multiplatform 的過程，包括前期轉移成本、常用庫的對應關係、可能遇到的問題以及未來展望。"
+categories: CrossPlatform
+excerpt: >-
+  本文詳細介紹了從 Compose 專案轉移到 Compose Multiplatform
+  的過程，包括前期轉移成本、常用庫的對應關係、可能遇到的問題以及未來展望。
 ---
 
 ## 前言

@@ -1,13 +1,17 @@
 ---
 layout: post
-title: "Android Jetpack Compose 基本應用教學"
-date: 2021-09-13 16:00:48 +0800
+title: Android Jetpack Compose 基本應用教學
+date: '2021-09-13 16:00:48 +0800'
 image: cover/ea-website-base-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-base
-excerpt: "歡迎來到 Android Jetpack Compose 基本應用教學！在本教學中，我們將帶你進入 Jetpack Compose 的世界，透過一步步的指導，讓你掌握 Compose 的基本概念和技巧。"
-
+excerpt: >-
+  歡迎來到 Android Jetpack Compose 基本應用教學！在本教學中，我們將帶你進入 Jetpack Compose
+  的世界，透過一步步的指導，讓你掌握 Compose 的基本概念和技巧。
 ---
 
 ## 前言

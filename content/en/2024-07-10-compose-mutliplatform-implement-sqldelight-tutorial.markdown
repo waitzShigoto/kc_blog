@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "【Compose Multiplatform】Implementing SqlDelight Database"
-date: 2024-07-10 15:38:40 +0800
+title: 【Compose Multiplatform】Implementing SqlDelight Database
+date: '2024-07-10 15:38:40 +0800'
 image: cover/compose_multiplatform_sqldelight.png
-tags: [Kotlin, Compose Multiplatform, SqlDelight]
+tags:
+  - CMP
+  - Kotlin
+  - SqlDelight
 permalink: /compose-multiplatform-sqldelight
-categories: ComposeMultiplatform
-excerpt: "This article provides a detailed guide on how to use SqlDelight in Compose Multiplatform projects to implement cross-platform database operations, including library imports, table implementation, platform-specific implementations, and practical usage methods."
+categories: CrossPlatform
+excerpt: >-
+  This article provides a detailed guide on how to use SqlDelight in Compose
+  Multiplatform projects to implement cross-platform database operations,
+  including library imports, table implementation, platform-specific
+  implementations, and practical usage methods.
 ---
 
 ## Introduction

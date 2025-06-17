@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "究極のMacOS開発環境セットアップ：これらのZshrc設定でターミナルの可能性を解き放とう！"
-date: 2022-08-08 14:46:12 +0800
+title: 究極のMacOS開発環境セットアップ：これらのZshrc設定でターミナルの可能性を解き放とう！
+date: '2022-08-08 14:46:12 +0800'
 image: env/neofetch.png
-tags: [macOS, environment]
-categories: macOS
-excerpt: "macOSでターミナルの見た目を向上させたい開発者の皆さん、必見です！このガイドでは、私がzshrc設定を使ってどのようにセットアップしているかをお見せします。"
-
+tags:
+  - environment
+  - macOS
+categories: Others
+excerpt: >-
+  macOSでターミナルの見た目を向上させたい開発者の皆さん、必見です！このガイドでは、私がzshrc設定を使ってどのようにセットアップしているかをお見せします。
 ---
 
 主にMacBook Pro 13'で作業する開発者として、

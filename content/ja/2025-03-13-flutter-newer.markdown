@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Flutterとは？"
-date: 2025-03-13 09:29:10 +0800
+title: Flutterとは？
+date: '2025-03-13 09:29:10 +0800'
 image: cover/flutter-cover.svg
-tags: [flutter]
+tags:
+  - flutter
 permalink: /flutter-newer
-categories: flutter
-excerpt: "Flutterとは？"
+categories: CrossPlatform
+excerpt: Flutterとは？
 ---
 
 ## Flutterとは？

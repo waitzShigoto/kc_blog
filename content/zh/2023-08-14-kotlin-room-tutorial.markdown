@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "掌握 Android 持久化存儲：Kotlin 與 Room 資料庫實戰教學"
-date: 2023-08-14 09:45:01 +0800
+title: 掌握 Android 持久化存儲：Kotlin 與 Room 資料庫實戰教學
+date: '2023-08-14 09:45:01 +0800'
 image: cover/kotlin_room-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_room
-categories: Android教學
-excerpt: "在這篇實戰教學中，我們將深入探討如何在 Android 應用程式中使用 Kotlin 與 Room 來實現持久化存儲。無論你是初學者還是有經驗的開發者，這篇教學都將為你提供實用的知識和技巧，讓你能夠更有效地開發 Android 應用程式。讓我們一起探索 Kotlin 與 Room 資料庫的強大功能，並將它們完美地融入到你的下一個 Android 項目中吧!"
+categories: AndroidDev
+excerpt: >-
+  在這篇實戰教學中，我們將深入探討如何在 Android 應用程式中使用 Kotlin 與 Room
+  來實現持久化存儲。無論你是初學者還是有經驗的開發者，這篇教學都將為你提供實用的知識和技巧，讓你能夠更有效地開發 Android 應用程式。讓我們一起探索
+  Kotlin 與 Room 資料庫的強大功能，並將它們完美地融入到你的下一個 Android 項目中吧!
 ---
 ## 前言
 

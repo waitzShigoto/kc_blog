@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "如何應對 Android 14 開發中的版本差異？Android 14快速適配指南！"
-date: 2024-05-15 10:33:18 +0800
+title: 如何應對 Android 14 開發中的版本差異？Android 14快速適配指南！
+date: '2024-05-15 10:33:18 +0800'
 image: cover/android-version-adaptation-14.png
-tags: [Android]
-categories: SDK升級
-excerpt: "本文將介紹 Android 14 版本升級帶來的開發挑戰以及解決方案。"
+tags:
+  - Android
+categories: DebugAndOptimize
+excerpt: 本文將介紹 Android 14 版本升級帶來的開發挑戰以及解決方案。
 ---
 <div class="c-border-content-title-4">Android 14 平台的一些重要變更細節摘要，所有應用在該平台上行為改變</div>
 <div class="c-border-content-title-1">核心功能</div>

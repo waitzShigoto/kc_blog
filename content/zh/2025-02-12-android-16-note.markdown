@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Android16 適配筆記"
-date: 2025-02-12 09:29:10 +0800
+title: Android16 適配筆記
+date: '2025-02-12 09:29:10 +0800'
 image: cover/android-version-adaptation-16.png
-tags: [Android]
+tags:
+  - Android
 permalink: /android-16-note
-categories: SDK升級
-excerpt: "Android16 適配筆記"
+categories: DebugAndOptimize
+excerpt: Android16 適配筆記
 ---
 
 ## Android 16 開發時程 (2024-2025)

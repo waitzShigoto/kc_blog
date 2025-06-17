@@ -1,11 +1,21 @@
 ---
 layout: post
-title: "How to Handle Version Differences in Android 13 Development? Key Tips Revealed!"
-date: 2022-08-25 11:11:58 +0800
+title: >-
+  How to Handle Version Differences in Android 13 Development? Key Tips
+  Revealed!
+date: '2022-08-25 11:11:58 +0800'
 image: cover/android-version-adaptation-13-1.png
-tags: [Android,Debug,ota,aosp]
-categories: SDK升級
-excerpt: "This article will introduce the development challenges and solutions brought by the Android 13 version upgrade. By sharing some key tips, we hope to help developers handle version differences more smoothly and successfully complete their development tasks."
+tags:
+  - Android
+  - Debug
+  - aosp
+  - ota
+categories: DebugAndOptimize
+excerpt: >-
+  This article will introduce the development challenges and solutions brought
+  by the Android 13 version upgrade. By sharing some key tips, we hope to help
+  developers handle version differences more smoothly and successfully complete
+  their development tasks.
 ---
 
 This article will share my development experience with you,

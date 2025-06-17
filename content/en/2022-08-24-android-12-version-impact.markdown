@@ -1,11 +1,21 @@
 ---
 layout: post
-title: "How to Handle Version Differences in Android 12 Development? Key Tips Revealed!"
-date: 2022-08-24 14:39:48 +0800
+title: >-
+  How to Handle Version Differences in Android 12 Development? Key Tips
+  Revealed!
+date: '2022-08-24 14:39:48 +0800'
 image: cover/android-version-adaptation-12-1.png
-tags: [Android,Debug,ota,aosp]
-categories: SDK升級
-excerpt: "This article will introduce the development challenges brought by the Android 12 version upgrade and their solutions. By sharing some key tips, we hope to help developers handle version differences more smoothly and complete their development tasks successfully."
+tags:
+  - Android
+  - Debug
+  - aosp
+  - ota
+categories: DebugAndOptimize
+excerpt: >-
+  This article will introduce the development challenges brought by the Android
+  12 version upgrade and their solutions. By sharing some key tips, we hope to
+  help developers handle version differences more smoothly and complete their
+  development tasks successfully.
 ---
 
 <p class="table_container">

@@ -1,11 +1,17 @@
 ---
 layout: post
-title: "Android 12 開発におけるバージョン差異への対応方法：重要なコツを公開！"
-date: 2022-08-24 14:39:48 +0800
+title: Android 12 開発におけるバージョン差異への対応方法：重要なコツを公開！
+date: '2022-08-24 14:39:48 +0800'
 image: cover/android-version-adaptation-12-1.png
-tags: [Android,Debug,ota,aosp]
-categories: SDK升級
-excerpt: "この記事では、Android 12 バージョンアップによる開発の課題とその解決策について紹介します。いくつかの重要なコツを共有することで、開発者がバージョン差異に対処する際に役立つ情報を提供し、スムーズに開発タスクを完了できるよう支援します。"
+tags:
+  - Android
+  - Debug
+  - aosp
+  - ota
+categories: DebugAndOptimize
+excerpt: >-
+  この記事では、Android 12
+  バージョンアップによる開発の課題とその解決策について紹介します。いくつかの重要なコツを共有することで、開発者がバージョン差異に対処する際に役立つ情報を提供し、スムーズに開発タスクを完了できるよう支援します。
 ---
 
 <p class="table_container">

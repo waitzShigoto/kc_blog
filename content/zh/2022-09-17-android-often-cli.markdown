@@ -4,7 +4,7 @@ title: "分享我在 2022 年開發Android App中最常用的指令"
 date: 2022-09-17 17:21:13 +0800
 image: cover/android-cmd-terminal-1.png
 tags: [Android,CLI,adb,brew,develop]
-categories: Android教學
+categories: AndroidDev
 excerpt: "一位開發者分享了他在2022年開發過程中使用最頻繁的指令，讓你更加熟悉這些指令並加強你的開發技能"
 ---
 

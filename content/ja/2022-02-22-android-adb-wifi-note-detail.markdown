@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Android 11 adb wireless debugの力を解放：有線から無線へ、より自由なデバッグ体験を探るチュートリアル！"
-date: 2022-02-22 15:16:12 +0800
+title: Android 11 adb wireless debugの力を解放：有線から無線へ、より自由なデバッグ体験を探るチュートリアル！
+date: '2022-02-22 15:16:12 +0800'
 image: cover/android-adb-wirless-share-1.png
-tags: [Android,adb]
-categories: Android教學
-excerpt: "Android 11の真の力を引き出したいですか？無線adb wireless debugを探索しましょう！有線から無線へ、デバッグ体験をより自由で便利にします。"
+tags:
+  - ADB
+  - Android
+categories: AndroidDev
+excerpt: >-
+  Android 11の真の力を引き出したいですか？無線adb wireless
+  debugを探索しましょう！有線から無線へ、デバッグ体験をより自由で便利にします。
 ---
 
 ## 前言

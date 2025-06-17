@@ -1,12 +1,22 @@
 ---
 layout: post
-title: "Mastering Android Persistent Storage: Kotlin and Room Database Practical Tutorial"
-date: 2023-08-14 09:45:01 +0800
+title: >-
+  Mastering Android Persistent Storage: Kotlin and Room Database Practical
+  Tutorial
+date: '2023-08-14 09:45:01 +0800'
 image: cover/kotlin_room-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_room
-categories: Android教學
-excerpt: "In this practical tutorial, we will delve into how to use Kotlin and Room to achieve persistent storage in Android applications. Whether you are a beginner or an experienced developer, this tutorial will provide you with practical knowledge and techniques to help you develop Android applications more effectively. Let's explore the powerful features of Kotlin and Room databases together and seamlessly integrate them into your next Android project!"
+categories: AndroidDev
+excerpt: >-
+  In this practical tutorial, we will delve into how to use Kotlin and Room to
+  achieve persistent storage in Android applications. Whether you are a beginner
+  or an experienced developer, this tutorial will provide you with practical
+  knowledge and techniques to help you develop Android applications more
+  effectively. Let's explore the powerful features of Kotlin and Room databases
+  together and seamlessly integrate them into your next Android project!
 ---
 ## Introduction
 

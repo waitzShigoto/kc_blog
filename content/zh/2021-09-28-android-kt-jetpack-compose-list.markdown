@@ -1,12 +1,15 @@
 ---
 layout: post
-title: "Jetpack Compose：使用 LazyColumn + ViewModel 輕鬆實現動態更新的列表資料"
-date: 2021-09-28 11:03:41 +0800
+title: Jetpack Compose：使用 LazyColumn + ViewModel 輕鬆實現動態更新的列表資料
+date: '2021-09-28 11:03:41 +0800'
 image: cover/ea-website-lazy-colume-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-list
-excerpt: "這篇文章介紹了如何使用 Jetpack Compose 中的 LazyColumn 和 ViewModel，以輕鬆實現動態更新的列表資料。"
+excerpt: 這篇文章介紹了如何使用 Jetpack Compose 中的 LazyColumn 和 ViewModel，以輕鬆實現動態更新的列表資料。
 ---
 ## 前言
 過去製作listview從 ListView -> RecyclerView -> 使用不同Adapter，都做過，

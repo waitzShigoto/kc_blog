@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Cursor IDEを使用してコード開発を支援する"
-date: 2025-03-23 09:29:10 +0800
+title: Cursor IDEを使用してコード開発を支援する
+date: '2025-03-23 09:29:10 +0800'
 image: cover/cursor-ide-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-note
-categories: cursor
-excerpt: "Cursorとは？"
+categories: AI
+excerpt: Cursorとは？
 ---
 
 ## 実際の効果

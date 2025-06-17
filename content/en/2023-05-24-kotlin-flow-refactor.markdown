@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "Kotlin Flow Refactoring Network Connection Detailed Step-by-Step Guide"
-date: 2023-05-24 15:56:16 +0800
+title: Kotlin Flow Refactoring Network Connection Detailed Step-by-Step Guide
+date: '2023-05-24 15:56:16 +0800'
 image: cover/retrofit_with_kotlin_flow-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_flow_refactor
-categories: Kotlin
-excerpt: "Easily master how to use Kotlin Flow for network connection refactoring. This tutorial provides a detailed step-by-step guide to help you achieve efficient and stable network connections effortlessly."
+categories: ProgrammingLang
+excerpt: >-
+  Easily master how to use Kotlin Flow for network connection refactoring. This
+  tutorial provides a detailed step-by-step guide to help you achieve efficient
+  and stable network connections effortlessly.
 ---
 
 ## Introduction

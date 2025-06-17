@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Android 用Jektpack Compose 來開発app【01】 - 初期構築篇
-date: 2024-05-27 14:07:32 +0800
+date: '2024-05-27 14:07:32 +0800'
 image: cover/android-jetpack-compose-structure-part1.png
-tags: [Android,Kotlin]
+tags:
+  - Android
+  - Kotlin
 permalink: /android-jetpack-compose-structure-part1
-categories: JetpackCompose
-excerpt: ""
+categories: UIFramework
+excerpt: ''
 ---
 
 <div class="c-border-content-title-4">前書き</div>

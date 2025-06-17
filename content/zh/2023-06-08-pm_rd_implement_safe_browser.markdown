@@ -1,12 +1,14 @@
 ---
 layout: post
-title: "PM、RD看過來，從零開始制定或開發App瀏覽器！"
-date: 2023-06-08 18:35:06 +0800
+title: PM、RD看過來，從零開始制定或開發App瀏覽器！
+date: '2023-06-08 18:35:06 +0800'
 image: cover/safe_browser_post-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /safe_browser
-categories: 其他筆記
-excerpt: "擁有一個方便易用的應用程式瀏覽器已經成為現代生活不可或缺的一部分。本文將探討制定或開發應用程式瀏覽器方案的方向。"
+categories: Others
+excerpt: 擁有一個方便易用的應用程式瀏覽器已經成為現代生活不可或缺的一部分。本文將探討制定或開發應用程式瀏覽器方案的方向。
 ---
 
 ## 前言

@@ -1,12 +1,22 @@
 ---
 layout: post
-title: "Android Kotlin: Recreating the Classic Snake Game, Playable in Less Than a Day!"
-date: 2023-06-05 17:24:06 +0800
+title: >-
+  Android Kotlin: Recreating the Classic Snake Game, Playable in Less Than a
+  Day!
+date: '2023-06-05 17:24:06 +0800'
 image: snake_game/kotlin_snake_game_post.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_snake_game
-categories: Android實作
-excerpt: "In this tutorial, we will guide you step-by-step to create the classic Snake game, allowing you to fully experience the fun of game development during the learning process! Whether you are a beginner or an experienced developer, this hands-on tutorial will deepen your understanding of the Kotlin language and game development. Let's revisit this timeless game and create your own classic memories!"
+categories: AndroidDev
+excerpt: >-
+  In this tutorial, we will guide you step-by-step to create the classic Snake
+  game, allowing you to fully experience the fun of game development during the
+  learning process! Whether you are a beginner or an experienced developer, this
+  hands-on tutorial will deepen your understanding of the Kotlin language and
+  game development. Let's revisit this timeless game and create your own classic
+  memories!
 ---
 
 ## Introduction

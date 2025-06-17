@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "【Compose Multiplatform】CMPでROOMデータベースを使用する - [KSP2] ネストされた注釈で注釈値が欠けている"
-date: 2024-07-18 20:46:20 +0800
+title: '【Compose Multiplatform】CMPでROOMデータベースを使用する - [KSP2] ネストされた注釈で注釈値が欠けている'
+date: '2024-07-18 20:46:20 +0800'
 image: cover/compose_multiplatform_room.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-room
-categories: ComposeMultiplatform
-excerpt: "この記事では、ComposeプロジェクトからCompose Multiplatformへの移行プロセスと、Android開発でよく使用されるRoomの実装方法について詳しく説明します。"
+categories: CrossPlatform
+excerpt: >-
+  この記事では、ComposeプロジェクトからCompose
+  Multiplatformへの移行プロセスと、Android開発でよく使用されるRoomの実装方法について詳しく説明します。
 ---
 
 ## はじめに

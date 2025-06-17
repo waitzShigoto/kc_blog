@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "Quickly Learn to Adjust Element Spacing in Android Apps - Using Kotlin Extension Code to Set Margins"
-date: 2022-12-25 17:05:12 +0800
+title: >-
+  Quickly Learn to Adjust Element Spacing in Android Apps - Using Kotlin
+  Extension Code to Set Margins
+date: '2022-12-25 17:05:12 +0800'
 image: cover/kotlin-clear-code-maring-layout-xml-constarint-layout-1.png
-tags: [Android,Kotlin,Extension]
+tags:
+  - Android
+  - Extension
+  - Kotlin
 permalink: /clear_use_extension_to_set_margin
-categories: Kotlin
-excerpt: "In Android apps, adjusting element spacing is a common requirement, and using Kotlin extension code to set margins can achieve this quickly and easily. In this article, we will learn step-by-step how to use this technique to make your app look more beautiful and professional."
+categories: ProgrammingLang
+excerpt: >-
+  In Android apps, adjusting element spacing is a common requirement, and using
+  Kotlin extension code to set margins can achieve this quickly and easily. In
+  this article, we will learn step-by-step how to use this technique to make
+  your app look more beautiful and professional.
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;Introduction</h1>

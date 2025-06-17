@@ -1,11 +1,12 @@
 ---
 layout: post
-title: "加速你對 WebRtc 和 Mqtt 的理解：名詞解釋筆記分享"
-date: 2022-02-14 13:50:12 +0800
+title: 加速你對 WebRtc 和 Mqtt 的理解：名詞解釋筆記分享
+date: '2022-02-14 13:50:12 +0800'
 image: cover/mqtt-noun-1.png
-tags: [Coding]
-categories: 其他筆記
-excerpt: "本篇文章整理了WebRtc和Mqtt的名詞解釋筆記，讓你更深入理解這兩個技術的應用與原理。如果你對WebRtc和Mqtt感興趣，這篇文章絕對不容錯過！"
+tags:
+  - Coding
+categories: Others
+excerpt: 本篇文章整理了WebRtc和Mqtt的名詞解釋筆記，讓你更深入理解這兩個技術的應用與原理。如果你對WebRtc和Mqtt感興趣，這篇文章絕對不容錯過！
 ---
 
 ## 前言

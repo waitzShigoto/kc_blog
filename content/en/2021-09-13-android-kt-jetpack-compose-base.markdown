@@ -1,13 +1,18 @@
 ---
 layout: post
-title: "Android Jetpack Compose Basic Tutorial"
-date: 2021-09-13 16:00:48 +0800
+title: Android Jetpack Compose Basic Tutorial
+date: '2021-09-13 16:00:48 +0800'
 image: cover/ea-website-base-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-base
-excerpt: "Welcome to the Android Jetpack Compose Basic Tutorial! In this tutorial, we will introduce you to the world of Jetpack Compose, guiding you step by step to master the basic concepts and techniques of Compose."
-
+excerpt: >-
+  Welcome to the Android Jetpack Compose Basic Tutorial! In this tutorial, we
+  will introduce you to the world of Jetpack Compose, guiding you step by step
+  to master the basic concepts and techniques of Compose.
 ---
 
 ## Introduction

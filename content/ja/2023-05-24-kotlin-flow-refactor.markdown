@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "Kotlin Flow 重構ネットワーク接続 詳細手順ガイド"
-date: 2023-05-24 15:56:16 +0800
+title: Kotlin Flow 重構ネットワーク接続 詳細手順ガイド
+date: '2023-05-24 15:56:16 +0800'
 image: cover/retrofit_with_kotlin_flow-1.png
-tags: [Kotlin,Android]
+tags:
+  - Android
+  - Kotlin
 permalink: /kotlin_flow_refactor
-categories: Kotlin
-excerpt: "Kotlin Flowを使ってネットワーク接続をリファクタリングする方法を簡単にマスターしましょう。本ガイドでは、効率的で安定したネットワーク接続を実現するための詳細な手順を提供します。"
+categories: ProgrammingLang
+excerpt: >-
+  Kotlin
+  Flowを使ってネットワーク接続をリファクタリングする方法を簡単にマスターしましょう。本ガイドでは、効率的で安定したネットワーク接続を実現するための詳細な手順を提供します。
 ---
 
 ## 前書き

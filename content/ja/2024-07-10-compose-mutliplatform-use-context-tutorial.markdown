@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【Compose Multiplatform】KoinでAndroidのContextを扱うクロスプラットフォームアプリの実装"
-date: 2024-07-10 16:44:11 +0800
+title: 【Compose Multiplatform】KoinでAndroidのContextを扱うクロスプラットフォームアプリの実装
+date: '2024-07-10 16:44:11 +0800'
 image: cover/compose_multiplatform_di_context.png
-tags: [Kotlin, Compose Multiplatform, Dependency Injection, Koin]
+tags:
+  - CMP
+  - Dependency Injection
+  - Koin
+  - Kotlin
 permalink: /compose-multiplatform-di-context
-categories: ComposeMultiplatform
-excerpt: "この記事では、Compose Multiplatformプロジェクトで依存性注入にKoinを使用する際のAndroid固有のContext問題の処理方法について詳しく説明し、実際のコード実装を提供します。"
+categories: CrossPlatform
+excerpt: >-
+  この記事では、Compose
+  Multiplatformプロジェクトで依存性注入にKoinを使用する際のAndroid固有のContext問題の処理方法について詳しく説明し、実際のコード実装を提供します。
 ---
 
 ## はじめに

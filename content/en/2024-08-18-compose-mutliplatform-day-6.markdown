@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Compose Multiplatform in Action: Entry Points for Cross-Platform Android and iOS Code in CMP"
-date: 2024-08-18 17:17:10 +0800
+title: >-
+  Compose Multiplatform in Action: Entry Points for Cross-Platform Android and
+  iOS Code in CMP
+date: '2024-08-18 17:17:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-6
-categories: ComposeMultiplatform
-excerpt: "This series focuses on Compose Multiplatform in Action: Developing Cross-platform Apps from Scratch with Kotlin. We'll focus on cross-platform Android and iOS app development, and discuss findings and insights in the final days."
+categories: CrossPlatform
+excerpt: >-
+  This series focuses on Compose Multiplatform in Action: Developing
+  Cross-platform Apps from Scratch with Kotlin. We'll focus on cross-platform
+  Android and iOS app development, and discuss findings and insights in the
+  final days.
 ---
 
 ## Introduction

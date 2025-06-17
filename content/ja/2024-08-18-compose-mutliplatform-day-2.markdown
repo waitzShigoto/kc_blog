@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "Compose Multiplatform 実践：初戦、CMP環境をインストールしよう"
-date: 2024-08-18 17:13:10 +0800
+title: Compose Multiplatform 実践：初戦、CMP環境をインストールしよう
+date: '2024-08-18 17:13:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-2
-categories: ComposeMultiplatform
-excerpt: "このシリーズのテーマはCompose Multiplatform 実践：Kotlinでゼロからクロスプラットフォームアプリを開発することです。今回はAndroidとiOSのクロスプラットフォームアプリ開発に焦点を当て、最終日には研究結果と感想を共有します。"
+categories: CrossPlatform
+excerpt: >-
+  このシリーズのテーマはCompose Multiplatform
+  実践：Kotlinでゼロからクロスプラットフォームアプリを開発することです。今回はAndroidとiOSのクロスプラットフォームアプリ開発に焦点を当て、最終日には研究結果と感想を共有します。
 ---
 
 ## はじめに

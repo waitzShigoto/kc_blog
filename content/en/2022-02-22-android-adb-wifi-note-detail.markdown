@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Unleashing the Power of Android 11 adb Wireless Debug: From Wired to Wireless, Explore a Freer Debugging Experience!"
-date: 2022-02-22 15:16:12 +0800
+title: >-
+  Unleashing the Power of Android 11 adb Wireless Debug: From Wired to Wireless,
+  Explore a Freer Debugging Experience!
+date: '2022-02-22 15:16:12 +0800'
 image: cover/android-adb-wirless-share-1.png
-tags: [Android,adb]
-categories: Android教學
-excerpt: "Want to unlock the true potential of your Android 11? Explore wireless adb wireless debug! From wired to wireless, make your debugging experience freer and more convenient."
+tags:
+  - ADB
+  - Android
+categories: AndroidDev
+excerpt: >-
+  Want to unlock the true potential of your Android 11? Explore wireless adb
+  wireless debug! From wired to wireless, make your debugging experience freer
+  and more convenient.
 ---
 
 ## Introduction

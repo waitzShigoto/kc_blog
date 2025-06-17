@@ -1,13 +1,16 @@
 ---
 layout: post
-title: "[App Development] Use AIDL for Inter-process Communication in Android Apps!"
-date: 2020-08-21 09:41:01 +0800
+title: '[App Development] Use AIDL for Inter-process Communication in Android Apps!'
+date: '2020-08-21 09:41:01 +0800'
 image: cover/android-aidl-1.png
 permalink: /android_aidl
-tags: [Android]
-categories: Android教學
-excerpt: "As an app engineer, you will always be required to implement various features. When you encounter the need for inter-process communication between apps, what should you do?"
-
+tags:
+  - Android
+categories: AndroidDev
+excerpt: >-
+  As an app engineer, you will always be required to implement various features.
+  When you encounter the need for inter-process communication between apps, what
+  should you do?
 ---
 
 <h1 class="c-border-main-title">Introduction to AIDL</h1>

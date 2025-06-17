@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "【Deployment Guide】Migrating Github Pages to Jekyll 4.x and Above - Applicable May 2024"
-date: 2024-05-13 14:21:13 +0800
+title: >-
+  【Deployment Guide】Migrating Github Pages to Jekyll 4.x and Above - Applicable
+  May 2024
+date: '2024-05-13 14:21:13 +0800'
 image: cover/jekyll_github_deploy.png
-tags: [Jekyll,html,githubpages]
+tags:
+  - GitHub-Pages
+  - HTML
+  - Jekyll
 permalink: /jeykll_deploy_4_x
-categories: Jekyll部署
-excerpt: "This article provides a detailed guide to help you migrate your Github Pages website to Jekyll 4.x and above. It covers each step of the configuration process to ensure you can upgrade smoothly and enjoy the powerful features of the latest Jekyll version."
+categories: ToolsAndDeploy
+excerpt: >-
+  This article provides a detailed guide to help you migrate your Github Pages
+  website to Jekyll 4.x and above. It covers each step of the configuration
+  process to ensure you can upgrade smoothly and enjoy the powerful features of
+  the latest Jekyll version.
 ---
 
 ## Introduction

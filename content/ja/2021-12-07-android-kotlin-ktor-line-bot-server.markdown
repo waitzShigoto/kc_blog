@@ -1,11 +1,14 @@
 ---
 layout: post
-title: "自分のLINEチャットボットを作ろう！Kotlin Ktorを使った構築方法をゼロから学び、簡単に始められる"
-date: 2021-12-07 17:36:12 +0800
+title: 自分のLINEチャットボットを作ろう！Kotlin Ktorを使った構築方法をゼロから学び、簡単に始められる
+date: '2021-12-07 17:36:12 +0800'
 image: cover/kotlin-line-bot-ktor-server.png
-tags: [Ktor]
-categories: Ktor
-excerpt: "自分のLINEチャットボットを作ろう！Kotlin Ktorを使った構築方法をゼロから学び、簡単に始められる。このコースでは、Kotlin Ktorフレームワークを使って簡単なチャットボットを作成する方法を紹介します。"
+tags:
+  - Ktor
+categories: ProgrammingLang
+excerpt: >-
+  自分のLINEチャットボットを作ろう！Kotlin Ktorを使った構築方法をゼロから学び、簡単に始められる。このコースでは、Kotlin
+  Ktorフレームワークを使って簡単なチャットボットを作成する方法を紹介します。
 ---
 
 ## 前書き

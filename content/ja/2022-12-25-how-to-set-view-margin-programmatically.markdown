@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "Androidアプリで要素間のマージンを調整する方法 - Kotlin拡張コードを使用してマージンを設定"
-date: 2022-12-25 17:05:12 +0800
+title: Androidアプリで要素間のマージンを調整する方法 - Kotlin拡張コードを使用してマージンを設定
+date: '2022-12-25 17:05:12 +0800'
 image: cover/kotlin-clear-code-maring-layout-xml-constarint-layout-1.png
-tags: [Android,Kotlin,Extension]
+tags:
+  - Android
+  - Extension
+  - Kotlin
 permalink: /clear_use_extension_to_set_margin
-categories: Kotlin
-excerpt: "Androidアプリで要素間のマージンを調整することは一般的なニーズです。Kotlin拡張コードを使用してマージンを設定することで、この目的を迅速かつ簡単に達成できます。この記事では、このテクニックを一歩一歩学び、アプリをより美しくプロフェッショナルに見せる方法を紹介します。"
+categories: ProgrammingLang
+excerpt: >-
+  Androidアプリで要素間のマージンを調整することは一般的なニーズです。Kotlin拡張コードを使用してマージンを設定することで、この目的を迅速かつ簡単に達成できます。この記事では、このテクニックを一歩一歩学び、アプリをより美しくプロフェッショナルに見せる方法を紹介します。
 ---
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;前書き</h1>

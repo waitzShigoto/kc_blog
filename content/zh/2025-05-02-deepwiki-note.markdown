@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Deepwiki工具幫你快速理解第三方library"
-date: 2025-05-02 06:28:10 +0800
+title: Deepwiki工具幫你快速理解第三方library
+date: '2025-05-02 06:28:10 +0800'
 image: cover/deepwiki.png
-tags: [deepwiki]
+tags:
+  - deepwiki
 permalink: /deepwiki
-categories: deepwiki
-excerpt: "Deepwiki工具幫你快速理解第三方library"
+categories: AI
+excerpt: Deepwiki工具幫你快速理解第三方library
 ---
 
 ## Deepwiki

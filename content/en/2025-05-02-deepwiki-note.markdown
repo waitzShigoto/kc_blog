@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Deepwiki Tool Helps You Quickly Understand Third-Party Libraries"
-date: 2025-05-02 06:28:10 +0800
+title: Deepwiki Tool Helps You Quickly Understand Third-Party Libraries
+date: '2025-05-02 06:28:10 +0800'
 image: cover/deepwiki.png
-tags: [deepwiki]
+tags:
+  - deepwiki
 permalink: /deepwiki
-categories: deepwiki
-excerpt: "Deepwiki Tool Helps You Quickly Understand Third-Party Libraries"
+categories: AI
+excerpt: Deepwiki Tool Helps You Quickly Understand Third-Party Libraries
 ---
 
 ## Deepwiki

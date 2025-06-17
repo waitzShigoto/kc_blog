@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Developing Apps with Jetpack Compose for Android【04】 - Compose Screens
-date: 2024-05-28 14:32:37 +0800
+date: '2024-05-28 14:32:37 +0800'
 image: cover/android-jetpack-compose-structure-part4.png
-tags: [Android,Kotlin]
+tags:
+  - Android
+  - Kotlin
 permalink: /android-jetpack-compose-structure-part4
-categories: JetpackCompose
-excerpt: ""
+categories: UIFramework
+excerpt: ''
 ---
 
 <div class="c-border-content-title-4">Introduction</div>

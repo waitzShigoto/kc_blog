@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Compose Multiplatform in Action: Managing UI State with StateFlow in CMP"
-date: 2024-08-18 17:25:10 +0800
+title: 'Compose Multiplatform in Action: Managing UI State with StateFlow in CMP'
+date: '2024-08-18 17:25:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-day-11
-categories: ComposeMultiplatform
-excerpt: "This series focuses on Compose Multiplatform in action: developing cross-platform apps from scratch using Kotlin. This post will specifically focus on developing cross-platform apps for Android and iOS, and in the final days, I'll discuss my research findings and insights."
+categories: CrossPlatform
+excerpt: >-
+  This series focuses on Compose Multiplatform in action: developing
+  cross-platform apps from scratch using Kotlin. This post will specifically
+  focus on developing cross-platform apps for Android and iOS, and in the final
+  days, I'll discuss my research findings and insights.
 ---
 
 ## Introduction

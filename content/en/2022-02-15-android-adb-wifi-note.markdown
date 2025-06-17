@@ -1,11 +1,18 @@
 ---
 layout: post
-title: "Embrace Wireless: A Guide to Using ADB for Wireless Connection to Android Devices!"
-date: 2022-02-15 13:46:32 +0800
+title: >-
+  Embrace Wireless: A Guide to Using ADB for Wireless Connection to Android
+  Devices!
+date: '2022-02-15 13:46:32 +0800'
 image: others/adb_wifi.png
-tags: [Android,adb]
-categories: Android教學
-excerpt: "This article teaches you how to use ADB to connect to Android devices via Wi-Fi, freeing you from the hassle of cables and making development and testing easier."
+tags:
+  - ADB
+  - Android
+categories: AndroidDev
+excerpt: >-
+  This article teaches you how to use ADB to connect to Android devices via
+  Wi-Fi, freeing you from the hassle of cables and making development and
+  testing easier.
 ---
 
 ## Introduction

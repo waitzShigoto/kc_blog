@@ -1,12 +1,16 @@
 ---
 layout: post
-title: "Review of Data Structures: The Ultimate Guide to Linked Lists!"
-date: 2022-06-28 11:46:12 +0800
+title: 'Review of Data Structures: The Ultimate Guide to Linked Lists!'
+date: '2022-06-28 11:46:12 +0800'
 image: cover/data-structure/cpu-linked-list.jpg
-tags: [data structure, algorithm]
-categories: 其他筆記
-excerpt: "Learn about Linked Lists to review data structures, including advantages, disadvantages, and Kotlin implementation methods. A complete guide to help you understand the time complexity and operations of Linked Lists."
-
+tags:
+  - algorithm
+  - data structure
+categories: Others
+excerpt: >-
+  Learn about Linked Lists to review data structures, including advantages,
+  disadvantages, and Kotlin implementation methods. A complete guide to help you
+  understand the time complexity and operations of Linked Lists.
 ---
 
 ## Characteristics of Linked Lists

@@ -1,11 +1,17 @@
 ---
 layout: post
-title: "Android 13 開発におけるバージョン差異への対応方法：重要なテクニックを公開！"
-date: 2022-08-25 11:11:58 +0800
+title: Android 13 開発におけるバージョン差異への対応方法：重要なテクニックを公開！
+date: '2022-08-25 11:11:58 +0800'
 image: cover/android-version-adaptation-13-1.png
-tags: [Android,Debug,ota,aosp]
-categories: SDK升級
-excerpt: "この記事では、Android 13 バージョンアップによる開発の課題とその解決策について紹介します。いくつかの重要なテクニックを共有することで、開発者がバージョン差異に対応する際に役立つ情報を提供し、スムーズに開発タスクを完了できるよう支援します。"
+tags:
+  - Android
+  - Debug
+  - aosp
+  - ota
+categories: DebugAndOptimize
+excerpt: >-
+  この記事では、Android 13
+  バージョンアップによる開発の課題とその解決策について紹介します。いくつかの重要なテクニックを共有することで、開発者がバージョン差異に対応する際に役立つ情報を提供し、スムーズに開発タスクを完了できるよう支援します。
 ---
 
 この記事では、私の開発経験を共有し、

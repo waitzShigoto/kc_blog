@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Deepwikiツールで第三者ライブラリを素早く理解する"
-date: 2025-05-02 06:28:10 +0800
+title: Deepwikiツールで第三者ライブラリを素早く理解する
+date: '2025-05-02 06:28:10 +0800'
 image: cover/deepwiki.png
-tags: [deepwiki]
+tags:
+  - deepwiki
 permalink: /deepwiki
-categories: deepwiki
-excerpt: "Deepwikiツールで第三者ライブラリを素早く理解する"
+categories: AI
+excerpt: Deepwikiツールで第三者ライブラリを素早く理解する
 ---
 
 ## Deepwiki

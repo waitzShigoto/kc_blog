@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Cursor IDEでのAndroid開発の実現可能性"
-date: 2025-03-24 09:29:10 +0800
+title: Cursor IDEでのAndroid開発の実現可能性
+date: '2025-03-24 09:29:10 +0800'
 image: cover/cursor-android-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-with-android
-categories: cursor
-excerpt: "Cursor IDEでのAndroid開発の実現可能性"
+categories: AI
+excerpt: Cursor IDEでのAndroid開発の実現可能性
 ---
 
 ## 実際の効果

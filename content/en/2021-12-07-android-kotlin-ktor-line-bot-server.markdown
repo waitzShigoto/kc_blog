@@ -1,11 +1,15 @@
 ---
 layout: post
-title: "Create Your Own LINE Chatbot! A Beginner's Guide to Building with Kotlin Ktor"
-date: 2021-12-07 17:36:12 +0800
+title: Create Your Own LINE Chatbot! A Beginner's Guide to Building with Kotlin Ktor
+date: '2021-12-07 17:36:12 +0800'
 image: cover/kotlin-line-bot-ktor-server.png
-tags: [Ktor]
-categories: Ktor
-excerpt: "Create your own LINE chatbot! Learn from scratch how to build using Kotlin Ktor, making it easy to get started. This course will guide you through using the Kotlin Ktor framework to create a simple chatbot."
+tags:
+  - Ktor
+categories: ProgrammingLang
+excerpt: >-
+  Create your own LINE chatbot! Learn from scratch how to build using Kotlin
+  Ktor, making it easy to get started. This course will guide you through using
+  the Kotlin Ktor framework to create a simple chatbot.
 ---
 
 ## Introduction

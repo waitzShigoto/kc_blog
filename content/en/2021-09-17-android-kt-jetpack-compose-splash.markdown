@@ -1,13 +1,18 @@
 ---
 layout: post
-title: "Learn to Add Animations to the Splash Screen with Jetpack Compose!"
-date: 2021-09-17 15:02:11 +0800
+title: Learn to Add Animations to the Splash Screen with Jetpack Compose!
+date: '2021-09-17 15:02:11 +0800'
 image: cover/ea-website-splash-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-splash
-excerpt: "With Jetpack Compose, you can easily add dynamic and lively splash screens to your application. In this article, we will guide you step-by-step on how to create an animated splash screen using Jetpack Compose."
-
+excerpt: >-
+  With Jetpack Compose, you can easily add dynamic and lively splash screens to
+  your application. In this article, we will guide you step-by-step on how to
+  create an animated splash screen using Jetpack Compose.
 ---
 
 ## Objective

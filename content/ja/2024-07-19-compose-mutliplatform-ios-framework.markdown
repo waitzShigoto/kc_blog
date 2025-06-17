@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "【Compose Multiplatform】CMPプロジェクトでのCocoaPodsの使用とCocoaPodsなしでiOS Swift/Obj-Cを使用する方法"
-date: 2024-07-18 21:30:10 +0800
+title: >-
+  【Compose Multiplatform】CMPプロジェクトでのCocoaPodsの使用とCocoaPodsなしでiOS
+  Swift/Obj-Cを使用する方法
+date: '2024-07-18 21:30:10 +0800'
 image: cover/compose_multiplatform_ios_cocoapods.png
-tags: [Kotlin, Compose Multiplatform, KMP]
+tags:
+  - CMP
+  - Kotlin
 permalink: /compose-multiplatform-ios-cocoapods
-categories: ComposeMultiplatform
-excerpt: "この記事では、ComposeプロジェクトからCompose Multiplatformへの移行プロセスを詳細に説明し、iOSのネイティブコードを統合する方法に焦点を当てています。"
+categories: CrossPlatform
+excerpt: >-
+  この記事では、ComposeプロジェクトからCompose
+  Multiplatformへの移行プロセスを詳細に説明し、iOSのネイティブコードを統合する方法に焦点を当てています。
 ---
 
 ## はじめに

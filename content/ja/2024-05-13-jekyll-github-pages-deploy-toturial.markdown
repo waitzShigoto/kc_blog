@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "【デプロイ手順】Github PagesをJekyll 4.x以上のバージョンに移行する方法 - 2024年5月適用"
-date: 2024-05-13 14:21:13 +0800
+title: 【デプロイ手順】Github PagesをJekyll 4.x以上のバージョンに移行する方法 - 2024年5月適用
+date: '2024-05-13 14:21:13 +0800'
 image: cover/jekyll_github_deploy.png
-tags: [Jekyll,html,githubpages]
+tags:
+  - GitHub-Pages
+  - HTML
+  - Jekyll
 permalink: /jeykll_deploy_4_x
-categories: Jekyll部署
-excerpt: "この記事では、Github PagesサイトをJekyll 4.x以上のバージョンに移行するための詳細なガイドを提供しています。各設定ステップを網羅し、Jekyllの最新バージョンの強力な機能をスムーズにアップグレードして享受できるようにしています。"
+categories: ToolsAndDeploy
+excerpt: >-
+  この記事では、Github PagesサイトをJekyll
+  4.x以上のバージョンに移行するための詳細なガイドを提供しています。各設定ステップを網羅し、Jekyllの最新バージョンの強力な機能をスムーズにアップグレードして享受できるようにしています。
 ---
 
 ## 前言

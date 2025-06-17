@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Android Development - RxJava with Network Requests: Implementing Token Refresh and Retrying Network Requests"
-date: 2021-02-19 21:37:48 +0800
+title: >-
+  Android Development - RxJava with Network Requests: Implementing Token Refresh
+  and Retrying Network Requests
+date: '2021-02-19 21:37:48 +0800'
 image: cover/ea-website-rxjava-cover-photo-new-1.png
-tags: [Android]
-categories: Android實作
+tags:
+  - Android
+categories: AndroidDev
 permalink: /android-kt-rxjava
-excerpt: "This article will introduce how to use RxJava to implement token refresh and retry network requests, which will help improve the user experience of the application."
+excerpt: >-
+  This article will introduce how to use RxJava to implement token refresh and
+  retry network requests, which will help improve the user experience of the
+  application.
 ---
 
 ## Introduction

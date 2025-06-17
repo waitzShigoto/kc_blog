@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "Android Logcat 抓取技巧教學，讓你輕鬆掌握：非開發人員也能懂的log抓取技巧！"
-date: 2022-04-18 16:37:48 +0800
+title: Android Logcat 抓取技巧教學，讓你輕鬆掌握：非開發人員也能懂的log抓取技巧！
+date: '2022-04-18 16:37:48 +0800'
 image: cover/android-catch-log-1.png
-tags: [Android,Debug]
-categories: Debug探討
+tags:
+  - Android
+  - Debug
+categories: DebugAndOptimize
 ---
 
 ## 前言

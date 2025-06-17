@@ -1,11 +1,13 @@
 ---
 layout: post
-title: "無線を活用：adbを使用してAndroid実機に無線で接続する方法！"
-date: 2022-02-15 13:46:32 +0800
+title: 無線を活用：adbを使用してAndroid実機に無線で接続する方法！
+date: '2022-02-15 13:46:32 +0800'
 image: others/adb_wifi.png
-tags: [Android,adb]
-categories: Android教學
-excerpt: "この記事では、adbを使用してWiFi経由でAndroid実機に接続する方法を紹介します。有線の制約から解放され、より快適に開発とテストを行いましょう。"
+tags:
+  - ADB
+  - Android
+categories: AndroidDev
+excerpt: この記事では、adbを使用してWiFi経由でAndroid実機に接続する方法を紹介します。有線の制約から解放され、より快適に開発とテストを行いましょう。
 ---
 
 ## 前言

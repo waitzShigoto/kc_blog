@@ -3,9 +3,9 @@ layout: post
 title: "Android 16 適応ノート"
 date: 2025-02-12 09:29:10 +0800
 image: cover/android-version-adaptation-16.png
-tags: [Android]
+tags: [Android, SDK]
 permalink: /android-16-note
-categories: SDKアップグレード
+categories: DebugAndOptimize
 excerpt: "Android 16 適応ノート"
 ---
 

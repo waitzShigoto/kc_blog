@@ -1,11 +1,16 @@
 ---
 layout: post
-title: "Android 15 Beta Version Released! How Should Developers Respond to New Version Restrictions?"
-date: 2024-05-16 13:59:07 +0800
+title: >-
+  Android 15 Beta Version Released! How Should Developers Respond to New Version
+  Restrictions?
+date: '2024-05-16 13:59:07 +0800'
 image: cover/android-version-adaptation-15.png
-tags: [Android]
-categories: SDK升級
-excerpt: "This article introduces the development challenges and solutions brought by the Android 15 version upgrade."
+tags:
+  - Android
+categories: DebugAndOptimize
+excerpt: >-
+  This article introduces the development challenges and solutions brought by
+  the Android 15 version upgrade.
 ---
 
 <div class="c-border-content-title-4">Introduction</div>

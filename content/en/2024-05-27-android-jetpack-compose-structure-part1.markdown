@@ -1,12 +1,14 @@
 ---
 layout: post
 title: Developing an App with Jetpack Compose for Android【01】 - Initial Setup
-date: 2024-05-27 14:07:32 +0800
+date: '2024-05-27 14:07:32 +0800'
 image: cover/android-jetpack-compose-structure-part1.png
-tags: [Android,Kotlin]
+tags:
+  - Android
+  - Kotlin
 permalink: /android-jetpack-compose-structure-part1
-categories: JetpackCompose
-excerpt: ""
+categories: UIFramework
+excerpt: ''
 ---
 
 <div class="c-border-content-title-4">Introduction</div>

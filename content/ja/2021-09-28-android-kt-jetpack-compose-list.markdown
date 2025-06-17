@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "Jetpack Compose：使用 LazyColumn + ViewModel で動的に更新されるリストデータを簡単に実現"
-date: 2021-09-28 11:03:41 +0800
+title: Jetpack Compose：使用 LazyColumn + ViewModel で動的に更新されるリストデータを簡単に実現
+date: '2021-09-28 11:03:41 +0800'
 image: cover/ea-website-lazy-colume-cover-photo-new-1.png
-tags: [Android,Kotlin,JetpackCompose]
-categories: JetpackCompose
+tags:
+  - Android
+  - Compose
+  - Kotlin
+categories: UIFramework
 permalink: /android-kt-jetpack-compose-list
-excerpt: "この記事では、Jetpack Compose の LazyColumn と ViewModel を使用して、動的に更新されるリストデータを簡単に実現する方法を紹介します。"
+excerpt: >-
+  この記事では、Jetpack Compose の LazyColumn と ViewModel
+  を使用して、動的に更新されるリストデータを簡単に実現する方法を紹介します。
 ---
 ## 前書き
 過去に ListView -> RecyclerView -> 異なる Adapter を使用してリストビューを作成してきましたが、今では Jetpack Compose を使用して簡単にリストを作成できるようになりました。

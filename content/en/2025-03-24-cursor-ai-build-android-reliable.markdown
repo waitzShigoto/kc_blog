@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "Feasibility of Android Development with Cursor IDE"
-date: 2025-03-24 09:29:10 +0800
+title: Feasibility of Android Development with Cursor IDE
+date: '2025-03-24 09:29:10 +0800'
 image: cover/cursor-android-cover.svg
-tags: [cursor]
+tags:
+  - cursor
 permalink: /cursor-ai-with-android
-categories: cursor
-excerpt: "Feasibility of Android Development with Cursor IDE"
+categories: AI
+excerpt: Feasibility of Android Development with Cursor IDE
 ---
 
 ## Actual Effects
