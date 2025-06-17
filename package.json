@@ -30,7 +30,8 @@
     "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
-    "remark-rehype": "^11.1.2"
+    "remark-rehype": "^11.1.2",
+    "super-react-gist": "^1.0.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
