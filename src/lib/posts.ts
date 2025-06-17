@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
+import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import readingTime from 'reading-time';
 import { BlogPost, BlogFrontMatter, PaginationInfo } from '@/types/blog';
@@ -27,15 +28,6 @@ function processImagePaths(content: string): string {
     .replace(/width="(\d+)%"/g, 'style="width: $1%; height: auto;"');
 }
 
-// 代碼塊處理函數
-function processCodeBlocks(content: string): string {
-  return content
-    // 處理代碼塊，添加語言標籤
-    .replace(/```(\w+)\n([\s\S]*?)```/g, '<pre data-language="$1"><code>$2</code></pre>')
-    // 處理沒有語言標籤的代碼塊  
-    .replace(/```\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-}
-
 // 鏈接處理函數
 function processLinks(content: string): string {
   return content
@@ -45,12 +37,10 @@ function processLinks(content: string): string {
     .replace(/href="{{site\.baseurl}}([^"]*)"/g, 'href="$1"');
 }
 
-// Gist 嵌入處理函數
+// Gist 嵌入處理函數 - 不做任何轉換，保持原始格式
 function processGistEmbeds(content: string): string {
-  return content.replace(
-    /<script src="https:\/\/gist\.github\.com\/([^"]+)\.js"><\/script>/g,
-    '<div class="gist-embed" data-gist="$1"><script src="https://gist.github.com/$1.js"></script></div>'
-  );
+  // 保持 Gist script 標籤原樣，讓它們在客戶端正常載入
+  return content;
 }
 
 // 主要內容處理函數
@@ -59,7 +49,6 @@ function preprocessContent(content: string): string {
   
   // 依序處理各種元素
   processedContent = processImagePaths(processedContent);
-  processedContent = processCodeBlocks(processedContent);
   processedContent = processLinks(processedContent);
   processedContent = processGistEmbeds(processedContent);
   
@@ -101,8 +90,13 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
       
       const processedContent = await remark()
         .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw)
-        .use(rehypeStringify)
+        .use(rehypeRaw, {
+          passThrough: ['script']
+        })
+        .use(rehypeHighlight)
+        .use(rehypeStringify, {
+          allowDangerousHtml: true
+        })
         .process(preprocessedContent);
       
       const contentHtml = processedContent.toString();
@@ -125,8 +119,13 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
     
     const processedContent = await remark()
       .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeRaw)
-      .use(rehypeStringify)
+      .use(rehypeRaw, {
+        passThrough: ['script']
+      })
+      .use(rehypeHighlight)
+      .use(rehypeStringify, {
+        allowDangerousHtml: true
+      })
       .process(preprocessedContent);
     
     const contentHtml = processedContent.toString();

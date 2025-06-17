@@ -6,6 +6,8 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 import JsonLd from '@/components/seo/JsonLd';
+import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
+import GistLoader from '@/components/blog/GistLoader';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -261,6 +263,10 @@ export default async function PostPage({ params }: PostPageProps) {
                 <div dangerouslySetInnerHTML={{ __html: content }} />
               )}
             </div>
+            
+            {/* 程式碼區塊增強功能和 Gist 載入器移到 prose 容器外 */}
+            <CodeBlockEnhancer />
+            <GistLoader />
           </div>
         </article>
       </main>
