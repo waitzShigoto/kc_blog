@@ -6,8 +6,8 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 import JsonLd from '@/components/seo/JsonLd';
+
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
-import GistLoader from '@/components/blog/GistLoader';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -243,30 +243,20 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="prose prose-lg dark:prose-invert max-w-none prose-container">
               {isPortfolioPost ? (
                 <div>
-                  {/* 渲染 Markdown 內容，但替換 portfolio-content div */}
-                  <div 
-                    className="mb-12"
-                    dangerouslySetInnerHTML={{ 
-                      __html: content.replace(
-                        '<div id="portfolio-content"></div>',
-                        ''
-                      )
-                    }} 
-                  />
-                  
-                  {/* 插入對應語言的 Portfolio 組件 */}
+                  <div className="mb-12" dangerouslySetInnerHTML={{ 
+                    __html: content.replace('<div id="portfolio-content"></div>', '')
+                  }} suppressHydrationWarning />
                   <div className="mt-12">
                     {getPortfolioComponent()}
                   </div>
                 </div>
               ) : (
-                <div dangerouslySetInnerHTML={{ __html: content }} />
+                <div dangerouslySetInnerHTML={{ __html: content }} suppressHydrationWarning />
               )}
             </div>
             
-            {/* 程式碼區塊增強功能和 Gist 載入器移到 prose 容器外 */}
+            {/* 程式碼區塊增強功能和 Gist 載入器 - 分別處理不同功能 */}
             <CodeBlockEnhancer />
-            <GistLoader />
           </div>
         </article>
       </main>

@@ -37,11 +37,7 @@ function processLinks(content: string): string {
     .replace(/href="{{site\.baseurl}}([^"]*)"/g, 'href="$1"');
 }
 
-// Gist 嵌入處理函數 - 不做任何轉換，保持原始格式
-function processGistEmbeds(content: string): string {
-  // 保持 Gist script 標籤原樣，讓它們在客戶端正常載入
-  return content;
-}
+
 
 // 主要內容處理函數
 function preprocessContent(content: string): string {
@@ -50,7 +46,6 @@ function preprocessContent(content: string): string {
   // 依序處理各種元素
   processedContent = processImagePaths(processedContent);
   processedContent = processLinks(processedContent);
-  processedContent = processGistEmbeds(processedContent);
   
   return processedContent;
 }
