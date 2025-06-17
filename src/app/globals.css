@@ -312,6 +312,14 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* 確保 article-main-title 覆蓋通用 h1 樣式 */
+.prose .article-main-title {
+  background: linear-gradient(90deg, var(--color-muted), transparent) !important;
+  background-clip: initial !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: var(--color-foreground) !important;
+}
+
 .prose h2 {
   font-size: 1.875rem;
   line-height: 1.3;
@@ -472,45 +480,53 @@ body {
   transform: translateY(-1px);
 }
 
-/* 代碼塊特效 */
+/* 代碼塊 - 簡潔現代風格 */
 .prose code {
   color: var(--color-foreground);
-  background-color: var(--color-muted);
-  padding: 0.2rem 0.4rem;
-  border-radius: 0.375rem;
-  font-size: 0.875em;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: rgba(125, 125, 125, 0.1);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+  font-weight: 500;
 }
 
 .prose pre {
-  background-color: var(--color-muted);
-  border: 1px solid var(--color-border);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
   overflow-x: auto;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 1.5rem 0;
   position: relative;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.prose pre::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-emerald), var(--color-violet));
-  border-radius: 0.75rem 0.75rem 0 0;
 }
 
 .prose pre code {
   background: transparent;
   border: none;
   padding: 0;
-  box-shadow: none;
+  border-radius: 0;
+  font-size: inherit;
+  color: #24292f;
+  font-weight: 400;
+}
+
+/* 暗黑模式代碼塊 */
+.dark .prose pre {
+  background-color: #0d1117;
+  border-color: #21262d;
+}
+
+.dark .prose pre code {
+  color: #e6edf3;
+}
+
+.dark .prose code {
+  background-color: rgba(110, 118, 129, 0.2);
+  color: #e6edf3;
 }
 
 /* 引用塊特效 */
@@ -538,37 +554,85 @@ body {
   font-family: serif;
 }
 
-/* 列表特效 */
+/* 列表樣式 - 簡潔現代設計 */
 .prose ul, .prose ol {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  margin: 1.5rem 0;
+  padding-left: 0;
+}
+
+.prose ul {
+  list-style: none;
+  position: relative;
+}
+
+.prose ul li {
+  position: relative;
   padding-left: 1.5rem;
+  margin: 0.75rem 0;
+  line-height: 1.7;
+  /* 確保多行文字正確縮排 */
+  text-indent: 0;
+  hanging-indent: 0;
 }
 
-.prose ul li::marker {
-  color: var(--color-primary);
-}
-
-.prose ol li::marker {
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-.prose li {
-  margin: 0.25rem 0;
-  transition: transform 0.2s ease;
+.prose ul li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 1.1em;
   line-height: 1.7;
 }
 
-.prose li:hover {
-  transform: translateX(4px);
+.prose ol {
+  list-style: decimal;
+  counter-reset: list-counter;
+  padding-left: 1.5rem;
 }
 
-/* 嵌套列表間距 */
+.prose ol li {
+  margin: 0.75rem 0;
+  line-height: 1.7;
+  padding-left: 0.5rem;
+  /* 確保多行文字正確縮排 */
+  text-indent: 0;
+}
+
+.prose ol li::marker {
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* 嵌套列表 */
 .prose li > ul,
 .prose li > ol {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose li > ul li {
+  padding-left: 1.5rem;
+}
+
+.prose li > ul li::before {
+  content: '◦';
+  font-size: 1em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 1.7;
+}
+
+/* 暗黑模式列表 */
+.dark .prose ul li::before,
+.dark .prose ol li::marker {
+  color: #9ca3af;
+}
+
+.dark .prose li > ul li::before {
+  color: #9ca3af;
 }
 
 /* 表格特效 */
@@ -604,17 +668,34 @@ body {
 }
 
 /* 圖片特效 */
-.prose img {
+.prose img,
+.prose .prose-img {
   border-radius: 0.75rem;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
-.prose img:hover {
+.prose img:hover,
+.prose .prose-img:hover {
   transform: scale(1.02);
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* 小尺寸圖片樣式 */
+.prose img[style*="width: 25%"],
+.prose img[style*="width: 30%"] {
+  max-width: 300px;
+  margin: 1rem auto;
+}
+
+/* 大尺寸圖片樣式 */
+.prose img[style*="width: 100%"] {
+  width: 100%;
+  margin: 2rem auto;
 }
 
 /* 水平分隔線特效 */
@@ -644,19 +725,27 @@ body {
 
 /* 進階特效 */
 
-/* 代碼語言標籤 */
+/* 代碼語言標籤 - 簡潔設計 */
 .prose pre[data-language]::after {
   content: attr(data-language);
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(0, 0, 0, 0.05);
+  color: #6b7280;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-transform: lowercase;
+  letter-spacing: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.dark .prose pre[data-language]::after {
+  background: rgba(255, 255, 255, 0.05);
+  color: #9ca3af;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* 警告框樣式 */
@@ -822,4 +911,275 @@ html {
   background: var(--color-primary);
   color: var(--color-primary-foreground);
   text-shadow: none;
+}
+
+/* Gist 嵌入樣式 - 移除固定高度，讓內容自動調整 */
+.prose .gist-embed {
+  margin: 2rem 0;
+  border-radius: 0.75rem;
+  overflow: visible; /* 改為 visible 讓內容可以自動展開 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--color-border);
+  background: var(--color-muted);
+}
+
+/* GitHub Gist 原生樣式覆蓋 */
+.prose .gist-embed .gist {
+  margin: 0 !important;
+  font-size: 14px !important;
+}
+
+.prose .gist-embed .gist .gist-file {
+  border: none !important;
+  border-radius: 0.75rem !important;
+  margin: 0 !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+.prose .gist-embed .gist .gist-data {
+  background: var(--color-muted) !important;
+  border-radius: 0 0 0.75rem 0.75rem !important;
+  max-height: none !important; /* 移除最大高度限制 */
+  overflow: visible !important; /* 確保內容可見 */
+}
+
+.prose .gist-embed .gist .gist-meta {
+  background: var(--color-secondary) !important;
+  color: var(--color-secondary-foreground) !important;
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 12px !important;
+}
+
+.prose .gist-embed .gist .gist-meta a {
+  color: var(--color-primary) !important;
+  text-decoration: none !important;
+}
+
+.prose .gist-embed .gist .gist-meta a:hover {
+  text-decoration: underline !important;
+}
+
+/* 代碼行樣式 */
+.prose .gist-embed .gist .highlight {
+  background: transparent !important;
+  overflow: visible !important;
+}
+
+.prose .gist-embed .gist .blob-wrapper {
+  overflow: visible !important;
+}
+
+.prose .gist-embed .gist .blob-code-inner {
+  color: var(--color-foreground) !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+  padding: 0 !important;
+}
+
+.prose .gist-embed .gist .blob-num {
+  color: var(--color-muted-foreground) !important;
+  background: var(--color-secondary) !important;
+  padding: 0 8px !important;
+  min-width: 40px !important;
+  text-align: right !important;
+  border-right: 1px solid var(--color-border) !important;
+}
+
+/* 暗黑模式下的 Gist 樣式 */
+.dark .prose .gist-embed .gist .gist-data {
+  background: var(--color-card) !important;
+}
+
+.dark .prose .gist-embed .gist .highlight {
+  background: var(--color-card) !important;
+}
+
+.dark .prose .gist-embed .gist .blob-code-inner {
+  color: var(--color-foreground) !important;
+}
+
+.dark .prose .gist-embed .gist .blob-num {
+  background: var(--color-muted) !important;
+  color: var(--color-muted-foreground) !important;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+  .prose .gist-embed .gist {
+    font-size: 12px !important;
+  }
+  
+  .prose .gist-embed .gist .blob-code-inner {
+    font-size: 11px !important;
+  }
+}
+
+/* Jekyll 遺留樣式的現代化替代 */
+.prose .article-main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-foreground) !important;
+  border-left: 4px solid var(--color-primary);
+  padding: 1rem 1rem 1rem 2rem;
+  margin: 2.5rem 0 1.5rem 0;
+  background: linear-gradient(90deg, var(--color-muted), transparent);
+  border-radius: 0 0.5rem 0.5rem 0;
+  /* 移除漸變文字效果，使用純色 */
+  background-clip: initial;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+}
+
+.prose .article-section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-foreground);
+  background: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0 1rem 0;
+  border-left: 3px solid var(--color-primary);
+}
+
+.prose .article-subsection-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.1);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  margin: 1.5rem 0 0.75rem 0;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.prose .article-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.prose .article-card h4 {
+  margin: 1rem 0;
+  color: var(--color-foreground);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.prose .article-card hr {
+  border: none;
+  height: 1px;
+  background: var(--color-border);
+  margin: 1rem auto;
+  width: 50%;
+}
+
+.prose .article-card a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.prose .article-card a:hover {
+  text-decoration: underline;
+}
+
+/* 暗黑模式適配 */
+.dark .prose .article-main-title {
+  background: linear-gradient(90deg, var(--color-muted), transparent);
+}
+
+.dark .prose .article-subsection-title {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+/* 按鈕樣式 */
+.prose .btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  margin: 0.5rem 0;
+}
+
+.prose .btn-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-violet));
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.prose .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* 步驟標題特殊樣式 */
+.prose h3[id*="step"] {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-emerald));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+.prose h3[id*="step"]::before {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-emerald));
+}
+
+/* 方法標題樣式 */
+.prose h1[id*="方法"] {
+  border-left: 6px solid var(--color-primary);
+  padding-left: 1rem;
+  background: linear-gradient(90deg, var(--color-muted), transparent);
+  padding: 1rem 1rem 1rem 2rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 2rem 0;
+}
+
+/* 內聯代碼 - 已在上方定義，這裡移除重複 */
+
+/* 終端命令樣式 - 簡潔設計 */
+.prose pre[data-language="bash"],
+.prose pre[data-language="shell"] {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+.prose pre[data-language="bash"] code,
+.prose pre[data-language="shell"] code {
+  color: #d4d4d4;
+}
+
+.dark .prose pre[data-language="bash"],
+.dark .prose pre[data-language="shell"] {
+  background-color: #0a0a0a;
+  border-color: #262626;
+}
+
+/* 引用鏈接特殊樣式 */
+.prose a[href*="github.com"] {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-violet));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+.prose a[href*="developer.android.com"] {
+  color: #3ddc84;
+  border-bottom: 2px solid #3ddc84;
+}
+
+.prose a[href*="developer.android.com"]:hover {
+  background-color: rgba(61, 220, 132, 0.1);
 }

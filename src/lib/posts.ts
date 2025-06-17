@@ -11,6 +11,61 @@ import { POSTS_PER_PAGE } from './config';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
+// 圖片路徑處理函數
+function processImagePaths(content: string): string {
+  // 處理 Jekyll 風格的圖片路徑
+  return content
+    // 處理相對路徑圖片
+    .replace(/src="\/images\//g, 'src="/images/')
+    // 處理 alt 屬性中的引號
+    .replace(/alt="([^"]*)"(?=\s+width=)/g, 'alt="$1"')
+    // 確保圖片有適當的類別
+    .replace(/<img([^>]*?)>/g, '<img$1 class="prose-img">')
+    // 處理 Jekyll 風格的 site.baseurl
+    .replace(/{{site\.baseurl}}/g, '')
+    // 處理內聯樣式的圖片寬度
+    .replace(/width="(\d+)%"/g, 'style="width: $1%; height: auto;"');
+}
+
+// 代碼塊處理函數
+function processCodeBlocks(content: string): string {
+  return content
+    // 處理代碼塊，添加語言標籤
+    .replace(/```(\w+)\n([\s\S]*?)```/g, '<pre data-language="$1"><code>$2</code></pre>')
+    // 處理沒有語言標籤的代碼塊  
+    .replace(/```\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+}
+
+// 鏈接處理函數
+function processLinks(content: string): string {
+  return content
+    // 處理外部鏈接，添加 target="_blank"
+    .replace(/<a\s+href="https?:\/\/[^"]*"([^>]*)>/g, '<a href="$&" target="_blank" rel="noopener noreferrer"$1>')
+    // 處理 Jekyll 風格的內部鏈接
+    .replace(/href="{{site\.baseurl}}([^"]*)"/g, 'href="$1"');
+}
+
+// Gist 嵌入處理函數
+function processGistEmbeds(content: string): string {
+  return content.replace(
+    /<script src="https:\/\/gist\.github\.com\/([^"]+)\.js"><\/script>/g,
+    '<div class="gist-embed" data-gist="$1"><script src="https://gist.github.com/$1.js"></script></div>'
+  );
+}
+
+// 主要內容處理函數
+function preprocessContent(content: string): string {
+  let processedContent = content;
+  
+  // 依序處理各種元素
+  processedContent = processImagePaths(processedContent);
+  processedContent = processCodeBlocks(processedContent);
+  processedContent = processLinks(processedContent);
+  processedContent = processGistEmbeds(processedContent);
+  
+  return processedContent;
+}
+
 export function getPostsDirectory(locale: string): string {
   return path.join(contentDirectory, locale);
 }
@@ -41,11 +96,14 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
       const fileContents = fs.readFileSync(mdPath, 'utf8');
       const { data, content } = matter(fileContents);
       
+      // 預處理內容
+      const preprocessedContent = preprocessContent(content);
+      
       const processedContent = await remark()
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeStringify)
-        .process(content);
+        .process(preprocessedContent);
       
       const contentHtml = processedContent.toString();
       const readingTimeResult = readingTime(content);
@@ -62,11 +120,14 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
     
+    // 預處理內容
+    const preprocessedContent = preprocessContent(content);
+    
     const processedContent = await remark()
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw)
       .use(rehypeStringify)
-      .process(content);
+      .process(preprocessedContent);
     
     const contentHtml = processedContent.toString();
     const readingTimeResult = readingTime(content);

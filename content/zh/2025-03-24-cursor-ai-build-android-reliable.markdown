@@ -396,7 +396,7 @@ excerpt: 用Cursor IDE 來開發Android可行性
       
 <img src="/images/cursor/049.gif" alt="flutter">
 
-    - Cursor(vscode) 則使用`alt/option` + `↑/↓`
+* Cursor(vscode) 則使用`alt/option` + `↑/↓`
       
 <img src="/images/cursor/050.gif" alt="flutter">
 
@@ -406,9 +406,9 @@ excerpt: 用Cursor IDE 來開發Android可行性
       
 <img src="/images/cursor/051.gif" alt="flutter">
 
-    - Cursor(vscode) 用 `win/command` + `shift` +`D`
+* Cursor(vscode) 用 `win/command` + `shift` + `D`
       
-<img src="/images/cursor/052.gif" alt="flutter">
+<img src="/images/cursor/052.png" alt="flutter">
 
 #### 快速補全/提示
 * 以前在Android Studio常用的快速補全

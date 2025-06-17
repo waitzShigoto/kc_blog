@@ -396,7 +396,7 @@ excerpt: Cursor IDEでのAndroid開発の実現可能性
       
 <img src="/images/cursor/049.gif" alt="flutter">
 
-    - Cursor(vscode)では`alt/option` + `↑/↓`を使用
+* Cursor(vscode)では`alt/option` + `↑/↓`を使用
       
 <img src="/images/cursor/050.gif" alt="flutter">
 
@@ -406,9 +406,9 @@ excerpt: Cursor IDEでのAndroid開発の実現可能性
       
 <img src="/images/cursor/051.gif" alt="flutter">
 
-    - Cursor(vscode)では `win/command` + `shift` +`D`を使用
+* Cursor(vscode)では `win/command` + `shift` +`D`を使用
       
-<img src="/images/cursor/052.gif" alt="flutter">
+<img src="/images/cursor/052.png" alt="flutter">
 
 #### クイック補完/提案
 * 以前Android Studioでよく使っていたクイック補完

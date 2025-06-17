@@ -396,7 +396,7 @@ The following are commonly used (each `JSON object is a task`). Use as needed.
       
 <img src="/images/cursor/049.gif" alt="flutter">
 
-    - In Cursor(vscode), use `alt/option` + `↑/↓`
+* In Cursor(vscode), use `alt/option` + `↑/↓`
       
 <img src="/images/cursor/050.gif" alt="flutter">
 
@@ -406,9 +406,9 @@ The following are commonly used (each `JSON object is a task`). Use as needed.
       
 <img src="/images/cursor/051.gif" alt="flutter">
 
-    - In Cursor(vscode), use `win/command` + `shift` + `D`
+* In Cursor(vscode), use `win/command` + `shift` + `D`
       
-<img src="/images/cursor/052.gif" alt="flutter">
+<img src="/images/cursor/052.png" alt="flutter">
 
 #### Quick Completion/Suggestions
 * Quick completion that was frequently used in Android Studio
