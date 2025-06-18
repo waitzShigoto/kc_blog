@@ -8,6 +8,7 @@ import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioCo
 import JsonLd from '@/components/seo/JsonLd';
 
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
+import GistLoader from '@/components/blog/GistLoader';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -257,6 +258,7 @@ export default async function PostPage({ params }: PostPageProps) {
             
             {/* 程式碼區塊增強功能和 Gist 載入器 - 分別處理不同功能 */}
             <CodeBlockEnhancer />
+            <GistLoader />
           </div>
         </article>
       </main>
