@@ -19,25 +19,25 @@ excerpt: >-
   <div class="c-border-content-title-4">1. Register an account, click Sign Up to register: <a href="https://chat.openai.com/auth/login" target="_blank">ChatGPT Login Page</a>
 </div>
 
-  <img src="/images/linebot/line_bot_0000.png" width="60%"/>
+  <img src="/images/linebot/line_bot_0000.png" width="75%"/>
 
   <div class="c-border-content-title-4">2. Create your Account</div>
 
-  <img src="/images/linebot/line_bot_00000.png" width="45%"/>
+  <img src="/images/linebot/line_bot_00000.png" width="50%"/>
 
   <div class="c-border-content-title-4">3. Start chatting, enter your question in the dialogue box below</div>
 
-  <img src="/images/linebot/line_bot_009.png" width="70%"/>
+  <img src="/images/linebot/line_bot_009.png" width="75%"/>
 
   <div class="c-border-content-title-4">4. For example... Predicting the 2023 WBC Championship</div>
 
-  <img src="/images/linebot/line_bot_010.png" width="70%"/>
+  <img src="/images/linebot/line_bot_010.png" width="75%"/>
 
   <div class="c-border-content-title-4">5. Or... How to write a prediction program in Kotlin?</div>
 
-  <img src="/images/linebot/line_bot_011.png" width="70%"/>
-  <img src="/images/linebot/line_bot_012.png" width="70%"/>
-  <img src="/images/linebot/line_bot_013.png" width="70%"/>
+  <img src="/images/linebot/line_bot_011.png" width="75%"/>
+  <img src="/images/linebot/line_bot_012.png" width="75%"/>
+  <img src="/images/linebot/line_bot_013.png" width="75%"/>
   <p>&#11014; It looks like ChatGPT provided an example for predicting weight based on height, which seems quite decent</p>
 
 </div>
@@ -51,10 +51,10 @@ excerpt: >-
     1. Register an account and get API keys: <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI Login Page</a>
   </div>
 
-  <img src="/images/linebot/line_bot_014.png" width="30%"/>
+  <img src="/images/linebot/line_bot_014.png" width="25%"/>
 
   <p>&#11014; After clicking, you will see the above interface by clicking on the avatar in the top right corner. Click View API keys</p>
-  <img src="/images/linebot/line_bot_015.png" width="60%"/>
+  <img src="/images/linebot/line_bot_015.png" width="75%"/>
 
   <p>&#11014; Click Create new Security key, this key will be used to verify your identity when calling the API</p>
 
@@ -65,10 +65,10 @@ excerpt: >-
 
 <p>Refer to the documentation to see how to integrate, and follow the instructions provided in the documentation.</p>
 
-<img src="/images/linebot/line_bot_017.png" width="45%"/>
+<img src="/images/linebot/line_bot_017.png" width="50%"/>
 
 <p>However, if you have some experience with curl or API requests, you can directly find the curl examples provided by the official documentation and convert them into the language you are familiar with.</p>
-<img src="/images/linebot/line_bot_016.png" width="45%"/>
+<img src="/images/linebot/line_bot_016.png" width="50%"/>
 
 <pre style="text-align: left;">
 <code>

@@ -134,7 +134,7 @@ Do not share UI (use only SwiftUI)
 
 選擇剛剛解壓縮的`資料夾`即可
 
-<img src="/images/compose/030.png" alt="Cover" width="70%" /><br/>
+<img src="/images/compose/030.png" alt="Cover" width="75%" /><br/>
 
 <div class="c-border-content-title-1">額外加碼分享【Compose Multiplatform Wizard】</div>
 前面幾天有說過CMP相關的社群目前都滿活躍的

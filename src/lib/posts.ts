@@ -19,14 +19,25 @@ function processImagePaths(content: string): string {
   return content
     // 處理相對路徑圖片
     .replace(/src="\/images\//g, 'src="/images/')
-    // 處理 alt 屬性中的引號
-    .replace(/alt="([^"]*)"(?=\s+width=)/g, 'alt="$1"')
-    // 確保圖片有適當的類別
-    .replace(/<img([^>]*?)>/g, '<img$1 class="prose-img">')
     // 處理 Jekyll 風格的 site.baseurl
     .replace(/{{site\.baseurl}}/g, '')
-    // 處理內聯樣式的圖片寬度
-    .replace(/width="(\d+)%"/g, 'style="width: $1%; height: auto;"');
+    // 處理寬度屬性，轉換成CSS類別
+    .replace(/width="25%"/g, 'class="w-quarter"')
+    .replace(/width="50%"/g, 'class="w-half"')
+    .replace(/width="75%"/g, 'class="w-three-quarter"')
+    .replace(/width="100%"/g, 'class="w-full"')
+    // 處理其他百分比寬度
+    .replace(/width="(\d+)%"/g, 'style="width: $1%"')
+    // 確保所有圖片都有基本的prose類別
+    .replace(/<img([^>]*?)>/g, function(match, attrs) {
+      if (attrs.includes('class=')) {
+        // 如果已經有class，添加prose-img
+        return match.replace(/class="([^"]*)"/, 'class="$1 prose-img"');
+      } else {
+        // 如果沒有class，添加prose-img
+        return `<img${attrs} class="prose-img">`;
+      }
+    });
 }
 
 // 鏈接處理函數

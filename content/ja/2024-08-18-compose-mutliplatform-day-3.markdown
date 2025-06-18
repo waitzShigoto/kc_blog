@@ -134,7 +134,7 @@ IDEにインポートできます
 
 先ほど解凍した`フォルダ`を選択します
 
-<img src="/images/compose/030.png" alt="Cover" width="70%" /><br/>
+<img src="/images/compose/030.png" alt="Cover" width="75%" /><br/>
 
 <div class="c-border-content-title-1">追加情報【Compose Multiplatform Wizard】</div>
 前日にも触れましたが、CMP関連のコミュニティは現在非常に活発です

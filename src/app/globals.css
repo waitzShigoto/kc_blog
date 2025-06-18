@@ -742,6 +742,27 @@ body {
   display: block;
   max-width: 100%;
   height: auto;
+  position: relative;
+}
+
+/* 圖片放大提示 */
+.prose img.cursor-zoom-in::after {
+  content: '🔍';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.prose img.cursor-zoom-in:hover::after {
+  opacity: 1;
 }
 
 .prose img:hover,
@@ -752,13 +773,26 @@ body {
 
 /* 小尺寸圖片樣式 */
 .prose img[style*="width: 25%"],
-.prose img[style*="width: 30%"] {
+.prose img[style*="width: 30%"],
+.prose img.w-quarter {
+  width: 25%;
   max-width: 300px;
   margin: 1rem auto;
 }
 
+.prose img.w-half {
+  width: 50%;
+  margin: 1.5rem auto;
+}
+
+.prose img.w-three-quarter {
+  width: 75%;
+  margin: 1.5rem auto;
+}
+
 /* 大尺寸圖片樣式 */
-.prose img[style*="width: 100%"] {
+.prose img[style*="width: 100%"],
+.prose img.w-full {
   width: 100%;
   margin: 2rem auto;
 }
@@ -786,6 +820,19 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
 }
 
 /* 進階特效 */

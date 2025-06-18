@@ -17,25 +17,25 @@ excerpt: 現在Chat GPT的浪潮盛起，把Chat GPT串進你的通訊軟體聊�
   <div class="c-border-content-title-4">1.註冊帳號，點擊Sign Up註冊:<a href="https://chat.openai.com/auth/login" target="_blank">ChatGPT 登入頁面</a>
 </div>
 
-  <img src="/images/linebot/line_bot_0000.png" width="60%"/>
+  <img src="/images/linebot/line_bot_0000.png" width="75%"/>
 
   <div class="c-border-content-title-4">2.建立你的Account</div>
 
-  <img src="/images/linebot/line_bot_00000.png" width="45%"/>
+  <img src="/images/linebot/line_bot_00000.png" width="50%"/>
 
   <div class="c-border-content-title-4">3.開始聊聊天，在下面對話框輸入你要問的問題</div>
 
-  <img src="/images/linebot/line_bot_009.png" width="70%"/>
+  <img src="/images/linebot/line_bot_009.png" width="75%"/>
 
   <div class="c-border-content-title-4">4.像是...2023年WBC經典賽冠軍預測</div>
 
-  <img src="/images/linebot/line_bot_010.png" width="70%"/>
+  <img src="/images/linebot/line_bot_010.png" width="75%"/>
 
   <div class="c-border-content-title-4">5.或是...怎麼用Kotlin寫一個預測的程式呢？</div>
 
-  <img src="/images/linebot/line_bot_011.png" width="70%"/>
-  <img src="/images/linebot/line_bot_012.png" width="70%"/>
-  <img src="/images/linebot/line_bot_013.png" width="70%"/>
+  <img src="/images/linebot/line_bot_011.png" width="75%"/>
+  <img src="/images/linebot/line_bot_012.png" width="75%"/>
+  <img src="/images/linebot/line_bot_013.png" width="75%"/>
   <p>&#11014;看起來chatGPT給了一段給身高預測體重的範例，看起來有模有樣</p>
 
 </div>
@@ -49,10 +49,10 @@ excerpt: 現在Chat GPT的浪潮盛起，把Chat GPT串進你的通訊軟體聊�
     1.註冊一個賬號並獲取API keys：<a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI 登入頁面</a>
   </div>
 
-  <img src="/images/linebot/line_bot_014.png" width="30%"/>
+  <img src="/images/linebot/line_bot_014.png" width="25%"/>
 
   <p>&#11014;點擊進入後右上角 頭像點進後會有如上圖樣式，點擊View API keys即可</p>
-  <img src="/images/linebot/line_bot_015.png" width="60%"/>
+  <img src="/images/linebot/line_bot_015.png" width="75%"/>
 
   <p>&#11014;點擊Create new Security key，這個Key是你之後呼叫API使用要確認你身份的一把Key</p>
 
@@ -63,10 +63,10 @@ excerpt: 現在Chat GPT的浪潮盛起，把Chat GPT串進你的通訊軟體聊�
 
   <p>看文件介紹怎麼串，再照文件上說明去串</p>
 
-  <img src="/images/linebot/line_bot_017.png" width="45%"/>
+  <img src="/images/linebot/line_bot_017.png" width="50%"/>
 
   <p>不過若是對curl或api請求稍微有經驗了，可以直接找到官方提供的curl範例，去改成你熟悉的語言請求</p>
-  <img src="/images/linebot/line_bot_016.png" width="45%"/>
+  <img src="/images/linebot/line_bot_016.png" width="50%"/>
 
   <pre style="text-align: left;">
   <code>

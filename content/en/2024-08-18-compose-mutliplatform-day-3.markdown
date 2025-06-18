@@ -138,7 +138,7 @@ In the file selection dialog that appears
 
 select the `folder` you just unzipped
 
-<img src="/images/compose/030.png" alt="Cover" width="70%" /><br/>
+<img src="/images/compose/030.png" alt="Cover" width="75%" /><br/>
 
 <div class="c-border-content-title-1">Bonus: Compose Multiplatform Wizard</div>
 As mentioned in previous days, the CMP community is quite active

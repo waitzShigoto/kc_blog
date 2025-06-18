@@ -9,6 +9,7 @@ import JsonLd from '@/components/seo/JsonLd';
 
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
+import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -256,9 +257,10 @@ export default async function PostPage({ params }: PostPageProps) {
               )}
             </div>
             
-            {/* 程式碼區塊增強功能和 Gist 載入器 - 分別處理不同功能 */}
+            {/* 程式碼區塊增強功能、Gist 載入器和圖片放大功能 */}
             <CodeBlockEnhancer />
             <GistLoader />
+            <ImageEnhancer />
           </div>
         </article>
       </main>

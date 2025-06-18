@@ -15,25 +15,25 @@ excerpt: 今、Chat GPTの波が盛り上がっています。Chat GPTをあな�
   <div class="c-border-content-title-4">1.アカウントを登録し、Sign Upをクリックして登録します:<a href="https://chat.openai.com/auth/login" target="_blank">ChatGPT ログインページ</a>
 </div>
 
-<img src="/images/linebot/line_bot_0000.png" width="60%"/>
+<img src="/images/linebot/line_bot_0000.png" width="75%"/>
 
   <div class="c-border-content-title-4">2.アカウントを作成します</div>
 
-<img src="/images/linebot/line_bot_00000.png" width="45%"/>
+<img src="/images/linebot/line_bot_00000.png" width="50%"/>
 
   <div class="c-border-content-title-4">3.チャットを開始し、下のチャットボックスに質問を入力します</div>
 
-<img src="/images/linebot/line_bot_009.png" width="70%"/>
+<img src="/images/linebot/line_bot_009.png" width="75%"/>
 
   <div class="c-border-content-title-4">4.例えば...2023年WBCクラシックのチャンピオン予測</div>
 
-<img src="/images/linebot/line_bot_010.png" width="70%"/>
+<img src="/images/linebot/line_bot_010.png" width="75%"/>
 
   <div class="c-border-content-title-4">5.または...Kotlinで予測プログラムを書く方法は？</div>
 
-  <img src="/images/linebot/line_bot_011.png" width="70%"/>
-  <img src="/images/linebot/line_bot_012.png" width="70%"/>
-  <img src="/images/linebot/line_bot_013.png" width="70%"/>
+  <img src="/images/linebot/line_bot_011.png" width="75%"/>
+  <img src="/images/linebot/line_bot_012.png" width="75%"/>
+  <img src="/images/linebot/line_bot_013.png" width="75%"/>
   <p>&#11014;ChatGPTは身長から体重を予測するプログラムの例を示してくれました。見た目は立派です。</p>
 
 </div>
@@ -47,10 +47,10 @@ excerpt: 今、Chat GPTの波が盛り上がっています。Chat GPTをあな�
     1.アカウントを登録し、APIキーを取得します：<a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI ログインページ</a>
   </div>
 
-  <img src="/images/linebot/line_bot_014.png" width="30%"/>
+  <img src="/images/linebot/line_bot_014.png" width="25%"/>
 
   <p>&#11014;クリックして右上のアイコンをクリックすると、上の画像のような画面が表示されます。「View API keys」をクリックしてください。</p>
-  <img src="/images/linebot/line_bot_015.png" width="60%"/>
+  <img src="/images/linebot/line_bot_015.png" width="75%"/>
 
   <p>&#11014;「Create new Security key」をクリックしてください。このキーは、後でAPIを呼び出す際にあなたの身元を確認するために使用します。</p>
 
@@ -61,10 +61,10 @@ excerpt: 今、Chat GPTの波が盛り上がっています。Chat GPTをあな�
 
 <p>ドキュメントの紹介を見て、ドキュメントに書かれている説明に従って接続してください。</p>
 
-<img src="/images/linebot/line_bot_017.png" width="45%"/>
+<img src="/images/linebot/line_bot_017.png" width="50%"/>
 
 <p>しかし、curlやAPIリクエストに少し経験がある場合は、公式が提供するcurlの例を見つけて、あなたが慣れている言語に変更することができます。</p>
-<img src="/images/linebot/line_bot_016.png" width="45%"/>
+<img src="/images/linebot/line_bot_016.png" width="50%"/>
 
 <pre style="text-align: left;">
 <code>
