@@ -9,6 +9,7 @@ import rehypeStringify from 'rehype-stringify';
 import readingTime from 'reading-time';
 import { BlogPost, BlogFrontMatter, PaginationInfo } from '@/types/blog';
 import { POSTS_PER_PAGE } from './config';
+import { processJekyllIncludes } from './jekyll-processor';
 
 const contentDirectory = path.join(process.cwd(), 'content');
 
@@ -52,6 +53,7 @@ function preprocessContent(content: string, locale: string = 'en'): string {
   // 依序處理各種元素
   processedContent = processImagePaths(processedContent);
   processedContent = processLinks(processedContent, locale);
+  processedContent = processJekyllIncludes(processedContent, locale);
   
   return processedContent;
 }
