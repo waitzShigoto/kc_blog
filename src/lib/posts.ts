@@ -29,23 +29,29 @@ function processImagePaths(content: string): string {
 }
 
 // 鏈接處理函數
-function processLinks(content: string): string {
+function processLinks(content: string, locale: string = 'en'): string {
   return content
     // 處理外部鏈接，添加 target="_blank"
-    .replace(/<a\s+href="https?:\/\/[^"]*"([^>]*)>/g, '<a href="$&" target="_blank" rel="noopener noreferrer"$1>')
-    // 處理 Jekyll 風格的內部鏈接
-    .replace(/href="{{site\.baseurl}}([^"]*)"/g, 'href="$1"');
+    .replace(/<a\s+href="(https?:\/\/[^"]*)"([^>]*)>/g, '<a href="$1" target="_blank" rel="noopener noreferrer"$2>')
+    // 處理 Jekyll 風格的內部鏈接，加入語言前綴
+    .replace(/href="{{site\.baseurl}}([^"]*)"/g, `href="/${locale}$1"`)
+    // 處理相對路徑的文章鏈接，加入語言前綴和 posts 路徑
+    .replace(/href="\/([^\/][^"]*\.html?)"/g, `href="/${locale}/posts/$1"`)
+    // 處理不帶副檔名的文章鏈接
+    .replace(/href="\/([^\/][^"]*)"(?![^<]*\.(png|jpg|jpeg|gif|svg|css|js))/g, `href="/${locale}/posts/$1"`)
+    // 處理已經有語言前綴的鏈接，避免重複添加
+    .replace(new RegExp(`href="/${locale}/${locale}/`, 'g'), `href="/${locale}/`)
+    // 處理根路徑鏈接
+    .replace(/href="\/?"(?=\s|>)/g, `href="/${locale}"`);
 }
 
-
-
 // 主要內容處理函數
-function preprocessContent(content: string): string {
+function preprocessContent(content: string, locale: string = 'en'): string {
   let processedContent = content;
   
   // 依序處理各種元素
   processedContent = processImagePaths(processedContent);
-  processedContent = processLinks(processedContent);
+  processedContent = processLinks(processedContent, locale);
   
   return processedContent;
 }
@@ -81,7 +87,7 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
       const { data, content } = matter(fileContents);
       
       // 預處理內容
-      const preprocessedContent = preprocessContent(content);
+      const preprocessedContent = preprocessContent(content, locale);
       
       const processedContent = await remark()
         .use(remarkRehype, { allowDangerousHtml: true })
@@ -110,7 +116,7 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
     const { data, content } = matter(fileContents);
     
     // 預處理內容
-    const preprocessedContent = preprocessContent(content);
+    const preprocessedContent = preprocessContent(content, locale);
     
     const processedContent = await remark()
       .use(remarkRehype, { allowDangerousHtml: true })
