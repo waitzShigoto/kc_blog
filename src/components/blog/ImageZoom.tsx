@@ -81,6 +81,7 @@ export function ImageZoom({ src, alt, isOpen, onClose }: ImageZoomProps) {
         </button>
 
         {/* 圖片 */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}
@@ -113,7 +114,7 @@ interface ImageWithZoomProps {
   src: string;
   alt: string;
   className?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export function ImageWithZoom({ src, alt, className = '', ...props }: ImageWithZoomProps) {
@@ -121,6 +122,7 @@ export function ImageWithZoom({ src, alt, className = '', ...props }: ImageWithZ
 
   return (
     <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={alt}
