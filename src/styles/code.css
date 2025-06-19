@@ -1,0 +1,371 @@
+/* =============================================================================
+   代碼樣式 - 內聯代碼和代碼塊
+   ============================================================================= */
+
+/* 內聯代碼樣式 */
+.prose code:not(pre code):not(.hljs) {
+  background: var(--color-muted);
+  color: var(--color-primary);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875em;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.prose ul code:not(pre code):not(.hljs),
+.prose ol code:not(pre code):not(.hljs),
+.prose li code:not(pre code):not(.hljs) {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-emerald));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color: var(--color-muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875em;
+  font-weight: 600;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin: 0 0.125rem;
+}
+
+/* 代碼區塊樣式 */
+.prose pre {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 0;
+  margin: 2rem 0;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+/* 代碼內容容器 */
+.prose pre code.hljs {
+  background: transparent !important;
+  padding: 1.5rem !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-foreground);
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.prose pre:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+/* 自定義滾動條樣式 */
+.prose pre code.hljs::-webkit-scrollbar {
+  height: 8px;
+}
+
+.prose pre code.hljs::-webkit-scrollbar-track {
+  background: var(--color-muted);
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.prose pre code.hljs::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+  border: 1px solid var(--color-card);
+}
+
+.prose pre code.hljs::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Firefox 滾動條樣式 */
+.prose pre code.hljs {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-muted);
+}
+
+/* 處理沒有 hljs 類的普通代碼區塊 */
+.prose pre code:not(.hljs) {
+  background: transparent !important;
+  padding: 1.5rem !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-foreground);
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) var(--color-muted);
+}
+
+/* 普通代碼區塊的 Webkit 滾動條樣式 */
+.prose pre code:not(.hljs)::-webkit-scrollbar {
+  height: 8px;
+}
+
+.prose pre code:not(.hljs)::-webkit-scrollbar-track {
+  background: var(--color-muted);
+  border-radius: 0 0 0.75rem 0.75rem;
+}
+
+.prose pre code:not(.hljs)::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+  border: 1px solid var(--color-card);
+}
+
+.prose pre code:not(.hljs)::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* 暗黑模式代碼樣式 */
+.dark .prose pre {
+  background: var(--color-muted);
+  border-color: var(--color-border);
+}
+
+.dark .prose pre:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.dark .prose pre code.hljs {
+  color: var(--color-foreground);
+  scrollbar-color: var(--color-border) var(--color-muted);
+}
+
+/* 暗黑模式滾動條樣式 */
+.dark .prose pre code.hljs::-webkit-scrollbar-track {
+  background: var(--color-muted);
+}
+
+.dark .prose pre code.hljs::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border: 1px solid var(--color-muted);
+}
+
+.dark .prose code:not(pre code):not(.hljs) {
+  background: var(--color-muted);
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
+/* 代碼塊語言標籤 - 已隱藏以避免與複製按鈕衝突 */
+.prose pre::before {
+  display: none;
+}
+
+/* 代碼高亮樣式 - 基於 VS Code Dark+ 主題 */
+.hljs {
+  background: var(--color-muted) !important;
+  color: var(--color-foreground) !important;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #6a9955 !important;
+  font-style: italic !important;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #569cd6 !important;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #b5cea8 !important;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #ce9178 !important;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #dcdcaa !important;
+  font-weight: bold !important;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #4ec9b0 !important;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #92c5f8 !important;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #d16969 !important;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #dcdcaa !important;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #4fc1ff !important;
+}
+
+.hljs-meta {
+  color: #808080 !important;
+}
+
+.hljs-deletion {
+  background: #ff6b6b !important;
+}
+
+.hljs-addition {
+  background: #51cf66 !important;
+}
+
+.hljs-emphasis {
+  font-style: italic !important;
+}
+
+.hljs-strong {
+  font-weight: bold !important;
+}
+
+/* 代碼塊複製按鈕樣式 */
+.code-block-wrapper {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  background: var(--color-muted);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  opacity: 1;
+  transition: all 0.2s ease;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.copy-button svg {
+  stroke: currentColor;
+  transition: all 0.2s ease;
+}
+
+/* 複製按鈕在 JavaScript 中處理 hover 效果 */
+
+.copy-button:hover {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  transform: scale(1.05);
+}
+
+.copy-button.copied {
+  display: flex !important;
+  background-color: var(--color-emerald);
+  color: white;
+}
+
+.copy-button.error {
+  display: flex !important;
+  background-color: #ef4444;
+  color: white;
+}
+
+/* 行號樣式 */
+.hljs-ln {
+  border-collapse: collapse !important;
+}
+
+.hljs-ln td {
+  padding: 0 !important;
+}
+
+.hljs-ln-numbers {
+  text-align: right !important;
+  color: var(--color-muted-foreground) !important;
+  border-right: 1px solid var(--color-border) !important;
+  vertical-align: top !important;
+  padding-right: 0.75rem !important;
+  user-select: none !important;
+}
+
+.hljs-ln-code {
+  padding-left: 0.75rem !important;
+}
+
+/* 特殊代碼塊樣式 */
+.prose .code-filename {
+  background-color: var(--color-muted);
+  color: var(--color-foreground);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Menlo', 'Consolas', monospace;
+  font-size: 0.875rem;
+  margin: 1.5rem 0 0 0;
+  border: 1px solid var(--color-border);
+  border-bottom: none;
+}
+
+.prose .code-filename + pre {
+  margin-top: 0;
+  border-radius: 0 0 0.5rem 0.5rem;
+  border-top: none;
+}
+
+/* 差異代碼塊 */
+.prose .diff-added {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border-left: 3px solid #10b981 !important;
+}
+
+.prose .diff-removed {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+  border-left: 3px solid #ef4444 !important;
+}
+
+/* 終端機樣式 */
+.prose .terminal {
+  background-color: #000000 !important;
+  color: #00ff00 !important;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Menlo', 'Consolas', monospace !important;
+}
+
+.prose .terminal::before {
+  content: "$ ";
+  color: #00ff00;
+  font-weight: bold;
+} 

@@ -21,7 +21,7 @@ export default function CodeBlockEnhancer() {
         background-color: var(--color-muted);
         color: var(--color-foreground);
         border: 1px solid var(--color-border);
-        opacity: 0.7;
+        opacity: 1;
         width: 36px;
         height: 36px;
         display: flex;
@@ -32,13 +32,11 @@ export default function CodeBlockEnhancer() {
       
       // Hover 效果
       copyButton.addEventListener('mouseenter', () => {
-        copyButton.style.opacity = '1';
         copyButton.style.transform = 'scale(1.05)';
         copyButton.style.backgroundColor = 'var(--color-secondary)';
       });
       
       copyButton.addEventListener('mouseleave', () => {
-        copyButton.style.opacity = '0.7';
         copyButton.style.transform = 'scale(1)';
         copyButton.style.backgroundColor = 'var(--color-muted)';
       });

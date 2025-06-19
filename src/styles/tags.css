@@ -1,0 +1,102 @@
+/* 現代化標籤顏色類別 - 低飽和度、高質感 */
+.tag-slate {
+  background-color: var(--color-slate-light);
+  color: var(--color-slate);
+}
+
+.tag-gray {
+  background-color: var(--color-gray-light);
+  color: var(--color-gray);
+}
+
+.tag-zinc {
+  background-color: var(--color-zinc-light);
+  color: var(--color-zinc);
+}
+
+.tag-stone {
+  background-color: var(--color-stone-light);
+  color: var(--color-stone);
+}
+
+.tag-blue {
+  background-color: var(--color-blue-light);
+  color: var(--color-blue);
+}
+
+.tag-indigo {
+  background-color: var(--color-indigo-light);
+  color: var(--color-indigo);
+}
+
+.tag-violet {
+  background-color: var(--color-violet-light);
+  color: var(--color-violet);
+}
+
+.tag-emerald {
+  background-color: var(--color-emerald-light);
+  color: var(--color-emerald);
+}
+
+/* 分類顏色類別 - 與標籤相似但使用不同的色調 */
+.category-blue {
+  background-color: var(--color-blue-light);
+  color: var(--color-blue);
+}
+
+.category-emerald {
+  background-color: var(--color-emerald-light);
+  color: var(--color-emerald);
+}
+
+.category-purple {
+  background-color: var(--color-violet-light);
+  color: var(--color-violet);
+}
+
+.category-orange {
+  background-color: #fff7ed;
+  color: #ea580c;
+}
+
+.category-pink {
+  background-color: #fdf2f8;
+  color: #ec4899;
+}
+
+.category-indigo {
+  background-color: var(--color-indigo-light);
+  color: var(--color-indigo);
+}
+
+.category-cyan {
+  background-color: #ecfeff;
+  color: #0891b2;
+}
+
+.category-red {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+/* 暗黑模式分類顏色 */
+.dark .category-orange {
+  background-color: #431407;
+  color: #fb923c;
+}
+
+.dark .category-pink {
+  background-color: #500724;
+  color: #f472b6;
+}
+
+.dark .category-cyan {
+  background-color: #083344;
+  color: #22d3ee;
+}
+
+.dark .category-red {
+  background-color: #450a0a;
+  color: #f87171;
+} 

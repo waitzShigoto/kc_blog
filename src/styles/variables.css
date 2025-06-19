@@ -1,0 +1,69 @@
+/* 明亮模式配色 - 參考 Nextra 風格 */
+:root {
+  --color-background: #ffffff;
+  --color-foreground: #1f2937;
+  --color-muted: #f9fafb;
+  --color-muted-foreground: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+  --color-card-border: #f3f4f6;
+  --color-primary: #3b82f6;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #f1f5f9;
+  --color-secondary-foreground: #475569;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  
+  /* 現代化標籤配色系統 - 低飽和度、高質感 */
+  --color-slate: #64748b;
+  --color-slate-light: #f1f5f9;
+  --color-gray: #6b7280;
+  --color-gray-light: #f9fafb;
+  --color-zinc: #71717a;
+  --color-zinc-light: #fafafa;
+  --color-stone: #78716c;
+  --color-stone-light: #fafaf9;
+  --color-blue: #3b82f6;
+  --color-blue-light: #eff6ff;
+  --color-indigo: #6366f1;
+  --color-indigo-light: #eef2ff;
+  --color-violet: #8b5cf6;
+  --color-violet-light: #f5f3ff;
+  --color-emerald: #10b981;
+  --color-emerald-light: #ecfdf5;
+}
+
+/* 暗黑模式配色 - 參考 Nextra 風格 */
+.dark {
+  --color-background: #0f172a;
+  --color-foreground: #f1f5f9;
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
+  --color-border: #334155;
+  --color-card: #1e293b;
+  --color-card-border: #334155;
+  --color-primary: #60a5fa;
+  --color-primary-foreground: #0f172a;
+  --color-secondary: #334155;
+  --color-secondary-foreground: #cbd5e1;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #0f172a;
+  
+  /* 暗黑模式現代化標籤配色 */
+  --color-slate: #94a3b8;
+  --color-slate-light: #1e293b;
+  --color-gray: #9ca3af;
+  --color-gray-light: #1f2937;
+  --color-zinc: #a1a1aa;
+  --color-zinc-light: #18181b;
+  --color-stone: #a8a29e;
+  --color-stone-light: #1c1917;
+  --color-blue: #60a5fa;
+  --color-blue-light: #1e3a8a;
+  --color-indigo: #818cf8;
+  --color-indigo-light: #312e81;
+  --color-violet: #a78bfa;
+  --color-violet-light: #4c1d95;
+  --color-emerald: #34d399;
+  --color-emerald-light: #064e3b;
+} 

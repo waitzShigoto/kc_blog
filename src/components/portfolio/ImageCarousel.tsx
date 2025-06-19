@@ -154,9 +154,8 @@ export default function ImageCarousel({ images, title, description, features }: 
             <h4 className="font-semibold text-foreground mb-2">Main Features：</h4>
             <ul className="space-y-1">
               {features.map((feature, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-blue-500 mr-2 mt-1">•</span>
-                  <span className="text-muted-foreground">{feature}</span>
+                <li key={index} className="text-muted-foreground">
+                  {feature}
                 </li>
               ))}
             </ul>
