@@ -89,8 +89,9 @@ export function processJekyllIncludes(content: string, locale: string = 'en'): s
   text-align: center;
 }
 
+.prose .cmp-navigation-list,
 .cmp-navigation-list {
-  counter-reset: cmp-counter;
+  counter-reset: cmp-counter !important;
   margin: 0 !important;
   padding: 0 !important;
   list-style: none !important;
@@ -99,8 +100,9 @@ export function processJekyllIncludes(content: string, locale: string = 'en'): s
   gap: 0.25rem !important;
 }
 
+.prose .cmp-navigation-list li,
 .cmp-navigation-list li {
-  counter-increment: cmp-counter;
+  counter-increment: cmp-counter !important;
   margin: 0 !important;
   padding: 0 !important;
   list-style: none !important;
@@ -110,19 +112,20 @@ export function processJekyllIncludes(content: string, locale: string = 'en'): s
   line-height: 1.1 !important;
 }
 
+.prose .cmp-navigation-list li::before,
 .cmp-navigation-list li::before {
-  content: counter(cmp-counter);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  background: rgb(59, 130, 246);
-  color: white;
-  border-radius: 50%;
-  font-size: 0.625rem;
-  font-weight: 600;
-  flex-shrink: 0;
+  content: counter(cmp-counter) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: rgb(59, 130, 246) !important;
+  color: white !important;
+  border-radius: 50% !important;
+  font-size: 0.625rem !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
 }
 
 .cmp-navigation-link {
@@ -155,14 +158,16 @@ export function processJekyllIncludes(content: string, locale: string = 'en'): s
     margin-bottom: 0.1875rem;
   }
   
+  .prose .cmp-navigation-list li,
   .cmp-navigation-list li {
     gap: 0.25rem !important;
   }
   
+  .prose .cmp-navigation-list li::before,
   .cmp-navigation-list li::before {
-    width: 14px;
-    height: 14px;
-    font-size: 0.5625rem;
+    width: 14px !important;
+    height: 14px !important;
+    font-size: 0.5625rem !important;
   }
   
   .cmp-navigation-link {
