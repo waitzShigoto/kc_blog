@@ -14,6 +14,11 @@ interface PostsByYear {
   [year: string]: BlogPost[];
 }
 
+// 添加日期字符串標準化函數
+const normalizeDate = (dateString: string) => {
+  return dateString.replace(/-/g, '/');
+};
+
 export default function ArchivesContent({ posts, locale }: ArchivesContentProps) {
   const [showYearSelector, setShowYearSelector] = useState(false);
 
@@ -31,7 +36,7 @@ export default function ArchivesContent({ posts, locale }: ArchivesContentProps)
     
     // 先按年份分組
     posts.forEach(post => {
-      const year = new Date(post.frontMatter.date).getFullYear().toString();
+      const year = new Date(normalizeDate(post.frontMatter.date)).getFullYear().toString();
       if (!grouped[year]) {
         grouped[year] = [];
       }
@@ -50,7 +55,7 @@ export default function ArchivesContent({ posts, locale }: ArchivesContentProps)
     sortedYears.forEach(year => {
       // 每年內的文章按日期降序排列（最新的在前）
       result[year] = grouped[year].sort((a, b) => 
-        new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime()
+        new Date(normalizeDate(b.frontMatter.date)).getTime() - new Date(normalizeDate(a.frontMatter.date)).getTime()
       );
     });
     
@@ -82,7 +87,7 @@ export default function ArchivesContent({ posts, locale }: ArchivesContentProps)
 
   // 格式化日期
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = new Date(normalizeDate(dateString));
     if (locale === 'zh') {
       return date.toLocaleDateString('zh-TW', { 
         year: 'numeric', 
