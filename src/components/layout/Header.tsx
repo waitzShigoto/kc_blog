@@ -31,7 +31,17 @@ export default function Header({ locale }: HeaderProps) {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
         </svg>
       ),
-      description: 'JSON 解析和格式化工具'
+      description: locale === 'zh' ? 'JSON 解析和格式化工具' : locale === 'en' ? 'JSON parser and formatter tool' : 'JSON 解析とフォーマットツール'
+    },
+    {
+      name: 'Base64 Parser',
+      href: `/${locale}/tools/base64-parser-online`,
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+      description: locale === 'zh' ? 'Base64 編碼解碼工具' : locale === 'en' ? 'Base64 encoder and decoder tool' : 'Base64 エンコード・デコードツール'
     }
   ];
 
