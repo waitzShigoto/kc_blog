@@ -355,4 +355,64 @@ export async function getPostByPermalink(permalink: string, locale?: string): Pr
   }
   
   return null;
+}
+
+export async function getRelatedPosts(currentPost: BlogPost, locale: string, limit: number = 6): Promise<BlogPost[]> {
+  const allPosts = await getAllPosts(locale);
+  const currentTags = currentPost.frontMatter.tags || [];
+  const currentCategories = Array.isArray(currentPost.frontMatter.categories) 
+    ? currentPost.frontMatter.categories 
+    : (currentPost.frontMatter.categories ? [currentPost.frontMatter.categories] : []);
+  
+  // 過濾掉當前文章
+  const otherPosts = allPosts.filter(post => post.slug !== currentPost.slug);
+  
+  // 計算相關性分數
+  const postsWithScore = otherPosts.map(post => {
+    let score = 0;
+    const postTags = post.frontMatter.tags || [];
+    const postCategories = Array.isArray(post.frontMatter.categories) 
+      ? post.frontMatter.categories 
+      : (post.frontMatter.categories ? [post.frontMatter.categories] : []);
+    
+    // 標籤匹配得分（每個匹配的標籤 +2 分）
+    const tagMatches = currentTags.filter(tag => postTags.includes(tag));
+    score += tagMatches.length * 2;
+    
+    // 分類匹配得分（每個匹配的分類 +3 分）
+    const categoryMatches = currentCategories.filter(category => postCategories.includes(category));
+    score += categoryMatches.length * 3;
+    
+    return {
+      post,
+      score,
+      tagMatches: tagMatches.length,
+      categoryMatches: categoryMatches.length
+    };
+  });
+  
+  // 按分數排序，分數相同時按日期排序（較新的在前）
+  const sortedPosts = postsWithScore
+    .filter(item => item.score > 0) // 只返回有相關性的文章
+    .sort((a, b) => {
+      if (a.score !== b.score) {
+        return b.score - a.score; // 分數高的在前
+      }
+      // 分數相同時按日期排序
+      const dateA = new Date(a.post.frontMatter.date);
+      const dateB = new Date(b.post.frontMatter.date);
+      return dateB.getTime() - dateA.getTime();
+    });
+  
+  // 如果相關文章不足，用最新文章補足
+  let relatedPosts = sortedPosts.slice(0, limit).map(item => item.post);
+  
+  if (relatedPosts.length < limit) {
+    const remainingPosts = otherPosts
+      .filter(post => !relatedPosts.some(rp => rp.slug === post.slug))
+      .slice(0, limit - relatedPosts.length);
+    relatedPosts = [...relatedPosts, ...remainingPosts];
+  }
+  
+  return relatedPosts;
 } 

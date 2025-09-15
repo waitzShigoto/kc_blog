@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import { format } from 'date-fns';
-import { getPostBySlug, getAllPostSlugs, getPostByPermalink } from '@/lib/posts';
+import { getPostBySlug, getAllPostSlugs, getPostByPermalink, getRelatedPosts } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 import JsonLd from '@/components/seo/JsonLd';
+import RelatedPosts from '@/components/blog/RelatedPosts';
 
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
@@ -186,6 +187,9 @@ export default async function PostPage({ params }: PostPageProps) {
     ? `${siteConfig.siteUrl}/images/${image}`
     : `${siteConfig.siteUrl}/images/og-image.png`;
 
+  // 獲取相關文章
+  const relatedPosts = await getRelatedPosts(post, locale, 6);
+
   return (
     <div className="min-h-screen bg-background">
       {/* JSON-LD 結構化數據 */}
@@ -263,6 +267,11 @@ export default async function PostPage({ params }: PostPageProps) {
             <ImageEnhancer />
           </div>
         </article>
+
+        {/* 相關文章推薦 - 獨立區塊，間距 20px */}
+        <div className="mt-5">
+          <RelatedPosts posts={relatedPosts} locale={locale} />
+        </div>
       </main>
     </div>
   );
