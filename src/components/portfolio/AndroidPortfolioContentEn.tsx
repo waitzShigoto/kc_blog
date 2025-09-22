@@ -37,7 +37,7 @@ export default function AndroidPortfolioContentEn() {
         "Integrating backend APIs, AWS S3, and other functionalities.",
         "100% Kotlin",
         "Using Jetpack Compose and Navigation-Compose to finish UI.",
-        "Maintenance and debugging."
+        "Maintenance and debugging.",
         "Implement several new features like chat, exploreAI, select model, etc."
       ]
     },
