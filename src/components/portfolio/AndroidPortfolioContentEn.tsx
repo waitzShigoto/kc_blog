@@ -11,7 +11,26 @@ export default function AndroidPortfolioContentEn() {
         "/images/portfolio/app/chatAI/002.png",
         "/images/portfolio/app/chatAI/003.png",
         "/images/portfolio/app/chatAI/004.png",
-        "/images/portfolio/app/chatAI/005.png"
+        "/images/portfolio/app/chatAI/005.png",
+        "/images/portfolio/app/chatAI/006.png",
+        "/images/portfolio/app/chatAI/007.png",
+        "/images/portfolio/app/chatAI/008.png",
+        "/images/portfolio/app/chatAI/009.png",
+        "/images/portfolio/app/chatAI/010.png",
+        "/images/portfolio/app/chatAI/011.png",
+        "/images/portfolio/app/chatAI/012.png",
+        "/images/portfolio/app/chatAI/013.png",
+        "/images/portfolio/app/chatAI/014.png",
+        "/images/portfolio/app/chatAI/015.png",
+        "/images/portfolio/app/chatAI/016.png",
+        "/images/portfolio/app/chatAI/017.png",
+        "/images/portfolio/app/chatAI/018.png",
+        "/images/portfolio/app/chatAI/019.png",
+        "/images/portfolio/app/chatAI/020.png",
+        "/images/portfolio/app/chatAI/021.png",
+        "/images/portfolio/app/chatAI/022.png",
+        "/images/portfolio/app/chatAI/023.png",
+        "/images/portfolio/app/chatAI/024.png"
       ],
       features: [
         "Developing new features and implementing product requirements.",
@@ -19,6 +38,7 @@ export default function AndroidPortfolioContentEn() {
         "100% Kotlin",
         "Using Jetpack Compose and Navigation-Compose to finish UI.",
         "Maintenance and debugging."
+        "Implement several new features like chat, exploreAI, select model, etc."
       ]
     },
     {

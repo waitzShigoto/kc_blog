@@ -4,21 +4,41 @@ export default function AndroidPortfolioContent() {
   const airdroidApps = [
     {
       id: "chatai",
-      title: "ChatInsight AI app",
+      title: "GoInsight AI app",
       description: "This app enable user chat with AI bot.",
       images: [
         "/images/portfolio/app/chatAI/001.png",
         "/images/portfolio/app/chatAI/002.png",
         "/images/portfolio/app/chatAI/003.png",
         "/images/portfolio/app/chatAI/004.png",
-        "/images/portfolio/app/chatAI/005.png"
+        "/images/portfolio/app/chatAI/005.png",
+        "/images/portfolio/app/chatAI/006.png",
+        "/images/portfolio/app/chatAI/007.png",
+        "/images/portfolio/app/chatAI/008.png",
+        "/images/portfolio/app/chatAI/009.png",
+        "/images/portfolio/app/chatAI/010.png",
+        "/images/portfolio/app/chatAI/011.png",
+        "/images/portfolio/app/chatAI/012.png",
+        "/images/portfolio/app/chatAI/013.png",
+        "/images/portfolio/app/chatAI/014.png",
+        "/images/portfolio/app/chatAI/015.png",
+        "/images/portfolio/app/chatAI/016.png",
+        "/images/portfolio/app/chatAI/017.png",
+        "/images/portfolio/app/chatAI/018.png",
+        "/images/portfolio/app/chatAI/019.png",
+        "/images/portfolio/app/chatAI/020.png",
+        "/images/portfolio/app/chatAI/021.png",
+        "/images/portfolio/app/chatAI/022.png",
+        "/images/portfolio/app/chatAI/023.png",
+        "/images/portfolio/app/chatAI/024.png"
       ],
       features: [
         "Developing new features and implementing product requirements.",
         "Integrating backend APIs, AWS S3, and other functionalities.",
         "100% Kotlin",
         "Using Jetpack Compose and Navigation-Compose to finish UI.",
-        "Maintenance and debugging."
+        "Maintenance and debugging.",
+        "Implement several new features like chat, exploreAI, select model, etc."
       ]
     },
     {
