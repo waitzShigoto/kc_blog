@@ -262,5 +262,5 @@ pid: 8796, tid: 8891, name: pool 1  >>> com.xxx.xxxxxxxxxx <<<
 * 在16 kb page size上會遇到
   <img src="/images/android15/041.png" alt="mcp">
 
-* 後續發現這個自己無法自己解決，因為官方為開源source code，無法透過自己build來製作workaround
+* 後續發現這個自己無法自己解決，因為官方沒有開源source code，無法透過自己build來製作workaround
 所以只能等待官方更新了
