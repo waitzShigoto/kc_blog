@@ -31,6 +31,31 @@
   --color-violet-light: #f5f3ff;
   --color-emerald: #10b981;
   --color-emerald-light: #ecfdf5;
+  
+  /* 標籤顏色系統 */
+  --color-tag-default: #e1eaf9;
+  --color-tag-default-text: #666b75;
+  --color-tag-difficulty: #e8f4f8;
+  --color-tag-difficulty-text: #5a6c7d;
+  --color-tag-topic: #f0e8f4;
+  --color-tag-topic-text: #6d5a7d;
+  --color-tag-complexity: #e8f0f8;
+  --color-tag-complexity-text: #5a6d7d;
+  --color-tag-space: #f4f0e8;
+  --color-tag-space-text: #7d6d5a;
+  
+  /* 按鈕顏色系統 */
+  --color-button-primary: #2563eb;
+  --color-button-primary-hover: #1d4ed8;
+  --color-button-primary-text: #ffffff;
+  
+  /* 卡片陰影顏色系統 */
+  --color-card-shadow: rgba(40, 41, 48, 0.20);
+  --color-card-outline: #ECECEE;
+  
+  /* 卡片文字顏色系統 */
+  --color-card-time: #878D9A;
+  --color-card-summary: #464f60;
 }
 
 /* 暗黑模式配色 - 參考 Nextra 風格 */
@@ -66,4 +91,29 @@
   --color-violet-light: #4c1d95;
   --color-emerald: #34d399;
   --color-emerald-light: #064e3b;
+  
+  /* 暗黑模式標籤顏色系統 */
+  --color-tag-default: #2d3748;
+  --color-tag-default-text: #a0aec0;
+  --color-tag-difficulty: #2a4365;
+  --color-tag-difficulty-text: #90cdf4;
+  --color-tag-topic: #44337a;
+  --color-tag-topic-text: #d6bcfa;
+  --color-tag-complexity: #2c5282;
+  --color-tag-complexity-text: #90cdf4;
+  --color-tag-space: #744210;
+  --color-tag-space-text: #faf089;
+  
+  /* 暗黑模式按鈕顏色系統 */
+  --color-button-primary: #3b82f6;
+  --color-button-primary-hover: #2563eb;
+  --color-button-primary-text: #ffffff;
+  
+  /* 暗黑模式卡片陰影顏色系統 */
+  --color-card-shadow: rgba(240, 240, 242, 0.20);
+  --color-card-outline: #35363B;
+  
+  /* 暗黑模式卡片文字顏色系統 */
+  --color-card-time: #7E7E86;
+  --color-card-summary: #CECED4;
 } 
