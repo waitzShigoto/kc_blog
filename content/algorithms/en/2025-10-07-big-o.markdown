@@ -1,0 +1,167 @@
+---
+title: "Algorithm Journal - Big-O Notation"
+date: "2025-10-07 13:53:08"
+author: "WaitZ"
+categories: ["Algorithm Journal"]
+tags: ["algorithms", "big-o", "beginner", "complexity-analysis"]
+difficulty: "beginner"
+topic: "Big-O"
+timeComplexity: "O(1), O(log n), O(n), O(n log n), O(n^2)"
+locale: "en"
+---
+
+
+## Today's Topic
+
+**Topic**: Big-O Notation  
+**Difficulty**: Beginner  
+**Category**: Algorithm Fundamentals  
+
+## Concept Learning
+
+### Core Concept
+
+Big-O notation is a mathematical notation used to describe the upper bound of an algorithm's time or space complexity. It represents the worst-case scenario, helping us understand how an algorithm scales as input size grows.
+
+Core principle: **Big-O focuses on growth rate, not exact execution time.**
+
+- Ignore constants: `O(2n)` → `O(n)`
+- Ignore lower-order terms: `O(n² + n)` → `O(n²)`
+- Focus on behavior as n approaches infinity
+
+### Common Time Complexities (Fast to Slow)
+
+1. **O(1) - Constant Time**
+   - Array access by index
+   - Hash table lookup
+   - Example: `array[5]`, `map.get(key)`
+
+2. **O(log n) - Logarithmic Time**
+   - Binary search on sorted array
+   - Operations on balanced trees
+   - Example: Finding an element by halving the search space
+
+3. **O(n) - Linear Time**
+   - Traversing an array once
+   - Linear search
+   - Example: `for (int i = 0; i < n; i++)`
+
+4. **O(n log n) - Linearithmic Time**
+   - Efficient sorting algorithms (Merge Sort, Quick Sort, Heap Sort)
+   - Example: Sorting an array
+
+5. **O(n²) - Quadratic Time**
+   - Nested loops iterating through an array
+   - Bubble Sort, Selection Sort, Insertion Sort
+   - Example: Comparing each element with every other element
+
+6. **O(2^n) - Exponential Time**
+   - Recursive algorithms solving subproblems
+   - Example: Naive Fibonacci recursive solution
+
+7. **O(n!) - Factorial Time**
+   - Generating all permutations
+   - Brute force solution to Traveling Salesman Problem
+
+### Key Points
+
+- **Drop constants**: O(2n) = O(n), O(1000) = O(1)
+- **Drop non-dominant terms**: O(n² + n) = O(n²), O(n + log n) = O(n)
+- **Different inputs use different variables**: Use O(a + b) when processing two arrays, not O(n)
+- **Big-O describes worst case** (unless stated otherwise, best case is Big-Ω, average case is Big-Θ)
+- **Space complexity** follows the same rules but measures memory usage
+
+### Practical Comparison
+
+When n = 1,000,000:
+- O(1): 1 operation
+- O(log n): ~20 operations
+- O(n): 1,000,000 operations
+- O(n log n): ~20,000,000 operations
+- O(n²): 1,000,000,000,000 operations (way too slow!)
+
+## Code Implementation Examples
+
+### O(1) - Constant Time
+```kotlin
+fun getFirstElement(array: Array<Int>): Int {
+    return array[0]  // Always takes the same time regardless of array size
+}
+```
+
+### O(n) - Linear Time
+```kotlin
+fun findMax(array: Array<Int>): Int {
+    var max = array[0]
+    for (element in array) {  // Loop n times
+        if (element > max) {
+            max = element
+        }
+    }
+    return max
+}
+```
+
+### O(n²) - Quadratic Time
+```kotlin
+fun printPairs(array: Array<Int>) {
+    for (i in array.indices) {          // n times
+        for (j in array.indices) {      // n times for each i
+            println("${array[i]}, ${array[j]}")
+        }
+    }
+    // Total: n * n = n² operations
+}
+```
+
+### O(log n) - Logarithmic Time
+```kotlin
+fun binarySearch(array: Array<Int>, target: Int): Int {
+    var left = 0
+    var right = array.size - 1
+    
+    while (left <= right) {
+        val mid = left + (right - left) / 2
+        when {
+            array[mid] == target -> return mid
+            array[mid] < target -> left = mid + 1
+            else -> right = mid - 1
+        }
+    }
+    return -1
+    // Each iteration halves the search space
+}
+```
+
+## Important Details
+
+### Common Misconceptions
+- **O(n) is not always better than O(n²)**: For small inputs, constants matter
+- **Better complexity ≠ faster in practice**: O(n) with constant 1000 can be slower than O(n²) with constant 1 for small n
+- **Space-time tradeoffs**: Sometimes we use more space (memory) to achieve better time complexity
+
+### When to Optimize
+- Large datasets (n > 10,000)
+- Frequently executed code
+- Real-time systems
+- For small n, readability > optimization
+
+### Analysis Techniques
+1. Identify loops and their iteration counts
+2. Check for nested operations
+3. Consider recursion call depth and branching
+4. Count operations based on input size
+5. Focus on the dominant term as n grows
+
+## Daily Reflection
+
+**Most Important Insights**:
+- Always consider input size when choosing an algorithm
+- O(1) operations inside an O(n) loop result in O(n) total complexity
+- Nested loops usually lead to O(n²) or worse - avoid when possible
+
+**Related Concepts**:
+- Space complexity analysis
+- Best/Average/Worst case analysis (Big-Ω, Big-Θ)
+- Amortized time complexity
+- Master theorem for divide-and-conquer algorithms

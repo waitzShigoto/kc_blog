@@ -72,7 +72,7 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
 
   const content = {
     zh: {
-      backToList: '返回演算法',
+      pageTitle: '演算法日記',
       publishedOn: '發布於',
       author: '作者',
       difficulty: '難度',
@@ -85,7 +85,7 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
       categories: '分類'
     },
     en: {
-      backToList: 'Back to Algorithms',
+      pageTitle: 'Algorithm Journal',
       publishedOn: 'Published on',
       author: 'Author',
       difficulty: 'Difficulty',
@@ -98,7 +98,7 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
       categories: 'Categories'
     },
     ja: {
-      backToList: 'アルゴリズムに戻る',
+      pageTitle: 'アルゴリズム日記',
       publishedOn: '公開日',
       author: '著者',
       difficulty: '難易度',
@@ -120,27 +120,32 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation */}
-        <div className="mb-8">
-          <Link
-            href={`/${locale}/algorithms`}
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            {currentContent.backToList}
-          </Link>
+        <div className="mb-6">
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/${locale}/algorithms`}
+              className="p-2 -ml-2 hover:bg-muted/50 rounded-full transition-colors"
+              aria-label="Back"
+            >
+              <svg className="w-6 h-6 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </Link>
+            <h1 className="text-xl font-semibold text-foreground">
+              {currentContent.pageTitle}
+            </h1>
+          </div>
         </div>
 
-        <article className="bg-card rounded-lg shadow-lg overflow-hidden">
-          <div className="p-8">
-            {/* Article Header */}
-            <header className="mb-8">
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h1 className="text-4xl font-bold text-foreground flex-1 min-w-0">
+        <article className="bg-card rounded-lg shadow-lg">
+          {/* Sticky header block */}
+          <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-border shadow-sm rounded-t-lg">
+            <header className="px-4 py-3">
+              <div className="flex items-start justify-between gap-2">
+                <h1 className="text-2xl font-bold text-foreground flex-1 min-w-0">
                   {post.title}
                 </h1>
-                <div className="flex flex-col items-end text-sm text-muted-foreground flex-shrink-0">
+                <div className="flex flex-col items-end text-xs sm:text-sm text-muted-foreground flex-shrink-0 leading-tight">
                   <time dateTime={post.date}>
                     {currentContent.publishedOn} {format(new Date(post.date), 'yyyy-MM-dd')}
                   </time>
@@ -151,59 +156,61 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
                   )}
                 </div>
               </div>
-              
-              {/* Categories, Meta Information, and Tags */}
-              <div className="flex flex-wrap items-center gap-2 mb-6">
-                {/* Categories */}
-                {post.categories.map((category) => (
-                  <span
-                    key={category}
-                    className="px-3 py-1 text-sm rounded-full"
-                    style={{
-                      backgroundColor: 'var(--color-primary)',
-                      color: 'var(--color-button-primary-text)'
-                    }}
-                  >
-                    {category}
-                  </span>
-                ))}
-                
-                {/* Meta Information */}
-                {post.difficulty && (
-                  <span className="px-2 py-1 rounded-full text-xs text-center tag-difficulty">
-                    {post.difficulty}
-                  </span>
-                )}
-                
-                {post.topic && (
-                  <span className="px-2 py-1 rounded-full text-xs text-center font-medium tag-topic">
-                    {post.topic}
-                  </span>
-                )}
-
-                {post.timeComplexity && (
-                  <span className="px-2 py-1 rounded-full text-xs text-center font-mono tag-complexity">
-                    {post.timeComplexity}
-                  </span>
-                )}
-
-                {post.spaceComplexity && (
-                  <span className="px-2 py-1 rounded-full text-xs text-center font-mono tag-space">
-                    {post.spaceComplexity}
-                  </span>
-                )}
-
-                {/* Tags */}
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </header>
+          </div>
+
+          {/* Article Content */}
+          <div className="p-8">
+            <div className="flex flex-wrap items-center gap-2 mb-6">
+              {/* Categories */}
+              {post.categories.map((category) => (
+                <span
+                  key={category}
+                  className="px-3 py-1 text-sm rounded-full"
+                  style={{
+                    backgroundColor: 'var(--color-primary)',
+                    color: 'var(--color-button-primary-text)'
+                  }}
+                >
+                  {category}
+                </span>
+              ))}
+
+              {/* Meta Information */}
+              {post.difficulty && (
+                <span className="px-2 py-1 rounded-full text-xs text-center tag-difficulty">
+                  {post.difficulty}
+                </span>
+              )}
+
+              {post.topic && (
+                <span className="px-2 py-1 rounded-full text-xs text-center font-medium tag-topic">
+                  {post.topic}
+                </span>
+              )}
+
+              {post.timeComplexity && (
+                <span className="px-2 py-1 rounded-full text-xs text-center font-mono tag-complexity">
+                  {post.timeComplexity}
+                </span>
+              )}
+
+              {post.spaceComplexity && (
+                <span className="px-2 py-1 rounded-full text-xs text-center font-mono tag-space">
+                  {post.spaceComplexity}
+                </span>
+              )}
+
+              {/* Tags */}
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none dark:prose-invert">

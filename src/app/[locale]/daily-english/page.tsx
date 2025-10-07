@@ -52,7 +52,16 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
   // 讀取實際的每日英文文章
   const allPosts = await getDailyEnglishPosts(locale);
   const recentEntries = getRecentPosts(allPosts, 3);
+  const latestEntry = allPosts.length > 0 ? allPosts[0] : null;
   const stats = calculateDailyEnglishStats(allPosts);
+  
+  // 獲取第一天學習日期（最舊的文章）
+  const firstLearningDay = allPosts.length > 0 
+    ? allPosts[allPosts.length - 1].date 
+    : null;
+  
+  // 計算實際學習天數（記錄的文章數量）
+  const daysSinceStart = allPosts.length;
 
   const content = {
     zh: {
@@ -62,11 +71,26 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
       statsTitle: '學習統計',
       viewAll: '查看所有記錄',
       startToday: '開始今日學習',
+      startDescription: '開始今天的英語學習之旅',
+      latestEntryButton: '查看最新學習記錄',
+      readMoreLabel: '閱讀 →',
+      emptyState: {
+        title: '還沒有學習記錄',
+        description: '開始你的第一篇每日英文學習記錄吧！',
+        action: '創建第一篇'
+      },
+      statsUnits: {
+        totalDays: '天',
+        currentStreak: '天'
+      },
+      journeyTitle: '我的學習之旅',
+      journeyStartedOn: '開始學習於',
+      journeyDuration: '已經堅持',
+      journeyDays: '天',
+      journeyExperience: '總感覺自己對英文既熟悉又陌生，所以打算花點時間，熟悉一下平常少用的單字，順便練習一下口說。',
       stats: {
         totalDays: '總學習天數',
-        currentStreak: '連續學習',
-        wordsLearned: '累積單字',
-        averageTime: '平均時間'
+        currentStreak: '連續學習'
       }
     },
     en: {
@@ -76,11 +100,26 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
       statsTitle: 'Learning Statistics',
       viewAll: 'View All Records',
       startToday: 'Start Today\'s Learning',
+      startDescription: 'Start today\'s English learning journey',
+      latestEntryButton: 'View Latest Entry',
+      readMoreLabel: 'Read →',
+      emptyState: {
+        title: 'No learning records yet',
+        description: 'Start your first daily English learning record!',
+        action: 'Create First Entry'
+      },
+      statsUnits: {
+        totalDays: 'days',
+        currentStreak: 'days'
+      },
+      journeyTitle: 'My Learning Journey',
+      journeyStartedOn: 'Started learning on',
+      journeyDuration: 'Persisted for',
+      journeyDays: 'days',
+      journeyExperience: 'Although we are now in the AI era, I still feel that I should truly remember some things myself, so I\'m recording some learning processes here as my own memo.',
       stats: {
         totalDays: 'Total Days',
-        currentStreak: 'Current Streak',
-        wordsLearned: 'Words Learned',
-        averageTime: 'Average Time'
+        currentStreak: 'Current Streak'
       }
     },
     ja: {
@@ -90,11 +129,26 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
       statsTitle: '学習統計',
       viewAll: 'すべての記録を見る',
       startToday: '今日の学習を始める',
+      startDescription: '今日の英語学習を始めましょう',
+      latestEntryButton: '最新の記録を見る',
+      readMoreLabel: '続きを読む →',
+      emptyState: {
+        title: 'まだ学習記録がありません',
+        description: '最初の毎日英語学習記録を始めましょう！',
+        action: '最初の記録を作成'
+      },
+      statsUnits: {
+        totalDays: '日',
+        currentStreak: '日'
+      },
+      journeyTitle: '私の学習の旅',
+      journeyStartedOn: '学習開始日',
+      journeyDuration: '継続日数',
+      journeyDays: '日',
+      journeyExperience: '今はAI時代ですが、やはり自分自身で本当に覚えておくべきことがあると感じているので、ここで学習の過程を記録して、自分の備忘録にしています。',
       stats: {
         totalDays: '総学習日数',
-        currentStreak: '連続学習',
-        wordsLearned: '累積単語',
-        averageTime: '平均時間'
+        currentStreak: '連続学習'
       }
     }
   };
@@ -125,18 +179,30 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
                 <h2 className="text-2xl font-semibold text-foreground">
                   {format(new Date(), 'yyyy年MM月dd日')}
                 </h2>
-                <Link
-                  href={`/${locale}/daily-english/new`}
-                  className="btn-primary"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  {currentContent.startToday}
-                </Link>
+                {latestEntry ? (
+                  <Link
+                    href={`/${locale}/daily-english/${latestEntry.slug}`}
+                    className="btn-primary"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {currentContent.latestEntryButton}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/${locale}/daily-english/new`}
+                    className="btn-primary"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {currentContent.startToday}
+                  </Link>
+                )}
               </div>
               <p className="text-muted-foreground">
-                {locale === 'zh' ? '開始今天的英語學習之旅' : locale === 'en' ? 'Start today\'s English learning journey' : '今日の英語学習を始めましょう'}
+                {currentContent.startDescription}
               </p>
             </div>
 
@@ -197,7 +263,7 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
                           href={`/${locale}/daily-english/${entry.slug}`}
                           className="text-primary hover:text-primary/80 text-sm font-medium ml-4"
                         >
-                          閱讀 →
+                          {currentContent.readMoreLabel}
                         </Link>
                       </div>
                     </div>
@@ -209,20 +275,20 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                     <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {locale === 'zh' ? '還沒有學習記錄' : locale === 'en' ? 'No learning records yet' : 'まだ学習記録がありません'}
+                      {currentContent.emptyState.title}
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      {locale === 'zh' ? '開始你的第一篇每日英文學習記錄吧！' : locale === 'en' ? 'Start your first daily English learning record!' : '最初の毎日英語学習記録を始めましょう！'}
+                      {currentContent.emptyState.description}
                     </p>
-                <Link
-                  href={`/${locale}/daily-english/new`}
-                  className="btn-primary"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  {locale === 'zh' ? '創建第一篇' : locale === 'en' ? 'Create First Entry' : '最初の記録を作成'}
-                </Link>
+                    <Link
+                      href={`/${locale}/daily-english/new`}
+                      className="btn-primary"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      {currentContent.emptyState.action}
+                    </Link>
                   </div>
                 )}
               </div>
@@ -239,33 +305,46 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.totalDays}</span>
-                  <span className="font-semibold text-foreground">{stats.totalDays} 天</span>
+                  <span className="font-semibold text-foreground">{stats.totalDays} {currentContent.statsUnits.totalDays}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.currentStreak}</span>
-                  <span className="font-semibold text-primary">{stats.currentStreak} 天</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">{currentContent.stats.wordsLearned}</span>
-                  <span className="font-semibold text-foreground">{stats.wordsLearned} 個</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">{currentContent.stats.averageTime}</span>
-                  <span className="font-semibold text-foreground">{stats.averageTime} 分鐘</span>
+                  <span className="font-semibold text-primary">{stats.currentStreak} {currentContent.statsUnits.currentStreak}</span>
                 </div>
               </div>
             </div>
 
-            {/* Learning Tips */}
+            {/* My Learning Journey */}
             <div className="bg-card rounded-lg shadow-sm p-6">
               <h3 className="text-xl font-semibold text-foreground mb-4">
-                💡 {locale === 'zh' ? '學習小貼士' : locale === 'en' ? 'Learning Tips' : '学習のコツ'}
+                {currentContent.journeyTitle}
               </h3>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <p>• {locale === 'zh' ? '每天堅持學習15-30分鐘' : locale === 'en' ? 'Study 15-30 minutes daily' : '毎日15-30分間学習する'}</p>
-                <p>• {locale === 'zh' ? '記錄新單字並造句練習' : locale === 'en' ? 'Record new words and practice sentences' : '新しい単語を記録し文章練習'}</p>
-                <p>• {locale === 'zh' ? '結合聽說讀寫全面練習' : locale === 'en' ? 'Combine listening, speaking, reading, writing' : '聞く話す読む書くを総合練習'}</p>
-                <p>• {locale === 'zh' ? '定期複習之前學過的內容' : locale === 'en' ? 'Review previous content regularly' : '以前の内容を定期的に復習'}</p>
+              <div className="space-y-4">
+                {firstLearningDay && (
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
+                      <span className="text-sm text-muted-foreground">
+                        {currentContent.journeyStartedOn}
+                      </span>
+                      <span className="font-semibold text-primary">
+                        {format(new Date(firstLearningDay), 'yyyy-MM-dd')}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
+                      <span className="text-sm text-muted-foreground">
+                        {currentContent.journeyDuration}
+                      </span>
+                      <span className="font-semibold text-primary">
+                        {daysSinceStart} {currentContent.journeyDays}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <div className="pt-3 border-t border-border">
+                  <p className="text-sm text-muted-foreground leading-relaxed italic">
+                    &ldquo;{currentContent.journeyExperience}&rdquo;
+                  </p>
+                </div>
               </div>
             </div>
           </div>

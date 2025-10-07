@@ -52,7 +52,16 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
   // 讀取實際的演算法文章
   const allPosts = await getAlgorithmPosts(locale);
   const recentEntries = getRecentPosts(allPosts, 3);
+  const latestEntry = allPosts.length > 0 ? allPosts[0] : null;
   const stats = calculateAlgorithmStats(allPosts);
+  
+  // 獲取第一天學習日期（最舊的文章）
+  const firstLearningDay = allPosts.length > 0 
+    ? allPosts[allPosts.length - 1].date 
+    : null;
+  
+  // 計算實際學習天數（記錄的文章數量）
+  const daysSinceStart = allPosts.length;
 
   // 基於實際文章計算分類統計和最新文章
   const categoryCounts = allPosts.reduce((acc, post) => {
@@ -91,11 +100,31 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
       categoriesTitle: '學習分類',
       viewAll: '查看所有記錄',
       startToday: '開始今日學習',
+      startDescription: '開始今天的演算法學習與實作',
+      latestEntryButton: '查看最新學習記錄',
+      journeyTitle: '我的學習之旅',
+      journeyStartedOn: '開始學習於',
+      journeyDuration: '已經堅持',
+      journeyDays: '天',
+      journeyExperience: '雖然現在是AI時代，但總覺得還是要讓自己真的記得某些東西，所以這邊記錄一些學習的過程，當作自己的備忘錄。',
+      readMoreLabel: '閱讀 →',
+      categoryCountSuffix: '篇',
+      categoryEmptyText: '暫無文章',
+      emptyState: {
+        title: '還沒有演算法記錄',
+        description: '開始你的第一篇演算法學習記錄吧！',
+        action: '創建第一篇'
+      },
+      statsUnits: {
+        totalDays: '天',
+        currentStreak: '天',
+        problemsSolved: '題',
+        topicsLearned: '個'
+      },
       stats: {
         totalDays: '總學習天數',
         currentStreak: '連續學習',
         problemsSolved: '解題數量',
-        averageTime: '平均時間',
         topicsLearned: '學習主題'
       }
     },
@@ -107,11 +136,31 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
       categoriesTitle: 'Learning Categories',
       viewAll: 'View All Records',
       startToday: 'Start Today\'s Learning',
+      startDescription: 'Start today\'s algorithm learning and implementation',
+      latestEntryButton: 'View Latest Entry',
+      journeyTitle: 'My Learning Journey',
+      journeyStartedOn: 'Started learning on',
+      journeyDuration: 'Persisted for',
+      journeyDays: 'days',
+      journeyExperience: 'Although we are now in the AI era, I still feel that I should truly remember some things myself, so I\'m recording some learning processes here as my own memo.',
+      readMoreLabel: 'Read →',
+      categoryCountSuffix: 'posts',
+      categoryEmptyText: 'No articles yet',
+      emptyState: {
+        title: 'No algorithm records yet',
+        description: 'Start your first algorithm learning record!',
+        action: 'Create First Entry'
+      },
+      statsUnits: {
+        totalDays: 'days',
+        currentStreak: 'days',
+        problemsSolved: 'problems',
+        topicsLearned: 'topics'
+      },
       stats: {
         totalDays: 'Total Days',
         currentStreak: 'Current Streak',
         problemsSolved: 'Problems Solved',
-        averageTime: 'Average Time',
         topicsLearned: 'Topics Learned'
       }
     },
@@ -123,11 +172,31 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
       categoriesTitle: '学習カテゴリー',
       viewAll: 'すべての記録を見る',
       startToday: '今日の学習を始める',
+      startDescription: '今日のアルゴリズム学習と実装を始めましょう',
+      latestEntryButton: '最新の記録を見る',
+      journeyTitle: '私の学習の旅',
+      journeyStartedOn: '学習開始日',
+      journeyDuration: '継続日数',
+      journeyDays: '日',
+      journeyExperience: '今はAI時代ですが、やはり自分自身で本当に覚えておくべきことがあると感じているので、ここで学習の過程を記録して、自分の備忘録にしています。',
+      readMoreLabel: '続きを読む →',
+      categoryCountSuffix: '件',
+      categoryEmptyText: 'まだ記事がありません',
+      emptyState: {
+        title: 'まだアルゴリズム記録がありません',
+        description: '最初のアルゴリズム学習記録を始めましょう！',
+        action: '最初の記録を作成'
+      },
+      statsUnits: {
+        totalDays: '日',
+        currentStreak: '日',
+        problemsSolved: '問',
+        topicsLearned: '件'
+      },
       stats: {
         totalDays: '総学習日数',
         currentStreak: '連続学習',
         problemsSolved: '解決問題数',
-        averageTime: '平均時間',
         topicsLearned: '学習トピック'
       }
     }
@@ -159,18 +228,30 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                 <h2 className="text-2xl font-semibold text-foreground">
                   {format(new Date(), 'yyyy年MM月dd日')}
                 </h2>
-                <Link
-                  href={`/${locale}/algorithms/new`}
-                  className="btn-primary"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  {currentContent.startToday}
-                </Link>
+                {latestEntry ? (
+                  <Link
+                    href={`/${locale}/algorithms/${latestEntry.slug}`}
+                    className="btn-primary"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {currentContent.latestEntryButton}
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/${locale}/algorithms/new`}
+                    className="btn-primary"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {currentContent.startToday}
+                  </Link>
+                )}
               </div>
               <p className="text-muted-foreground">
-                {locale === 'zh' ? '開始今天的演算法學習與實作' : locale === 'en' ? 'Start today\'s algorithm learning and implementation' : '今日のアルゴリズム学習と実装を始めましょう'}
+                {currentContent.startDescription}
               </p>
             </div>
 
@@ -241,7 +322,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                           href={`/${locale}/algorithms/${entry.slug}`}
                           className="text-primary hover:text-primary/80 text-sm font-medium ml-4"
                         >
-                          閱讀 →
+                          {currentContent.readMoreLabel}
                         </Link>
                       </div>
                     </div>
@@ -253,20 +334,20 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
                     </svg>
                     <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {locale === 'zh' ? '還沒有演算法記錄' : locale === 'en' ? 'No algorithm records yet' : 'まだアルゴリズム記録がありません'}
+                      {currentContent.emptyState.title}
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      {locale === 'zh' ? '開始你的第一篇演算法學習記錄吧！' : locale === 'en' ? 'Start your first algorithm learning record!' : '最初のアルゴリズム学習記録を始めましょう！'}
+                      {currentContent.emptyState.description}
                     </p>
-                <Link
-                  href={`/${locale}/algorithms/new`}
-                  className="btn-primary"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                  </svg>
-                  {locale === 'zh' ? '創建第一篇' : locale === 'en' ? 'Create First Entry' : '最初の記録を作成'}
-                </Link>
+                    <Link
+                      href={`/${locale}/algorithms/new`}
+                      className="btn-primary"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                      </svg>
+                      {currentContent.emptyState.action}
+                    </Link>
                   </div>
                 )}
               </div>
@@ -283,7 +364,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                      <div className="flex items-center justify-between mb-3">
                        <h3 className="font-semibold text-foreground">{category.title}</h3>
                        <span className="px-2 py-1 rounded-full text-xs tag-default">
-                         {category.count} 篇
+                         {category.count} {currentContent.categoryCountSuffix}
                        </span>
                      </div>
                      
@@ -327,7 +408,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                        </div>
                      ) : (
                        <div className="text-center py-4 text-sm text-muted-foreground">
-                         {locale === 'zh' ? '暫無文章' : locale === 'en' ? 'No articles yet' : 'まだ記事がありません'}
+                         {currentContent.categoryEmptyText}
                        </div>
                      )}
                    </div>
@@ -346,37 +427,54 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.totalDays}</span>
-                  <span className="font-semibold text-foreground">{stats.totalDays} 天</span>
+                  <span className="font-semibold text-foreground">{stats.totalDays} {currentContent.statsUnits.totalDays}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.currentStreak}</span>
-                  <span className="font-semibold text-primary">{stats.currentStreak} 天</span>
+                  <span className="font-semibold text-primary">{stats.currentStreak} {currentContent.statsUnits.currentStreak}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.problemsSolved}</span>
-                  <span className="font-semibold text-foreground">{stats.problemsSolved} 題</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-muted-foreground">{currentContent.stats.averageTime}</span>
-                  <span className="font-semibold text-foreground">{stats.averageTime} 分鐘</span>
+                  <span className="font-semibold text-foreground">{stats.problemsSolved} {currentContent.statsUnits.problemsSolved}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.topicsLearned}</span>
-                  <span className="font-semibold text-foreground">{stats.topicsLearned} 個</span>
+                  <span className="font-semibold text-foreground">{stats.topicsLearned} {currentContent.statsUnits.topicsLearned}</span>
                 </div>
               </div>
             </div>
 
-            {/* Learning Tips */}
+            {/* My Learning Journey */}
             <div className="bg-card rounded-lg shadow-sm p-6">
               <h3 className="text-xl font-semibold text-foreground mb-4">
-                💡 {locale === 'zh' ? '學習小貼士' : locale === 'en' ? 'Learning Tips' : '学習のコツ'}
+                {currentContent.journeyTitle}
               </h3>
-              <div className="space-y-3 text-sm text-muted-foreground">
-                <p>• {locale === 'zh' ? '先理解概念再動手實作' : locale === 'en' ? 'Understand concepts before implementation' : '概念を理解してから実装する'}</p>
-                <p>• {locale === 'zh' ? '分析時間和空間複雜度' : locale === 'en' ? 'Analyze time and space complexity' : '時間と空間計算量を分析する'}</p>
-                <p>• {locale === 'zh' ? '多練習不同類型的題目' : locale === 'en' ? 'Practice different types of problems' : '異なるタイプの問題を練習する'}</p>
-                <p>• {locale === 'zh' ? '記錄解題思路和心得' : locale === 'en' ? 'Record problem-solving approaches' : '解法のアプローチを記録する'}</p>
+              <div className="space-y-4">
+                {firstLearningDay && (
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
+                      <span className="text-sm text-muted-foreground">
+                        {currentContent.journeyStartedOn}
+                      </span>
+                      <span className="font-semibold text-primary">
+                        {format(new Date(firstLearningDay), 'yyyy-MM-dd')}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
+                      <span className="text-sm text-muted-foreground">
+                        {currentContent.journeyDuration}
+                      </span>
+                      <span className="font-semibold text-primary">
+                        {daysSinceStart} {currentContent.journeyDays}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <div className="pt-3 border-t border-border">
+                  <p className="text-sm text-muted-foreground leading-relaxed italic">
+                    &ldquo;{currentContent.journeyExperience}&rdquo;
+                  </p>
+                </div>
               </div>
             </div>
           </div>

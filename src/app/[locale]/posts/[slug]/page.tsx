@@ -7,6 +7,7 @@ import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioCont
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 import JsonLd from '@/components/seo/JsonLd';
 import RelatedPosts from '@/components/blog/RelatedPosts';
+import Link from 'next/link';
 
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
@@ -190,6 +191,13 @@ export default async function PostPage({ params }: PostPageProps) {
   // 獲取相關文章
   const relatedPosts = await getRelatedPosts(post, locale, 6);
 
+  // 頁面標題
+  const pageTitle = {
+    zh: '最新文章',
+    en: 'Latest Posts',
+    ja: '最新記事'
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* JSON-LD 結構化數據 */}
@@ -209,44 +217,70 @@ export default async function PostPage({ params }: PostPageProps) {
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <article className="bg-card rounded-lg shadow-lg overflow-hidden">
-          <div className="p-8">
-            {/* Article Header */}
-            <header className="mb-8">
-              <h1 className="text-4xl font-bold text-foreground mb-4">
-                {title}
-              </h1>
-              
-              <div className="flex items-center justify-between text-sm text-muted-foreground mb-6">
-                <time dateTime={date}>
-                  {format(new Date(date), 'yyyy年MM月dd日')}
-                </time>
-                <span>{readingTime}</span>
-              </div>
-              
-              {/* Categories and Tags */}
-              <div className="flex flex-wrap gap-2">
-                {categoryArray.map((category) => (
-                  <span
-                    key={category}
-                    className="px-3 py-1 tag-blue text-sm rounded-full"
-                  >
-                    {category}
-                  </span>
-                ))}
-                {tagArray.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 tag-gray text-sm rounded-full"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+        {/* Navigation */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/${locale}`}
+              className="p-2 -ml-2 hover:bg-muted/50 rounded-full transition-colors"
+              aria-label="Back"
+            >
+              <svg className="w-6 h-6 text-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </Link>
+            <h1 className="text-xl font-semibold text-foreground">
+              {pageTitle[locale as keyof typeof pageTitle]}
+            </h1>
+          </div>
+        </div>
+
+        <article className="bg-card rounded-lg shadow-lg">
+          {/* Sticky header block */}
+          <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-border shadow-sm rounded-t-lg">
+            <header className="px-4 py-3">
+              <div className="flex items-start justify-between gap-2">
+                <h2 className="text-2xl font-bold text-foreground flex-1 min-w-0">
+                  {title}
+                </h2>
+                <div className="flex flex-col items-end text-xs sm:text-sm text-muted-foreground flex-shrink-0 leading-tight">
+                  <time dateTime={date}>
+                    {format(new Date(date), 'yyyy-MM-dd')}
+                  </time>
+                  <span>{readingTime}</span>
+                </div>
               </div>
             </header>
+          </div>
+
+          {/* Article Content */}
+          <div className="p-8">
+            {/* Categories and Tags */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {categoryArray.map((category) => (
+                <span
+                  key={category}
+                  className="px-3 py-1 text-sm rounded-full"
+                  style={{
+                    backgroundColor: 'var(--color-primary)',
+                    color: 'var(--color-button-primary-text)'
+                  }}
+                >
+                  {category}
+                </span>
+              ))}
+              {tagArray.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 bg-muted text-muted-foreground text-xs rounded-full"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
             
-            {/* Article Content */}
-            <div className="prose prose-lg dark:prose-invert max-w-none prose-container">
+            {/* Article Body */}
+            <div className="prose prose-lg max-w-none dark:prose-invert">
               {isPortfolioPost ? (
                 <div>
                   <div className="mb-12" dangerouslySetInnerHTML={{ 

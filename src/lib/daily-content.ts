@@ -32,7 +32,7 @@ export interface AlgorithmPost {
   categories: string[];
   summary?: string;
   content: string;
-  frontMatter: any;
+  frontMatter: Record<string, unknown>;
   problemsSolved?: number;
   studyTime?: number;
 }
@@ -53,8 +53,8 @@ export interface LearningStats {
 /**
  * 讀取每日英文文章
  */
-export async function getDailyEnglishPosts(_locale: string = 'zh'): Promise<DailyEnglishPost[]> {
-  const contentDir = path.join(process.cwd(), 'content', 'daily-english');
+export async function getDailyEnglishPosts(locale: string = 'zh'): Promise<DailyEnglishPost[]> {
+  const contentDir = path.join(process.cwd(), 'content', 'daily-english', locale);
   
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
@@ -71,6 +71,16 @@ export async function getDailyEnglishPosts(_locale: string = 'zh'): Promise<Dail
         const fileContent = fs.readFileSync(filePath, 'utf-8');
         const { data: frontMatter, content } = matter(fileContent);
 
+        // 只讀取每日英文分類的文章
+        const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
+        const isDailyEnglishPost = categories.includes('Daily English') || 
+                                   categories.includes('Vocabulary') ||
+                                   frontMatter.word; // 或者有 word 欄位的也算
+
+        if (!isDailyEnglishPost) {
+          continue;
+        }
+
         // 從檔名提取 slug
         const slug = file.replace(/\.(markdown|md)$/, '');
 
@@ -82,7 +92,7 @@ export async function getDailyEnglishPosts(_locale: string = 'zh'): Promise<Dail
           word: frontMatter.word,
           difficulty: frontMatter.difficulty || 'intermediate',
           tags: Array.isArray(frontMatter.tags) ? frontMatter.tags : [],
-          categories: Array.isArray(frontMatter.categories) ? frontMatter.categories : [],
+          categories: categories,
           summary: frontMatter.summary || extractSummary(content),
           content: await marked(content),
           frontMatter
@@ -101,8 +111,8 @@ export async function getDailyEnglishPosts(_locale: string = 'zh'): Promise<Dail
 /**
  * 讀取演算法文章
  */
-export async function getAlgorithmPosts(_locale: string = 'zh'): Promise<AlgorithmPost[]> {
-  const contentDir = path.join(process.cwd(), 'content', 'algorithms');
+export async function getAlgorithmPosts(locale: string = 'zh'): Promise<AlgorithmPost[]> {
+  const contentDir = path.join(process.cwd(), 'content', 'algorithms', locale);
   
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
@@ -119,6 +129,15 @@ export async function getAlgorithmPosts(_locale: string = 'zh'): Promise<Algorit
         const fileContent = fs.readFileSync(filePath, 'utf-8');
         const { data: frontMatter, content } = matter(fileContent);
 
+        // 只讀取演算法分類的文章
+        const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
+        const isAlgorithmPost = categories.includes('Algorithm Journal') || 
+                               frontMatter.topic; // 或者有 topic 欄位的也算
+
+        if (!isAlgorithmPost) {
+          continue;
+        }
+
         // 從檔名提取 slug
         const slug = file.replace(/\.(markdown|md)$/, '');
 
@@ -132,7 +151,7 @@ export async function getAlgorithmPosts(_locale: string = 'zh'): Promise<Algorit
           timeComplexity: frontMatter.timeComplexity,
           spaceComplexity: frontMatter.spaceComplexity,
           tags: Array.isArray(frontMatter.tags) ? frontMatter.tags : [],
-          categories: Array.isArray(frontMatter.categories) ? frontMatter.categories : [],
+          categories: categories,
           summary: frontMatter.summary || extractSummary(content),
           content: await marked(content),
           frontMatter,
