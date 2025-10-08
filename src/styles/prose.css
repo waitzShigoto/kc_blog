@@ -245,17 +245,21 @@
 
 .prose ol {
   counter-reset: item;
+  list-style-type: decimal;
+  padding-left: 2rem;
 }
 
 .prose ol li {
   counter-increment: item;
   margin-bottom: 0.75rem;
-  padding-left: 0.25rem;
+  padding-left: 0.5rem;
+  display: list-item;
 }
 
 .prose ol li::marker {
   color: var(--color-primary);
   font-weight: 600;
+  font-size: 1rem;
 }
 
 .prose li > ul,

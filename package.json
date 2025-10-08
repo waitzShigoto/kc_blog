@@ -10,7 +10,8 @@
     "export": "next build",
     "new-post": "node scripts/create-post.js",
     "new-daily-english": "node scripts/create-daily-english.js",
-    "new-algorithm": "node scripts/create-algorithm.js"
+    "new-algorithm": "node scripts/create-algorithm.js",
+    "new-leetcode": "node scripts/create-leetcode.js"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",

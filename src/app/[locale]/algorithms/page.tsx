@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { getAlgorithmPosts, calculateAlgorithmStats, getRecentPosts } from '@/lib/daily-content';
+import { getAlgorithmPosts, calculateAlgorithmStats, getRecentPosts, getLeetCodePosts, calculateLeetCodeStats } from '@/lib/daily-content';
 
 interface AlgorithmsPageProps {
   params: Promise<{
@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: AlgorithmsPageProps): Promise
   const { locale } = await params;
   
   const titles = {
-    zh: '演算法 - KC Blog',
-    en: 'Algorithms - KC Blog',
-    ja: 'アルゴリズム - KC Blog'
+    zh: '演算法 - elegantaccess',
+    en: 'Algorithms - elegantaccess',
+    ja: 'アルゴリズム - elegantaccess'
   };
   
   const descriptions = {
@@ -54,6 +54,11 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
   const recentEntries = getRecentPosts(allPosts, 3);
   const latestEntry = allPosts.length > 0 ? allPosts[0] : null;
   const stats = calculateAlgorithmStats(allPosts);
+  
+  // 讀取 LeetCode 文章
+  const leetcodePosts = await getLeetCodePosts(locale);
+  const recentLeetcodePosts = getRecentPosts(leetcodePosts, 5);
+  const leetcodeStats = calculateLeetCodeStats(leetcodePosts);
   
   // 獲取第一天學習日期（最舊的文章）
   const firstLearningDay = allPosts.length > 0 
@@ -126,6 +131,13 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
         currentStreak: '連續學習',
         problemsSolved: '解題數量',
         topicsLearned: '學習主題'
+      },
+      leetcodeSection: {
+        title: 'LeetCode 刷題記錄',
+        viewAll: 'More',
+        problemId: '題號',
+        emptyText: '尚未開始刷題',
+        emptyAction: '開始刷第一題'
       }
     },
     en: {
@@ -162,6 +174,13 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
         currentStreak: 'Current Streak',
         problemsSolved: 'Problems Solved',
         topicsLearned: 'Topics Learned'
+      },
+      leetcodeSection: {
+        title: 'LeetCode Solutions',
+        viewAll: 'More',
+        problemId: 'Problem',
+        emptyText: 'No problems solved yet',
+        emptyAction: 'Start First Problem'
       }
     },
     ja: {
@@ -170,7 +189,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
       recentTitle: '最近の学習記録',
       statsTitle: '学習統計',
       categoriesTitle: '学習カテゴリー',
-      viewAll: 'すべての記録を見る',
+      viewAll: 'More',
       startToday: '今日の学習を始める',
       startDescription: '今日のアルゴリズム学習と実装を始めましょう',
       latestEntryButton: '最新の記録を見る',
@@ -198,6 +217,13 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
         currentStreak: '連続学習',
         problemsSolved: '解決問題数',
         topicsLearned: '学習トピック'
+      },
+      leetcodeSection: {
+        title: 'LeetCode 解題記録',
+        viewAll: 'More',
+        problemId: '問題番号',
+        emptyText: 'まだ問題を解いていません',
+        emptyAction: '最初の問題を始める'
       }
     }
   };
@@ -370,42 +396,54 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                      
                      {/* 顯示最新文章 */}
                      {category.recentPosts.length > 0 ? (
-                       <div className="space-y-2">
-                         {category.recentPosts.map((post, postIndex) => (
-                          <Link
-                            key={postIndex}
-                            href={`/${locale}/algorithms/${post.slug}`}
-                            className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
-                          >
-                             <div className="flex items-start justify-between gap-2">
-                               <div className="flex-1 min-w-0">
-                                 <div className="flex items-center gap-2 mb-1">
-                                   <svg className="w-3 h-3 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
-                                   </svg>
-                                   <span className="font-medium text-foreground truncate">{post.title}</span>
+                       <>
+                         <div className="space-y-2">
+                           {category.recentPosts.map((post, postIndex) => (
+                            <Link
+                              key={postIndex}
+                              href={`/${locale}/algorithms/${post.slug}`}
+                              className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
+                            >
+                               <div className="flex items-start justify-between gap-2">
+                                 <div className="flex-1 min-w-0">
+                                   <div className="flex items-center gap-2 mb-1">
+                                     <svg className="w-3 h-3 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+                                     </svg>
+                                     <span className="font-medium text-foreground truncate">{post.title}</span>
+                                   </div>
+                                   <div className="flex flex-wrap items-center gap-2 text-xs ml-5">
+                                     <span className="flex-shrink-0 card-time">{format(new Date(post.date), 'yyyy-MM-dd')}</span>
+                                     {post.difficulty && (
+                                       <span className="tag-difficulty px-2 py-1 rounded-full text-xs text-center flex-shrink-0">
+                                         {post.difficulty}
+                                       </span>
+                                     )}
+                                     {post.topic && (
+                                       <span className="tag-topic px-2 py-1 rounded-full text-xs text-center flex-shrink-0">
+                                         {post.topic}
+                                       </span>
+                                     )}
+                                   </div>
                                  </div>
-                                 <div className="flex flex-wrap items-center gap-2 text-xs ml-5">
-                                   <span className="flex-shrink-0 card-time">{format(new Date(post.date), 'yyyy-MM-dd')}</span>
-                                   {post.difficulty && (
-                                     <span className="tag-difficulty px-2 py-1 rounded-full text-xs text-center flex-shrink-0">
-                                       {post.difficulty}
-                                     </span>
-                                   )}
-                                   {post.topic && (
-                                     <span className="tag-topic px-2 py-1 rounded-full text-xs text-center flex-shrink-0">
-                                       {post.topic}
-                                     </span>
-                                   )}
-                                 </div>
+                                 <svg className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                 </svg>
                                </div>
-                               <svg className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                               </svg>
-                             </div>
-                           </Link>
-                         ))}
-                       </div>
+                             </Link>
+                           ))}
+                         </div>
+                         {category.count > 3 && (
+                           <div className="mt-3 pt-3 border-t border-border">
+                             <Link
+                               href={`/${locale}/algorithms/category/${encodeURIComponent(category.title)}`}
+                               className="text-sm text-primary hover:text-primary/80 font-medium flex items-center justify-center gap-1"
+                             >
+                               {currentContent.viewAll} →
+                             </Link>
+                           </div>
+                         )}
+                       </>
                      ) : (
                        <div className="text-center py-4 text-sm text-muted-foreground">
                          {currentContent.categoryEmptyText}
@@ -427,7 +465,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.totalDays}</span>
-                  <span className="font-semibold text-foreground">{stats.totalDays} {currentContent.statsUnits.totalDays}</span>
+                  <span className="font-semibold text-foreground">{allPosts.length} {currentContent.statsUnits.totalDays}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.currentStreak}</span>
@@ -435,7 +473,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.problemsSolved}</span>
-                  <span className="font-semibold text-foreground">{stats.problemsSolved} {currentContent.statsUnits.problemsSolved}</span>
+                  <span className="font-semibold text-foreground">{leetcodeStats.problemsSolved} {currentContent.statsUnits.problemsSolved}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">{currentContent.stats.topicsLearned}</span>
@@ -474,6 +512,89 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                   <p className="text-sm text-muted-foreground leading-relaxed italic">
                     &ldquo;{currentContent.journeyExperience}&rdquo;
                   </p>
+                </div>
+              </div>
+            </div>
+
+            {/* LeetCode Section */}
+            <div className="bg-card rounded-lg shadow-sm p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-semibold text-foreground">
+                  {currentContent.leetcodeSection.title}
+                </h3>
+                {leetcodePosts.length > 0 && (
+                  <Link
+                    href={`/${locale}/leetcode`}
+                    className="text-primary hover:text-primary/80 text-sm font-medium"
+                  >
+                    {currentContent.leetcodeSection.viewAll} →
+                  </Link>
+                )}
+              </div>
+              
+              {/* Recent LeetCode Problems */}
+              {recentLeetcodePosts.length > 0 ? (
+                <div className="space-y-2 mb-4">
+                  {recentLeetcodePosts.map((post, index) => (
+                    <Link
+                      key={index}
+                      href={`/${locale}/leetcode/${post.slug}`}
+                      className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-mono text-primary flex-shrink-0">
+                              #{post.leetcodeId}
+                            </span>
+                            <span className="font-medium text-foreground truncate">
+                              {post.problemTitle}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 text-xs">
+                            <span className="flex-shrink-0 card-time">
+                              {format(new Date(post.date), 'MM-dd')}
+                            </span>
+                            {post.difficulty && (
+                              <span className="tag-difficulty px-2 py-1 rounded-full text-xs text-center flex-shrink-0">
+                                {post.difficulty}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <svg className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-4 mb-4">
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {currentContent.leetcodeSection.emptyText}
+                  </p>
+                  <Link
+                    href={`/${locale}/leetcode/new`}
+                    className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 font-medium"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    {currentContent.leetcodeSection.emptyAction}
+                  </Link>
+                </div>
+              )}
+
+              {/* LeetCode Stats */}
+              <div className="grid grid-cols-2 gap-3 p-3 bg-primary/5 rounded-lg">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary">{leetcodeStats.problemsSolved}</div>
+                  <div className="text-xs text-muted-foreground">{currentContent.stats.problemsSolved}</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-primary">{leetcodeStats.topicsLearned}</div>
+                  <div className="text-xs text-muted-foreground">{currentContent.stats.topicsLearned}</div>
                 </div>
               </div>
             </div>
