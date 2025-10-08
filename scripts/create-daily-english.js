@@ -36,14 +36,41 @@ function showHelp() {
 1. 最簡單的用法（只提供主題名稱，適合口說練習）：
    npm run new-daily-english -- --topic "Fractions in Math"
 
-2. 數學主題範例（包含概念學習）：
-   npm run new-daily-english -- --topic "Mathematical Fractions" --difficulty beginner --tags "mathematics,fractions,arithmetic" --study-time 60 --key-vocab "numerator,denominator,improper fraction" --include-concept
+📐 數學主題系列：
 
-3. 日常會話範例（不包含概念學習，專注口說）：
+2. 分數（Fractions）：
+   npm run new-daily-english -- --topic "Fractions in Math" --difficulty beginner --tags "mathematics,fractions,arithmetic" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "numerator,denominator,improper fraction,proper fraction,mixed number"
+
+3. 小數（Decimals）：
+   npm run new-daily-english -- --topic "Decimals in Math" --difficulty beginner --tags "mathematics,decimals,numbers,arithmetic" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "decimal point,decimal place,tenths,hundredths,thousandths"
+
+4. 百分比（Percentages）：
+   npm run new-daily-english -- --topic "Percentages and Ratios" --difficulty intermediate --tags "mathematics,percentages,ratios,conversion" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "percent,percentage,ratio,proportion,convert"
+
+5. 基本運算（Arithmetic Operations）：
+   npm run new-daily-english -- --topic "Basic Arithmetic Operations" --difficulty beginner --tags "mathematics,arithmetic,operations,calculation" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "addition,subtraction,multiplication,division,sum,difference,product,quotient"
+
+6. 方程式（Equations）- 包含概念學習：
+   npm run new-daily-english -- --topic "Linear Equations" --difficulty intermediate --tags "mathematics,algebra,equations,variables" --categories "Daily English,Mathematics,Algebra" --study-time 75 --key-vocab "equation,variable,coefficient,constant,solve,isolate" --include-concept
+
+7. 幾何圖形（Geometric Shapes）：
+   npm run new-daily-english -- --topic "Geometric Shapes" --difficulty beginner --tags "mathematics,geometry,shapes,figures" --categories "Daily English,Mathematics,Geometry" --study-time 60 --key-vocab "triangle,rectangle,circle,square,polygon,perimeter,area"
+
+💬 日常會話主題：
+
+8. 餐廳點餐：
    npm run new-daily-english -- --topic "Ordering Food at Restaurant" --difficulty intermediate --tags "conversation,daily-life,restaurant" --study-time 45
 
-4. 商業英文範例：
-   npm run new-daily-english -- --topic "Business Presentation" --difficulty advanced --tags "business,presentation,speaking" --study-time 75
+9. 購物情境：
+   npm run new-daily-english -- --topic "Shopping and Bargaining" --difficulty intermediate --tags "conversation,shopping,daily-life" --study-time 50 --key-vocab "discount,bargain,receipt,refund,exchange"
+
+💼 商業英文主題：
+
+10. 商業簡報：
+    npm run new-daily-english -- --topic "Business Presentation" --difficulty advanced --tags "business,presentation,speaking" --study-time 75
+
+11. 商務郵件：
+    npm run new-daily-english -- --topic "Business Email Writing" --difficulty advanced --tags "business,writing,email,professional" --categories "Daily English,Business English" --study-time 90
 `);
 }
 

@@ -230,6 +230,13 @@ html {
   color: var(--color-card-summary) !important;
 }
 
+/* 禁用 hover 效果的卡片變體 */
+.card-material-no-hover:hover {
+  background-color: var(--color-background) !important;
+  box-shadow: 0 2px 4px var(--color-card-shadow) !important;
+  transform: none !important;
+}
+
 /* 進度條 */
 .prose-container {
   position: relative;

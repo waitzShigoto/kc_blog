@@ -9,9 +9,20 @@ const DEFAULT_TAGS = ['algorithms'];
 const DEFAULT_DIFFICULTY = 'intermediate';
 const DEFAULT_TIME_COMPLEXITY = 'O(n)';
 const DEFAULT_SPACE_COMPLEXITY = 'O(1)';
-const DEFAULT_STUDY_TIME = 90;
-const DEFAULT_PROBLEMS_SOLVED = 1;
+const DEFAULT_STUDY_TIME = 0;
+const DEFAULT_PROBLEMS_SOLVED = 0;
 const LOCALES = ['en', 'ja', 'zh'];
+
+// 演算法分類映射表
+const CATEGORY_MAP = {
+  '0': ['Fundamentals'],
+  '1': ['Sorting Algorithms'],
+  '2': ['Searching Algorithms'],
+  '3': ['Data Structures'],
+  '4': ['Tree Algorithms'],
+  '5': ['Graph Algorithms'],
+  '6': ['Dynamic Programming']
+};
 
 function showHelp() {
   console.log(`
@@ -28,7 +39,15 @@ function showHelp() {
   --date <YYYY-MM-DD>           指定日期（預設：今天）
   --author <name>               作者（預設：${DEFAULT_AUTHOR}）
   --difficulty <level>          難度（預設：${DEFAULT_DIFFICULTY}）
-  --categories "A,B"            自訂分類（預設：${DEFAULT_CATEGORIES.join(', ')})
+  --cat <0-6>                   分類代號（預設：0）
+                                  0 = Fundamentals（基礎概念）
+                                  1 = Sorting Algorithms（排序算法）
+                                  2 = Searching Algorithms（搜索算法）
+                                  3 = Data Structures（數據結構）
+                                  4 = Tree Algorithms（樹算法）
+                                  5 = Graph Algorithms（圖算法）
+                                  6 = Dynamic Programming（動態規劃）
+  --categories "A,B"            自訂分類（會覆蓋 --cat）
   --tags "tag1,tag2"            自訂標籤（預設：${DEFAULT_TAGS.join(', ')} + topic slug + 難度）
   --time-complexity <notation>  時間複雜度（預設：${DEFAULT_TIME_COMPLEXITY}）
   --space-complexity <notation> 空間複雜度（預設：${DEFAULT_SPACE_COMPLEXITY}）
@@ -38,20 +57,37 @@ function showHelp() {
 
 範例：
 
-1. 最簡單的用法（只提供主題名稱）：
-   npm run new-algorithm -- --topic "Big-O"
+🎯 使用分類代號（推薦）：
 
-2. 入門主題範例（例如 Big-O）：
-   npm run new-algorithm -- --topic "Big-O" --difficulty beginner --time-complexity "O(1), O(n), O(n^2)" --space-complexity "O(1)" --study-time 60
+1. 基礎概念（--cat 0）：
+   npm run new-algorithm -- --topic "Big-O Notation" --cat 0 --difficulty beginner --time-complexity "O(1)" --space-complexity "O(1)"
+   npm run new-algorithm -- --topic "Recursion Basics" --cat 0 --difficulty beginner --time-complexity "O(n)" --space-complexity "O(n)"
 
-3. 基礎演算法範例（例如 Binary Search）：
-   npm run new-algorithm -- --topic "Binary Search" --difficulty beginner --time-complexity "O(log n)" --space-complexity "O(1)" --leetcode "704,35" --study-time 90 --problems-solved 2
+2. 排序算法（--cat 1）：
+   npm run new-algorithm -- --topic "Merge Sort" --cat 1 --difficulty intermediate --time-complexity "O(n log n)" --space-complexity "O(n)"
+   npm run new-algorithm -- --topic "Quick Sort" --cat 1 --difficulty intermediate --time-complexity "O(n log n)" --space-complexity "O(log n)"
 
-4. 完整參數範例（例如 Dynamic Programming）：
-   npm run new-algorithm -- --topic "Dynamic Programming" --difficulty advanced --time-complexity "O(n^2)" --space-complexity "O(n)" --categories "動態規劃,進階演算法" --tags "algorithms,dp,optimization" --leetcode "70,322,518" --study-time 150 --problems-solved 3
+3. 搜索算法（--cat 2）：
+   npm run new-algorithm -- --topic "Binary Search" --cat 2 --difficulty beginner --time-complexity "O(log n)" --space-complexity "O(1)" --leetcode "704,35"
 
-5. 自訂日期範例：
-   npm run new-algorithm -- --topic "Two Pointers" --date 2025-01-15 --difficulty intermediate --time-complexity "O(n)" --space-complexity "O(1)"
+4. 數據結構（--cat 3）：
+   npm run new-algorithm -- --topic "Hash Tables" --cat 3 --difficulty intermediate --time-complexity "O(1)" --space-complexity "O(n)"
+   npm run new-algorithm -- --topic "Stacks and Queues" --cat 3 --difficulty beginner --time-complexity "O(1)" --space-complexity "O(n)"
+
+5. 樹算法（--cat 4）：
+   npm run new-algorithm -- --topic "Binary Search Trees" --cat 4 --difficulty intermediate --time-complexity "O(log n)" --space-complexity "O(n)"
+
+6. 圖算法（--cat 5）：
+   npm run new-algorithm -- --topic "Breadth First Search (BFS)" --cat 5 --difficulty intermediate --time-complexity "O(V + E)" --space-complexity "O(V)"
+   npm run new-algorithm -- --topic "Dijkstra's Shortest Path" --cat 5 --difficulty advanced --time-complexity "O(E log V)" --space-complexity "O(V)"
+
+7. 動態規劃（--cat 6）：
+   npm run new-algorithm -- --topic "Dynamic Programming Introduction" --cat 6 --difficulty advanced --time-complexity "Varies" --space-complexity "Varies"
+
+📝 傳統用法（自訂分類）：
+
+8. 自訂分類：
+   npm run new-algorithm -- --topic "Two Pointers" --difficulty intermediate --categories "Algorithm Journal,Two Pointers" --time-complexity "O(n)" --space-complexity "O(1)"
 `);
 }
 
@@ -321,17 +357,13 @@ locale: "${locale}"
   const c = content[locale];
 
   const body = `
-# ${c.header}
-
 ## ${c.todayTopic}
 
 **${c.topicLabel}**: ${topic}  
 **${c.difficultyLabel}**: ${difficulty}  
 **${c.categoryLabel}**: ${categoriesDisplay}  
 **${c.timeComplexityLabel}**: ${timeComplexity}  
-**${c.spaceComplexityLabel}**: ${spaceComplexity}  
-**${c.problemsSolvedLabel}**: ${problemsSolved}  
-**${c.studyTimeLabel}**: ${studyTime} ${locale === 'en' ? 'minutes' : locale === 'ja' ? '分' : '分鐘'}
+**${c.spaceComplexityLabel}**: ${spaceComplexity}
 
 ## ${c.conceptLearning}
 
@@ -363,20 +395,9 @@ ${c.detailPoints.map(p => `- ${p}`).join('\n')}
 
 ## ${c.dailyReflection}
 
-**${c.understandingLabel}**: ⭐⭐⭐⭐⭐  
-**${c.keyTakeawayLabel}**: ${c.keyTakeaway}  
-**${c.improvementLabel}**: ${c.improvement}
+**${c.keyTakeawayLabel}**: ${c.keyTakeaway}
 
 **${c.relatedAlgoLabel}**: ${c.relatedAlgo}
-
-**${c.tomorrowPlanLabel}**: ${c.tomorrowPlan}
-
----
-
-**${c.statsTitle}**:
-- ${c.statsProblemsSolved}: ${problemsSolved} ${locale === 'en' ? 'problems' : locale === 'ja' ? '問' : '題'}
-- ${c.statsStudyTime}: ${studyTime} ${locale === 'en' ? 'minutes' : locale === 'ja' ? '分' : '分鐘'}
-- ${c.statsResources}: 0
 `;
 
   return `${frontMatter}${body}`;
@@ -396,7 +417,6 @@ function main() {
   }
 
   const topic = (options.topic || positional[0]).trim();
-  const title = options.title ? options.title.trim() : `Journal - ${topic}`;
   const { dateValue, dateForFile, displayDate } = resolveDate(options.date);
   const date = dateValue;
   const author = options.author ? options.author.trim() : DEFAULT_AUTHOR;
@@ -406,7 +426,22 @@ function main() {
   const problemsSolved = Number.parseInt(options['problems-solved'] || options.problemsSolved || DEFAULT_PROBLEMS_SOLVED, 10) || DEFAULT_PROBLEMS_SOLVED;
   const studyTime = Number.parseInt(options['study-time'] || options.studyTime || DEFAULT_STUDY_TIME, 10) || DEFAULT_STUDY_TIME;
 
-  const categories = toArray(options.categories, DEFAULT_CATEGORIES);
+  // 處理分類：優先使用 --categories，否則使用 --cat，最後使用預設值
+  let categories;
+  if (options.categories) {
+    categories = toArray(options.categories, DEFAULT_CATEGORIES);
+  } else if (options.cat !== undefined) {
+    const catKey = String(options.cat);
+    if (CATEGORY_MAP[catKey]) {
+      categories = CATEGORY_MAP[catKey];
+      console.log(`✅ 使用分類代號 ${catKey}: ${categories.join(' / ')}`);
+    } else {
+      console.warn(`⚠️  無效的分類代號 ${catKey}，使用預設分類`);
+      categories = DEFAULT_CATEGORIES;
+    }
+  } else {
+    categories = DEFAULT_CATEGORIES;
+  }
   const tags = uniqueArray([
     ...toArray(options.tags, DEFAULT_TAGS),
     toSlug(topic),
@@ -431,6 +466,17 @@ function main() {
     if (fs.existsSync(filePath)) {
       console.error(`⚠️  目標檔案已存在：${filePath}`);
       continue;
+    }
+
+    // 根據語言生成不同的標題前綴
+    let title;
+    if (options.title) {
+      title = options.title.trim();
+    } else {
+      const titlePrefix = locale === 'zh' ? '演算法日記' : 
+                         locale === 'en' ? 'Algorithm Journal' : 
+                         'アルゴリズム日記';
+      title = `${titlePrefix} - ${topic}`;
     }
 
     const content = generateContent({

@@ -2,7 +2,7 @@
 title: "Algorithm Journal - Big-O Notation"
 date: "2025-10-07 13:53:08"
 author: "WaitZ"
-categories: ["Algorithm Journal"]
+categories: ["Fundamentals"]
 tags: ["algorithms", "big-o", "beginner", "complexity-analysis"]
 difficulty: "beginner"
 topic: "Big-O"

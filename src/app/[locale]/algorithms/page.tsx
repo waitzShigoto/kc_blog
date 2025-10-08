@@ -360,7 +360,7 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
               </h2>
                <div className="grid md:grid-cols-2 gap-4">
                  {categories.map((category, index) => (
-                   <div key={index} className="card-material p-4">
+                   <div key={index} className="card-material card-material-no-hover p-4">
                      <div className="flex items-center justify-between mb-3">
                        <h3 className="font-semibold text-foreground">{category.title}</h3>
                        <span className="px-2 py-1 rounded-full text-xs tag-default">
@@ -372,11 +372,11 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                      {category.recentPosts.length > 0 ? (
                        <div className="space-y-2">
                          {category.recentPosts.map((post, postIndex) => (
-                           <Link
-                             key={postIndex}
-                             href={`/${locale}/algorithms/${post.slug}`}
-                             className="block text-sm hover:bg-muted/30 rounded p-2 -m-2 transition-colors"
-                           >
+                          <Link
+                            key={postIndex}
+                            href={`/${locale}/algorithms/${post.slug}`}
+                            className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
+                          >
                              <div className="flex items-start justify-between gap-2">
                                <div className="flex-1 min-w-0">
                                  <div className="flex items-center gap-2 mb-1">

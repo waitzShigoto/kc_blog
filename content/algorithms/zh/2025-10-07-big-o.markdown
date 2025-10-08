@@ -2,7 +2,7 @@
 title: "演算法日記 - Big-O 表示法"
 date: "2025-10-07 13:53:08"
 author: "WaitZ"
-categories: ["Algorithm Journal"]
+categories: ["Fundamentals"]
 tags: ["algorithms", "big-o", "beginner", "complexity-analysis"]
 difficulty: "beginner"
 topic: "Big-O"
