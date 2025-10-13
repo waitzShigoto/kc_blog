@@ -137,7 +137,7 @@ Everyone can refer to it:<br>
    Under different ABI architectures, there might be different alignment levels<br>
    But this depends on what the official final requirements are for alignment<br>
    Because currently the mainstream should be `x86_64` and `arm64-v8a`<br>
-   GCP backend verification currently seems to only verify these two ABIs<br>
+   GPC backend verification currently seems to only verify these two ABIs<br>
    (You can also optimize for each ABI if the official requires it in the future, otherwise just optimize what needs to be optimized for publishing)<br>
    
 

@@ -45,7 +45,7 @@ function showHelp() {
    npm run new-daily-english -- --topic "Decimals in Math" --difficulty beginner --tags "mathematics,decimals,numbers,arithmetic" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "decimal point,decimal place,tenths,hundredths,thousandths"
 
 4. 百分比（Percentages）：
-   npm run new-daily-english -- --topic "Percentages and Ratios" --difficulty intermediate --tags "mathematics,percentages,ratios,conversion" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "percent,percentage,ratio,proportion,convert"
+   npm run new-daily-english -- --topic "Percentages and Ratios" --difficulty beginner --tags "mathematics,percentages,ratios,conversion" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "percent,percentage,ratio,proportion,convert"
 
 5. 基本運算（Arithmetic Operations）：
    npm run new-daily-english -- --topic "Basic Arithmetic Operations" --difficulty beginner --tags "mathematics,arithmetic,operations,calculation" --categories "Daily English,Mathematics" --study-time 60 --key-vocab "addition,subtraction,multiplication,division,sum,difference,product,quotient"

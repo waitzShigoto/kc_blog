@@ -165,6 +165,18 @@
   border-color: var(--color-border);
 }
 
+/* 暗黑模式下列表內的行內代碼 - 移除漸變效果以確保可讀性 */
+.dark .prose ul code:not(pre code):not(.hljs),
+.dark .prose ol code:not(pre code):not(.hljs),
+.dark .prose li code:not(pre code):not(.hljs) {
+  background: var(--color-muted);
+  background-clip: unset;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+  color: var(--color-primary);
+  border-color: var(--color-border);
+}
+
 /* 代碼塊語言標籤 - 已隱藏以避免與複製按鈕衝突 */
 .prose pre::before {
   display: none;
