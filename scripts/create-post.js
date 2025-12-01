@@ -44,6 +44,52 @@ const POST_TEMPLATES = {
   }
 };
 
+// 智能生成簡短的 URL slug
+function generateSmartSlug(title, maxWords = 8, maxLength = 60) {
+  // 移除所有特殊字符，只保留字母、數字和空格
+  let cleaned = title
+    .replace(/[^\w\s]/g, ' ') // 移除特殊字符，保留字母數字和空格
+    .replace(/\s+/g, ' ') // 多個空格合併為一個
+    .trim();
+  
+  // 只保留 ASCII 字符（移除中文、日文等非英文字符）
+  cleaned = cleaned.replace(/[^\x00-\x7F]/g, '');
+  
+  // 分割成單詞
+  const words = cleaned.split(' ').filter(word => word.length > 0);
+  
+  // 過濾掉常見的停用詞（可選）
+  const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'];
+  const meaningfulWords = words.filter((word, index) => {
+    // 保留前2個詞，即使是停用詞
+    if (index < 2) return true;
+    return !stopWords.includes(word.toLowerCase());
+  });
+  
+  // 取前 N 個有意義的單詞
+  let selectedWords = meaningfulWords.slice(0, maxWords);
+  
+  // 組合成 slug
+  let slug = selectedWords
+    .join('-')
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '') // 確保只有小寫字母、數字和連字符
+    .replace(/-+/g, '-') // 多個連字符合併為一個
+    .replace(/^-+|-+$/g, ''); // 移除開頭和結尾的連字符
+  
+  // 如果超過最大長度，截斷並確保不在單詞中間斷開
+  if (slug.length > maxLength) {
+    slug = slug.substring(0, maxLength);
+    const lastDash = slug.lastIndexOf('-');
+    if (lastDash > maxLength * 0.7) { // 如果最後一個連字符位置合理
+      slug = slug.substring(0, lastDash);
+    }
+    slug = slug.replace(/-+$/, ''); // 移除結尾的連字符
+  }
+  
+  return slug;
+}
+
 // 生成文件名（格式：YYYY-MM-DD-title.markdown）
 function generateFileName(title) {
   const now = new Date();
@@ -51,12 +97,14 @@ function generateFileName(title) {
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   
-  // 將標題轉換為 URL 友好的格式
-  const slug = title
-    .toLowerCase()
-    .replace(/[^\w\s\u4e00-\u9fff-]/g, '') // 保留中文字符、英文字母、數字、空格和連字符
-    .replace(/[\s_]+/g, '-') // 將空格和下劃線轉換為連字符
-    .replace(/^-+|-+$/g, ''); // 移除開頭和結尾的連字符
+  // 使用智能 slug 生成器
+  const slug = generateSmartSlug(title);
+  
+  // 如果 slug 為空（標題全是非英文字符），使用預設值
+  if (!slug) {
+    console.warn('⚠️  警告: 標題中沒有英文字符，使用預設文件名');
+    return `${year}-${month}-${day}-new-post.markdown`;
+  }
     
   return `${year}-${month}-${day}-${slug}.markdown`;
 }
@@ -76,11 +124,14 @@ function generateDateString() {
 
 // 生成 permalink
 function generatePermalink(title) {
-  const slug = title
-    .toLowerCase()
-    .replace(/[^\w\s\u4e00-\u9fff-]/g, '') // 保留中文字符、英文字母、數字、空格和連字符
-    .replace(/[\s_]+/g, '-') // 將空格和下劃線轉換為連字符
-    .replace(/^-+|-+$/g, ''); // 移除開頭和結尾的連字符
+  // 使用智能 slug 生成器
+  const slug = generateSmartSlug(title);
+  
+  // 如果 slug 為空（標題全是非英文字符），使用預設值
+  if (!slug) {
+    console.warn('⚠️  警告: 標題中沒有英文字符，使用預設 permalink');
+    return '/new-post';
+  }
     
   return `/${slug}`;
 }
@@ -210,7 +261,14 @@ function parseArguments() {
   npm run new-post "Android Jetpack Compose 教學"
   npm run new-post "Kotlin 協程詳解" --langs zh,en --category "Kotlin" --tags "Kotlin,Coroutines"
   npm run new-post "Flutter 入門" --langs zh --category "Flutter" --image "cover/flutter.png"
+  npm run new-post "Android WebView Offline Bundle Guide: Loading Next.js Static Assets with Kotlin & Compose" --langs zh,en --category "Android" --tags "Android,Kotlin,Compose"
 
+✨ 智能特性:
+  • 標題可以很長，腳本會自動生成簡短的文件名和 permalink
+  • 自動移除文件名和 permalink 中的非英文字符
+  • 智能提取關鍵詞，最多保留 8 個有意義的單詞
+  • 文件名長度控制在 60 字符以內（不含日期和副檔名）
+  
 支援的語言: ${Object.keys(LANGUAGES).join(', ')}
     `);
     process.exit(0);
@@ -272,7 +330,11 @@ function main() {
   const { title, options } = parseArguments();
   const { langs, ...postOptions } = options;
   
+  // 生成並顯示智能 slug
+  const smartSlug = generateSmartSlug(title);
+  
   console.log(`📄 文章標題: ${title}`);
+  console.log(`🔗 生成的 Slug: ${smartSlug || '(預設)'}`);
   console.log(`🌐 目標語言: ${langs.join(', ')}`);
   console.log(`📂 分類: ${postOptions.categories || 'Android'}`);
   console.log(`🏷️  標籤: ${Array.isArray(postOptions.tags) ? postOptions.tags.join(', ') : (postOptions.tags || 'Android, Kotlin')}`);
@@ -308,5 +370,6 @@ module.exports = {
   createPostFile,
   generateFileName,
   generatePostContent,
+  generateSmartSlug,
   LANGUAGES
 };
