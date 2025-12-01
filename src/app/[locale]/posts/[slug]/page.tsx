@@ -12,6 +12,7 @@ import Link from 'next/link';
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
 import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
+import { MermaidClient } from '@/components/blog/MermaidClient';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -299,6 +300,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <CodeBlockEnhancer />
             <GistLoader />
             <ImageEnhancer />
+            <MermaidClient />
           </div>
         </article>
 

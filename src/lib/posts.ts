@@ -57,6 +57,14 @@ function processLinks(content: string, locale: string = 'en'): string {
     .replace(/href="\/?"(?=\s|>)/g, `href="/${locale}"`);
 }
 
+// Mermaid 處理函數
+function processMermaid(content: string): string {
+  return content.replace(/```mermaid\n([\s\S]*?)```/g, (match, code) => {
+    const encodedCode = encodeURIComponent(code.trim());
+    return `<div class="mermaid-wrapper" data-mermaid="${encodedCode}"></div>`;
+  });
+}
+
 // 主要內容處理函數
 function preprocessContent(content: string, locale: string = 'en'): string {
   let processedContent = content;
@@ -65,6 +73,7 @@ function preprocessContent(content: string, locale: string = 'en'): string {
   processedContent = processImagePaths(processedContent);
   processedContent = processLinks(processedContent, locale);
   processedContent = processJekyllIncludes(processedContent, locale);
+  processedContent = processMermaid(processedContent);
   
   return processedContent;
 }

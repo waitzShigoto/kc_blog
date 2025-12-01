@@ -5,6 +5,7 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { getDailyEnglishPosts } from '@/lib/daily-content';
+import { MermaidClient } from '@/components/blog/MermaidClient';
 
 interface DailyEnglishPostPageProps {
   params: Promise<{
@@ -191,6 +192,7 @@ export default async function DailyEnglishPostPage({ params }: DailyEnglishPostP
             <div className="prose prose-lg max-w-none dark:prose-invert">
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
+            <MermaidClient />
           </div>
         </article>
       </main>

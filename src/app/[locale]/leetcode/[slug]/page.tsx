@@ -8,6 +8,7 @@ import { getLeetCodePosts } from '@/lib/daily-content';
 import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
 import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
+import { MermaidClient } from '@/components/blog/MermaidClient';
 
 interface LeetCodePostPageProps {
   params: Promise<{
@@ -272,6 +273,7 @@ export default async function LeetCodePostPage({ params }: LeetCodePostPageProps
             <CodeBlockEnhancer />
             <GistLoader />
             <ImageEnhancer />
+            <MermaidClient />
           </div>
         </article>
       </main>
