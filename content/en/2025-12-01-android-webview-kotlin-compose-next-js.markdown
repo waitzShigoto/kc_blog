@@ -336,3 +336,19 @@ app/src/main/assets/
     │       └── *.png
     └── ...
 ```
+
+### Postscript
+
+* Since this implementation packages frontend resources<br>
+
+and places them under the Android project's assets folder<br>
+
+If you're considering this method to speed up mobile resource loading
+
+Remember when packaging frontend offline resources<br>
+
+It's best to apply `obfuscation`<br>
+
+You can even add another layer of `hardening` during Android packaging<br>
+
+Also, avoid placing sensitive data in the frontend offline bundle in your design<br>
