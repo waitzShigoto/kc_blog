@@ -72,6 +72,26 @@ flowchart TD
     
 ```
 
+## Prerequisites
+* First, you need to have a compatible frontend, or one you've written yourself<br>
+and package the frontend into static resources<br>
+so you can place them under the Android assets folder<br>
+
+* Here we use Next.js for testing (theoretically, other frameworks can be used as well)
+Assuming you already have a Next.js frontend project
+  - Use the command to build:
+  ```shell
+  npm run build
+  ```
+  
+  - Use the command to export static resources:
+  ```shell
+  npm run export
+  ```
+  - Finally, wait for the build to complete
+  and you'll find the /out folder in your current directory
+  which will contain the corresponding static resources
+
 ## Core Components
 
 ### 1. LocalWebResourceLoader

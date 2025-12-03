@@ -69,6 +69,25 @@ flowchart TD
     Render --> End([頁面顯示完成])
     
 ```
+## 前置作業
+* 首先你必需要有一個配合的前端，或者你自己寫的前端<br>
+並且把前端打包成靜態資源<br>
+讓你可以放到android assets底下<br>
+
+* 這邊我們以next.js來測試 (理論上也可以換成其他框架)
+假設你已經有一個next.js的前端專案
+  - 使用指令進行建構：
+  ```shell
+  npm run build
+  ```
+  
+  - 使用指令把靜態資源導出：
+  ```shell
+  npm run export
+  ```
+  - 最後等他建構一下
+  就可以在pwd下找到/out資料夾
+  裡面就會有相對應的靜態資源
 
 ## 核心組件
 
@@ -288,11 +307,12 @@ private fun isResourceFile(path: String): Boolean {
 - RESOURCE_EXTENSIONS 則是去`自定義`支援常見的 Web 資源類型
 
 ### 3. Scheme
-- 使用 `https://local.offline.com` 而非 `file://` 或 `app://`...之類的
+- 使用 `https://local.offline.com` 而非 `app://`...之類的
 - 安卓需避免 `CORS` 問題：
+- 因為實務遇到在前端資源中加入 `base href="app://xxxx.xxx.xx/"`
+被chromium block該請求，導致無法攔截該請求
+但是webview無法
 
-Android Webview無法使用自定義Scheme 只能用https
-使用自定義scheme會出現被chromium block該請球，導致無法瀏覽該資源
 `"Access to XMLHttpRequest at 'xxxxx' from origin 'app://' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'app:' that is not equal to the supplied origin.", source: app:///.//`
 
 ```kotlin

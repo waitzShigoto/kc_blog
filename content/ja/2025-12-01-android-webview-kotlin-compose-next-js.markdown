@@ -72,6 +72,26 @@ flowchart TD
     
 ```
 
+## 前提条件
+* まず、対応するフロントエンド、または自分で作成したフロントエンドが必要です<br>
+そして、フロントエンドを静的リソースとしてパッケージ化し<br>
+Android の assets フォルダ配下に配置できるようにします<br>
+
+* ここでは Next.js を使用してテストします（理論的には他のフレームワークも使用可能）
+すでに Next.js のフロントエンドプロジェクトがあると仮定します
+  - ビルドコマンドを実行：
+  ```shell
+  npm run build
+  ```
+  
+  - 静的リソースをエクスポートするコマンドを実行：
+  ```shell
+  npm run export
+  ```
+  - 最後にビルドが完了するのを待つと
+  カレントディレクトリに /out フォルダが見つかります
+  その中に対応する静的リソースが含まれています
+
 ## コアコンポーネント
 
 ### 1. LocalWebResourceLoader
@@ -290,7 +310,7 @@ private fun isResourceFile(path: String): Boolean {
 - RESOURCE_EXTENSIONS は一般的な Web リソースタイプをサポートするように`カスタマイズ`
 
 ### 3. Scheme
-- `file://` や `app://` などではなく、`https://local.offline.com` を使用
+- `app://` などではなく、`https://local.offline.com` を使用
 - Android は `CORS` の問題を回避する必要があります:
 
 Android WebView はカスタムスキームを使用できず、https のみ使用可能
