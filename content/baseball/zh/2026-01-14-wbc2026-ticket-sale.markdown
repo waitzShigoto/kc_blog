@@ -1,6 +1,6 @@
 ---
 title: "WBC2026「2026年1月15日19:00(台灣時間 18:00)一般發售」Lawson Ticket 購票資訊整理"
-date: "2026-01-14 20:00:00"
+date: "2026-01-14 17:59:55"
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "門票", "購票攻略", "日本", "東京巨蛋"]
