@@ -58,6 +58,23 @@ export interface LeetCodePost {
   frontMatter: Record<string, unknown>;
 }
 
+// 棒球文章的介面
+export interface BaseballPost {
+  slug: string;
+  title: string;
+  date: string;
+  author?: string;
+  topic?: string;
+  team?: string;
+  player?: string;
+  gameDate?: string;
+  tags: string[];
+  categories: string[];
+  summary?: string;
+  content: string;
+  frontMatter: Record<string, unknown>;
+}
+
 // 學習統計介面
 export interface LearningStats {
   totalDays: number;
@@ -251,6 +268,97 @@ export async function getLeetCodePosts(locale: string = 'zh'): Promise<LeetCodeP
     console.error('Error reading LeetCode posts:', error);
     return [];
   }
+}
+
+/**
+ * 讀取棒球文章
+ */
+export async function getBaseballPosts(locale: string = 'zh'): Promise<BaseballPost[]> {
+  const contentDir = path.join(process.cwd(), 'content', 'baseball', locale);
+  
+  // 檢查目錄是否存在
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+
+  try {
+    const files = fs.readdirSync(contentDir);
+    const posts: BaseballPost[] = [];
+
+    for (const file of files) {
+      if (file.endsWith('.markdown') || file.endsWith('.md')) {
+        const filePath = path.join(contentDir, file);
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        const { data: frontMatter, content } = matter(fileContent);
+
+        // 只讀取棒球分類的文章
+        const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
+        const isBaseballPost = categories.includes('Baseball') || 
+                               categories.includes('棒球') ||
+                               frontMatter.team || frontMatter.player; // 或者有 team/player 欄位的也算
+
+        if (!isBaseballPost) {
+          continue;
+        }
+
+        // 從檔名提取 slug
+        const slug = file.replace(/\.(markdown|md)$/, '');
+
+        posts.push({
+          slug,
+          title: frontMatter.title || slug,
+          date: frontMatter.date || '',
+          author: frontMatter.author,
+          topic: frontMatter.topic,
+          team: frontMatter.team,
+          player: frontMatter.player,
+          gameDate: frontMatter.gameDate,
+          tags: Array.isArray(frontMatter.tags) ? frontMatter.tags : [],
+          categories: categories,
+          summary: frontMatter.summary || extractSummary(content),
+          content: await marked(content),
+          frontMatter
+        });
+      }
+    }
+
+    // 按日期排序（最新的在前）
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('Error reading baseball posts:', error);
+    return [];
+  }
+}
+
+/**
+ * 計算棒球文章統計
+ */
+export function calculateBaseballStats(posts: BaseballPost[]): LearningStats {
+  if (posts.length === 0) {
+    return {
+      totalDays: 0,
+      currentStreak: 0,
+      totalEntries: 0,
+      topicsLearned: 0
+    };
+  }
+
+  // 計算總天數
+  const totalDays = posts.length;
+
+  // 計算連續學習天數
+  const currentStreak = calculateStreak(posts.map(p => p.date));
+
+  // 計算學習的主題數量（去重）
+  const topics = new Set(posts.map(p => p.topic).filter(Boolean));
+  const topicsLearned = topics.size;
+
+  return {
+    totalDays,
+    currentStreak,
+    totalEntries: totalDays,
+    topicsLearned
+  };
 }
 
 /**
