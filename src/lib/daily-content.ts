@@ -64,6 +64,7 @@ export interface BaseballPost {
   title: string;
   date: string;
   author?: string;
+  image?: string;
   topic?: string;
   team?: string;
   player?: string;
@@ -309,6 +310,7 @@ export async function getBaseballPosts(locale: string = 'zh'): Promise<BaseballP
           title: frontMatter.title || slug,
           date: frontMatter.date || '',
           author: frontMatter.author,
+          image: frontMatter.image,
           topic: frontMatter.topic,
           team: frontMatter.team,
           player: frontMatter.player,

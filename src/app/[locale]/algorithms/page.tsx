@@ -35,9 +35,42 @@ export async function generateMetadata({ params }: AlgorithmsPageProps): Promise
     ja: 'アルゴリズム学習と実装でプログラミングスキル向上'
   };
 
+  const fullTitle = titles[locale as keyof typeof titles] || titles.en;
+  const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/algorithms`;
+  const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
+
   return {
-    title: titles[locale as keyof typeof titles] || titles.en,
-    description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    title: fullTitle,
+    description: description,
+    keywords: '演算法, Algorithms, アルゴリズム, 資料結構, LeetCode, 程式設計, Programming',
+    authors: [{ name: siteConfig.author.name, url: siteConfig.siteUrl }],
+    openGraph: {
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: pageUrl,
+      title: fullTitle,
+      description: description,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: fullTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description: description,
+      creator: '@eleg_aces',
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
   };
 }
 

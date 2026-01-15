@@ -49,9 +49,73 @@ export async function generateMetadata({ params }: DailyEnglishPostPageProps): P
     ja: `${post.title} - 毎日英語`
   };
 
+  const fullTitle = titles[locale as keyof typeof titles] || titles.en;
+  const description = post.summary || post.title;
+  
+  // 構建文章 URL
+  const postUrl = `${siteConfig.siteUrl}/${locale}/daily-english/${slug}`;
+  
+  // 構建 OpenGraph 圖片 URL
+  const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
+  
+  // 構建關鍵字
+  const keywords = [];
+  if (post.tags && Array.isArray(post.tags)) {
+    keywords.push(...post.tags);
+  }
+  if (post.categories) {
+    const categoryArray = Array.isArray(post.categories) ? post.categories : [post.categories];
+    keywords.push(...categoryArray);
+  }
+  keywords.push('英文學習', 'English Learning', '英語学習', 'Daily English');
+
   return {
-    title: titles[locale as keyof typeof titles] || titles.en,
-    description: post.summary || post.title,
+    title: fullTitle,
+    description: description,
+    keywords: keywords.join(', '),
+    authors: [{ name: post.author || siteConfig.author.name, url: siteConfig.siteUrl }],
+    creator: post.author || siteConfig.author.name,
+    publisher: siteConfig.author.name,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    openGraph: {
+      type: 'article',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: postUrl,
+      title: fullTitle,
+      description: description,
+      siteName: siteConfig.title,
+      publishedTime: post.date,
+      authors: [post.author || siteConfig.author.name],
+      tags: post.tags || [],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: fullTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description: description,
+      creator: '@eleg_aces',
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: postUrl,
+    },
   };
 }
 

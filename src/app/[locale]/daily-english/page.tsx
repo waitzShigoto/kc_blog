@@ -35,9 +35,42 @@ export async function generateMetadata({ params }: DailyEnglishPageProps): Promi
     ja: '毎日英語学習で英語力向上'
   };
 
+  const fullTitle = titles[locale as keyof typeof titles] || titles.en;
+  const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/daily-english`;
+  const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
+
   return {
-    title: titles[locale as keyof typeof titles] || titles.en,
-    description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    title: fullTitle,
+    description: description,
+    keywords: '英文學習, English Learning, 英語学習, Daily English, Vocabulary, 單字',
+    authors: [{ name: siteConfig.author.name, url: siteConfig.siteUrl }],
+    openGraph: {
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: pageUrl,
+      title: fullTitle,
+      description: description,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: fullTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description: description,
+      creator: '@eleg_aces',
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: pageUrl,
+    },
   };
 }
 
