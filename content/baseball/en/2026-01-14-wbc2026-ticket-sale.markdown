@@ -177,8 +177,8 @@ However, once disconnected, you have to queue again, so if you get a number near
 ### Purchasing Strategy (Taiwan Time)
 
 1. **Enter waiting room early** - Use all devices to enter Lawson Ticket waiting room
-2. **18:30** - Start monitoring e+ connection status
-3. **19:00** - Rush for e+ first, while waiting for Lawson Ticket numbered ticket
+2. **17:30** - Start monitoring e+ connection status
+3. **18:00** - Rush for e+ first, while waiting for Lawson Ticket numbered ticket
 4. **When getting a front number** - Operate carefully, don't be greedy for hard-to-get seats
 5. **When getting a back number** - Turn to e+ for quick purchase
 
