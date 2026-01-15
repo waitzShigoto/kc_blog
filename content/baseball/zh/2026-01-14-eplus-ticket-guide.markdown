@@ -2,6 +2,7 @@
 title: "WBC2026「2026年1月15日19:00(台灣時間 18:00)一般發售」e+（イープラス）先搶先贏購票完全攻略"
 date: "2026-01-14 18:00:00"
 author: "WaitZ"
+image: cover/wbc_logo.png
 categories: ["Baseball"]
 tags: ["e+", "イープラス", "門票", "購票", "先搶先贏", "日本", "WBC", "東京巨蛋"]
 topic: "e+購票攻略"
@@ -176,21 +177,61 @@ e+ 可以在票券發售時間前：
 
 
 #### Step 1. 開賣前19:00 (台灣時間18:00)進入WBC購票的頁面
+- 點擊Apply for tickets 
+![1.png](/images/wbc/1.png)
+- 找到想要的場次 點擊 to the next 
+![2.png](/images/wbc/2.png)
+- 會進入到位置的說明的頁面
+![3.png](/images/wbc/3.png)
 
 #### Step 2. 輸入個人資料、手機、信用卡資訊...等
 <br>
 
-選擇：
+剛剛的往下拉
+
+開始選擇：
 - 日期時間
 - 座位種類
 - 張數
-- 信用卡資訊...等
+
+![4.png](/images/wbc/4.png)
+![5.png](/images/wbc/5.png)
+<br>
+
+![6.png](/images/wbc/6.png)
 
 **座位選擇建議：「不選擇座位」**
 
-理由：熱門演出選擇座位時，票很快就賣光，最後可能買不到，先求友。
+理由：熱門演出選擇座位時，票很快就賣光，最後可能買不到，先求有。
 
-#### Step 3. 放置到開賣前, 按下「申請」按鈕 
+- 然後點擊 Apply
+![7.png](/images/wbc/7.png)
+
+- 會跳出同意事項，點擊Agree即可
+![8.png](/images/wbc/8.png)
+
+#### Step 3. 輸入個人資料、信用卡資訊...等
+
+- 輸入個人資料
+![9.png](/images/wbc/9.png)
+
+- 輸入信用卡資料
+![10.png](/images/wbc/10.png)
+
+- 選擇居住地、護照國籍
+![11.png](/images/wbc/11.png)
+
+- 最後點擊Go to setting
+![12.png](/images/wbc/12.png)
+
+
+
+#### Step 4. 放置到開賣前, 按下「申請」按鈕 
+
+上面步驟輸入完後，瀏覽器應該會有些緩存紀錄你前面輸入的資料
+但可能一定時間會消失
+所以 開賣前記得回來確認
+
 
 <br>
 確認申請內容後，按下「Apply」按鈕。<br>
