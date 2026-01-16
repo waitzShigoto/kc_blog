@@ -4,8 +4,9 @@ import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import { getBaseballPosts } from '@/lib/daily-content';
+import { getBaseballPosts, getRelatedBaseballPosts } from '@/lib/daily-content';
 import { MermaidClient } from '@/components/blog/MermaidClient';
+import RelatedBaseballPosts from '@/components/blog/RelatedBaseballPosts';
 
 interface BaseballPostPageProps {
   params: Promise<{
@@ -136,6 +137,9 @@ export default async function BaseballPostPage({ params }: BaseballPostPageProps
   if (!post) {
     notFound();
   }
+
+  // 獲取相關文章
+  const relatedPosts = await getRelatedBaseballPosts(post, locale, 6);
 
   const content = {
     zh: {
@@ -274,6 +278,11 @@ export default async function BaseballPostPage({ params }: BaseballPostPageProps
             <MermaidClient />
           </div>
         </article>
+
+        {/* 相關文章推薦 - 獨立區塊，間距 20px */}
+        <div className="mt-5">
+          <RelatedBaseballPosts posts={relatedPosts} locale={locale} />
+        </div>
       </main>
     </div>
   );

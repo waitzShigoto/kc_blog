@@ -552,3 +552,66 @@ function extractSummary(content: string, maxLength: number = 150): string {
 export function getRecentPosts<T extends { date: string }>(posts: T[], limit: number = 3): T[] {
   return posts.slice(0, limit);
 }
+
+/**
+ * 獲取相關的棒球文章
+ */
+export async function getRelatedBaseballPosts(currentPost: BaseballPost, locale: string, limit: number = 6): Promise<BaseballPost[]> {
+  const allPosts = await getBaseballPosts(locale);
+  const currentTags = currentPost.tags || [];
+  const currentCategories = currentPost.categories || [];
+  
+  // 過濾掉當前文章
+  const otherPosts = allPosts.filter(post => post.slug !== currentPost.slug);
+  
+  // 計算相關性分數
+  const postsWithScore = otherPosts.map(post => {
+    let score = 0;
+    const postTags = post.tags || [];
+    const postCategories = post.categories || [];
+    
+    // 標籤匹配得分（每個匹配的標籤 +2 分）
+    const tagMatches = currentTags.filter(tag => postTags.includes(tag));
+    score += tagMatches.length * 2;
+    
+    // 分類匹配得分（每個匹配的分類 +3 分）
+    const categoryMatches = currentCategories.filter(category => postCategories.includes(category));
+    score += categoryMatches.length * 3;
+    
+    return {
+      post,
+      score,
+      tagMatches: tagMatches.length,
+      categoryMatches: categoryMatches.length
+    };
+  });
+  
+  // 按分數排序，分數相同時按日期排序（較新的在前）
+  const sortedPosts = postsWithScore
+    .filter(item => item.score > 0) // 只返回有相關性的文章
+    .sort((a, b) => {
+      if (a.score !== b.score) {
+        return b.score - a.score; // 分數高的在前
+      }
+      // 分數相同時按日期排序
+      const dateA = new Date(a.post.date);
+      const dateB = new Date(b.post.date);
+      return dateB.getTime() - dateA.getTime();
+    });
+  
+  // 如果相關文章不足，用最新文章補足
+  let relatedPosts = sortedPosts.slice(0, limit).map(item => item.post);
+  
+  if (relatedPosts.length < limit) {
+    const remainingCount = limit - relatedPosts.length;
+    const relatedSlugs = new Set(relatedPosts.map(p => p.slug));
+    const additionalPosts = otherPosts
+      .filter(post => !relatedSlugs.has(post.slug))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .slice(0, remainingCount);
+    
+    relatedPosts = [...relatedPosts, ...additionalPosts];
+  }
+  
+  return relatedPosts;
+}
