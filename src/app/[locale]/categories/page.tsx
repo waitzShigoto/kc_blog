@@ -4,8 +4,10 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import CategoriesPageClient from '@/components/blog/CategoriesPageClient';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 interface CategoriesPageProps {
   params: Promise<{ locale: string }>;
@@ -15,6 +17,61 @@ export async function generateStaticParams() {
   return siteConfig.locales.map((locale) => ({
     locale,
   }));
+}
+
+// 新增 metadata
+export async function generateMetadata({ params }: CategoriesPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const titles = {
+    zh: '分類列表 | Elegant Access',
+    en: 'Categories | Elegant Access',
+    ja: 'カテゴリー一覧 | Elegant Access'
+  };
+  
+  const descriptions = {
+    zh: '瀏覽所有文章分類，系統化地探索不同技術領域。包含 Android 開發、Web 開發、演算法等分類。',
+    en: 'Browse all article categories to systematically explore different technology areas. Including Android Development, Web Development, Algorithms and more.',
+    ja: 'すべての記事カテゴリーを閲覧して、さまざまな技術分野を体系的に探索します。Android 開発、Web 開発、アルゴリズムなどが含まれます。'
+  };
+
+  const categoriesUrl = `${siteConfig.siteUrl}/${locale}/categories`;
+
+  return {
+    title: titles[locale as keyof typeof titles] || titles.zh,
+    description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+    alternates: {
+      canonical: categoriesUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/categories`,
+        'en-US': `${siteConfig.siteUrl}/en/categories`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/categories`,
+      },
+    },
+    openGraph: {
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: categoriesUrl,
+      title: titles[locale as keyof typeof titles] || titles.zh,
+      description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: `${siteConfig.siteUrl}/images/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: titles[locale as keyof typeof titles],
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: titles[locale as keyof typeof titles] || titles.zh,
+      description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+      creator: '@eleg_aces',
+      images: [`${siteConfig.siteUrl}/images/og-image.png`],
+    },
+  };
 }
 
 // Loading 組件
@@ -52,8 +109,21 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
   const posts = await getAllPosts(locale);
   const allCategories = await getAllCategories(locale);
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: locale === 'zh' ? '分類' : locale === 'en' ? 'Categories' : 'カテゴリー',
+      url: `${siteConfig.siteUrl}/${locale}/categories`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden lg:block w-80 fixed left-0 top-0 h-full overflow-y-auto">

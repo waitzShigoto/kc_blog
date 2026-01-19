@@ -7,71 +7,126 @@ export const dynamic = 'force-static';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.siteUrl;
   
-  // 使用固定的日期避免 hydration mismatch
-  const currentDate = new Date('2025-06-12T00:00:00.000Z');
+  // 使用構建時的當前日期
+  const currentDate = new Date();
   
-  // 靜態頁面
+  // 靜態頁面 - 完整版本
   const staticPages = [
+    // 首頁
     {
       url: baseUrl,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1,
     },
-    {
-      url: `${baseUrl}/zh`,
+    // 各語言首頁
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}`,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1,
-    },
-    {
-      url: `${baseUrl}/en`,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/ja`,
-      lastModified: currentDate,
-      changeFrequency: 'daily' as const,
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/zh/about`,
+    })),
+    // About 頁面
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}/about`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/en/about`,
+    })),
+    // Archives 頁面
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}/archives`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    // Categories 頁面
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}/categories`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    // Tags 主頁面
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}/tags`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })),
+    // Search 頁面
+    ...siteConfig.locales.map(locale => ({
+      url: `${baseUrl}/${locale}/search`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/ja/about`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/zh/archives`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/en/archives`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/ja/archives`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    },
+      priority: 0.5,
+    })),
+    // 工具頁面
+    ...siteConfig.locales.flatMap(locale => [
+      {
+        url: `${baseUrl}/${locale}/tools/json-parser-online`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/${locale}/tools/base64-parser-online`,
+        lastModified: currentDate,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      },
+    ]),
+    // 特殊分類頁面
+    ...siteConfig.locales.flatMap(locale => [
+      {
+        url: `${baseUrl}/${locale}/algorithms`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/${locale}/algorithms/archive`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      },
+      {
+        url: `${baseUrl}/${locale}/baseball`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/${locale}/baseball/archive`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      },
+      {
+        url: `${baseUrl}/${locale}/daily-english`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/${locale}/daily-english/archive`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      },
+      {
+        url: `${baseUrl}/${locale}/leetcode`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/${locale}/leetcode/archive`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      },
+    ]),
   ];
 
   // 動態生成文章頁面
@@ -92,17 +147,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
     
-    // 標籤頁面
+    // 收集標籤和分類
     const allTags = new Set<string>();
+    const allCategories = new Set<string>();
+    
     posts.forEach(post => {
+      // 標籤
       if (post.frontMatter.tags) {
         post.frontMatter.tags.forEach(tag => allTags.add(tag));
       }
+      // 分類
+      if (post.frontMatter.categories) {
+        const categories = Array.isArray(post.frontMatter.categories) 
+          ? post.frontMatter.categories 
+          : [post.frontMatter.categories];
+        categories.forEach(cat => allCategories.add(cat));
+      }
     });
     
+    // 標籤頁面（使用查詢參數）
     allTags.forEach(tag => {
       postPages.push({
-        url: `${baseUrl}/${locale}/tags/${encodeURIComponent(tag)}`,
+        url: `${baseUrl}/${locale}/tags?tag=${encodeURIComponent(tag)}`,
+        lastModified: currentDate,
+        changeFrequency: 'weekly' as const,
+        priority: 0.6,
+      });
+    });
+    
+    // 分類頁面（使用查詢參數）
+    allCategories.forEach(category => {
+      postPages.push({
+        url: `${baseUrl}/${locale}/categories?category=${encodeURIComponent(category)}`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,

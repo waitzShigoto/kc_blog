@@ -6,6 +6,7 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import AndroidPortfolioContent from '@/components/portfolio/AndroidPortfolioContent';
 import AndroidPortfolioContentEn from '@/components/portfolio/AndroidPortfolioContentEn';
 import JsonLd from '@/components/seo/JsonLd';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import RelatedPosts from '@/components/blog/RelatedPosts';
 import Link from 'next/link';
 
@@ -199,6 +200,22 @@ export default async function PostPage({ params }: PostPageProps) {
     ja: '最新記事'
   };
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: locale === 'zh' ? '文章' : locale === 'en' ? 'Posts' : '記事',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: title,
+      url: postUrl,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* JSON-LD 結構化數據 */}
@@ -214,6 +231,9 @@ export default async function PostPage({ params }: PostPageProps) {
           tags: tagArray,
         }}
       />
+      
+      {/* 麵包屑 Schema */}
+      <BreadcrumbSchema items={breadcrumbItems} />
       
       <HeaderWrapper locale={locale} />
       

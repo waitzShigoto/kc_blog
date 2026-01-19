@@ -4,6 +4,7 @@ import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import ArchivesContent from '@/components/archives/ArchivesContent';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { notFound } from 'next/navigation';
 
 interface ArchivesPageProps {
@@ -26,8 +27,21 @@ export default async function ArchivesPage({ params }: ArchivesPageProps) {
   
   const posts = await getAllPosts(locale);
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: locale === 'zh' ? '歸檔' : locale === 'en' ? 'Archives' : 'アーカイブ',
+      url: `${siteConfig.siteUrl}/${locale}/archives`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden lg:block w-80 fixed left-0 top-0 h-full overflow-y-auto">

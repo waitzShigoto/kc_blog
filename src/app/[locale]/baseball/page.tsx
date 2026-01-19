@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { getBaseballPosts, getRecentPosts } from '@/lib/daily-content';
@@ -70,6 +71,11 @@ export async function generateMetadata({ params }: BaseballPageProps): Promise<M
     },
     alternates: {
       canonical: pageUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/baseball`,
+        'en-US': `${siteConfig.siteUrl}/en/baseball`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/baseball`,
+      },
     },
   };
 }
@@ -85,7 +91,6 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
   // 讀取實際的棒球文章
   const allPosts = await getBaseballPosts(locale);
   const recentEntries = getRecentPosts(allPosts, 3);
-  const latestEntry = allPosts.length > 0 ? allPosts[0] : null;
 
   // 基於實際文章計算分類統計和最新文章
   const categoryCounts = allPosts.reduce((acc, post) => {
@@ -174,8 +179,21 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
 
   const currentContent = content[locale as keyof typeof content];
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: locale === 'zh' ? '棒球' : locale === 'en' ? 'Baseball' : '野球',
+      url: `${siteConfig.siteUrl}/${locale}/baseball`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

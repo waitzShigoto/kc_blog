@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { getAlgorithmPosts, calculateAlgorithmStats, getRecentPosts, getLeetCodePosts, calculateLeetCodeStats } from '@/lib/daily-content';
@@ -70,6 +71,11 @@ export async function generateMetadata({ params }: AlgorithmsPageProps): Promise
     },
     alternates: {
       canonical: pageUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/algorithms`,
+        'en-US': `${siteConfig.siteUrl}/en/algorithms`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/algorithms`,
+      },
     },
   };
 }
@@ -263,8 +269,21 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
 
   const currentContent = content[locale as keyof typeof content];
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: locale === 'zh' ? '演算法' : locale === 'en' ? 'Algorithms' : 'アルゴリズム',
+      url: `${siteConfig.siteUrl}/${locale}/algorithms`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

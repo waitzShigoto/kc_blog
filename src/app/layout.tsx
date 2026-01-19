@@ -119,6 +119,7 @@ export default function RootLayout({
         {/* JSON-LD 結構化數據 */}
         <JsonLd type="website" />
         <JsonLd type="person" />
+        <JsonLd type="organization" />
       </head>
       <body className={inter.className}>
         <ThemeProvider

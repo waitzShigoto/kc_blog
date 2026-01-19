@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { getLeetCodePosts, calculateLeetCodeStats, getRecentPosts, getAlgorithmPosts } from '@/lib/daily-content';
@@ -30,14 +31,52 @@ export async function generateMetadata({ params }: LeetCodePageProps): Promise<M
   };
   
   const descriptions = {
-    zh: 'LeetCode 解題過程記錄與心得分享',
-    en: 'LeetCode problem-solving records and insights',
-    ja: 'LeetCode の問題解決記録と洞察'
+    zh: 'LeetCode 解題過程記錄與心得分享，包含演算法分析與程式碼實作。',
+    en: 'LeetCode problem-solving records and insights, including algorithm analysis and code implementation.',
+    ja: 'LeetCode の問題解決記録と洞察、アルゴリズム分析とコード実装を含みます。'
   };
 
+  const fullTitle = titles[locale as keyof typeof titles] || titles.en;
+  const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/leetcode`;
+  const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
+
   return {
-    title: titles[locale as keyof typeof titles] || titles.en,
-    description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    title: fullTitle,
+    description: description,
+    keywords: 'LeetCode, 演算法, Algorithm, Coding Interview, 程式面試, DSA, Data Structure',
+    authors: [{ name: siteConfig.author.name, url: siteConfig.siteUrl }],
+    openGraph: {
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_TW' : locale === 'en' ? 'en_US' : 'ja_JP',
+      url: pageUrl,
+      title: fullTitle,
+      description: description,
+      siteName: siteConfig.title,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: fullTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: fullTitle,
+      description: description,
+      creator: '@eleg_aces',
+      images: [ogImage],
+    },
+    alternates: {
+      canonical: pageUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/leetcode`,
+        'en-US': `${siteConfig.siteUrl}/en/leetcode`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/leetcode`,
+      },
+    },
   };
 }
 
@@ -221,8 +260,21 @@ export default async function LeetCodePage({ params }: LeetCodePageProps) {
 
   const currentContent = content[locale as keyof typeof content];
 
+  // 麵包屑資料
+  const breadcrumbItems = [
+    {
+      name: locale === 'zh' ? '首頁' : locale === 'en' ? 'Home' : 'ホーム',
+      url: `${siteConfig.siteUrl}/${locale}`,
+    },
+    {
+      name: 'LeetCode',
+      url: `${siteConfig.siteUrl}/${locale}/leetcode`,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <HeaderWrapper locale={locale} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

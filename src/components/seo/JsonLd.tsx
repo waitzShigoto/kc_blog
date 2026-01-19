@@ -1,7 +1,7 @@
 import { siteConfig } from '@/lib/config';
 
 interface JsonLdProps {
-  type?: 'website' | 'article' | 'person';
+  type?: 'website' | 'article' | 'person' | 'organization';
   data?: {
     title?: string;
     description?: string;
@@ -106,6 +106,35 @@ export default function JsonLd({ type, data }: JsonLdProps) {
           worksFor: {
             '@type': 'Organization',
             name: siteConfig.title,
+          },
+        };
+
+      case 'organization':
+        return {
+          ...baseData,
+          '@type': 'Organization',
+          name: siteConfig.title,
+          url: siteConfig.siteUrl,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${siteConfig.siteUrl}/android-512.png`,
+          },
+          description: siteConfig.description,
+          sameAs: [
+            siteConfig.author.social.github,
+            siteConfig.author.social.twitter,
+            siteConfig.author.social.linkedin,
+            siteConfig.author.social.facebook,
+            siteConfig.author.social.instagram,
+          ].filter(Boolean),
+          contactPoint: {
+            '@type': 'ContactPoint',
+            email: siteConfig.author.email,
+            contactType: 'Customer Service',
+          },
+          founder: {
+            '@type': 'Person',
+            name: siteConfig.author.name,
           },
         };
 

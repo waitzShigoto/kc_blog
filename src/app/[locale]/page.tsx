@@ -5,6 +5,7 @@ import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
 import PostCard from '@/components/blog/PostCard';
 import FeaturedPosts from '@/components/blog/FeaturedPosts';
+import ItemListSchema from '@/components/seo/ItemListSchema';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -55,6 +56,9 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+      {/* ItemList Schema for SEO */}
+      <ItemListSchema posts={posts} locale={locale} />
+      
       <div className="flex">
         {/* Sidebar */}
         <div className="hidden lg:block w-80 fixed left-0 top-0 h-full overflow-y-auto">
