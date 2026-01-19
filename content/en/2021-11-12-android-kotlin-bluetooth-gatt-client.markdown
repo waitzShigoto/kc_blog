@@ -469,7 +469,7 @@ If you want to see how to capture Bluetooth packets through third-party tools
 You can refer to:
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2021/11/12/android-bluetooth-hci-packet/">
+  <a href="{{site.baseurl}}/posts/android-bluetooth-hci-packet">
   <img src="/images/cover/ea-android_bluetooth_hci_packet.png" alt="Cover" width="25%" >
   [Android][Kotlin] How to Capture Bluetooth Packet Logs on Android Phones</a>
 </div>

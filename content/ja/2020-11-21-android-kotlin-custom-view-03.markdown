@@ -116,7 +116,7 @@ RecyclerViewを頻繁に使用することを考慮し、また怠け者なの�
 <script src="https://gist.github.com/waitzShigoto/16987a5a8f9039f913b3e490da226e76.js"></script>
 
 ここでのswitchRecyclerViewは前回の記事
-  <a href="{{site.baseurl}}/2020/11/20/android-kotlin-custom-view-02/">[Custom View]カスタムUIの心得共有（1）：実装編</a>
+  <a href="{{site.baseurl}}/posts/android-kotlin-custom-view-02">[Custom View]カスタムUIの心得共有（1）：実装編</a>
 で言及したカスタムビューです。忘れた方はご覧ください。
 
 次に、RecyclerViewに以下の効果を達成するために:

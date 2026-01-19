@@ -464,7 +464,7 @@ onCharacteristicChangedを確認します。
 Bluetoothパケットをキャプチャする方法を見たい場合は、以下を参照してください。
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2021/11/12/android-bluetooth-hci-packet/">
+  <a href="{{site.baseurl}}/posts/android-bluetooth-hci-packet">
   <img src="/images/cover/ea-android_bluetooth_hci_packet.png" alt="Cover" width="25%" >
   [Android][Kotlin]AndroidスマートフォンのBluetoothパケットログをキャプチャする方法</a>
 </div>

@@ -15,7 +15,7 @@ excerpt: この記事では、Android 14バージョンのアップグレード�
    - Android 14 は target SDK >= 33 のアプリに対して権限 `SCHEDULE_EXACT_ALARM` をデフォルトで同意しなくなりました
 
    （デフォルトでは `拒否` に設定されています）
-   - これは以前の Android 12（以前の<a href="{{site.baseurl}}/2022/08/24/android-12-version-impact/">ノート</a>）で追加された権限です
+   - これは以前の Android 12（以前の<a href="{{site.baseurl}}/posts/android-12-version-impact">ノート</a>）で追加された権限です
 
    当時は AndroidManifest.xml に宣言するだけで済みましたが
    今は `権限をリクエスト` する必要があります
@@ -79,7 +79,7 @@ excerpt: この記事では、Android 14バージョンのアップグレード�
 
     - `Android 13`では、すでに一度権限が細分化されており、
 
-    `READ_MEDIA_VIDEO`、`READ_MEDIA_IMAGES`を使用して`すべて`の画像やビデオにアクセスできます：<a href="{{site.baseurl}}/2022/08/25/android-13-version-impact/">以前のAndroid 13のメモ</a>
+    `READ_MEDIA_VIDEO`、`READ_MEDIA_IMAGES`を使用して`すべて`の画像やビデオにアクセスできます：<a href="{{site.baseurl}}/posts/android-13-version-impact">以前のAndroid 13のメモ</a>
       ```kotlin
          <!-- Devices running Android 12L (API level 32) or lower  -->
          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"

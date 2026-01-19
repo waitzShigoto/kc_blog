@@ -19,7 +19,7 @@ excerpt: >-
    - Android 14 no longer grants the `SCHEDULE_EXACT_ALARM` permission by default for apps targeting SDK >= 33
 
    (By default, it is set to `deny`)
-   - This permission was introduced in Android 12 (previous <a href="{{site.baseurl}}/2022/08/24/android-12-version-impact/">note</a>)
+   - This permission was introduced in Android 12 (previous <a href="{{site.baseurl}}/posts/android-12-version-impact">note</a>)
 
    At that time, it was only necessary to declare it in AndroidManifest.xml
    Now you need to `request permission`
@@ -83,7 +83,7 @@ excerpt: >-
 
     - In `Android 13`, permissions were already refined once,
 
-    using `READ_MEDIA_VIDEO` and `READ_MEDIA_IMAGES` to access `all` photos and videos at once: <a href="{{site.baseurl}}/2022/08/25/android-13-version-impact/">Previous Android 13 notes</a>
+    using `READ_MEDIA_VIDEO` and `READ_MEDIA_IMAGES` to access `all` photos and videos at once: <a href="{{site.baseurl}}/posts/android-13-version-impact">Previous Android 13 notes</a>
       ```kotlin
          <!-- Devices running Android 12L (API level 32) or lower  -->
          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"

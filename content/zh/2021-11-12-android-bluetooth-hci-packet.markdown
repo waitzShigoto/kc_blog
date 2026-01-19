@@ -25,7 +25,7 @@ categories: AndroidDev
 
 如果你是想要看看怎麼串接gatt server的可以看看這裡
 
-<a href="{{site.baseurl}}/2021/11/12/android-kotlin-bluetooth-gatt-client/">
+<a href="{{site.baseurl}}/posts/android-kotlin-bluetooth-gatt-client">
 <img src="/images/cover/android-kotlin-bluetooth-gatt-client.png" alt="Cover" width="25%" >
 [Android][Kotlin][2021]Android低功耗藍芽Gatt連線實作教學！</a>
 

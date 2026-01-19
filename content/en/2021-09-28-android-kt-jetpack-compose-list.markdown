@@ -56,11 +56,11 @@ If you're interested, you can refer to the previous articles
   </a>
   <a align="right" href="{{site.baseurl}}/android-kt-jetpack-compose-base/">Android Jetpack Compose Basic Application Tutorial</a>
 
-  <a href="{{site.baseurl}}/2021/09/17/android-kt-jetpack-compose-splash">
+  <a href="{{site.baseurl}}/posts/android-kt-jetpack-compose-splash">
     <img src="/images/cover/ea-website-splash-cover-photo-new-1.png" alt="Cover" width="40%" >
   </a>
 
-  <a align="right" href="{{site.baseurl}}/2021/09/17/android-kt-jetpack-compose-splash/">Learn to Add Animations to the Splash Page with Jetpack Compose!</a>
+  <a align="right" href="{{site.baseurl}}/posts/android-kt-jetpack-compose-splash">Learn to Add Animations to the Splash Page with Jetpack Compose!</a>
 
 </div>
 
@@ -177,7 +177,7 @@ Next, we will introduce how to
 
 add pull-to-refresh functionality
 
-<a href="{{site.baseurl}}/2021/10/28/android-kt-jetpack-compose-swiperefresh/">
+<a href="{{site.baseurl}}/posts/android-kt-jetpack-compose-swiperefresh">
   <img src="/images/cover/ea_swiperefresh_app-new-1.png" alt="Cover" width="30%" >
 </a>
 

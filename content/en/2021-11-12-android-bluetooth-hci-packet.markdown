@@ -25,7 +25,7 @@ I will explain it in today's article.
 
 If you want to see how to connect to a GATT server, you can check here
 
-<a href="{{site.baseurl}}/2021/11/12/android-kotlin-bluetooth-gatt-client/">
+<a href="{{site.baseurl}}/posts/android-kotlin-bluetooth-gatt-client">
 <img src="/images/cover/android-kotlin-bluetooth-gatt-client.png" alt="Cover" width="25%" >
 [Android][Kotlin][2021] Android BLE GATT Connection Implementation Tutorial!</a>
 

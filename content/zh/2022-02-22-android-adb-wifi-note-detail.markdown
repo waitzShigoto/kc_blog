@@ -23,10 +23,10 @@ excerpt: >-
 <div align="start" class="table_container">
   如果您還不熟悉 ADB wifi來Debug，之前我們也分享過相關的心得，建議您可以參考一下。
 
-  <a href="{{site.baseurl}}/2022/02/15/android-adb-wifi-note/">
+  <a href="{{site.baseurl}}/posts/android-adb-wifi-note">
     <img src="/images/others/adb_wifi.png" alt="Cover" width="30%"/>
   </a>
-  <a href="{{site.baseurl}}/2022/02/15/android-adb-wifi-note/">擁抱無線：教你使用adb無線連接Android實機！</a>
+  <a href="{{site.baseurl}}/posts/android-adb-wifi-note">擁抱無線：教你使用adb無線連接Android實機！</a>
 </div>
 
 <div class="c-border-main-title-2">針對Android 11 新出的adb wireless debug 研究

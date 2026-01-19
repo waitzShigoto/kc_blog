@@ -30,10 +30,10 @@ for my future reference and to hopefully help other users!
 <div class="table_container">
     <span style="text-align:center;">Additionally, Android 11 has introduced another method for testing or debugging:</span>
 
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">
      <img src="/images/others/adb_wifi.png" alt="Cover" width="30%"/>
    </a>
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">Unleash the Power of Android 11 ADB Wireless Debug: From Wired to Wireless, Explore a Freer Debugging Experience!</a>
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">Unleash the Power of Android 11 ADB Wireless Debug: From Wired to Wireless, Explore a Freer Debugging Experience!</a>
 </div>
 
 ## Practical Steps

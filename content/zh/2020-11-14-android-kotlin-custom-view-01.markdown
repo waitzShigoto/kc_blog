@@ -79,7 +79,7 @@ excerpt: 在這篇教學文章中，你將學習如何使用Android Kotlin客製
 請參考：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/20/android-kotlin-custom-view-02/">
+  <a href="{{site.baseurl}}/posts/android-kotlin-custom-view-02">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 

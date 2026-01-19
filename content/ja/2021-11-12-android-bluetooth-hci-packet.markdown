@@ -25,7 +25,7 @@ Bluetooth通信のパケットを取得する方法を記録します。
 
 もし、gattサーバーの接続方法を見たい場合は、こちらをご覧ください。
 
-<a href="{{site.baseurl}}/2021/11/12/android-kotlin-bluetooth-gatt-client/">
+<a href="{{site.baseurl}}/posts/android-kotlin-bluetooth-gatt-client">
 <img src="/images/cover/android-kotlin-bluetooth-gatt-client.png" alt="Cover" width="25%" >
 [Android][Kotlin][2021]Android低功耗藍芽Gatt連線實作教學！</a>
 

@@ -53,11 +53,11 @@ excerpt: >-
   </a>
   <a align="right" href="{{site.baseurl}}/android-kt-jetpack-compose-base/">Android Jetpack Compose 基本応用チュートリアル</a>
 
-  <a href="{{site.baseurl}}/2021/09/17/android-kt-jetpack-compose-splash">
+  <a href="{{site.baseurl}}/posts/android-kt-jetpack-compose-splash">
     <img src="/images/cover/ea-website-splash-cover-photo-new-1.png" alt="Cover" width="40%" >
   </a>
 
-  <a align="right" href="{{site.baseurl}}/2021/09/17/android-kt-jetpack-compose-splash/">Jetpack Compose でスプラッシュ画面にアニメーションを追加しよう！</a>
+  <a align="right" href="{{site.baseurl}}/posts/android-kt-jetpack-compose-splash">Jetpack Compose でスプラッシュ画面にアニメーションを追加しよう！</a>
 
 </div>
 
@@ -174,7 +174,7 @@ val model: DeviceViewModel by activityViewModels()
 
 プルダウンリフレッシュの追加方法です
 
-<a href="{{site.baseurl}}/2021/10/28/android-kt-jetpack-compose-swiperefresh/">
+<a href="{{site.baseurl}}/posts/android-kt-jetpack-compose-swiperefresh">
   <img src="/images/cover/ea_swiperefresh_app-new-1.png" alt="Cover" width="30%" >
 </a>
 

@@ -15,7 +15,7 @@ excerpt: 本文將介紹 Android 14 版本升級帶來的開發挑戰以及解�
    - Android 14 不再預設對target SDK >= 33 的app同意權限`SCHEDULE_EXACT_ALARM `
 
    （預設情況下，設定為`拒絕`）
-   - 這個是之前android 12(之前的<a href="{{site.baseurl}}/2022/08/24/android-12-version-impact/">筆記</a>)新增的權限
+   - 這個是之前android 12(之前的<a href="{{site.baseurl}}/posts/android-12-version-impact">筆記</a>)新增的權限
 
    當時只需要在AndroidManifest.xml宣告即可
    現在需`請求權限`
@@ -79,7 +79,7 @@ excerpt: 本文將介紹 Android 14 版本升級帶來的開發挑戰以及解�
 
     - `Android 13` 那時候已經有細化一次權限，
 
-    使用`READ_MEDIA_VIDEO`、`READ_MEDIA_IMAGES`來一次存取`所有`圖片、影片：<a href="{{site.baseurl}}/2022/08/25/android-13-version-impact/">之前的android 13筆記</a>
+    使用`READ_MEDIA_VIDEO`、`READ_MEDIA_IMAGES`來一次存取`所有`圖片、影片：<a href="{{site.baseurl}}/posts/android-13-version-impact">之前的android 13筆記</a>
       ```kotlin
          <!-- Devices running Android 12L (API level 32) or lower  -->
          <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"

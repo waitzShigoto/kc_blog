@@ -118,7 +118,7 @@ Hello,大家好,這裡是Elegant Access的 KC，
 <script src="https://gist.github.com/waitzShigoto/16987a5a8f9039f913b3e490da226e76.js"></script>
 
 那這邊的switchRecyclerView是上一篇
-  <a href="{{site.baseurl}}/2020/11/20/android-kotlin-custom-view-02/">[Custom View]客製UI心得分享（1）：實作篇</a>
+  <a href="{{site.baseurl}}/posts/android-kotlin-custom-view-02">[Custom View]客製UI心得分享（1）：實作篇</a>
 有提到的customer view，忘記的可以看看
 
 接著，我們為了要讓recycler view達到以下效果：

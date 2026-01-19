@@ -105,7 +105,7 @@ excerpt: >-
 
       <div align="start">
       See
-        <a href="{{site.baseurl}}/2022/04/18/android-log-catch-method/">[Android][2022][Debug][Problem Solved Series]Android log capture methods - Helping non-developers quickly capture logs</a>
+        <a href="{{site.baseurl}}/posts/android-log-catch-method">[Android][2022][Debug][Problem Solved Series]Android log capture methods - Helping non-developers quickly capture logs</a>
       </div>
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;bootloader</h1>

@@ -26,10 +26,10 @@ Here, we share our research findings on adb wireless debug.
 <div align="start" class="table_container">
   If you are not yet familiar with using ADB wifi for debugging, we have previously shared related insights, which you might find useful.
 
-  <a href="{{site.baseurl}}/2022/02/15/android-adb-wifi-note/">
+  <a href="{{site.baseurl}}/posts/android-adb-wifi-note">
     <img src="/images/others/adb_wifi.png" alt="Cover" width="30%"/>
   </a>
-  <a href="{{site.baseurl}}/2022/02/15/android-adb-wifi-note/">Embrace Wireless: Guide to Using adb to Wirelessly Connect to Android Devices!</a>
+  <a href="{{site.baseurl}}/posts/android-adb-wifi-note">Embrace Wireless: Guide to Using adb to Wirelessly Connect to Android Devices!</a>
 </div>
 
 <div class="c-border-main-title-2">Research on the New adb Wireless Debug in Android 11

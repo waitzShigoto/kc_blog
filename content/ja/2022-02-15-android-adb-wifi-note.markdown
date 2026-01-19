@@ -26,10 +26,10 @@ adb wifiを使用するのも良い方法です。
 <div class="table_container">
     <span style="text-align:center;">さらに、Android 11では新しい方法も追加され、テストやデバッグが可能です：</span>
 
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">
      <img src="/images/others/adb_wifi.png" alt="Cover" width="30%"/>
    </a>
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">Android 11 adb wireless debugの力を解放：有線から無線へ、より自由なデバッグ体験を探る！</a>
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">Android 11 adb wireless debugの力を解放：有線から無線へ、より自由なデバッグ体験を探る！</a>
  </div>
 
 ## 実際の手順

@@ -97,7 +97,7 @@ excerpt: "一位開發者分享了他在2022年開發過程中使用最頻繁的
 
       <div align="start">
       See
-        <a href="{{site.baseurl}}/2022/04/18/android-log-catch-method/">[Android][2022][Debug][Problem Solved Series]Android log 抓取方式彙整-讓非開發人員更快抓log</a>
+        <a href="{{site.baseurl}}/posts/android-log-catch-method">[Android][2022][Debug][Problem Solved Series]Android log 抓取方式彙整-讓非開發人員更快抓log</a>
       </div>
 
 <h1 style="background-color:powderblue;">&nbsp;&nbsp;bootloader</h1>

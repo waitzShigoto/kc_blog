@@ -25,10 +25,10 @@ excerpt: 本文教你如何使用adb透過wifi連接Android實機，讓你不再
  <div class="table_container">
     <span style="text-align:center;">另外android 11 也新增了另一種方法，供測試或debug的方案：</span>
 
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">
      <img src="/images/others/adb_wifi.png" alt="Cover" width="30%"/>
    </a>
-   <a href="{{site.baseurl}}/2022/02/22/android-adb-wifi-note-detail/">釋放 Android 11 adb wireless debug 的力量：從有線到無線，探索更自由的debug體驗！</a>
+   <a href="{{site.baseurl}}/posts/android-adb-wifi-note-detail">釋放 Android 11 adb wireless debug 的力量：從有線到無線，探索更自由的debug體驗！</a>
  </div>
 
 ## 實際作法

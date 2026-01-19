@@ -462,7 +462,7 @@ onCharacteristicChanged去看
 擷取藍芽封包可以參考：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2021/11/12/android-bluetooth-hci-packet/">
+  <a href="{{site.baseurl}}/posts/android-bluetooth-hci-packet">
   <img src="/images/cover/ea-android_bluetooth_hci_packet.png" alt="Cover" width="25%" >
   [Android][Kotlin]如何抓取Android手機中 Bluetooth 藍芽封包日誌</a>
 </div>

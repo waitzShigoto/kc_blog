@@ -122,7 +122,7 @@ and you will have a basic recycler view:
 <script src="https://gist.github.com/waitzShigoto/16987a5a8f9039f913b3e490da226e76.js"></script>
 
 Here, the switchRecyclerView mentioned is the custom view referred to in the previous article
-  <a href="{{site.baseurl}}/2020/11/20/android-kotlin-custom-view-02/">[Custom View] Custom UI Experience Sharing (1): Implementation</a>.
+  <a href="{{site.baseurl}}/posts/android-kotlin-custom-view-02">[Custom View] Custom UI Experience Sharing (1): Implementation</a>.
 If you have forgotten, you can take a look.
 
 Next, to achieve the following effects with the recycler view: 
