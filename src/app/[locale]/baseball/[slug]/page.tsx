@@ -8,6 +8,7 @@ import { getBaseballPosts, getRelatedBaseballPosts } from '@/lib/daily-content';
 import { MermaidClient } from '@/components/blog/MermaidClient';
 import RelatedBaseballPosts from '@/components/blog/RelatedBaseballPosts';
 import ShareButtons from '@/components/blog/ShareButtons';
+import PostShareBar from '@/components/blog/PostShareBar';
 
 interface BaseballPostPageProps {
   params: Promise<{
@@ -206,7 +207,8 @@ export default async function BaseballPostPage({ params }: BaseballPostPageProps
         <article className="bg-card rounded-lg shadow-lg">
           {/* Sticky header block */}
           <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-border shadow-sm rounded-t-lg">
-            <header className="px-4 py-3">
+            {/* Header - Hidden on mobile */}
+            <header className="hidden md:block px-4 py-3">
               <div className="flex items-start justify-between gap-2">
                 <h1 className="text-2xl font-bold text-foreground flex-1 min-w-0">
                   {post.title}
@@ -223,6 +225,13 @@ export default async function BaseballPostPage({ params }: BaseballPostPageProps
                 </div>
               </div>
             </header>
+            
+            {/* Share Bar - Always visible */}
+            <div className="px-4 py-2 md:pb-2">
+              <div className="flex items-center gap-2">
+                <PostShareBar url={`${siteConfig.siteUrl}/${locale}/baseball/${slug}`} title={post.title} locale={locale} />
+              </div>
+            </div>
           </div>
 
           {/* Article Content */}

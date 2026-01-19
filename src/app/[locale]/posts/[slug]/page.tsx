@@ -15,6 +15,7 @@ import GistLoader from '@/components/blog/GistLoader';
 import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
 import { MermaidClient } from '@/components/blog/MermaidClient';
 import ShareButtons from '@/components/blog/ShareButtons';
+import PostShareBar from '@/components/blog/PostShareBar';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -260,7 +261,8 @@ export default async function PostPage({ params }: PostPageProps) {
         <article className="bg-card rounded-lg shadow-lg">
           {/* Sticky header block */}
           <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-border shadow-sm rounded-t-lg">
-            <header className="px-4 py-3">
+            {/* Header - Hidden on mobile */}
+            <header className="hidden md:block px-4 py-3">
               <div className="flex items-start justify-between gap-2">
                 <h2 className="text-2xl font-bold text-foreground flex-1 min-w-0">
                   {title}
@@ -273,6 +275,13 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
               </div>
             </header>
+            
+            {/* Share Bar - Always visible */}
+            <div className="px-4 py-2 md:pb-2">
+              <div className="flex items-center gap-2">
+                <PostShareBar url={postUrl} title={title} locale={locale} />
+              </div>
+            </div>
           </div>
 
           {/* Article Content */}

@@ -9,6 +9,7 @@ import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
 import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
 import { MermaidClient } from '@/components/blog/MermaidClient';
+import PostShareBar from '@/components/blog/PostShareBar';
 
 interface LeetCodePostPageProps {
   params: Promise<{
@@ -152,7 +153,8 @@ export default async function LeetCodePostPage({ params }: LeetCodePostPageProps
         <article className="bg-card rounded-lg shadow-lg">
           {/* Sticky header block */}
           <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/70 border-b border-border shadow-sm rounded-t-lg">
-            <header className="px-4 py-3">
+            {/* Header - Hidden on mobile */}
+            <header className="hidden md:block px-4 py-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
@@ -189,6 +191,13 @@ export default async function LeetCodePostPage({ params }: LeetCodePostPageProps
                 </div>
               </div>
             </header>
+            
+            {/* Share Bar - Always visible */}
+            <div className="px-4 py-2 md:pb-2">
+              <div className="flex items-center gap-2">
+                <PostShareBar url={`${siteConfig.siteUrl}/${locale}/leetcode/${slug}`} title={post.problemTitle} locale={locale} />
+              </div>
+            </div>
           </div>
 
           {/* Article Content */}
