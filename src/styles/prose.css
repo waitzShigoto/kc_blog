@@ -297,6 +297,8 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  /* 防止表格超出容器 */
+  max-width: 100%;
 }
 
 .prose th {
@@ -315,6 +317,38 @@
 
 .prose tr:hover td {
   background: var(--color-muted);
+}
+
+/* 移動設備表格優化 */
+@media (max-width: 768px) {
+  /* 創建一個可滾動的表格容器 */
+  .prose table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.875rem;
+  }
+  
+  .prose thead,
+  .prose tbody {
+    display: table;
+    width: 100%;
+  }
+  
+  .prose tr {
+    display: table-row;
+  }
+  
+  .prose th,
+  .prose td {
+    display: table-cell;
+    padding: 0.75rem 0.5rem;
+    /* 允許文字換行 */
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+  }
 }
 
 /* 圖片樣式 */

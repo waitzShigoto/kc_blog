@@ -192,39 +192,6 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Quick Actions */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-semibold text-foreground">
-                  {format(new Date(), 'yyyy年MM月dd日')}
-                </h2>
-                {latestEntry ? (
-                  <Link
-                    href={`/${locale}/baseball/${latestEntry.slug}`}
-                    className="btn-primary"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                    {currentContent.latestEntryButton}
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/${locale}/baseball/new`}
-                    className="btn-primary"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                    {currentContent.startToday}
-                  </Link>
-                )}
-              </div>
-              <p className="text-muted-foreground">
-                {currentContent.startDescription}
-              </p>
-            </div>
-
             {/* Recent Entries */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-6">
