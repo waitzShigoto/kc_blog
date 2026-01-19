@@ -35,9 +35,19 @@ export async function generateMetadata({ params }: AlgorithmsArchivePageProps): 
     ja: 'すべてのアルゴリズム学習記録を閲覧'
   };
 
+  const archiveUrl = `${siteConfig.siteUrl}/${locale}/algorithms/archive/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: archiveUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/algorithms/archive/`,
+        'en-US': `${siteConfig.siteUrl}/en/algorithms/archive/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/algorithms/archive/`,
+      },
+    },
   };
 }
 

@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: AlgorithmsPageProps): Promise
 
   const fullTitle = titles[locale as keyof typeof titles] || titles.en;
   const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
-  const pageUrl = `${siteConfig.siteUrl}/${locale}/algorithms`;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/algorithms/`;
   const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
 
   return {
@@ -72,9 +72,9 @@ export async function generateMetadata({ params }: AlgorithmsPageProps): Promise
     alternates: {
       canonical: pageUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/algorithms`,
-        'en-US': `${siteConfig.siteUrl}/en/algorithms`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/algorithms`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/algorithms/`,
+        'en-US': `${siteConfig.siteUrl}/en/algorithms/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/algorithms/`,
       },
     },
   };

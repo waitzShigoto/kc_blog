@@ -52,9 +52,14 @@ export async function generateMetadata({ params }: LeetCodePostPageProps): Promi
     ja: `${post.title} - LeetCode`
   };
 
+  const postUrl = `${siteConfig.siteUrl}/${locale}/leetcode/${slug}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: post.summary || post.title,
+    alternates: {
+      canonical: postUrl,
+    },
   };
 }
 

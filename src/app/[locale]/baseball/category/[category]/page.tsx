@@ -41,9 +41,19 @@ export async function generateMetadata({ params }: BaseballCategoryPageProps): P
     ja: `${decodedCategory} カテゴリーのすべての記事を閲覧`
   };
 
+  const categoryUrl = `${siteConfig.siteUrl}/${locale}/baseball/category/${category}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: categoryUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/baseball/category/${category}/`,
+        'en-US': `${siteConfig.siteUrl}/en/baseball/category/${category}/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/baseball/category/${category}/`,
+      },
+    },
   };
 }
 

@@ -9,6 +9,7 @@ topic: "Percentages and Ratios"
 studyTime: 60
 keyVocabulary: ["percent", "percentage", "ratio", "proportion", "convert"]
 locale: "ja"
+image: cover/generated/2025-10-09-percentages-and-ratios-cover.svg
 ---
 
 ## 今日のトピック (Today's Topic)

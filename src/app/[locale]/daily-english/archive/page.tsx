@@ -35,9 +35,19 @@ export async function generateMetadata({ params }: DailyEnglishArchivePageProps)
     ja: 'すべての毎日英語学習記録を閲覧'
   };
 
+  const archiveUrl = `${siteConfig.siteUrl}/${locale}/daily-english/archive/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: archiveUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/daily-english/archive/`,
+        'en-US': `${siteConfig.siteUrl}/en/daily-english/archive/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/daily-english/archive/`,
+      },
+    },
   };
 }
 

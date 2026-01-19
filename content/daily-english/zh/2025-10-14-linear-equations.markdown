@@ -9,6 +9,7 @@ topic: "Linear Equations"
 studyTime: 75
 keyVocabulary: ["equation", "variable", "coefficient", "constant", "solve", "isolate"]
 locale: "zh"
+image: cover/generated/2025-10-14-linear-equations-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

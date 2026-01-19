@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: DailyEnglishPostPageProps): P
   const description = post.summary || post.title;
   
   // 構建文章 URL
-  const postUrl = `${siteConfig.siteUrl}/${locale}/daily-english/${slug}`;
+  const postUrl = `${siteConfig.siteUrl}/${locale}/daily-english/${slug}/`;
   
   // 構建 OpenGraph 圖片 URL
   const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;

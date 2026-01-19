@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: JsonParserPageProps): Promise
   };
 
   const currentSeo = seoData[locale as keyof typeof seoData] || seoData.zh;
-  const canonicalUrl = `${siteConfig.siteUrl}/${locale}/tools/json-parser-online`;
+  const canonicalUrl = `${siteConfig.siteUrl}/${locale}/tools/json-parser-online/`;
 
   return {
     title: currentSeo.title,
@@ -60,10 +60,10 @@ export async function generateMetadata({ params }: JsonParserPageProps): Promise
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/tools/json-parser-online`,
-        'en-US': `${siteConfig.siteUrl}/en/tools/json-parser-online`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/tools/json-parser-online`,
-        'x-default': `${siteConfig.siteUrl}/en/tools/json-parser-online`
+        'zh-TW': `${siteConfig.siteUrl}/zh/tools/json-parser-online/`,
+        'en-US': `${siteConfig.siteUrl}/en/tools/json-parser-online/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/tools/json-parser-online/`,
+        'x-default': `${siteConfig.siteUrl}/en/tools/json-parser-online/`
       },
     },
     openGraph: {

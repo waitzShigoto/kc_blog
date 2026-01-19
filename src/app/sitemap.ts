@@ -14,49 +14,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     // 首頁
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1,
     },
     // 各語言首頁
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}`,
+      url: `${baseUrl}/${locale}/`,
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1,
     })),
     // About 頁面
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}/about`,
+      url: `${baseUrl}/${locale}/about/`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
     // Archives 頁面
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}/archives`,
+      url: `${baseUrl}/${locale}/archives/`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     })),
     // Categories 頁面
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}/categories`,
+      url: `${baseUrl}/${locale}/categories/`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     })),
     // Tags 主頁面
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}/tags`,
+      url: `${baseUrl}/${locale}/tags/`,
       lastModified: currentDate,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     })),
     // Search 頁面
     ...siteConfig.locales.map(locale => ({
-      url: `${baseUrl}/${locale}/search`,
+      url: `${baseUrl}/${locale}/search/`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.5,
@@ -64,13 +64,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 工具頁面
     ...siteConfig.locales.flatMap(locale => [
       {
-        url: `${baseUrl}/${locale}/tools/json-parser-online`,
+        url: `${baseUrl}/${locale}/tools/json-parser-online/`,
         lastModified: currentDate,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/${locale}/tools/base64-parser-online`,
+        url: `${baseUrl}/${locale}/tools/base64-parser-online/`,
         lastModified: currentDate,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
@@ -79,49 +79,49 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 特殊分類頁面
     ...siteConfig.locales.flatMap(locale => [
       {
-        url: `${baseUrl}/${locale}/algorithms`,
+        url: `${baseUrl}/${locale}/algorithms/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/${locale}/algorithms/archive`,
+        url: `${baseUrl}/${locale}/algorithms/archive/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
       },
       {
-        url: `${baseUrl}/${locale}/baseball`,
+        url: `${baseUrl}/${locale}/baseball/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/${locale}/baseball/archive`,
+        url: `${baseUrl}/${locale}/baseball/archive/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
       },
       {
-        url: `${baseUrl}/${locale}/daily-english`,
+        url: `${baseUrl}/${locale}/daily-english/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/${locale}/daily-english/archive`,
+        url: `${baseUrl}/${locale}/daily-english/archive/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
       },
       {
-        url: `${baseUrl}/${locale}/leetcode`,
+        url: `${baseUrl}/${locale}/leetcode/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
       },
       {
-        url: `${baseUrl}/${locale}/leetcode/archive`,
+        url: `${baseUrl}/${locale}/leetcode/archive/`,
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
@@ -140,7 +140,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const slug = post.frontMatter.permalink ? post.frontMatter.permalink.replace('/', '') : post.slug;
       
       postPages.push({
-        url: `${baseUrl}/${locale}/posts/${slug}`,
+        url: `${baseUrl}/${locale}/posts/${slug}/`,
         lastModified: new Date(post.frontMatter.date),
         changeFrequency: 'monthly' as const,
         priority: 0.9,
@@ -168,7 +168,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 標籤頁面（使用查詢參數）
     allTags.forEach(tag => {
       postPages.push({
-        url: `${baseUrl}/${locale}/tags?tag=${encodeURIComponent(tag)}`,
+        url: `${baseUrl}/${locale}/tags?tag=${encodeURIComponent(tag)}`, // 查詢參數不需要結尾斜線
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,
@@ -178,7 +178,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // 分類頁面（使用查詢參數）
     allCategories.forEach(category => {
       postPages.push({
-        url: `${baseUrl}/${locale}/categories?category=${encodeURIComponent(category)}`,
+        url: `${baseUrl}/${locale}/categories?category=${encodeURIComponent(category)}`, // 查詢參數不需要結尾斜線
         lastModified: currentDate,
         changeFrequency: 'weekly' as const,
         priority: 0.6,

@@ -12,6 +12,7 @@ spaceComplexity: "O(1)"
 problemUrl: "https://leetcode.com/problems/fibonacci-number/"
 relatedProblems: []
 locale: "zh"
+image: cover/generated/2025-10-08-509-fibonacci-number-cover.svg
 ---
 
 ## 題目資訊

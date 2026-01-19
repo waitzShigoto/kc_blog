@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: TagsPageProps): Promise<Metad
     ja: 'すべての記事タグを閲覧して、興味のあるトピックをすばやく見つけます。Android、Kotlin、Flutter、React などの開発関連のタグが含まれます。'
   };
 
-  const tagsUrl = `${siteConfig.siteUrl}/${locale}/tags`;
+  const tagsUrl = `${siteConfig.siteUrl}/${locale}/tags/`;
 
   return {
     title: titles[locale as keyof typeof titles] || titles.zh,
@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: TagsPageProps): Promise<Metad
     alternates: {
       canonical: tagsUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/tags`,
-        'en-US': `${siteConfig.siteUrl}/en/tags`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/tags`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/tags/`,
+        'en-US': `${siteConfig.siteUrl}/en/tags/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/tags/`,
       },
     },
     openGraph: {

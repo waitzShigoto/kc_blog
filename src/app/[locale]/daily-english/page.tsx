@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: DailyEnglishPageProps): Promi
 
   const fullTitle = titles[locale as keyof typeof titles] || titles.en;
   const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
-  const pageUrl = `${siteConfig.siteUrl}/${locale}/daily-english`;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/daily-english/`;
   const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
 
   return {
@@ -72,9 +72,9 @@ export async function generateMetadata({ params }: DailyEnglishPageProps): Promi
     alternates: {
       canonical: pageUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/daily-english`,
-        'en-US': `${siteConfig.siteUrl}/en/daily-english`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/daily-english`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/daily-english/`,
+        'en-US': `${siteConfig.siteUrl}/en/daily-english/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/daily-english/`,
       },
     },
   };

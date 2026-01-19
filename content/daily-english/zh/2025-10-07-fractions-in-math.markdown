@@ -9,6 +9,7 @@ topic: "Fractions in Math"
 studyTime: 60
 keyVocabulary: ["numerator", "denominator", "improper fraction", "proper fraction", "mixed number"]
 locale: "zh"
+image: cover/generated/2025-10-07-fractions-in-math-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

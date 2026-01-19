@@ -2,7 +2,7 @@
 layout: post
 title: 'Android WebView オフラインバンドル完全ガイド：Kotlin と Compose で Next.js の静的リソースを読み込む'
 date: '2025-12-01 18:13:38 +0800'
-image: cover/default-cover.jpg
+image: cover/generated/2025-12-01-android-webview-kotlin-compose-next-js-cover.svg
 tags:
   - Android
   - Kotlin

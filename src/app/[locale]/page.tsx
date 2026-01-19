@@ -36,9 +36,19 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
     ja: '開発技術の共有と経験交流、開発の無限の可能性を探る'
   };
 
+  const homeUrl = `${siteConfig.siteUrl}/${locale}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.zh,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+    alternates: {
+      canonical: homeUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/`,
+        'en-US': `${siteConfig.siteUrl}/en/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/`,
+      },
+    },
   };
 }
 

@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: LeetCodePageProps): Promise<M
 
   const fullTitle = titles[locale as keyof typeof titles] || titles.en;
   const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
-  const pageUrl = `${siteConfig.siteUrl}/${locale}/leetcode`;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/leetcode/`;
   const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
 
   return {
@@ -72,9 +72,9 @@ export async function generateMetadata({ params }: LeetCodePageProps): Promise<M
     alternates: {
       canonical: pageUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/leetcode`,
-        'en-US': `${siteConfig.siteUrl}/en/leetcode`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/leetcode`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/leetcode/`,
+        'en-US': `${siteConfig.siteUrl}/en/leetcode/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/leetcode/`,
       },
     },
   };

@@ -12,6 +12,7 @@ problemsSolved: 0
 studyTime: 0
 leetcodeProblems: []
 locale: "en"
+image: cover/generated/2025-10-08-recursion-basics-cover.svg
 ---
 
 ## Today's Topic

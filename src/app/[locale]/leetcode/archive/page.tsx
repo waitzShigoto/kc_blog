@@ -35,9 +35,19 @@ export async function generateMetadata({ params }: LeetCodeArchivePageProps): Pr
     ja: 'すべての LeetCode 解題記録を閲覧'
   };
 
+  const archiveUrl = `${siteConfig.siteUrl}/${locale}/leetcode/archive/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: archiveUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/leetcode/archive/`,
+        'en-US': `${siteConfig.siteUrl}/en/leetcode/archive/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/leetcode/archive/`,
+      },
+    },
   };
 }
 

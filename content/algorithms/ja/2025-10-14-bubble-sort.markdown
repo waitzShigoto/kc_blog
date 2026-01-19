@@ -12,6 +12,7 @@ problemsSolved: 0
 studyTime: 0
 leetcodeProblems: []
 locale: "ja"
+image: cover/generated/2025-10-14-bubble-sort-cover.svg
 ---
 
 ## 今日のトピック (Today's Topic)

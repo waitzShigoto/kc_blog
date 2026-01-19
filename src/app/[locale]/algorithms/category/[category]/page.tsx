@@ -41,9 +41,19 @@ export async function generateMetadata({ params }: AlgorithmCategoryPageProps): 
     ja: `${decodedCategory} カテゴリーのすべての記事を閲覧`
   };
 
+  const categoryUrl = `${siteConfig.siteUrl}/${locale}/algorithms/category/${category}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: categoryUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/algorithms/category/${category}/`,
+        'en-US': `${siteConfig.siteUrl}/en/algorithms/category/${category}/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/algorithms/category/${category}/`,
+      },
+    },
   };
 }
 

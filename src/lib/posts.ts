@@ -28,15 +28,41 @@ function processImagePaths(content: string): string {
     .replace(/width="100%"/g, 'class="w-full"')
     // 處理其他百分比寬度
     .replace(/width="(\d+)%"/g, 'style="width: $1%"')
-    // 確保所有圖片都有基本的prose類別
+    // 優化圖片標籤：添加 loading="lazy" 和 decoding="async"
     .replace(/<img([^>]*?)>/g, function(match, attrs) {
-      if (attrs.includes('class=')) {
-        // 如果已經有class，添加prose-img
-        return match.replace(/class="([^"]*)"/, 'class="$1 prose-img"');
-      } else {
-        // 如果沒有class，添加prose-img
-        return `<img${attrs} class="prose-img">`;
+      let optimizedAttrs = attrs;
+      
+      // 添加 lazy loading（除非是 GIF 動畫）
+      if (!attrs.includes('loading=') && !attrs.includes('.gif')) {
+        optimizedAttrs += ' loading="lazy"';
       }
+      
+      // 添加 async decoding
+      if (!attrs.includes('decoding=')) {
+        optimizedAttrs += ' decoding="async"';
+      }
+      
+      // 確保有 alt 屬性（SEO 重要）
+      if (!attrs.includes('alt=')) {
+        // 嘗試從 src 提取檔名作為 alt
+        const srcMatch = attrs.match(/src="([^"]+)"/);
+        if (srcMatch) {
+          const filename = srcMatch[1].split('/').pop()?.split('.')[0] || 'image';
+          const altText = filename.replace(/[-_]/g, ' ');
+          optimizedAttrs += ` alt="${altText}"`;
+        } else {
+          optimizedAttrs += ' alt=""';
+        }
+      }
+      
+      // 添加 class
+      if (attrs.includes('class=')) {
+        optimizedAttrs = optimizedAttrs.replace(/class="([^"]*)"/, 'class="$1 prose-img"');
+      } else {
+        optimizedAttrs += ' class="prose-img"';
+      }
+      
+      return `<img${optimizedAttrs}>`;
     });
 }
 

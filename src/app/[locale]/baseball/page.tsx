@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: BaseballPageProps): Promise<M
 
   const fullTitle = titles[locale as keyof typeof titles] || titles.en;
   const description = descriptions[locale as keyof typeof descriptions] || descriptions.en;
-  const pageUrl = `${siteConfig.siteUrl}/${locale}/baseball`;
+  const pageUrl = `${siteConfig.siteUrl}/${locale}/baseball/`;
   const ogImage = `${siteConfig.siteUrl}/images/og-image.png`;
 
   return {
@@ -72,9 +72,9 @@ export async function generateMetadata({ params }: BaseballPageProps): Promise<M
     alternates: {
       canonical: pageUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/baseball`,
-        'en-US': `${siteConfig.siteUrl}/en/baseball`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/baseball`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/baseball/`,
+        'en-US': `${siteConfig.siteUrl}/en/baseball/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/baseball/`,
       },
     },
   };

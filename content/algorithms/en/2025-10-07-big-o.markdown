@@ -8,6 +8,7 @@ difficulty: "beginner"
 topic: "Big-O"
 timeComplexity: "O(1), O(log n), O(n), O(n log n), O(n^2)"
 locale: "en"
+image: cover/generated/2025-10-07-big-o-cover.svg
 ---
 
 

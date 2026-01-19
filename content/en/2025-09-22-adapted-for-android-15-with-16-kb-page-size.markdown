@@ -2,7 +2,7 @@
 layout: post
 title: 'Adapted for Android 15 with 16 KB PAGE SIZE'
 date: '2025-09-22 10:12:25 +0800'
-image: cover/default-cover.jpg
+image: cover/generated/2025-09-22-adapted-for-android-15-with-16-kb-page-size-cover.svg
 tags:
   - Android
   - Kotlin

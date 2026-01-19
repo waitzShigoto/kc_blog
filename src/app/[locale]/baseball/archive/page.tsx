@@ -35,9 +35,19 @@ export async function generateMetadata({ params }: BaseballArchivePageProps): Pr
     ja: 'すべての野球記録を閲覧'
   };
 
+  const archiveUrl = `${siteConfig.siteUrl}/${locale}/baseball/archive/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: archiveUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/baseball/archive/`,
+        'en-US': `${siteConfig.siteUrl}/en/baseball/archive/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/baseball/archive/`,
+      },
+    },
   };
 }
 

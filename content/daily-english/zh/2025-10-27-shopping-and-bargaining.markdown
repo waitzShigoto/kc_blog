@@ -9,6 +9,7 @@ topic: "Shopping and Bargaining"
 studyTime: 50
 keyVocabulary: ["discount", "bargain", "receipt", "refund", "exchange"]
 locale: "zh"
+image: cover/generated/2025-10-27-shopping-and-bargaining-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

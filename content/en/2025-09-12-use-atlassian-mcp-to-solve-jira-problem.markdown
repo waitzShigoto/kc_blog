@@ -2,7 +2,7 @@
 layout: post
 title: 'Using Atlassian MCP to Fetch Jira Issues for Quick Problem Solving'
 date: '2025-09-12 18:31:48 +0800'
-image: cover/default-cover.jpg
+image: cover/generated/2025-09-12-use-atlassian-mcp-to-solve-jira-problem-cover.svg
 tags:
   - AI
   - Mcp

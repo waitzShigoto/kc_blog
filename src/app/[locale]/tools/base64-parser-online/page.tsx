@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Base64ParserPageProps): Promi
   };
 
   const currentSeo = seoData[locale as keyof typeof seoData] || seoData.zh;
-  const canonicalUrl = `${siteConfig.siteUrl}/${locale}/tools/base64-parser-online`;
+  const canonicalUrl = `${siteConfig.siteUrl}/${locale}/tools/base64-parser-online/`;
 
   return {
     title: currentSeo.title,
@@ -60,10 +60,10 @@ export async function generateMetadata({ params }: Base64ParserPageProps): Promi
     alternates: {
       canonical: canonicalUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/tools/base64-parser-online`,
-        'en-US': `${siteConfig.siteUrl}/en/tools/base64-parser-online`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/tools/base64-parser-online`,
-        'x-default': `${siteConfig.siteUrl}/en/tools/base64-parser-online`
+        'zh-TW': `${siteConfig.siteUrl}/zh/tools/base64-parser-online/`,
+        'en-US': `${siteConfig.siteUrl}/en/tools/base64-parser-online/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/tools/base64-parser-online/`,
+        'x-default': `${siteConfig.siteUrl}/en/tools/base64-parser-online/`
       },
     },
     openGraph: {

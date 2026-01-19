@@ -2,7 +2,7 @@
 layout: post
 title: '透過atlassian mcp 抓取jira issue 來快速解決問題'
 date: '2025-09-12 18:31:48 +0800'
-image: cover/default-cover.jpg
+image: cover/generated/2025-09-12-use-atlassian-mcp-to-solve-jira-problem-cover.svg
 tags:
   - AI
   - MCP

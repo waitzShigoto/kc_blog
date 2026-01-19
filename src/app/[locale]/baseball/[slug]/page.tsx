@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: BaseballPostPageProps): Promi
   const description = post.summary || post.title;
   
   // 構建文章 URL
-  const postUrl = `${siteConfig.siteUrl}/${locale}/baseball/${slug}`;
+  const postUrl = `${siteConfig.siteUrl}/${locale}/baseball/${slug}/`;
   
   // 構建 OpenGraph 圖片 URL
   const ogImage = post.image 

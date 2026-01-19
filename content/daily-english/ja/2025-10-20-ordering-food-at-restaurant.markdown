@@ -9,6 +9,7 @@ topic: "Ordering Food at Restaurant"
 studyTime: 45
 keyVocabulary: []
 locale: "ja"
+image: cover/generated/2025-10-20-ordering-food-at-restaurant-cover.svg
 ---
 
 ## 今日のトピック (Today's Topic)

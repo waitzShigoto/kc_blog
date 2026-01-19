@@ -9,6 +9,7 @@ topic: "Geometric Shapes"
 studyTime: 60
 keyVocabulary: ["triangle", "rectangle", "circle", "square", "polygon", "perimeter", "area"]
 locale: "ja"
+image: cover/generated/2025-10-15-geometric-shapes-cover.svg
 ---
 
 ## 今日のトピック (Today's Topic)

@@ -49,9 +49,14 @@ export async function generateMetadata({ params }: AlgorithmPostPageProps): Prom
     ja: `${post.title} - アルゴリズム`
   };
 
+  const postUrl = `${siteConfig.siteUrl}/${locale}/algorithms/${slug}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: post.summary || post.title,
+    alternates: {
+      canonical: postUrl,
+    },
   };
 }
 

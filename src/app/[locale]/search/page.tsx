@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: SearchPageProps): Promise<Met
     ja: '技術記事、タグ、カテゴリーを検索します。Android、Kotlin、Flutter、React などの開発関連コンテンツをすばやく見つけます。'
   };
 
-  const searchUrl = `${siteConfig.siteUrl}/${locale}/search`;
+  const searchUrl = `${siteConfig.siteUrl}/${locale}/search/`;
 
   return {
     title: titles[locale as keyof typeof titles] || titles.zh,
@@ -45,9 +45,9 @@ export async function generateMetadata({ params }: SearchPageProps): Promise<Met
     alternates: {
       canonical: searchUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/search`,
-        'en-US': `${siteConfig.siteUrl}/en/search`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/search`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/search/`,
+        'en-US': `${siteConfig.siteUrl}/en/search/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/search/`,
       },
     },
     openGraph: {

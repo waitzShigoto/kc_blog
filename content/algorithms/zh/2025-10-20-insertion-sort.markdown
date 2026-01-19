@@ -12,6 +12,7 @@ problemsSolved: 0
 studyTime: 0
 leetcodeProblems: []
 locale: "zh"
+image: cover/generated/2025-10-20-insertion-sort-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

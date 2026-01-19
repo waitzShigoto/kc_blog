@@ -9,6 +9,7 @@ topic: "Basic Arithmetic Operations"
 studyTime: 60
 keyVocabulary: ["addition", "subtraction", "multiplication", "division", "sum", "difference", "product", "quotient"]
 locale: "zh"
+image: cover/generated/2025-10-13-basic-arithmetic-operations-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

@@ -6,6 +6,7 @@ import Sidebar from '@/components/layout/Sidebar';
 import ArchivesContent from '@/components/archives/ArchivesContent';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 
 interface ArchivesPageProps {
   params: Promise<{ locale: string }>;
@@ -15,6 +16,37 @@ export async function generateStaticParams() {
   return siteConfig.locales.map((locale) => ({
     locale,
   }));
+}
+
+export async function generateMetadata({ params }: ArchivesPageProps): Promise<Metadata> {
+  const { locale } = await params;
+  
+  const titles = {
+    zh: '文章歸檔 | Elegant Access',
+    en: 'Archives | Elegant Access',
+    ja: 'アーカイブ | Elegant Access'
+  };
+  
+  const descriptions = {
+    zh: '探索我的技術寫作歷程，按時間順序瀏覽所有文章。',
+    en: 'Explore my technical writing journey, browse all articles in chronological order.',
+    ja: '私の技術執筆の歩みを探索し、すべての記事を時系列で閲覧。'
+  };
+
+  const archivesUrl = `${siteConfig.siteUrl}/${locale}/archives/`;
+
+  return {
+    title: titles[locale as keyof typeof titles] || titles.zh,
+    description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+    alternates: {
+      canonical: archivesUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/archives/`,
+        'en-US': `${siteConfig.siteUrl}/en/archives/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/archives/`,
+      },
+    },
+  };
 }
 
 export default async function ArchivesPage({ params }: ArchivesPageProps) {

@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     ja: 'Kotlin と Jetpack Compose 開発に注力する Android デベロッパーです。常に学習意欲旺盛です。'
   };
 
-  const aboutUrl = `${siteConfig.siteUrl}/${locale}/about`;
+  const aboutUrl = `${siteConfig.siteUrl}/${locale}/about/`;
 
   return {
     title: titles[locale as keyof typeof titles] || titles.zh,
@@ -39,9 +39,9 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     alternates: {
       canonical: aboutUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/about`,
-        'en-US': `${siteConfig.siteUrl}/en/about`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/about`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/about/`,
+        'en-US': `${siteConfig.siteUrl}/en/about/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/about/`,
       },
     },
     openGraph: {

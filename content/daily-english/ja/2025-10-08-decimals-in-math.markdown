@@ -9,6 +9,7 @@ topic: "Decimals in Math"
 studyTime: 60
 keyVocabulary: ["decimal point", "decimal place", "tenths", "hundredths", "thousandths"]
 locale: "ja"
+image: cover/generated/2025-10-08-decimals-in-math-cover.svg
 ---
 
 ## 今日のトピック (Today's Topic)

@@ -41,9 +41,19 @@ export async function generateMetadata({ params }: LeetCodeCategoryPageProps): P
     ja: `${decodedCategory} カテゴリーのすべての問題を閲覧`
   };
 
+  const categoryUrl = `${siteConfig.siteUrl}/${locale}/leetcode/category/${category}/`;
+
   return {
     title: titles[locale as keyof typeof titles] || titles.en,
     description: descriptions[locale as keyof typeof descriptions] || descriptions.en,
+    alternates: {
+      canonical: categoryUrl,
+      languages: {
+        'zh-TW': `${siteConfig.siteUrl}/zh/leetcode/category/${category}/`,
+        'en-US': `${siteConfig.siteUrl}/en/leetcode/category/${category}/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/leetcode/category/${category}/`,
+      },
+    },
   };
 }
 

@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: CategoriesPageProps): Promise
     ja: 'すべての記事カテゴリーを閲覧して、さまざまな技術分野を体系的に探索します。Android 開発、Web 開発、アルゴリズムなどが含まれます。'
   };
 
-  const categoriesUrl = `${siteConfig.siteUrl}/${locale}/categories`;
+  const categoriesUrl = `${siteConfig.siteUrl}/${locale}/categories/`;
 
   return {
     title: titles[locale as keyof typeof titles] || titles.zh,
@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: CategoriesPageProps): Promise
     alternates: {
       canonical: categoriesUrl,
       languages: {
-        'zh-TW': `${siteConfig.siteUrl}/zh/categories`,
-        'en-US': `${siteConfig.siteUrl}/en/categories`,
-        'ja-JP': `${siteConfig.siteUrl}/ja/categories`,
+        'zh-TW': `${siteConfig.siteUrl}/zh/categories/`,
+        'en-US': `${siteConfig.siteUrl}/en/categories/`,
+        'ja-JP': `${siteConfig.siteUrl}/ja/categories/`,
       },
     },
     openGraph: {

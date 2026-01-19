@@ -9,6 +9,7 @@ topic: "Business Presentation"
 studyTime: 75
 keyVocabulary: []
 locale: "zh"
+image: cover/generated/2025-10-28-business-presentation-cover.svg
 ---
 
 ## 今日主題 (Today's Topic)

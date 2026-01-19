@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
   const { title, excerpt, date, tags, image, categories } = frontMatter;
   
   // 構建文章 URL
-  const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}`;
+  const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}/`;
   
   // 構建 OpenGraph 圖片 URL
   const ogImage = image 
