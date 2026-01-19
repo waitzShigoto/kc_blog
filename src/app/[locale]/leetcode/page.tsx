@@ -257,13 +257,13 @@ export default async function LeetCodePage({ params }: LeetCodePageProps) {
                   recentEntries.map((entry, index) => (
                     <div key={index} className="card-material p-4">
                       <div className="flex items-start justify-between mb-2">
-                        <div className="flex-1 pr-4">
+                        <div className="flex-1 pr-4 min-w-0">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm font-mono text-primary">
+                            <div className="flex items-center gap-2 min-w-0">
+                              <span className="text-sm font-mono text-primary flex-shrink-0">
                                 #{entry.leetcodeId}
                               </span>
-                              <h3 className="font-semibold text-foreground">
+                              <h3 className="font-semibold text-foreground break-words">
                                 {entry.problemTitle}
                               </h3>
                             </div>
@@ -363,12 +363,12 @@ export default async function LeetCodePage({ params }: LeetCodePageProps) {
                                 className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
                               >
                                 <div className="flex items-start justify-between gap-2">
-                                  <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <span className="text-xs font-mono text-primary flex-shrink-0">
+                                  <div className="flex-1 min-w-0 overflow-hidden">
+                                    <div className="flex items-start gap-2 mb-1">
+                                      <span className="text-xs font-mono text-primary flex-shrink-0 mt-0.5">
                                         #{post.leetcodeId}
                                       </span>
-                                      <span className="font-medium text-foreground truncate">
+                                      <span className="font-medium text-foreground break-words leading-tight">
                                         {post.problemTitle}
                                       </span>
                                     </div>
@@ -484,12 +484,12 @@ export default async function LeetCodePage({ params }: LeetCodePageProps) {
                       className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <svg className="w-3 h-3 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <div className="flex items-start gap-2 mb-1">
+                            <svg className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
                             </svg>
-                            <span className="font-medium text-foreground truncate">
+                            <span className="font-medium text-foreground break-words leading-tight">
                               {post.topic || post.title}
                             </span>
                           </div>

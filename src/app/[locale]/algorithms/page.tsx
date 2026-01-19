@@ -333,12 +333,12 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                   recentEntries.map((entry, index) => (
                     <div key={index} className="card-material p-4">
                                 <div className="flex items-start justify-between mb-2">
-                                  <div className="flex-1 pr-4">
+                                  <div className="flex-1 pr-4 min-w-0">
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                                      <h3 className="font-semibold text-foreground">
+                                      <h3 className="font-semibold text-foreground break-words">
                                         {entry.title}
                                       </h3>
-                                      <span className="text-sm card-time whitespace-nowrap">
+                                      <span className="text-sm card-time whitespace-nowrap flex-shrink-0">
                                         {format(new Date(entry.date), 'yyyy-MM-dd HH:mm:ss')}
                                       </span>
                                     </div>
@@ -438,13 +438,13 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                               className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
                             >
                                <div className="flex items-start justify-between gap-2">
-                                 <div className="flex-1 min-w-0">
-                                   <div className="flex items-center gap-2 mb-1">
-                                     <svg className="w-3 h-3 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
-                                     </svg>
-                                     <span className="font-medium text-foreground truncate">{post.title}</span>
-                                   </div>
+                                <div className="flex-1 min-w-0 overflow-hidden">
+                                  <div className="flex items-start gap-2 mb-1">
+                                    <svg className="w-3 h-3 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+                                    </svg>
+                                    <span className="font-medium text-foreground break-words leading-tight">{post.title}</span>
+                                  </div>
                                    <div className="flex flex-wrap items-center gap-2 text-xs ml-5">
                                      <span className="flex-shrink-0 card-time">{format(new Date(post.date), 'yyyy-MM-dd')}</span>
                                      {post.difficulty && (
@@ -575,12 +575,12 @@ export default async function AlgorithmsPage({ params }: AlgorithmsPageProps) {
                       className="block text-sm hover:bg-muted rounded-[10px] p-2 -m-2 transition-colors"
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-mono text-primary flex-shrink-0">
+                        <div className="flex-1 min-w-0 overflow-hidden">
+                          <div className="flex items-start gap-2 mb-1">
+                            <span className="text-xs font-mono text-primary flex-shrink-0 mt-0.5">
                               #{post.leetcodeId}
                             </span>
-                            <span className="font-medium text-foreground truncate">
+                            <span className="font-medium text-foreground break-words leading-tight">
                               {post.problemTitle}
                             </span>
                           </div>

@@ -258,12 +258,12 @@ export default async function DailyEnglishPage({ params }: DailyEnglishPageProps
                   recentEntries.map((entry, index) => (
                     <div key={index} className="card-material p-4">
                       <div className="flex items-start justify-between mb-2">
-                        <div className="flex-1 pr-4">
+                        <div className="flex-1 pr-4 min-w-0">
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-                            <h3 className="font-semibold text-foreground">
+                            <h3 className="font-semibold text-foreground break-words">
                               {entry.title}
                             </h3>
-                            <span className="text-sm card-time whitespace-nowrap">
+                            <span className="text-sm card-time whitespace-nowrap flex-shrink-0">
                               {format(new Date(entry.date), 'yyyy-MM-dd HH:mm:ss')}
                             </span>
                           </div>
