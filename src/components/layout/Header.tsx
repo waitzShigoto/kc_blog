@@ -14,8 +14,10 @@ export default function Header({ locale }: HeaderProps) {
   const searchParams = useSearchParams();
   const [isToolboxOpen, setIsToolboxOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const toolboxRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const languageRef = useRef<HTMLDivElement>(null);
   
   const languages = [
     { code: 'zh', name: '中文' },
@@ -76,6 +78,9 @@ export default function Header({ locale }: HeaderProps) {
       }
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
         setIsMobileMenuOpen(false);
+      }
+      if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
+        setIsLanguageOpen(false);
       }
     };
 
@@ -288,21 +293,39 @@ export default function Header({ locale }: HeaderProps) {
             <ThemeToggle />
 
             {/* Language Switcher */}
-            <div className="relative">
-              <select
-                value={locale}
-                onChange={(e) => handleLanguageChange(e.target.value)}
-                className="appearance-none bg-transparent border-0 rounded-md px-3 py-1.5 text-sm text-foreground hover:bg-muted focus:bg-muted focus:outline-none transition-colors cursor-pointer"
+            <div className="relative" ref={languageRef}>
+              <button
+                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-200 flex items-center gap-1"
+                title="語言"
               >
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code} className="bg-background text-foreground">
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
-              <svg className="absolute right-1 top-1/2 transform -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+                <span className="text-xs">{languages.find(lang => lang.code === locale)?.name}</span>
+                <svg className={`w-3 h-3 transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {/* 語言下拉選單 */}
+              {isLanguageOpen && (
+                <div className="absolute right-0 mt-2 w-32 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        handleLanguageChange(lang.code);
+                        setIsLanguageOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                        locale === lang.code 
+                          ? 'bg-muted text-foreground font-medium' 
+                          : 'text-foreground hover:bg-muted'
+                      }`}
+                    >
+                      {lang.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
