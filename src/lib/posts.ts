@@ -72,13 +72,31 @@ function processLinks(content: string, locale: string = 'en'): string {
     // 處理外部鏈接，添加 target="_blank"
     .replace(/<a\s+href="(https?:\/\/[^"]*)"([^>]*)>/g, '<a href="$1" target="_blank" rel="noopener noreferrer"$2>')
     // 處理 Jekyll 風格的內部鏈接，加入語言前綴
-    .replace(/href="{{site\.baseurl}}([^"]*)"/g, `href="/${locale}$1"`)
+    // 特別處理：如果連結已經包含 /posts/，就不要再加
+    .replace(/href="{{site\.baseurl}}\/posts\/([^"]*)"/g, `href="/${locale}/posts/$1"`)
+    // 處理 Jekyll 舊日期格式路徑 (例如：/2020/11/21/post-name/)
+    .replace(/href="{{site\.baseurl}}\/\d{4}\/\d{2}\/\d{2}\/([^"\/]+)\/?"/, (match, slug) => {
+      return `href="/${locale}/posts/${slug}"`;
+    })
+    // 處理 Jekyll 風格的其他內部鏈接（沒有 /posts/ 的）
+    .replace(/href="{{site\.baseurl}}\/([^"]*)"/g, `href="/${locale}/posts/$1"`)
+    // 處理站內完整 URL（elegantaccess.org）但缺少語言前綴的連結
+    .replace(/href="https:\/\/elegantaccess\.org\/([^"]+)"/g, (match, path) => {
+      // 如果路徑已經有語言前綴，保持原樣
+      if (path.startsWith('zh/') || path.startsWith('en/') || path.startsWith('ja/')) {
+        return match;
+      }
+      // 否則加上語言前綴和 posts
+      return `href="/${locale}/posts/${path}"`;
+    })
     // 處理相對路徑的文章鏈接，加入語言前綴和 posts 路徑
     .replace(/href="\/([^\/][^"]*\.html?)"/g, `href="/${locale}/posts/$1"`)
     // 處理不帶副檔名的文章鏈接
     .replace(/href="\/([^\/][^"]*)"(?![^<]*\.(png|jpg|jpeg|gif|svg|css|js))/g, `href="/${locale}/posts/$1"`)
     // 處理已經有語言前綴的鏈接，避免重複添加
     .replace(new RegExp(`href="/${locale}/${locale}/`, 'g'), `href="/${locale}/`)
+    // 修正可能產生的雙重 /posts/posts/ 路徑
+    .replace(/\/posts\/posts\//g, '/posts/')
     // 處理根路徑鏈接
     .replace(/href="\/?"(?=\s|>)/g, `href="/${locale}"`);
 }
