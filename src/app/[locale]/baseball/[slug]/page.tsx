@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import { getBaseballPosts, getRelatedBaseballPosts } from '@/lib/daily-content';
 import { MermaidClient } from '@/components/blog/MermaidClient';
 import RelatedBaseballPosts from '@/components/blog/RelatedBaseballPosts';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 interface BaseballPostPageProps {
   params: Promise<{
@@ -276,6 +277,16 @@ export default async function BaseballPostPage({ params }: BaseballPostPageProps
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
             <MermaidClient />
+          </div>
+
+          {/* 分享按鈕 */}
+          <div className="px-8 pb-8">
+            <ShareButtons 
+              url={`${siteConfig.siteUrl}/${locale}/baseball/${slug}`}
+              title={post.title}
+              description={post.summary}
+              locale={locale}
+            />
           </div>
         </article>
 

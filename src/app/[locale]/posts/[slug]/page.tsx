@@ -14,6 +14,7 @@ import CodeBlockEnhancer from '@/components/blog/CodeBlockEnhancer';
 import GistLoader from '@/components/blog/GistLoader';
 import { ImageEnhancer } from '@/components/blog/ImageEnhancer';
 import { MermaidClient } from '@/components/blog/MermaidClient';
+import ShareButtons from '@/components/blog/ShareButtons';
 import { Metadata } from 'next';
 
 interface PostPageProps {
@@ -321,6 +322,16 @@ export default async function PostPage({ params }: PostPageProps) {
             <GistLoader />
             <ImageEnhancer />
             <MermaidClient />
+          </div>
+
+          {/* 分享按鈕 */}
+          <div className="px-8 pb-8">
+            <ShareButtons 
+              url={postUrl}
+              title={title}
+              description={excerpt}
+              locale={locale}
+            />
           </div>
         </article>
 

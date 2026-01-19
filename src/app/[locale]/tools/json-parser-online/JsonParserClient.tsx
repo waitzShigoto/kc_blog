@@ -2,6 +2,8 @@
 
 import React, { useState, useCallback } from 'react';
 import { Copy, Download, FileText, CheckCircle, AlertCircle, Zap, Code } from 'lucide-react';
+import ShareButtons from '@/components/blog/ShareButtons';
+import { siteConfig } from '@/lib/config';
 
 interface JsonParserClientProps {
   locale: string;
@@ -327,6 +329,16 @@ export default function JsonParserClient({ locale }: JsonParserClientProps) {
               </div>
             )}
           </div>
+        </div>
+
+        {/* 分享按鈕 */}
+        <div className="mt-8 max-w-3xl mx-auto">
+          <ShareButtons 
+            url={`${siteConfig.siteUrl}/${locale}/tools/json-parser-online/`}
+            title={getText('title')}
+            description={getText('description')}
+            locale={locale}
+          />
         </div>
 
         {/* Footer */}

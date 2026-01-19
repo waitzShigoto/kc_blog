@@ -2,6 +2,8 @@
 
 import React, { useState, useCallback } from 'react';
 import { Copy, Download, FileText, CheckCircle, AlertCircle, Code, Upload, Eye, EyeOff } from 'lucide-react';
+import ShareButtons from '@/components/blog/ShareButtons';
+import { siteConfig } from '@/lib/config';
 
 interface Base64ParserClientProps {
   locale: string;
@@ -418,6 +420,16 @@ export default function Base64ParserClient({ locale }: Base64ParserClientProps) 
               </div>
             )}
           </div>
+        </div>
+
+        {/* 分享按鈕 */}
+        <div className="mt-8 max-w-3xl mx-auto">
+          <ShareButtons 
+            url={`${siteConfig.siteUrl}/${locale}/tools/base64-parser-online/`}
+            title={getText('title')}
+            description={getText('description')}
+            locale={locale}
+          />
         </div>
 
         {/* Footer */}

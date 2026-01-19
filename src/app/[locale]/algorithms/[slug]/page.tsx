@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { getAlgorithmPosts } from '@/lib/daily-content';
 import { MermaidClient } from '@/components/blog/MermaidClient';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 interface AlgorithmPostPageProps {
   params: Promise<{
@@ -223,6 +224,16 @@ export default async function AlgorithmPostPage({ params }: AlgorithmPostPagePro
               <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
             <MermaidClient />
+          </div>
+
+          {/* 分享按鈕 */}
+          <div className="px-8 pb-8">
+            <ShareButtons 
+              url={`${siteConfig.siteUrl}/${locale}/algorithms/${slug}`}
+              title={post.title}
+              description={post.summary}
+              locale={locale}
+            />
           </div>
         </article>
       </main>
