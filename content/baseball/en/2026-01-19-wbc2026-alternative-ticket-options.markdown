@@ -1,7 +1,7 @@
 ---
 title: "[2026 WBC] Didn't Get Tickets? These Alternative Ways Still Have Chances!"
 date: "2026-01-19 13:20:30"
-image: cover/wbc_logo.png
+image: cover/wbc_ticket_price.png.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Tickets", "Lottery", "Credit Card", "Mastercard", "Japan", "Tokyo Dome"]

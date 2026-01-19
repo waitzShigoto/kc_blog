@@ -1,7 +1,7 @@
 ---
 title: "【2026WBC世界野球クラシック】チケット取れなかった？まだこれらの方法でチャンスがある！"
 date: "2026-01-19 13:20:30"
-image: cover/wbc_logo.png
+image: cover/wbc_ticket_price.png.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "チケット", "抽選活動", "クレジットカード特典", "マスターカード", "日本", "東京ドーム"]

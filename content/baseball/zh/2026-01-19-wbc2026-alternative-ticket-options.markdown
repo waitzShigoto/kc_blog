@@ -1,7 +1,7 @@
 ---
 title: "【2026WBC世界棒球經典賽】沒搶到票？這些活動管道還有機會！"
 date: "2026-01-19 13:20:30"
-image: cover/wbc_logo.png
+image: cover/wbc_ticket_price.png.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "門票", "抽獎活動", "信用卡優惠", "萬事達卡", "日本", "東京巨蛋"]
