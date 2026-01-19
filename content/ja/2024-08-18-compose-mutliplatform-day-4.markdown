@@ -46,7 +46,7 @@ excerpt: >-
 
 基本的な`プロジェクト設定はすでに構成済み`です
 
-基本的に、2日目の<a href="{{site.baseurl}}/compose-multiplatform-day-2">CMP環境のインストール</a>で
+基本的に、2日目の<a href="{{site.baseurl}}/posts/compose-multiplatform-day-2">CMP環境のインストール</a>で
 
 システム環境が正しくインストールされていることを確認するだけです
 
@@ -134,7 +134,7 @@ adb install ../xxx/yourComposeAppProjectName-debug.apk
 
 ## iOSシミュレータのインストール
 
-2日目の<a href="{{site.baseurl}}/compose-multiplatform-day-2">CMP環境のインストール</a>時に
+2日目の<a href="{{site.baseurl}}/posts/compose-multiplatform-day-2">CMP環境のインストール</a>時に
 
 Xcodeがインストールされていることを確認します
 

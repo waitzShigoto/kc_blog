@@ -28,7 +28,7 @@ However, since Activities would keep adding to the stack
 performance issues had to be considered.
 
 As time progressed
-the traditional layout era introduced [Navigation-graph]({{site.baseurl}}/navigation_with_kotlin)
+the traditional layout era introduced [Navigation-graph]({{site.baseurl}}/posts/navigation_with_kotlin)
 which simplified the management of page navigation
 
 Now, `Compose` has also introduced a similar concept

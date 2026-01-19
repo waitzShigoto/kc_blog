@@ -213,7 +213,7 @@ Android StudioがMultiplatformをより良くサポートするために
 
 公式はオンラインでCMP基本プロジェクトを作成する方法も提供しています
 
-（KMPとCMPの違いを忘れた方は`1日目`の記事を参照してください、<a href="{{site.baseurl}}/compose-multiplatform-day-1">Compose Multiplatform 実践：リラックスして、CMPの初歩を探る</a>）
+（KMPとCMPの違いを忘れた方は`1日目`の記事を参照してください、<a href="{{site.baseurl}}/posts/compose-multiplatform-day-1">Compose Multiplatform 実践：リラックスして、CMPの初歩を探る</a>）
 
 オンラインWebページ
 

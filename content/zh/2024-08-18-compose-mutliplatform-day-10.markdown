@@ -24,7 +24,7 @@ excerpt: >-
 因此需要考慮效能問題。
 
 隨著時間推進
-在傳統布局時代引入了 [Navigation-graph](https://elegantaccess.org/navigation_with_kotlin)
+在傳統布局時代引入了 [Navigation-graph]({{site.baseurl}}/posts/navigation_with_kotlin)
 這簡化了頁面導航的管理
 
 而現在，`Compose` 也推出了類似的概念

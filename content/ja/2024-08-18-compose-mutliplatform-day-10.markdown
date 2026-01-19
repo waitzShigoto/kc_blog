@@ -24,7 +24,7 @@ excerpt: >-
 パフォーマンスの問題を考慮する必要がありました。
 
 時間が経つにつれ
-従来のレイアウト時代に[Navigation-graph](https://elegantaccess.org/navigation_with_kotlin)が導入され
+従来のレイアウト時代に[Navigation-graph]({{site.baseurl}}/posts/navigation_with_kotlin)が導入され
 これによって画面ナビゲーションの管理が簡素化されました
 
 そして現在、`Compose`も同様の概念を導入し

@@ -62,21 +62,21 @@ Let's stop here for today. Next, I will introduce how to write some functions or
 Stay tuned for the continuation of implementing the horizontal sliding recycler view:
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/21/android-kotlin-custom-view-03/">
+  <a href="{{site.baseurl}}/posts/android_custom03">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-<a href="{{site.baseurl}}/android/custom03">Learn Android Kotlin Custom UI Techniques - Switching Views and Dropdown Animation Tutorial - 03</a>
+<a href="{{site.baseurl}}/posts/android_custom03">Learn Android Kotlin Custom UI Techniques - Switching Views and Dropdown Animation Tutorial - 03</a>
 </div>
 
 Go back to the prelude:
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/14/android-kotlin-custom-view-01/">
+  <a href="{{site.baseurl}}/posts/android_custom01">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-  <a href="{{site.baseurl}}/android/custom01">Learn Android Kotlin Custom UI Techniques - Switching Views and Dropdown Animation Tutorial - 01</a>
+  <a href="{{site.baseurl}}/posts/android_custom01">Learn Android Kotlin Custom UI Techniques - Switching Views and Dropdown Animation Tutorial - 01</a>
 </div>
 
 Created by Elegant Access's KC.

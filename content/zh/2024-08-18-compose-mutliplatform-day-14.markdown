@@ -287,4 +287,4 @@ class LearningDataStore (private val db: AppDatabase) {
 
 再決定要用哪一種
 
-<a href="{{site.baseurl}}/compose-multiplatform-day-15">Compose Multiplatform 實戰：CMP中使用ROOM開發跨平台資料庫 & 疑難雜症</a>
+<a href="{{site.baseurl}}/posts/compose-multiplatform-day-15">Compose Multiplatform 實戰：CMP中使用ROOM開發跨平台資料庫 & 疑難雜症</a>

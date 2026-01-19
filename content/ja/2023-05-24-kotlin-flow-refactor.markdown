@@ -35,7 +35,7 @@ excerpt: >-
         数年前にRxJavaのバージョンも共有しましたので、興味があればご覧ください。
     </div>
     <div class="table_container">
-      <a href="{{site.baseurl}}/android-kt-rxjava">
+      <a href="{{site.baseurl}}/posts/android-kt-rxjava">
       <img src="/images/cover/ea-website-rxjava-cover-photo-new-1.png" alt="Cover" width="25%" >
       Android開発 - RxJavaを使ったネットワークリクエスト：トークン再取得と再リクエストの実装</a>
     </div>

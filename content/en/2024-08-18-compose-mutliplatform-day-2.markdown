@@ -212,7 +212,7 @@ Additionally, `for CMP specifically`
 
 there's an official online method for creating basic CMP projects
 
-(If you forgot the difference between KMP and CMP, refer to `Day 1` article, <a href="{{site.baseurl}}/compose-multiplatform-day-1">Compose Multiplatform in Action: Taking It Easy, An Introduction to CMP</a>)
+(If you forgot the difference between KMP and CMP, refer to `Day 1` article, <a href="{{site.baseurl}}/posts/compose-multiplatform-day-1">Compose Multiplatform in Action: Taking It Easy, An Introduction to CMP</a>)
 
 This is through the online webpage
 

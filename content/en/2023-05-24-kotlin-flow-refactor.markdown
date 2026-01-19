@@ -36,7 +36,7 @@ excerpt: >-
         A few years ago, I also shared a version using RxJava. If you're interested, you can check it out.
     </div>
     <div class="table_container">
-      <a href="{{site.baseurl}}/android-kt-rxjava">
+      <a href="{{site.baseurl}}/posts/android-kt-rxjava">
       <img src="/images/cover/ea-website-rxjava-cover-photo-new-1.png" alt="Cover" width="25%" >
       Android Development - RxJava with Network Requests: Implementing Token Refresh and Retrying Network Requests</a>
     </div>

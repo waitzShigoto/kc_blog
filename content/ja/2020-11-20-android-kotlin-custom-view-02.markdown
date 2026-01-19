@@ -59,22 +59,21 @@ Hello, 皆さんこんにちは、Elegant AccessのKCです。
 次回もお楽しみに、左右にスワイプするrecycler viewの実装を続けます：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/21/android-kotlin-custom-view-03/">
+  <a href="{{site.baseurl}}/posts/android_custom03">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-```markdown
-<a href="{{site.baseurl}}/android/custom03">Android Kotlin カスタムUIのテクニックを学ぶ - 左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 03</a>
+  <a href="{{site.baseurl}}/posts/android_custom03">Android Kotlin カスタムUIのテクニックを学ぶ - 左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 03</a>
 </div>
 
 前のセクションを見る：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/14/android-kotlin-custom-view-01/">
+  <a href="{{site.baseurl}}/posts/android_custom01">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-  <a href="{{site.baseurl}}/android/custom01">Android Kotlin カスタムUIのテクニックを学ぶ - 左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 01</a>
+  <a href="{{site.baseurl}}/posts/android_custom01">Android Kotlin カスタムUIのテクニックを学ぶ - 左右切り替えビューとアニメーションのドロップダウンメニューのチュートリアル - 01</a>
 </div>
 
 Elegant AccessのKCによって作成されました。

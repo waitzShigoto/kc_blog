@@ -213,7 +213,7 @@ sdk using java xxx
 
 官方也有提供線上創建CMP基本專案的方式
 
-(忘記KMP跟CMP差異的可以回到`第一天`的文章查看，<a href="{{site.baseurl}}/compose-multiplatform-day-1">Compose Multiplatform 實戰：放輕鬆點，初探CMP</a>)
+(忘記KMP跟CMP差異的可以回到`第一天`的文章查看，<a href="{{site.baseurl}}/posts/compose-multiplatform-day-1">Compose Multiplatform 實戰：放輕鬆點，初探CMP</a>)
 
 就是透過線上的網頁
 

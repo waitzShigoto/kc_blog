@@ -391,7 +391,7 @@ we need to configure both Android and iOS platforms
 
 so we implement this using the `expect` function
 
-[Click here to learn about expect and actual concepts]({{site.baseurl}}/compose-multiplatform-day-8)
+[Click here to learn about expect and actual concepts]({{site.baseurl}}/posts/compose-multiplatform-day-8)
 
 ```kotlin
 // in .~/commonMain/StatusBarStyle.kt

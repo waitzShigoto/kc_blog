@@ -46,7 +46,7 @@ and a success message in the bottom right corner
 </div>
 
 ## Setting Up an Android Emulator
-If you created your project using yesterday's method: [Creating a CMP Project with Wizard]({{site.baseurl}}/compose-multiplatform-day-3)
+If you created your project using yesterday's method: [Creating a CMP Project with Wizard]({{site.baseurl}}/posts/compose-multiplatform-day-3)
 
 then all the `basic project configurations have been set up for you`
 

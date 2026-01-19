@@ -57,21 +57,21 @@ Hello,大家好,這裡是Elegant Access的 KC，
 接著收看，繼續實作左右滑動的recycler view：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/21/android-kotlin-custom-view-03/">
+  <a href="{{site.baseurl}}/posts/android_custom03">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-  <a href="{{site.baseurl}}/android/custom03">學習Android Kotlin 客製UI的技巧－左右切換view與動畫的下拉欄教學 - 03</a>
+  <a href="{{site.baseurl}}/posts/android_custom03">學習Android Kotlin 客製UI的技巧－左右切換view與動畫的下拉欄教學 - 03</a>
 </div>
 
 回去看前導：
 
 <div class="table_container">
-  <a href="{{site.baseurl}}/2020/11/14/android-kotlin-custom-view-01/">
+  <a href="{{site.baseurl}}/posts/android_custom01">
     <img src="/images/cover/android-photo.jpg" alt="Cover" width="30%" >
   </a>
 
-  <a href="{{site.baseurl}}/android/custom01">學習Android Kotlin 客製UI的技巧－左右切換view與動畫的下拉欄教學 - 01</a>
+  <a href="{{site.baseurl}}/posts/android_custom01">學習Android Kotlin 客製UI的技巧－左右切換view與動畫的下拉欄教學 - 01</a>
 </div>
 
 Created by Elegant Access's KC.

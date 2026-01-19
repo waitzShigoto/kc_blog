@@ -46,7 +46,7 @@ excerpt: >-
 
 那他基本的`專案配置都已經先幫你配好`了
 
-大致上你只要確保Day2時<a href="{{site.baseurl}}/compose-multiplatform-day-2">安裝CMP環境</a>時
+大致上你只要確保Day2時<a href="{{site.baseurl}}/posts/compose-multiplatform-day-2">安裝CMP環境</a>時
 
 的系統環境有裝好
 
@@ -134,7 +134,7 @@ adb install ../xxx/yourComposeAppProjectName-debug.apk
 
 ## 安裝iOS模擬器
 
-確保Day2 <a href="{{site.baseurl}}/compose-multiplatform-day-2">安裝CMP環境</a>時
+確保Day2 <a href="{{site.baseurl}}/posts/compose-multiplatform-day-2">安裝CMP環境</a>時
 
 安裝了Xcode
 

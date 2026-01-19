@@ -106,7 +106,7 @@ actual class FileSystem {
 
 <div class="c-border-main-title-2"">Practical Examples</div>
 
-* For instance, when setting up the [material 3]({{site.baseurl}}/compose-multiplatform-day-7) theme a couple of days ago
+* For instance, when setting up the [material 3]({{site.baseurl}}/posts/compose-multiplatform-day-7) theme a couple of days ago
 
   we set up an `expect` function called setStatusBarStyle
 

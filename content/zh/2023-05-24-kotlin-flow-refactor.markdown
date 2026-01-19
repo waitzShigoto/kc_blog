@@ -33,7 +33,7 @@ excerpt: 輕鬆掌握如何使用 Kotlin Flow 進行網路連線重構。本教�
         幾年前，我也曾經分享過RxJava的版本，如果有興趣可以再回頭看一下
     </div>
     <div class="table_container">
-      <a href="{{site.baseurl}}/android-kt-rxjava">
+      <a href="{{site.baseurl}}/posts/android-kt-rxjava">
       <img src="/images/cover/ea-website-rxjava-cover-photo-new-1.png" alt="Cover" width="25%" >
       Android開發 - RxJava搭配網路請求：實現Token重取與重新執行網路請求</a>
     </div>

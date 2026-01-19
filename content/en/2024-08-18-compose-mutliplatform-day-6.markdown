@@ -23,7 +23,7 @@ excerpt: >-
 
 Yesterday we gained a general understanding of the CMP project structure
 
-From yesterday's [Understanding CMP Project Structure and Build Configuration]({{site.baseurl}}/compose-multiplatform-day-5)
+From yesterday's [Understanding CMP Project Structure and Build Configuration]({{site.baseurl}}/posts/compose-multiplatform-day-5)
 
 we learned that in a CMP project we can write
 
