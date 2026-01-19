@@ -351,7 +351,7 @@
   }
 }
 
-/* 圖片樣式 */
+/* 圖片樣式 - 優化 CLS */
 .prose img,
 .prose video {
   border-radius: 0.75rem;
@@ -361,6 +361,19 @@
   max-width: 100%;
   height: auto;
   transition: all 0.3s ease;
+  /* 防止 CLS - 確保圖片加載時保持空間 */
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* 確保有明確尺寸的圖片保持正確比例 */
+.prose img[width][height] {
+  aspect-ratio: auto;
+}
+
+/* 為動態加載的內容預留空間 */
+.prose img[loading="lazy"] {
+  min-height: 200px;
+  background: var(--color-muted);
 }
 
 .prose img.cursor-zoom-in::after {
@@ -672,4 +685,41 @@
 
 .prose a[href*="developer.android.com"]:hover {
   background-color: rgba(61, 220, 132, 0.1);
+}
+
+/* GitHub Gist 樣式優化 - 防止 CLS */
+.prose .gist {
+  margin: 2rem 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.prose .gist-file {
+  border: 1px solid var(--color-border) !important;
+  border-radius: 0.5rem !important;
+}
+
+/* 為 Gist 容器預留最小高度以防止 CLS */
+.prose script[src*="gist.github.com"] {
+  display: block;
+  min-height: 200px;
+}
+
+/* Gist 加載指示器樣式 */
+.prose .gist-loading-indicator {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 確保 Gist 內容加載後不會改變整體布局 */
+.prose .gist .gist-data {
+  max-height: none !important;
+}
+
+.prose .gist .gist-meta {
+  padding: 0.5rem 1rem !important;
+  background: var(--color-muted) !important;
+  font-size: 0.875rem !important;
 } 

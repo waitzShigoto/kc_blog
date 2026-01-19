@@ -37,8 +37,28 @@ export function ImageEnhancer() {
     const setupImages = () => {
       const images = document.querySelectorAll('.prose img:not([data-zoom-enabled])');
       images.forEach(img => {
+        const imgElement = img as HTMLImageElement;
+        
         // 標記已處理
         img.setAttribute('data-zoom-enabled', 'true');
+        
+        // 為圖片添加 aspect-ratio 以防止 CLS
+        if (!imgElement.style.aspectRatio && imgElement.width && imgElement.height) {
+          imgElement.style.aspectRatio = `${imgElement.width} / ${imgElement.height}`;
+        }
+        
+        // 如果圖片只有寬度沒有高度，添加預設高度以防止 CLS
+        if (imgElement.hasAttribute('width') && !imgElement.hasAttribute('height') && !imgElement.style.height) {
+          imgElement.style.height = 'auto';
+          // 為沒有明確尺寸的圖片設置 loading="lazy" 和 decoding="async"
+          if (!imgElement.hasAttribute('loading')) {
+            imgElement.setAttribute('loading', 'lazy');
+          }
+          if (!imgElement.hasAttribute('decoding')) {
+            imgElement.setAttribute('decoding', 'async');
+          }
+        }
+        
         // 添加樣式和點擊事件
         img.classList.add('cursor-zoom-in', 'transition-transform', 'hover:scale-105');
         img.addEventListener('click', handleImageClick);

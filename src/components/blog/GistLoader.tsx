@@ -46,6 +46,7 @@ export default function GistLoader() {
               justify-content: center;
               padding: 1.5rem 2rem;
               margin: 1rem 0;
+              min-height: 200px;
               background: var(--card, #ffffff);
               border: 1px solid var(--border, #e5e7eb);
               border-radius: 8px;
