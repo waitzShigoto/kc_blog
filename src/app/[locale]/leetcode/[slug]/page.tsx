@@ -195,7 +195,7 @@ export default async function LeetCodePostPage({ params }: LeetCodePostPageProps
             {/* Share Bar - Always visible */}
             <div className="px-4 py-2 md:pb-2">
               <div className="flex items-center gap-2">
-                <PostShareBar url={`${siteConfig.siteUrl}/${locale}/leetcode/${slug}`} title={post.problemTitle} locale={locale} />
+                <PostShareBar url={`${siteConfig.siteUrl}/${locale}/leetcode/${slug}`} title={post.problemTitle || post.title} locale={locale} />
               </div>
             </div>
           </div>
