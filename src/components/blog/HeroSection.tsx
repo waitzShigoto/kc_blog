@@ -15,12 +15,8 @@ interface HeroSectionProps {
     locale: string;
 }
 
-export default function HeroSection({ latestPosts, featuredPosts, locale }: HeroSectionProps) {
+export default function HeroSection({ latestPosts = [], featuredPosts = [], locale }: HeroSectionProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    // Ensure we have enough posts (though page.tsx handles fetching)
-    if (!latestPosts || latestPosts.length === 0) return null;
-
 
     const sidePosts = featuredPosts.slice(0, 2);
 
@@ -36,10 +32,12 @@ export default function HeroSection({ latestPosts, featuredPosts, locale }: Hero
     };
 
     const nextSlide = useCallback(() => {
+        if (carouselPosts.length === 0) return;
         setCurrentIndex((prev) => (prev + 1) % carouselPosts.length);
     }, [carouselPosts.length]);
 
     const prevSlide = useCallback(() => {
+        if (carouselPosts.length === 0) return;
         setCurrentIndex((prev) => (prev - 1 + carouselPosts.length) % carouselPosts.length);
     }, [carouselPosts.length]);
 
@@ -53,6 +51,9 @@ export default function HeroSection({ latestPosts, featuredPosts, locale }: Hero
 
         return () => clearInterval(interval);
     }, [carouselPosts.length, nextSlide]);
+
+    // Check data availability after hooks
+    if (!latestPosts || latestPosts.length === 0) return null;
 
     const mainPost = carouselPosts[currentIndex];
 

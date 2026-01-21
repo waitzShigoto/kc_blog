@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import HeroSection from '@/components/blog/HeroSection';
 import CategorySection from '@/components/blog/CategorySection';
-import { BlogPost } from '@/types/blog';
 import { format } from 'date-fns';
 import { zhTW, enUS, ja } from 'date-fns/locale';
 
