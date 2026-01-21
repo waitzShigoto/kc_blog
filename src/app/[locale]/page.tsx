@@ -1,14 +1,17 @@
-import { getAllPosts, getAllTags, getFeaturedPosts } from '@/lib/posts';
+import { getAllPosts, getFeaturedPosts, getPostsByCategory } from '@/lib/posts';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
 import Navbar from '@/components/layout/Navbar';
 import Sidebar from '@/components/layout/Sidebar';
-import PostCard from '@/components/blog/PostCard';
-import FeaturedPosts from '@/components/blog/FeaturedPosts';
 import ItemListSchema from '@/components/seo/ItemListSchema';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import HeroSection from '@/components/blog/HeroSection';
+import CategorySection from '@/components/blog/CategorySection';
+import { BlogPost } from '@/types/blog';
+import { format } from 'date-fns';
+import { zhTW, enUS, ja } from 'date-fns/locale';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -23,24 +26,20 @@ export async function generateStaticParams() {
 // 設定首頁的獨立標題
 export async function generateMetadata({ params }: HomePageProps): Promise<Metadata> {
   const { locale } = await params;
-  
-  const titles = {
-    zh: 'Elegant Access - 開發技術分享',
-    en: 'Elegant Access - Development Blog',
-    ja: 'Elegant Acce ss - 開発技術ブログ'
-  };
-  
-  const descriptions = {
-    zh: '開發技術分享與經驗交流，探索開發的無限可能',
-    en: 'Development tips and experience sharing, exploring endless possibilities in software development',
-    ja: '開発技術の共有と経験交流、開発の無限の可能性を探る'
-  };
+
+  const title = locale === 'zh' ? 'Elegant Access - 全方位開發技術資訊與觀點' :
+    locale === 'en' ? 'Elegant Access - Comprehensive Development Insights' :
+      'Elegant Access - 総合的な開発技術情報と視点';
+
+  const description = locale === 'zh' ? '匯集 Android 開發、Web 技術、軟體架構與職涯成長的優質內容。您的全方位技術資訊站。' :
+    locale === 'en' ? 'A hub for premium content on Android development, Web technologies, software architecture, and career growth. Your comprehensive tech insight station.' :
+      'Android開発、Web技術、ソフトウェアアーキテクチャ、キャリア成長に関する質の高いコンテンツを集約。あなたの総合的な技術情報ステーション。';
 
   const homeUrl = `${siteConfig.siteUrl}/${locale}/`;
 
   return {
-    title: titles[locale as keyof typeof titles] || titles.zh,
-    description: descriptions[locale as keyof typeof descriptions] || descriptions.zh,
+    title,
+    description,
     alternates: {
       canonical: homeUrl,
       languages: {
@@ -49,171 +48,177 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
         'ja-JP': `${siteConfig.siteUrl}/ja/`,
       },
     },
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: homeUrl,
+    }
   };
 }
 
+// Force rebuild
 export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
-  
+
   // 驗證語言是否有效
   if (!siteConfig.locales.includes(locale)) {
     notFound();
   }
-  
-  const posts = await getAllPosts(locale);
-  const allTags = await getAllTags(locale);
+
+  const allPosts = await getAllPosts(locale);
   const featuredPosts = await getFeaturedPosts(locale);
 
+  // 分類文章
+  // 這邊可以根據實際的分類名稱調整
+  const androidPosts = await getPostsByCategory(locale, 'Android');
+  const webPosts = await getPostsByCategory(locale, 'Web');
+  const thoughtPosts = await getPostsByCategory(locale, 'Thoughts');
+
+  // 最新文章列表 (排除掉已經顯示在 Hero 區塊的文章，避免重複感)
+  // 這裡簡單處理：取 Hero 之後的最新 10 篇文章做為側欄列表
+  // Carousel data: Latest 6 posts
+  const carouselPosts = allPosts.slice(0, 6);
+
+  const featuredSlugs = featuredPosts.map(p => p.slug);
+  const sidebarLatestPosts = allPosts
+    .filter(p => !featuredSlugs.includes(p.slug))
+    .slice(0, 8);
+
+  const dateLocale = locale === 'zh' ? zhTW : locale === 'ja' ? ja : enUS;
+
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 font-sans">
       {/* ItemList Schema for SEO */}
-      <ItemListSchema posts={posts} locale={locale} />
-      
+      <ItemListSchema posts={allPosts.slice(0, 10)} locale={locale} />
+
       <div className="flex">
-        {/* Sidebar */}
-        <div className="hidden lg:block w-80 fixed left-0 top-0 h-full overflow-y-auto">
+        {/* Left Sidebar (Desktop Navigation) */}
+        <div className="hidden xl:block w-72 fixed left-0 top-0 h-full overflow-y-auto border-r border-border bg-card/50 backdrop-blur-sm z-30">
           <Sidebar locale={locale} />
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 lg:ml-80">
+        {/* Main Content Area */}
+        <div className="flex-1 xl:ml-72 w-full">
           <HeaderWrapper locale={locale} />
           <Navbar locale={locale} />
-          
-          <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {/* Hero Section */}
-            <div className="mb-12 text-center lg:text-left">
-              <div className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                  {locale === 'zh' ? '歡迎來到 elegantaccess' :
-                   locale === 'en' ? 'Welcome to elegantaccess' :
-                   'elegantaccess へようこそ'}
-                </h1>
-              </div>
-              <p className="text-lg text-secondary-foreground max-w-2xl mx-auto lg:mx-0">
-                {locale === 'zh' ? '開發技術分享與經驗交流，探索開發的無限可能' :
-                 locale === 'en' ? 'Development tips and experience sharing, exploring endless possibilities in software development' :
-                 '開発技術の共有と経験交流、開発の無限の可能性を探る'}
-              </p>
-              
-              {/* Stats */}
-              <div className="flex justify-center lg:justify-start gap-8 mt-6">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-primary">{posts.length}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {locale === 'zh' ? '技術文章' : locale === 'en' ? 'Articles' : '記事'}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">5+</div>
-                  <div className="text-sm text-muted-foreground">
-                    {locale === 'zh' ? '年經驗' : locale === 'en' ? 'Years Exp' : '年の経験'}
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">∞</div>
-                  <div className="text-sm text-muted-foreground">
-                    {locale === 'zh' ? '學習熱忱' : locale === 'en' ? 'Passion' : '学習への情熱'}
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            {/* Featured Posts */}
-            <FeaturedPosts featuredPosts={featuredPosts} locale={locale} />
+          <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 max-w-7xl">
 
-            {/* Posts Section */}
-            <div className="mb-8">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-emerald-500 rounded-full"></div>
-                <h2 className="text-2xl font-bold text-foreground">
-                  {locale === 'zh' ? '最新文章' : locale === 'en' ? 'Latest Articles' : '最新記事'}
-                </h2>
-              </div>
-            </div>
+            {/* 1. Hero Section - 重點精選 */}
+            <HeroSection latestPosts={carouselPosts} featuredPosts={featuredPosts} locale={locale} />
 
-            {/* Posts Grid */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 mb-16">
-              {posts.map((post) => (
-                <PostCard key={post.slug} post={post} />
-              ))}
-            </div>
+            <div className="flex flex-col lg:flex-row gap-12">
+              {/* 2. Main Feed - 分類區塊 */}
+              <div className="flex-1 min-w-0">
 
-            {/* Tech Tags Section - 精緻現代設計 */}
-            {allTags.length > 0 && (
-              <div className="border-t border-border pt-12 pb-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-lg font-medium text-foreground mb-2">
-                    {locale === 'zh' ? '技術標籤' : locale === 'en' ? 'Tech Tags' : '技術タグ'}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {locale === 'zh' ? '探索更多相關技術內容' : 
-                     locale === 'en' ? 'Explore more related tech content' : 
-                     '関連する技術コンテンツを探索'}
+                {/* 歡迎標語區 (可以選擇保留或簡化) */}
+                <div className="mb-10 pb-6 border-b border-border">
+                  <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent mb-3">
+                    {locale === 'zh' ? '探索技術的無限可能' :
+                      locale === 'en' ? 'Explore Infinite Possibilities' :
+                        '技術の無限の可能性を探る'}
+                  </h1>
+                  <p className="text-secondary-foreground text-lg">
+                    {locale === 'zh' ? '從 Android 到 Web 前端，從代碼細節到架構思維。' :
+                      locale === 'en' ? 'From Android to Web frontend, from code details to architectural thinking.' :
+                        'AndroidからWebフロントエンドまで、コードの詳細からアーキテクチャの思考まで。'}
                   </p>
                 </div>
-                <div className="flex flex-wrap justify-center gap-2 max-w-4xl mx-auto mb-6">
-                  {allTags.slice(0, 20).map((tag) => (
-                    <Link
-                      key={tag}
-                      href={`/${locale}/tags?tag=${encodeURIComponent(tag)}`}
-                      className="px-3 py-1.5 tag-gray text-xs font-medium rounded-md border border-current/10 hover:scale-105 hover:border-current/20 transition-all duration-200 cursor-pointer"
-                    >
-                      {tag}
-                    </Link>
-                  ))}
-                  {allTags.length > 20 && (
-                    <span className="px-3 py-1.5 bg-muted/50 text-muted-foreground text-xs font-medium rounded-md border border-border/50">
-                      +{allTags.length - 20}
-                    </span>
-                  )}
-                </div>
-                
-                {/* 查看全部標籤按鈕 */}
-                <div className="text-center">
+
+                {/* 分類區塊：Android */}
+                {androidPosts.length > 0 && (
+                  <CategorySection
+                    title="Android Development"
+                    posts={androidPosts.slice(0, 6)}
+                    categorySlug="Android"
+                    locale={locale}
+                  />
+                )}
+
+                {/* 分類區塊：Web */}
+                {webPosts.length > 0 && (
+                  <CategorySection
+                    title="Modern Web"
+                    posts={webPosts.slice(0, 6)}
+                    categorySlug="Web"
+                    locale={locale}
+                  />
+                )}
+
+                {/* 分類區塊：Thoughts */}
+                {thoughtPosts.length > 0 && (
+                  <CategorySection
+                    title={locale === 'zh' ? '開發隨筆' : 'Thoughts'}
+                    posts={thoughtPosts.slice(0, 3)}
+                    categorySlug="Thoughts"
+                    locale={locale}
+                  />
+                )}
+
+                {/* 查看全部按鈕 */}
+                <div className="mt-12 text-center">
                   <Link
-                    href={`/${locale}/tags`}
-                    className="btn-primary"
+                    href={`/${locale}/archives`}
+                    className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 713 12V7a4 4 0 714-4z" />
-                    </svg>
-                    {locale === 'zh' ? '查看全部標籤' : 
-                     locale === 'en' ? 'View All Tags' : 
-                     'すべてのタグを見る'}
+                    {locale === 'zh' ? '瀏覽所有文章' : locale === 'en' ? 'Browse All Archives' : 'すべてのアーカイブを見る'}
                   </Link>
                 </div>
               </div>
-            )}
 
-            {/* Empty State */}
-            {posts.length === 0 && (
-              <div className="text-center py-16">
-                <div className="w-24 h-24 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center">
-                  <svg className="w-12 h-12 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
+              {/* 3. Right Sidebar - 最新快訊 & 標籤 */}
+              <div className="w-full lg:w-80 flex-shrink-0 space-y-8">
+
+                {/* 最新文章列表 */}
+                <div className="bg-card rounded-xl shadow-sm border border-border p-6">
+                  <h3 className="text-lg font-bold mb-4 flex items-center">
+                    <span className="w-1 h-5 bg-primary rounded-full mr-2"></span>
+                    {locale === 'zh' ? '最新發布' : locale === 'en' ? 'Newest' : '最新'}
+                  </h3>
+                  <div className="space-y-4">
+                    {sidebarLatestPosts.map((post) => (
+                      <Link key={post.slug} href={`/${locale}/posts/${post.slug}`} className="group block">
+                        <div className="flex flex-col">
+                          <h4 className="font-medium text-sm group-hover:text-primary transition-colors line-clamp-2 mb-1">
+                            {post.frontMatter.title}
+                          </h4>
+                          <time className="text-xs text-muted-foreground">
+                            {format(new Date(post.frontMatter.date), 'MM/dd', { locale: dateLocale })}
+                          </time>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-lg font-medium text-foreground mb-2">
-                  {locale === 'zh' ? '暫無文章' :
-                   locale === 'en' ? 'No posts available' :
-                   '記事がありません'}
-                </h3>
-                <p className="text-muted-foreground">
-                  {locale === 'zh' ? '精彩內容即將推出，敬請期待！' :
-                   locale === 'en' ? 'Great content coming soon, stay tuned!' :
-                   '素晴らしいコンテンツが近日公開予定です！'}
-                </p>
+
+                {/* 簡單的標籤雲或是其他小工具可以放這裡 */}
+                <div className="bg-card rounded-xl shadow-sm border border-border p-6 sticky top-24">
+                  <h3 className="text-lg font-bold mb-4 flex items-center">
+                    <span className="w-1 h-5 bg-secondary rounded-full mr-2"></span>
+                    {locale === 'zh' ? '熱門話題' : locale === 'en' ? 'Hot Topics' : 'トピック'}
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {['Android', 'Kotlin', 'Next.js', 'React', 'Compose', 'Career'].map(tag => (
+                      <Link
+                        key={tag}
+                        href={`/${locale}/tags?tag=${tag}`}
+                        className="text-xs px-2.5 py-1 bg-muted hover:bg-muted/80 rounded-md text-muted-foreground transition-colors"
+                      >
+                        #{tag}
+                      </Link>
+                    ))}
+                    <Link href={`/${locale}/tags`} className="text-xs px-2.5 py-1 text-primary hover:underline">
+                      ...
+                    </Link>
+                  </div>
+                </div>
+
               </div>
-            )}
+            </div>
           </main>
         </div>
       </div>
-
-      {/* Mobile Sidebar Overlay */}
-      <div className="lg:hidden">
-        {/* This can be implemented later for mobile sidebar toggle */}
-      </div>
     </div>
   );
-} 
+}

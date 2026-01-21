@@ -24,14 +24,14 @@ interface PostPageProps {
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  
+
   // 驗證語言是否有效
   if (!siteConfig.locales.includes(locale)) {
     return {
       title: siteConfig.title,
     };
   }
-  
+
   let post = await getPostBySlug(slug, locale);
 
   // 如果通過原始 slug 找不到文章，嘗試作為 permalink 查找
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     const permalinkPath = `/${slug}`;
     post = await getPostByPermalink(permalinkPath, locale);
   }
-  
+
   if (!post) {
     return {
       title: siteConfig.title,
@@ -48,15 +48,15 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
   const { frontMatter } = post;
   const { title, excerpt, date, tags, image, categories } = frontMatter;
-  
+
   // 構建文章 URL
   const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}/`;
-  
+
   // 構建 OpenGraph 圖片 URL
-  const ogImage = image 
+  const ogImage = image
     ? `${siteConfig.siteUrl}/images/${image}`
     : `${siteConfig.siteUrl}/images/og-image.png`;
-  
+
   // 構建關鍵字
   const keywords = [];
   if (tags && Array.isArray(tags)) {
@@ -121,41 +121,41 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export async function generateStaticParams() {
   const paths = [];
-  
+
   for (const locale of siteConfig.locales) {
     const slugs = getAllPostSlugs(locale);
-    
+
     // 使用 Promise.all 來並行處理所有文章
     const posts = await Promise.all(
       slugs.map(slug => getPostBySlug(slug, locale))
     );
-    
+
     for (let i = 0; i < slugs.length; i++) {
       const slug = slugs[i];
       const post = posts[i];
-      
+
       if (post?.frontMatter.permalink) {
-        // 如果有 permalink，只生成 permalink 路徑
+        // 如果有 permalink，也生成 permalink 路徑
         const permalinkSlug = post.frontMatter.permalink.replace(/^\//, '');
         paths.push({ locale, slug: permalinkSlug });
-      } else {
-        // 如果沒有 permalink，使用原始 slug
-        paths.push({ locale, slug });
       }
+
+      // 總是生成原始 slug 路徑，確保以原始 slug 連結的文章也能正常訪問
+      paths.push({ locale, slug });
     }
   }
-  
+
   return paths;
 }
 
 export default async function PostPage({ params }: PostPageProps) {
   const { locale, slug } = await params;
-  
+
   // 驗證語言是否有效
   if (!siteConfig.locales.includes(locale)) {
     notFound();
   }
-  
+
   let post = await getPostBySlug(slug, locale);
 
   // 如果通過原始 slug 找不到文章，嘗試作為 permalink 查找
@@ -163,7 +163,7 @@ export default async function PostPage({ params }: PostPageProps) {
     const permalinkPath = `/${slug}`;
     post = await getPostByPermalink(permalinkPath, locale);
   }
-  
+
   if (!post) {
     notFound();
   }
@@ -176,8 +176,8 @@ export default async function PostPage({ params }: PostPageProps) {
   const tagArray = Array.isArray(tags) ? tags : (tags ? [tags] : []);
 
   // 檢查是否為 portfolio 文章 - 支援原始 slug 和 permalink
-  const isPortfolioPost = post.slug === '2023-06-26-review-my-android-app-portfolio' || 
-                          frontMatter.permalink === '/app_portfolio';
+  const isPortfolioPost = post.slug === '2023-06-26-review-my-android-app-portfolio' ||
+    frontMatter.permalink === '/app_portfolio';
 
   const getPortfolioComponent = () => {
     if (locale === 'en' || locale === 'ja') {
@@ -188,7 +188,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   // 構建文章 URL 和圖片 URL
   const postUrl = `${siteConfig.siteUrl}/${locale}/posts/${slug}`;
-  const ogImage = image 
+  const ogImage = image
     ? `${siteConfig.siteUrl}/images/${image}`
     : `${siteConfig.siteUrl}/images/og-image.png`;
 
@@ -221,8 +221,8 @@ export default async function PostPage({ params }: PostPageProps) {
   return (
     <div className="min-h-screen bg-background">
       {/* JSON-LD 結構化數據 */}
-      <JsonLd 
-        type="article" 
+      <JsonLd
+        type="article"
         data={{
           title,
           description: excerpt,
@@ -233,12 +233,12 @@ export default async function PostPage({ params }: PostPageProps) {
           tags: tagArray,
         }}
       />
-      
+
       {/* 麵包屑 Schema */}
       <BreadcrumbSchema items={breadcrumbItems} />
-      
+
       <HeaderWrapper locale={locale} />
-      
+
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Navigation */}
         <div className="mb-6">
@@ -275,7 +275,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 </div>
               </div>
             </header>
-            
+
             {/* Share Bar - Always visible */}
             <div className="px-4 py-2 md:pb-2">
               <div className="flex items-center gap-2">
@@ -309,12 +309,12 @@ export default async function PostPage({ params }: PostPageProps) {
                 </span>
               ))}
             </div>
-            
+
             {/* Article Body */}
             <div className="prose prose-lg max-w-none dark:prose-invert">
               {isPortfolioPost ? (
                 <div>
-                  <div className="mb-12" dangerouslySetInnerHTML={{ 
+                  <div className="mb-12" dangerouslySetInnerHTML={{
                     __html: content.replace('<div id="portfolio-content"></div>', '')
                   }} suppressHydrationWarning />
                   <div className="mt-12">
@@ -325,7 +325,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 <div dangerouslySetInnerHTML={{ __html: content }} suppressHydrationWarning />
               )}
             </div>
-            
+
             {/* 程式碼區塊增強功能、Gist 載入器和圖片放大功能 */}
             <CodeBlockEnhancer />
             <GistLoader />
@@ -335,7 +335,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
           {/* 分享按鈕 */}
           <div className="px-8 pb-8">
-            <ShareButtons 
+            <ShareButtons
               url={postUrl}
               title={title}
               description={excerpt}
