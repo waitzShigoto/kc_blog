@@ -73,6 +73,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const androidPosts = await getPostsByCategory(locale, 'Android');
   const webPosts = await getPostsByCategory(locale, 'Web');
   const thoughtPosts = await getPostsByCategory(locale, 'Thoughts');
+  const baseballPosts = await getPostsByCategory(locale, 'Baseball');
 
   // 最新文章列表 (排除掉已經顯示在 Hero 區塊的文章，避免重複感)
   // 這裡簡單處理：取 Hero 之後的最新 10 篇文章做為側欄列表
@@ -111,19 +112,17 @@ export default async function HomePage({ params }: HomePageProps) {
               {/* 2. Main Feed - 分類區塊 */}
               <div className="flex-1 min-w-0">
 
-                {/* 歡迎標語區 (可以選擇保留或簡化) */}
-                <div className="mb-10 pb-6 border-b border-border">
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent mb-3">
-                    {locale === 'zh' ? '探索技術的無限可能' :
-                      locale === 'en' ? 'Explore Infinite Possibilities' :
-                        '技術の無限の可能性を探る'}
-                  </h1>
-                  <p className="text-secondary-foreground text-lg">
-                    {locale === 'zh' ? '從 Android 到 Web 前端，從代碼細節到架構思維。' :
-                      locale === 'en' ? 'From Android to Web frontend, from code details to architectural thinking.' :
-                        'AndroidからWebフロントエンドまで、コードの詳細からアーキテクチャの思考まで。'}
-                  </p>
-                </div>
+                {/* 分類區塊：Baseball (放在歡迎標語上方) */}
+                {baseballPosts.length > 0 && (
+                  <CategorySection
+                    title={locale === 'zh' ? '棒球數據與觀點' : 'Baseball Analytics'}
+                    posts={baseballPosts.slice(0, 3)}
+                    categorySlug="Baseball"
+                    locale={locale}
+                  />
+                )}
+
+
 
                 {/* 分類區塊：Android */}
                 {androidPosts.length > 0 && (

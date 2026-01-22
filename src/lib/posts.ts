@@ -127,56 +127,80 @@ export function getPostsDirectory(locale: string): string {
 }
 
 export function getAllPostSlugs(locale: string): string[] {
-  const postsDirectory = getPostsDirectory(locale);
+  const slugs: string[] = [];
 
-  if (!fs.existsSync(postsDirectory)) {
-    return [];
+  // 1. Root locale directory: content/[locale]
+  const rootPostsDir = path.join(contentDirectory, locale);
+  if (fs.existsSync(rootPostsDir)) {
+    const fileNames = fs.readdirSync(rootPostsDir);
+    fileNames.forEach(name => {
+      if (name.endsWith('.markdown') || name.endsWith('.md')) {
+        slugs.push(name.replace(/\.(markdown|md)$/, ''));
+      }
+    });
   }
 
-  const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames
-    .filter(name => name.endsWith('.markdown') || name.endsWith('.md'))
-    .map(name => name.replace(/\.(markdown|md)$/, ''));
+  // 2. Subdirectories: content/*/[locale]
+  if (fs.existsSync(contentDirectory)) {
+    const subDirs = fs.readdirSync(contentDirectory, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory() && dirent.name !== locale && !dirent.name.startsWith('.'))
+      .map(dirent => dirent.name);
+
+    subDirs.forEach(subDir => {
+      const subDirLocalePath = path.join(contentDirectory, subDir, locale);
+      if (fs.existsSync(subDirLocalePath)) {
+        const fileNames = fs.readdirSync(subDirLocalePath);
+        fileNames.forEach(name => {
+          if (name.endsWith('.markdown') || name.endsWith('.md')) {
+            slugs.push(name.replace(/\.(markdown|md)$/, ''));
+          }
+        });
+      }
+    });
+  }
+
+  return slugs;
 }
 
 export async function getPostBySlug(slug: string, locale: string): Promise<BlogPost | null> {
   try {
-    const postsDirectory = getPostsDirectory(locale);
-    const fullPath = path.join(postsDirectory, `${slug}.markdown`);
+    // Attempt to find the file in multiple valid locations
+    let fullPath = '';
 
-    if (!fs.existsSync(fullPath)) {
-      const mdPath = path.join(postsDirectory, `${slug}.md`);
-      if (!fs.existsSync(mdPath)) {
-        return null;
+    // 1. Check content/[locale]
+    const rootPathToCheck = path.join(contentDirectory, locale, `${slug}.markdown`);
+    const rootPathToCheckMd = path.join(contentDirectory, locale, `${slug}.md`);
+
+    if (fs.existsSync(rootPathToCheck)) {
+      fullPath = rootPathToCheck;
+    } else if (fs.existsSync(rootPathToCheckMd)) {
+      fullPath = rootPathToCheckMd;
+    } else {
+      // 2. Check content/*/[locale]
+      if (fs.existsSync(contentDirectory)) {
+        const subDirs = fs.readdirSync(contentDirectory, { withFileTypes: true })
+          .filter(dirent => dirent.isDirectory() && dirent.name !== locale && !dirent.name.startsWith('.'))
+          .map(dirent => dirent.name);
+
+        for (const subDir of subDirs) {
+          const subPathToCheck = path.join(contentDirectory, subDir, locale, `${slug}.markdown`);
+          const subPathToCheckMd = path.join(contentDirectory, subDir, locale, `${slug}.md`);
+
+          if (fs.existsSync(subPathToCheck)) {
+            fullPath = subPathToCheck;
+            break;
+          } else if (fs.existsSync(subPathToCheckMd)) {
+            fullPath = subPathToCheckMd;
+            break;
+          }
+        }
       }
-      const fileContents = fs.readFileSync(mdPath, 'utf8');
-      const { data, content } = matter(fileContents);
-
-      // 預處理內容
-      const preprocessedContent = preprocessContent(content, locale);
-
-      const processedContent = await remark()
-        .use(remarkRehype, { allowDangerousHtml: true })
-        .use(rehypeRaw, {
-          passThrough: ['script']
-        })
-        .use(rehypeHighlight)
-        .use(rehypeStringify, {
-          allowDangerousHtml: true
-        })
-        .process(preprocessedContent);
-
-      const contentHtml = processedContent.toString();
-      const readingTimeResult = readingTime(content);
-
-      return {
-        slug,
-        frontMatter: data as BlogFrontMatter,
-        content: contentHtml,
-        readingTime: readingTimeResult.text,
-        locale,
-      };
     }
+
+    if (!fullPath) {
+      return null;
+    }
+
 
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);

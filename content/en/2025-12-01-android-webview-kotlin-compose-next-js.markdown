@@ -2,7 +2,7 @@
 layout: post
 title: 'Android WebView Offline Bundle Guide: Loading Next.js Static Assets with Kotlin & Compose'
 date: '2025-12-01 18:13:38 +0800'
-image: cover/generated/2025-12-01-android-webview-kotlin-compose-next-js-cover.svg
+image: cover/generated/2025-12-01-android-webview-kotlin-compose-next-js-cover.png
 tags:
   - Android
   - Kotlin

@@ -2,7 +2,7 @@
 layout: post
 title: 'Android WebView 離線包完整教程：使用 Kotlin + Compose 加載 Next.js 靜態資源'
 date: '2025-12-01 18:13:38 +0800'
-image: cover/generated/2025-12-01-android-webview-kotlin-compose-next-js-cover.svg
+image: cover/generated/2025-12-01-android-webview-kotlin-compose-next-js-cover.png
 tags:
   - Android
   - Kotlin

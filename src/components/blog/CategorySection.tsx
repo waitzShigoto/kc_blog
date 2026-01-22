@@ -13,7 +13,7 @@ export default function CategorySection({ title, posts, categorySlug, locale }: 
     if (!posts || posts.length === 0) return null;
 
     return (
-        <section className="py-8 border-b border-border/40 last:border-0">
+        <section className="py-8 relative">
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
                     <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-emerald-500 rounded-full"></div>
@@ -41,6 +41,9 @@ export default function CategorySection({ title, posts, categorySlug, locale }: 
                     <PostCard key={post.slug} post={post} />
                 ))}
             </div>
+
+            {/* Subtle Gradient Separator */}
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
         </section>
     );
 }
