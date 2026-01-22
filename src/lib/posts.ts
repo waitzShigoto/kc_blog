@@ -127,7 +127,7 @@ export function getPostsDirectory(locale: string): string {
 }
 
 export function getAllPostSlugs(locale: string): string[] {
-  const slugs: string[] = [];
+  const slugs = new Set<string>();
 
   // 1. Root locale directory: content/[locale]
   const rootPostsDir = path.join(contentDirectory, locale);
@@ -135,7 +135,7 @@ export function getAllPostSlugs(locale: string): string[] {
     const fileNames = fs.readdirSync(rootPostsDir);
     fileNames.forEach(name => {
       if (name.endsWith('.markdown') || name.endsWith('.md')) {
-        slugs.push(name.replace(/\.(markdown|md)$/, ''));
+        slugs.add(name.replace(/\.(markdown|md)$/, ''));
       }
     });
   }
@@ -146,20 +146,20 @@ export function getAllPostSlugs(locale: string): string[] {
       .filter(dirent => dirent.isDirectory() && dirent.name !== locale && !dirent.name.startsWith('.'))
       .map(dirent => dirent.name);
 
-    subDirs.forEach(subDir => {
+    for (const subDir of subDirs) {
       const subDirLocalePath = path.join(contentDirectory, subDir, locale);
       if (fs.existsSync(subDirLocalePath)) {
         const fileNames = fs.readdirSync(subDirLocalePath);
         fileNames.forEach(name => {
           if (name.endsWith('.markdown') || name.endsWith('.md')) {
-            slugs.push(name.replace(/\.(markdown|md)$/, ''));
+            slugs.add(name.replace(/\.(markdown|md)$/, ''));
           }
         });
       }
-    });
+    }
   }
 
-  return slugs;
+  return Array.from(slugs);
 }
 
 export async function getPostBySlug(slug: string, locale: string): Promise<BlogPost | null> {
