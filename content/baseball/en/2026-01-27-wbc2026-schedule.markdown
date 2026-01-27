@@ -1,0 +1,163 @@
+---
+title: "2026 WBC World Baseball Classic Complete Schedule"
+date: "2026-01-27 12:00:00"
+image: cover/wbc_logo.png
+author: "WaitZ"
+categories: ["Baseball"]
+tags: ["WBC", "2026", "World Baseball Classic", "Schedule", "Team USA", "MLB"]
+topic: "WBC2026Schedule"
+locale: "en"
+summary: "Complete schedule for the 2026 World Baseball Classic including pool play, Team USA schedule, quarterfinals, and championship round information"
+---
+
+## 2026 WBC World Baseball Classic Overview
+
+The 2026 World Baseball Classic is the sixth edition of the tournament, featuring 20 teams from around the world.
+
+### Key Dates
+
+| Stage | Dates |
+|-------|-------|
+| **Pool Play** | March 5 - March 11, 2026 |
+| **Quarterfinals** | March 13 - March 14, 2026 |
+| **Semifinals** | March 15 - March 16, 2026 |
+| **Championship** | March 17, 2026 |
+
+---
+
+## Pool Assignments
+
+### Pool A: San Juan, Puerto Rico
+
+| Item | Details |
+|------|---------|
+| **Venue** | Hiram Bithorn Stadium |
+| **Dates** | March 6 - March 11 |
+| **Teams** | Puerto Rico, Canada, Cuba, Panama, Colombia |
+
+### Pool B: Houston, USA (Team USA)
+
+| Item | Details |
+|------|---------|
+| **Venue** | Minute Maid Park |
+| **Dates** | March 6 - March 11 |
+| **Teams** | USA, Great Britain, Italy, Mexico, Brazil |
+
+Minute Maid Park, home of the Houston Astros, will host the WBC for the first time
+
+### Pool C: Tokyo, Japan
+
+| Item | Details |
+|------|---------|
+| **Venue** | Tokyo Dome |
+| **Dates** | March 5 - March 10 |
+| **Teams** | Japan, South Korea, Australia, Czech Republic, Chinese Taipei |
+
+Pool C is considered the "Group of Death" this tournament, with defending champion Japan facing strong opponents including Chinese Taipei and South Korea
+
+### Pool D: Miami, USA
+
+| Item | Details |
+|------|---------|
+| **Venue** | loanDepot Park |
+| **Dates** | March 6 - March 11 |
+| **Teams** | Dominican Republic, Venezuela, Netherlands, Israel, Nicaragua |
+
+---
+
+## Team USA Schedule (Pool B)
+
+Team USA will play their pool games at Minute Maid Park in Houston.
+
+### Detailed Schedule (Eastern Time)
+
+| Date | Time | Opponent | Notes |
+|------|------|----------|-------|
+| **March 6 (Thu)** | TBD | vs Great Britain | Opening Game |
+| **March 7 (Fri)** | TBD | vs Mexico | Rivalry Game |
+| **March 8 (Sat)** | TBD | vs Italy | - |
+| **March 9 (Sun)** | TBD | vs Brazil | - |
+
+### Key Matchup: USA vs Mexico
+
+The USA vs Mexico matchup is one of the most anticipated games in Pool B. With the growing rivalry between these two baseball nations, this game promises to be a highlight of pool play.
+
+---
+
+## Tournament Format
+
+### Pool Play
+
+- Each pool consists of 5 teams playing round-robin
+- Top 2 teams from each pool advance to quarterfinals
+- Total of 8 teams advance to knockout stage
+
+### Quarterfinals
+
+| Dates | Venue | Matchups |
+|-------|-------|----------|
+| March 13-14 | Houston Minute Maid Park | Pool A vs Pool B qualifiers |
+| March 13-14 | Miami loanDepot Park | Pool C vs Pool D qualifiers |
+
+If Team USA advances to quarterfinals, they will play in Houston
+
+### Semifinals
+
+| Dates | Venue |
+|-------|-------|
+| March 15-16 | Miami loanDepot Park |
+
+### Championship
+
+| Date | Venue |
+|------|-------|
+| March 17 | Miami loanDepot Park |
+
+---
+
+## Venue Information
+
+### Minute Maid Park (Pool B + Quarterfinals)
+- Location: Houston, Texas, USA
+- Home Team: Houston Astros
+- Feature: First time hosting WBC
+
+### loanDepot Park (Pool D + Semifinals + Championship)
+- Location: Miami, Florida, USA
+- Home Team: Miami Marlins
+
+### Tokyo Dome (Pool C)
+- Location: Tokyo, Japan
+- Capacity: Approximately 46,000
+- Feature: Has hosted pool play in all five previous WBC editions
+
+### Hiram Bithorn Stadium (Pool A)
+- Location: San Juan, Puerto Rico
+
+---
+
+## Team USA Path to Championship
+
+```
+Pool B (Houston)
+    ↓ Top 2 advance
+Quarterfinals (Houston)
+    ↓ Win to advance
+Semifinals (Miami)
+    ↓ Win to advance
+Championship (Miami)
+```
+
+---
+
+## Broadcast Information
+
+The 2026 WBC will be broadcast in the United States on Fox Sports and FS1.
+
+---
+
+## References
+
+- [WBSC Official Announcement](https://www.wbsc.org/zh/news/world-baseball-classic-2026-dates-groups)
+- [Wikipedia - 2026 World Baseball Classic](https://en.wikipedia.org/wiki/2026_World_Baseball_Classic)
+
