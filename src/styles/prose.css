@@ -292,7 +292,7 @@
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  table-layout: auto;
   margin: 2rem 0;
   background: var(--color-card);
   border-radius: 0.5rem;
