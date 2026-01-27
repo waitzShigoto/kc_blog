@@ -29,19 +29,19 @@ function processImagePaths(content: string): string {
     // 處理其他百分比寬度
     .replace(/width="(\d+)%"/g, 'style="width: $1%"')
     // 優化圖片標籤：添加 loading="lazy" 和 decoding="async"
-    .replace(/<img([^>]*?)>/g, function (match, attrs) {
+    .replace(/<img([^>]*?)>/g, function(match, attrs) {
       let optimizedAttrs = attrs;
-
+      
       // 添加 lazy loading（除非是 GIF 動畫）
       if (!attrs.includes('loading=') && !attrs.includes('.gif')) {
         optimizedAttrs += ' loading="lazy"';
       }
-
+      
       // 添加 async decoding
       if (!attrs.includes('decoding=')) {
         optimizedAttrs += ' decoding="async"';
       }
-
+      
       // 確保有 alt 屬性（SEO 重要）
       if (!attrs.includes('alt=')) {
         // 嘗試從 src 提取檔名作為 alt
@@ -54,14 +54,14 @@ function processImagePaths(content: string): string {
           optimizedAttrs += ' alt=""';
         }
       }
-
+      
       // 添加 class
       if (attrs.includes('class=')) {
         optimizedAttrs = optimizedAttrs.replace(/class="([^"]*)"/, 'class="$1 prose-img"');
       } else {
         optimizedAttrs += ' class="prose-img"';
       }
-
+      
       return `<img${optimizedAttrs}>`;
     });
 }
@@ -72,31 +72,13 @@ function processLinks(content: string, locale: string = 'en'): string {
     // 處理外部鏈接，添加 target="_blank"
     .replace(/<a\s+href="(https?:\/\/[^"]*)"([^>]*)>/g, '<a href="$1" target="_blank" rel="noopener noreferrer"$2>')
     // 處理 Jekyll 風格的內部鏈接，加入語言前綴
-    // 特別處理：如果連結已經包含 /posts/，就不要再加
-    .replace(/href="{{site\.baseurl}}\/posts\/([^"]*)"/g, `href="/${locale}/posts/$1"`)
-    // 處理 Jekyll 舊日期格式路徑 (例如：/2020/11/21/post-name/)
-    .replace(/href="{{site\.baseurl}}\/\d{4}\/\d{2}\/\d{2}\/([^"\/]+)\/?"/, (match, slug) => {
-      return `href="/${locale}/posts/${slug}"`;
-    })
-    // 處理 Jekyll 風格的其他內部鏈接（沒有 /posts/ 的）
-    .replace(/href="{{site\.baseurl}}\/([^"]*)"/g, `href="/${locale}/posts/$1"`)
-    // 處理站內完整 URL（elegantaccess.org）但缺少語言前綴的連結
-    .replace(/href="https:\/\/elegantaccess\.org\/([^"]+)"/g, (match, path) => {
-      // 如果路徑已經有語言前綴，保持原樣
-      if (path.startsWith('zh/') || path.startsWith('en/') || path.startsWith('ja/')) {
-        return match;
-      }
-      // 否則加上語言前綴和 posts
-      return `href="/${locale}/posts/${path}"`;
-    })
+    .replace(/href="{{site\.baseurl}}([^"]*)"/g, `href="/${locale}$1"`)
     // 處理相對路徑的文章鏈接，加入語言前綴和 posts 路徑
     .replace(/href="\/([^\/][^"]*\.html?)"/g, `href="/${locale}/posts/$1"`)
     // 處理不帶副檔名的文章鏈接
     .replace(/href="\/([^\/][^"]*)"(?![^<]*\.(png|jpg|jpeg|gif|svg|css|js))/g, `href="/${locale}/posts/$1"`)
     // 處理已經有語言前綴的鏈接，避免重複添加
     .replace(new RegExp(`href="/${locale}/${locale}/`, 'g'), `href="/${locale}/`)
-    // 修正可能產生的雙重 /posts/posts/ 路徑
-    .replace(/\/posts\/posts\//g, '/posts/')
     // 處理根路徑鏈接
     .replace(/href="\/?"(?=\s|>)/g, `href="/${locale}"`);
 }
@@ -112,13 +94,13 @@ function processMermaid(content: string): string {
 // 主要內容處理函數
 function preprocessContent(content: string, locale: string = 'en'): string {
   let processedContent = content;
-
+  
   // 依序處理各種元素
   processedContent = processImagePaths(processedContent);
   processedContent = processLinks(processedContent, locale);
   processedContent = processJekyllIncludes(processedContent, locale);
   processedContent = processMermaid(processedContent);
-
+  
   return processedContent;
 }
 
@@ -127,87 +109,63 @@ export function getPostsDirectory(locale: string): string {
 }
 
 export function getAllPostSlugs(locale: string): string[] {
-  const slugs = new Set<string>();
-
-  // 1. Root locale directory: content/[locale]
-  const rootPostsDir = path.join(contentDirectory, locale);
-  if (fs.existsSync(rootPostsDir)) {
-    const fileNames = fs.readdirSync(rootPostsDir);
-    fileNames.forEach(name => {
-      if (name.endsWith('.markdown') || name.endsWith('.md')) {
-        slugs.add(name.replace(/\.(markdown|md)$/, ''));
-      }
-    });
+  const postsDirectory = getPostsDirectory(locale);
+  
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
   }
-
-  // 2. Subdirectories: content/*/[locale]
-  if (fs.existsSync(contentDirectory)) {
-    const subDirs = fs.readdirSync(contentDirectory, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory() && dirent.name !== locale && !dirent.name.startsWith('.'))
-      .map(dirent => dirent.name);
-
-    for (const subDir of subDirs) {
-      const subDirLocalePath = path.join(contentDirectory, subDir, locale);
-      if (fs.existsSync(subDirLocalePath)) {
-        const fileNames = fs.readdirSync(subDirLocalePath);
-        fileNames.forEach(name => {
-          if (name.endsWith('.markdown') || name.endsWith('.md')) {
-            slugs.add(name.replace(/\.(markdown|md)$/, ''));
-          }
-        });
-      }
-    }
-  }
-
-  return Array.from(slugs);
+  
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames
+    .filter(name => name.endsWith('.markdown') || name.endsWith('.md'))
+    .map(name => name.replace(/\.(markdown|md)$/, ''));
 }
 
 export async function getPostBySlug(slug: string, locale: string): Promise<BlogPost | null> {
   try {
-    // Attempt to find the file in multiple valid locations
-    let fullPath = '';
-
-    // 1. Check content/[locale]
-    const rootPathToCheck = path.join(contentDirectory, locale, `${slug}.markdown`);
-    const rootPathToCheckMd = path.join(contentDirectory, locale, `${slug}.md`);
-
-    if (fs.existsSync(rootPathToCheck)) {
-      fullPath = rootPathToCheck;
-    } else if (fs.existsSync(rootPathToCheckMd)) {
-      fullPath = rootPathToCheckMd;
-    } else {
-      // 2. Check content/*/[locale]
-      if (fs.existsSync(contentDirectory)) {
-        const subDirs = fs.readdirSync(contentDirectory, { withFileTypes: true })
-          .filter(dirent => dirent.isDirectory() && dirent.name !== locale && !dirent.name.startsWith('.'))
-          .map(dirent => dirent.name);
-
-        for (const subDir of subDirs) {
-          const subPathToCheck = path.join(contentDirectory, subDir, locale, `${slug}.markdown`);
-          const subPathToCheckMd = path.join(contentDirectory, subDir, locale, `${slug}.md`);
-
-          if (fs.existsSync(subPathToCheck)) {
-            fullPath = subPathToCheck;
-            break;
-          } else if (fs.existsSync(subPathToCheckMd)) {
-            fullPath = subPathToCheckMd;
-            break;
-          }
-        }
+    const postsDirectory = getPostsDirectory(locale);
+    const fullPath = path.join(postsDirectory, `${slug}.markdown`);
+    
+    if (!fs.existsSync(fullPath)) {
+      const mdPath = path.join(postsDirectory, `${slug}.md`);
+      if (!fs.existsSync(mdPath)) {
+        return null;
       }
+      const fileContents = fs.readFileSync(mdPath, 'utf8');
+      const { data, content } = matter(fileContents);
+      
+      // 預處理內容
+      const preprocessedContent = preprocessContent(content, locale);
+      
+      const processedContent = await remark()
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw, {
+          passThrough: ['script']
+        })
+        .use(rehypeHighlight)
+        .use(rehypeStringify, {
+          allowDangerousHtml: true
+        })
+        .process(preprocessedContent);
+      
+      const contentHtml = processedContent.toString();
+      const readingTimeResult = readingTime(content);
+      
+      return {
+        slug,
+        frontMatter: data as BlogFrontMatter,
+        content: contentHtml,
+        readingTime: readingTimeResult.text,
+        locale,
+      };
     }
-
-    if (!fullPath) {
-      return null;
-    }
-
-
+    
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
-
+    
     // 預處理內容
     const preprocessedContent = preprocessContent(content, locale);
-
+    
     const processedContent = await remark()
       .use(remarkRehype, { allowDangerousHtml: true })
       .use(rehypeRaw, {
@@ -218,10 +176,10 @@ export async function getPostBySlug(slug: string, locale: string): Promise<BlogP
         allowDangerousHtml: true
       })
       .process(preprocessedContent);
-
+    
     const contentHtml = processedContent.toString();
     const readingTimeResult = readingTime(content);
-
+    
     return {
       slug,
       frontMatter: data as BlogFrontMatter,
@@ -240,7 +198,7 @@ export async function getAllPosts(locale: string): Promise<BlogPost[]> {
   const posts = await Promise.all(
     slugs.map(slug => getPostBySlug(slug, locale))
   );
-
+  
   return posts
     .filter((post): post is BlogPost => post !== null)
     .sort((a, b) => {
@@ -260,7 +218,7 @@ export async function getPostsByPage(
   const startIndex = (page - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
   const posts = allPosts.slice(startIndex, endIndex);
-
+  
   return {
     posts,
     pagination: {
@@ -276,33 +234,33 @@ export async function getPostsByPage(
 export async function getFeaturedPosts(locale: string): Promise<BlogPost[]> {
   const { siteConfig } = await import('./config');
   const allPosts = await getAllPosts(locale);
-
+  
   // 獲取該語言的特色文章 slug 列表
   const featuredSlugs = siteConfig.featuredPosts?.[locale] || [];
-
+  
   if (featuredSlugs.length === 0) {
     // 如果沒有配置特色文章，返回前兩篇文章
     return allPosts.slice(0, 2);
   }
-
+  
   // 根據 slug 查找對應的文章
   const featuredPosts: BlogPost[] = [];
-
+  
   for (const slug of featuredSlugs) {
     const post = allPosts.find(p => p.slug === slug);
     if (post) {
       featuredPosts.push(post);
     }
   }
-
-  // 如果找到的特色文章少於 5 篇，用最新文章補足
-  if (featuredPosts.length < 5) {
+  
+  // 如果找到的特色文章少於 2 篇，用最新文章補足
+  if (featuredPosts.length < 2) {
     const remainingPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug));
-    const needed = 5 - featuredPosts.length;
+    const needed = 2 - featuredPosts.length;
     featuredPosts.push(...remainingPosts.slice(0, needed));
   }
-
-  return featuredPosts.slice(0, 5); // 確保最多返回 5 篇
+  
+  return featuredPosts.slice(0, 2); // 確保最多返回 2 篇
 }
 
 export async function getPostsByCategory(locale: string, category: string): Promise<BlogPost[]> {
@@ -310,7 +268,7 @@ export async function getPostsByCategory(locale: string, category: string): Prom
   return allPosts.filter(post => {
     const categories = post.frontMatter.categories;
     if (!categories) return false;
-
+    
     if (Array.isArray(categories)) {
       return categories.includes(category);
     } else {
@@ -321,7 +279,7 @@ export async function getPostsByCategory(locale: string, category: string): Prom
 
 export async function getPostsByTag(locale: string, tag: string): Promise<BlogPost[]> {
   const allPosts = await getAllPosts(locale);
-  return allPosts.filter(post =>
+  return allPosts.filter(post => 
     post.frontMatter.tags?.includes(tag)
   );
 }
@@ -329,7 +287,7 @@ export async function getPostsByTag(locale: string, tag: string): Promise<BlogPo
 export async function getAllCategories(locale: string): Promise<string[]> {
   const allPosts = await getAllPosts(locale);
   const categories = new Set<string>();
-
+  
   allPosts.forEach(post => {
     const postCategories = post.frontMatter.categories;
     if (postCategories) {
@@ -343,20 +301,20 @@ export async function getAllCategories(locale: string): Promise<string[]> {
       }
     }
   });
-
+  
   return Array.from(categories).sort();
 }
 
 export async function getAllTags(locale: string): Promise<string[]> {
   const allPosts = await getAllPosts(locale);
   const tags = new Set<string>();
-
+  
   allPosts.forEach(post => {
     post.frontMatter.tags?.forEach(tag => {
       tags.add(tag);
     });
   });
-
+  
   return Array.from(tags).sort();
 }
 
@@ -373,17 +331,17 @@ export interface SearchIndex {
 
 export async function getSearchIndex(locale: string): Promise<SearchIndex[]> {
   const allPosts = await getAllPosts(locale);
-
+  
   return allPosts.map(post => {
     // 確保 tags 和 categories 總是陣列
-    const tags = Array.isArray(post.frontMatter.tags)
-      ? post.frontMatter.tags
+    const tags = Array.isArray(post.frontMatter.tags) 
+      ? post.frontMatter.tags 
       : (post.frontMatter.tags ? [post.frontMatter.tags] : []);
-
-    const categories = Array.isArray(post.frontMatter.categories)
-      ? post.frontMatter.categories
+    
+    const categories = Array.isArray(post.frontMatter.categories) 
+      ? post.frontMatter.categories 
       : (post.frontMatter.categories ? [post.frontMatter.categories] : []);
-
+    
     return {
       slug: post.slug,
       title: post.frontMatter.title,
@@ -403,25 +361,25 @@ export async function getPostByPermalink(permalink: string, locale?: string): Pr
     const post = allPosts.find(p => p.frontMatter.permalink === permalink);
     return post || null;
   }
-
+  
   // 如果沒有指定語言，在所有語言中查找，優先返回中文版
   const { siteConfig } = await import('./config');
   const locales = siteConfig.locales;
-
+  
   // 優先查找中文版
   if (locales.includes('zh')) {
     const zhPosts = await getAllPosts('zh');
     const zhPost = zhPosts.find(p => p.frontMatter.permalink === permalink);
     if (zhPost) return zhPost;
   }
-
+  
   // 然後查找英文版
   if (locales.includes('en')) {
     const enPosts = await getAllPosts('en');
     const enPost = enPosts.find(p => p.frontMatter.permalink === permalink);
     if (enPost) return enPost;
   }
-
+  
   // 最後查找其他語言版本
   for (const loc of locales) {
     if (loc !== 'zh' && loc !== 'en') {
@@ -430,36 +388,36 @@ export async function getPostByPermalink(permalink: string, locale?: string): Pr
       if (post) return post;
     }
   }
-
+  
   return null;
 }
 
 export async function getRelatedPosts(currentPost: BlogPost, locale: string, limit: number = 6): Promise<BlogPost[]> {
   const allPosts = await getAllPosts(locale);
   const currentTags = currentPost.frontMatter.tags || [];
-  const currentCategories = Array.isArray(currentPost.frontMatter.categories)
-    ? currentPost.frontMatter.categories
+  const currentCategories = Array.isArray(currentPost.frontMatter.categories) 
+    ? currentPost.frontMatter.categories 
     : (currentPost.frontMatter.categories ? [currentPost.frontMatter.categories] : []);
-
+  
   // 過濾掉當前文章
   const otherPosts = allPosts.filter(post => post.slug !== currentPost.slug);
-
+  
   // 計算相關性分數
   const postsWithScore = otherPosts.map(post => {
     let score = 0;
     const postTags = post.frontMatter.tags || [];
-    const postCategories = Array.isArray(post.frontMatter.categories)
-      ? post.frontMatter.categories
+    const postCategories = Array.isArray(post.frontMatter.categories) 
+      ? post.frontMatter.categories 
       : (post.frontMatter.categories ? [post.frontMatter.categories] : []);
-
+    
     // 標籤匹配得分（每個匹配的標籤 +2 分）
     const tagMatches = currentTags.filter(tag => postTags.includes(tag));
     score += tagMatches.length * 2;
-
+    
     // 分類匹配得分（每個匹配的分類 +3 分）
     const categoryMatches = currentCategories.filter(category => postCategories.includes(category));
     score += categoryMatches.length * 3;
-
+    
     return {
       post,
       score,
@@ -467,7 +425,7 @@ export async function getRelatedPosts(currentPost: BlogPost, locale: string, lim
       categoryMatches: categoryMatches.length
     };
   });
-
+  
   // 按分數排序，分數相同時按日期排序（較新的在前）
   const sortedPosts = postsWithScore
     .filter(item => item.score > 0) // 只返回有相關性的文章
@@ -480,16 +438,16 @@ export async function getRelatedPosts(currentPost: BlogPost, locale: string, lim
       const dateB = new Date(b.post.frontMatter.date);
       return dateB.getTime() - dateA.getTime();
     });
-
+  
   // 如果相關文章不足，用最新文章補足
   let relatedPosts = sortedPosts.slice(0, limit).map(item => item.post);
-
+  
   if (relatedPosts.length < limit) {
     const remainingPosts = otherPosts
       .filter(post => !relatedPosts.some(rp => rp.slug === post.slug))
       .slice(0, limit - relatedPosts.length);
     relatedPosts = [...relatedPosts, ...remainingPosts];
   }
-
+  
   return relatedPosts;
 } 
