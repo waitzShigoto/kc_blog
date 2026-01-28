@@ -1,7 +1,7 @@
 ---
 title: "2026 WBC Team Japan (Samurai Japan) Complete Roster"
 date: "2026-01-28 02:06:03"
-image: cover/wbc_logo.png
+image: cover/wbc_player_jp.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Samurai Japan", "Team Japan", "Shohei Ohtani", "Roster"]

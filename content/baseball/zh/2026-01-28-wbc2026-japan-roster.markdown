@@ -1,7 +1,7 @@
 ---
 title: "2026 WBC 日本隊（侍ジャパン）完整名單"
 date: "2026-01-28 02:06:03"
-image: cover/wbc_logo.png
+image: cover/wbc_player_jp.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "侍ジャパン", "日本隊", "大谷翔平", "名單"]
