@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: DailyEnglishPageProps): Promi
   const { locale } = await params;
   
   const titles = {
-    zh: '每日英文 - KC Blog',
-    en: 'Daily English - KC Blog',
-    ja: '毎日英語 - KC Blog'
+    zh: '每日英文 - Elegant Access',
+    en: 'Daily English - Elegant Access',
+    ja: '毎日英語 - Elegant Access'
   };
   
   const descriptions = {

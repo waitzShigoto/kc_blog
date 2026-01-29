@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: AlgorithmsArchivePageProps): 
   const { locale } = await params;
   
   const titles = {
-    zh: '演算法歸檔 - KC Blog',
-    en: 'Algorithms Archive - KC Blog',
-    ja: 'アルゴリズムアーカイブ - KC Blog'
+    zh: '演算法歸檔 - Elegant Access',
+    en: 'Algorithms Archive - Elegant Access',
+    ja: 'アルゴリズムアーカイブ - Elegant Access'
   };
   
   const descriptions = {

@@ -100,7 +100,7 @@ function generateEnhancedSVG(title, category, theme) {
   
   <!-- Brand Footer -->
   <g transform="translate(1150, 590)" text-anchor="end">
-    <text font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.9)" font-weight="bold">KC Blog</text>
+    <text font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.9)" font-weight="bold">Elegant Access</text>
   </g>
 </svg>`;
 }

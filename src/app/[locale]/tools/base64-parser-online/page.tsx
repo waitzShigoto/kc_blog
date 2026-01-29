@@ -20,17 +20,17 @@ export async function generateMetadata({ params }: Base64ParserPageProps): Promi
   
   const seoData = {
     zh: {
-      title: 'Base64 Parser Online - 免費 Base64 編碼解碼工具 | KC Blog',
+      title: 'Base64 Parser Online - 免費 Base64 編碼解碼工具 | Elegant Access',
       description: '免費的線上 Base64 編碼解碼工具。支援文字和文件的 Base64 轉換、即時預覽和驗證。完全免費，無需註冊，支援文件上傳下載。',
       keywords: 'Base64 encoder, Base64 decoder, Base64 編碼, Base64 解碼, Base64 工具, 線上 Base64, Base64 converter, Base64 文件轉換, 免費工具'
     },
     en: {
-      title: 'Base64 Parser Online - Free Base64 Encoder & Decoder Tool | KC Blog',
+      title: 'Base64 Parser Online - Free Base64 Encoder & Decoder Tool | Elegant Access',
       description: 'Free online Base64 encoder and decoder tool. Supports Base64 conversion for text and files with real-time preview and validation. Completely free, no registration required, supports file upload and download.',
       keywords: 'Base64 encoder, Base64 decoder, Base64 converter, Base64 tool, online Base64, Base64 file converter, Base64 text encoder, free tool'
     },
     ja: {
-      title: 'Base64 Parser Online - 無料 Base64 エンコーダー・デコーダーツール | KC Blog',
+      title: 'Base64 Parser Online - 無料 Base64 エンコーダー・デコーダーツール | Elegant Access',
       description: '無料のオンライン Base64 エンコーダー・デコーダーツール。テキストとファイルの Base64 変換をサポート、リアルタイムプレビューと検証機能付き。完全無料、登録不要、ファイルアップロード・ダウンロード対応。',
       keywords: 'Base64 エンコーダー, Base64 デコーダー, Base64 変換, Base64 ツール, オンライン Base64, Base64 ファイル変換, 無料ツール'
     }

@@ -20,17 +20,17 @@ export async function generateMetadata({ params }: JsonParserPageProps): Promise
   
   const seoData = {
     zh: {
-      title: 'JSON Parser Online - 免費 JSON 解析器和格式化工具 | KC Blog',
+      title: 'JSON Parser Online - 免費 JSON 解析器和格式化工具 | Elegant Access',
       description: '免費的線上 JSON 解析器和格式化工具。驗證、格式化、壓縮和美化您的 JSON 數據。支援即時驗證、語法高亮和錯誤檢測。完全免費，無需註冊。',
       keywords: 'JSON parser, JSON 解析器, JSON 格式化, JSON 驗證, JSON 工具, 線上 JSON, JSON formatter, JSON validator, JSON minify, JSON beautify, 免費工具'
     },
     en: {
-      title: 'JSON Parser Online - Free JSON Parser & Formatter Tool | KC Blog',
+      title: 'JSON Parser Online - Free JSON Parser & Formatter Tool | Elegant Access',
       description: 'Free online JSON parser and formatter tool. Validate, format, minify and beautify your JSON data. Features real-time validation, syntax highlighting and error detection. Completely free, no registration required.',
       keywords: 'JSON parser, JSON formatter, JSON validator, JSON tool, online JSON, JSON minify, JSON beautify, JSON syntax checker, JSON editor, free tool'
     },
     ja: {
-      title: 'JSON Parser Online - 無料 JSON パーサーとフォーマッターツール | KC Blog',
+      title: 'JSON Parser Online - 無料 JSON パーサーとフォーマッターツール | Elegant Access',
       description: '無料のオンライン JSON パーサーとフォーマッターツール。JSON データの検証、フォーマット、圧縮、美化が可能。リアルタイム検証、シンタックスハイライト、エラー検出機能付き。完全無料、登録不要。',
       keywords: 'JSON パーサー, JSON フォーマッター, JSON バリデーター, JSON ツール, オンライン JSON, JSON 圧縮, JSON 美化, 無料ツール'
     }

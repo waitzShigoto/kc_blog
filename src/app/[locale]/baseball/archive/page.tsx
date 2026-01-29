@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: BaseballArchivePageProps): Pr
   const { locale } = await params;
   
   const titles = {
-    zh: '棒球歸檔 - KC Blog',
-    en: 'Baseball Archive - KC Blog',
-    ja: '野球アーカイブ - KC Blog'
+    zh: '棒球歸檔 - Elegant Access',
+    en: 'Baseball Archive - Elegant Access',
+    ja: '野球アーカイブ - Elegant Access'
   };
   
   const descriptions = {

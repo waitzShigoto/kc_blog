@@ -14,7 +14,7 @@ function HeaderSkeleton() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="text-xl font-bold text-foreground">
-              KC Blog
+              Elegant Access
             </div>
           </div>
 

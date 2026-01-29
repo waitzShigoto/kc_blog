@@ -98,7 +98,7 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
             ja: '追加潜在キューブシミュレーター',
           },
           description: {
-            zh: '模擬珍貴附加潛能方塊的洗練結果',
+            zh: '模擬附加潛能方塊的結果',
             en: 'Simulate bonus potential cube results',
             ja: '追加潜在キューブの結果をシミュレート',
           },

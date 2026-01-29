@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: DailyEnglishArchivePageProps)
   const { locale } = await params;
   
   const titles = {
-    zh: '每日英文歸檔 - KC Blog',
-    en: 'Daily English Archive - KC Blog',
-    ja: '毎日英語アーカイブ - KC Blog'
+    zh: '每日英文歸檔 - Elegant Access',
+    en: 'Daily English Archive - Elegant Access',
+    ja: '毎日英語アーカイブ - Elegant Access'
   };
   
   const descriptions = {
