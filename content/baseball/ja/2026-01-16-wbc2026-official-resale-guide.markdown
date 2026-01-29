@@ -1,7 +1,7 @@
 ---
 title: "【2026WBC世界野球クラシック】公式リセールプラットフォーム開設予定！安全な転売チケット完全ガイド"
 date: "2026-01-16 16:53:35"
-image: cover/wbc_logo.png
+image: cover/wbc_get_ticket.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "リセール", "転売", "公式転売", "チケット取引", "日本", "東京ドーム"]

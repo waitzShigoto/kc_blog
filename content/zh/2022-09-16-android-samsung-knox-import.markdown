@@ -67,7 +67,7 @@ categories: AndroidDev
     - 開發權限聲明：
         - `Knox 3.0` 提供宣告部分權限，可在AndroidManifest.xml宣告Knox權限，如果未宣告，則預設全部Knox權限開啟，如果宣告，則只允許使用宣告的權限，[參考](https://docs.samsungknox.com/dev/common/tutorial-knox-permissions.htm)
 
-  * 目前與原生`AirDroid Biz`用的 DevicePolicyManager初步對比 (僅先比對相似API，`可討論想用哪些，再測試實際行為`)
+  * 目前與原生專案使用的 DevicePolicyManager初步對比 (僅先比對相似API，`可討論想用哪些，再測試實際行為`)
     - 所有權限可[看這](https://docs.google.com/spreadsheets/d/1Os01grTu-vDTVm5SL8VVn1QZ4NH_3gbHDT9ILAGhiEM/edit?usp=sharing)
     - 實際比對`常用DevicePolicyManager`與 Knox提供的功能參考
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ09cQTkBr3L2di8b886ZcjEA9FMlv0trg90SgQFMg4okJx3YERuAXBNDtdSzmVRdxmSXxWMdchBaXL/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" height="700"
@@ -130,7 +130,7 @@ categories: AndroidDev
 
  * Vpn 開發
    - 根據開發文件 有提供兩種Vpn方案
-       1. 跟之前研究的原生[Android Vpn Service](https://growi.airdroid.com/RD/Android%20Vpn%20%E7%9B%B8%E9%97%9C%E6%96%B9%E6%A1%88)類似
+       1. 跟之前研究的原生 Android Vpn Service 方案類似
        Knox在此基礎上擴展相關功能：[參考](https://docs.samsungknox.com/dev/knox-sdk/vpn-integrate-apps.htm)
 
        2. 另一個則是[GenericVpnPolicy API](https://docs.samsungknox.com/devref/knox-sdk/reference/com/samsung/android/knox/net/vpn/GenericVpnPolicy.html)

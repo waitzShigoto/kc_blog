@@ -52,7 +52,7 @@ I hope to provide some valuable insights for you when facing similar issues duri
 </div>
   - Only requesting old permissions will cause a crash, but it can be replaced with `All Files Access Permission`.
   ![android13_access_permission.png](/images/others/android13_access_permission.png)
-  - AirDroid requests `All Files Access Permission`, so no modification is needed currently. Below is the Intent to navigate to that page: 
+  - This project requests `All Files Access Permission`, so no modification is needed currently. Below is the Intent to navigate to that page: 
 
     `new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);`
   - For modifications, refer to the demo:

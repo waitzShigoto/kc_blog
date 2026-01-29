@@ -125,9 +125,9 @@ excerpt: >-
 
     - Notes
 
-      - For example, in the Airdroid project, since Airdroid & httphelper repo are separate, other places also need to be corrected.
+      - For example, in the project, since Different modules and repos are separate, other places also need to be corrected.
       - Implicit PendingIntent also needs modification, as libraries used in the implementation may also use PendingIntent.
-      For instance, the current `Airdroid` project uses Google Analytics version 17.0.0, but errors are still prompted.
+      For instance, if the current project uses Google Analytics version 17.0.0, errors are still prompted.
       (You will only know if there is a PendingIntent error when running that specific code segment)
       ![android_12_error_01.png](/images/others/android_12_error_01.png)
       In this case, upgrading the version will suffice:
@@ -208,3 +208,4 @@ excerpt: >-
   Here is a simple demo on how to modify
 
   <script src="https://gist.github.com/waitzShigoto/cd5950dcc9247ea889e835a4085694f8.js"></script>
+```

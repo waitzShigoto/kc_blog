@@ -2,7 +2,7 @@
 title: "WBC2026「2026年1月15日19:00(台湾時間 18:00)一般発売」e+(イープラス)先着順購入完全攻略"
 date: "2026-01-14 18:00:00"
 author: "WaitZ"
-image: cover/wbc_logo.png
+image: cover/wbc_eplus_buy.png
 categories: ["Baseball"]
 tags: ["e+", "イープラス", "チケット", "購入", "先着順", "日本", "WBC", "東京ドーム"]
 topic: "e+購入攻略"

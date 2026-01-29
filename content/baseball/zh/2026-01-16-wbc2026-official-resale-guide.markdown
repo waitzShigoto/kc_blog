@@ -1,7 +1,7 @@
 ---
 title: "【2026WBC世界棒球經典賽】官方リセール（轉售）平台即將開放！安全轉售票券完整指南"
 date: "2026-01-16 16:53:35"
-image: cover/wbc_logo.png
+image: cover/wbc_get_ticket.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "リセール", "轉售", "官方轉售", "票券交易", "日本", "東京巨蛋"]

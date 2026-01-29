@@ -12,12 +12,12 @@ excerpt: Cursor (vscode) build flutter
 ---
 
 ## Introduction
-* In the [Flutter article](https://growi.airdroid.com/67beb564ddf687cea7ba5021), we set up the environment. At that time, we were `manually executing commands to build`
+* In the previous setup environment article, we set up the environment. At that time, we were `manually executing commands to build`
 * This time, we'll try building using `Cursor (vscode)`
 
 ## 🛠 Setting up the flutter run environment in IDE
 ## Getting Started
-0. Install the environment required for flutter. However, since this was already explained in [the previous article](https://growi.airdroid.com/67beb564ddf687cea7ba5021), we'll skip it here.
+0. Install the environment required for flutter. However, since this was already explained in the previous article, we'll skip it here.
 1. Download the flutter plugin from `MARKPLACE / EXTENSION`
 
 <img src="/images/flutter/012.png" alt="flutter">

@@ -1,7 +1,7 @@
 ---
 title: "2026 WBC Netflix Public Viewing Guidelines in Japan"
 date: "2026-01-28 02:30:50"
-image: cover/wbc_logo.png
+image: cover/wbc_watch_jp.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Netflix", "Public Viewing", "Streaming"]

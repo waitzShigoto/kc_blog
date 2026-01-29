@@ -1,7 +1,7 @@
 ---
 title: "2026 WBC Netflix 公開播映條件整理"
 date: "2026-01-28 02:30:50"
-image: cover/wbc_logo.png
+image: cover/wbc_watch_jp.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Netflix", "公開播映", "觀看方式"]

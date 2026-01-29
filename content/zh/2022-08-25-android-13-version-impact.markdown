@@ -48,7 +48,7 @@ excerpt: >-
 </div>
   - 只要求舊的權限會crash，不過可以用`所有檔案存取權`取代
   ![android13_access_permission.png](/images/others/android13_access_permission.png)
-  - AirDroid有請求`所有檔案存取權`，所以目前不用修改，下方為跳轉到該頁面的Intent 
+  - 此專案有請求`所有檔案存取權`，所以目前不用修改，下方為跳轉到該頁面的Intent 附錄：
 
     `new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);`
   - 遇到要修改可參考demo：

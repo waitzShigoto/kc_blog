@@ -59,7 +59,7 @@ android.defaults.buildfeatures.aidl=true
 <img src="/images/sdk35/005.png" alt="target sdk 35">
 
 * Solution:
-1. Downgrade ***com.google.firebase:firebase-ads*** to 22.3.0 in `AirDroid/build.gradle`
+1. Downgrade ***com.google.firebase:firebase-ads*** to 22.3.0 in `app/build.gradle`
 2. Downgrade ***com.google.android.gms:play-services-ads*** to 22.3.0 in `AdmobModule/build.gradle`
 
 * References:
@@ -80,13 +80,13 @@ android.nonFinalResIds=false
 
 <img src="/images/sdk35/007.png" alt="target sdk 35">
 
-* The files that AA (AndroidAnnotation) should create are not being created properly. Following AA's [debugging method](https://growi.airdroid.com/5f23bd91c1319c0047d6ba61#androidannotations), check androidannotations.log in the build folder:
+* The files that AA (AndroidAnnotation) should create are not being created properly. Following AA's debuging method, check androidannotations.log in the build folder:
 ``` java
-10:13:18.48 [WorkerExecutor Queue Thread 2] ERROR o.a.i.h.AndroidManifestFinder:152 - Could not find the AndroidManifest.xml file, using  generation folder [/Users/sion/gerrit/airmirror/airdroid/AirDroid/build/generated/source/kapt/channelDebug])
+10:13:18.48 [WorkerExecutor Queue Thread 2] ERROR o.a.i.h.AndroidManifestFinder:152 - Could not find the AndroidManifest.xml file, using  generation folder [/Users/user/project/app/build/generated/source/kapt/channelDebug])
 ```
   - Found that the AndroidManifest.xml file could not be found.
 
-* Referencing other projects, add the following to AirDroid/Build.gradle:
+* Referencing other projects, add the following to app/Build.gradle:
 ```java
 javaCompileOptions {
     annotationProcessorOptions {
@@ -101,7 +101,7 @@ javaCompileOptions {
 ```
 The problem has changed to not finding the .R file.
 
-* Change javaCompileOptions in AirDroid/Build.gradle as follows:
+* Change javaCompileOptions in app/Build.gradle as follows:
 ```java
 javaCompileOptions {
     annotationProcessorOptions {
@@ -142,8 +142,8 @@ buildscript {
 
 ```java
 * What went wrong:
-A problem was found with the configuration of task ':AirDroid:uploadCrashlyticsMappingFileIntlRelease' (type 'UploadMappingFileTask').
-  - In plugin 'com.google.firebase.crashlytics' type 'com.google.firebase.crashlytics.buildtools.gradle.tasks.UploadMappingFileTask' property 'googleServicesFile' specifies file '/media/build/workspace/airmirror-release/AirDroid/build/generated/res/google-services/intl/release/values/values.xml' which doesn't exist.
+A problem was found with the configuration of task ':app:uploadCrashlyticsMappingFileIntlRelease' (type 'UploadMappingFileTask').
+  - In plugin 'com.google.firebase.crashlytics' type 'com.google.firebase.crashlytics.buildtools.gradle.tasks.UploadMappingFileTask' property 'googleServicesFile' specifies file '/media/build/workspace/project-release/app/build/generated/res/google-services/intl/release/values/values.xml' which doesn't exist.
     
     Reason: An input file was expected to be present but it doesn't exist.
 ```

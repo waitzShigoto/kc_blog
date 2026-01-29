@@ -30,15 +30,10 @@ export default function Navbar({ locale }: NavbarProps) {
       href: '#',
       hasDropdown: true,
       dropdownItems: [
-        { 
-          label: 'Android Portfolio', 
+        {
+          label: 'Android Portfolio',
           href: `/${locale}/posts/app_portfolio`,
           isInternal: true
-        },
-        { 
-          label: 'Gist', 
-          href: 'https://gist.github.com/waitzShigoto',
-          isInternal: false
         },
       ]
     },
@@ -65,8 +60,8 @@ export default function Navbar({ locale }: NavbarProps) {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-14">
           {/* Brand */}
-          <Link 
-            href={`/${locale}`} 
+          <Link
+            href={`/${locale}`}
             className="text-lg font-semibold text-primary hover:text-primary/80 transition-colors"
           >
             elegantaccess

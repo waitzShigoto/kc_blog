@@ -194,7 +194,7 @@ excerpt: Cursorとは？
 
       <img src="/images/cursor/036.png" alt="flutter">
 
-    - ただし、現在の実験ではAirDroidのデフォルトテンプレートを生成できず、ローカルのgitにデフォルトのフォーマットを追加しても同様です。
+    - ただし、現在の実験ではプロジェクトのデフォルトテンプレートを生成できず、ローカルのgitにデフォルトのフォーマットを追加しても同様です。
       `期待値`：<img src="/images/cursor/037.png" alt="flutter">
 
       `実際`：<img src="/images/cursor/038.png" alt="flutter">

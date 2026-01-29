@@ -194,7 +194,7 @@ excerpt: What is Cursor?
 
       <img src="/images/cursor/036.png" alt="flutter">
 
-    - However, in current experiments, it can't generate AirDroid's default template, even with the default format added to local git.
+    - However, in current experiments, it can't generate the project's default template, even with the default format added to local git.
       `Expected`:<img src="/images/cursor/037.png" alt="flutter">
 
       `Actual`:<img src="/images/cursor/038.png" alt="flutter">

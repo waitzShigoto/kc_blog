@@ -1,10 +1,10 @@
 import PortfolioSection from './PortfolioSection';
 
 export default function AndroidPortfolioContentEn() {
-  const airdroidApps = [
+  const studioApps = [
     {
       id: "chatai",
-      title: "ChatInsight AI app",
+      title: "AI Chat Assistant",
       description: "This app enable user chat with AI bot.",
       images: [
         "/images/portfolio/app/chatAI/001.png",
@@ -110,7 +110,7 @@ export default function AndroidPortfolioContentEn() {
     },
     {
       id: "biz",
-      title: "AirDroid Business app",
+      title: "Enterprise Management App",
       description: "",
       images: [
         "/images/portfolio/app/biz/01.png",
@@ -133,7 +133,7 @@ export default function AndroidPortfolioContentEn() {
     },
     {
       id: "kp",
-      title: "AirDroid Parental app",
+      title: "Family Control App",
       description: "",
       images: [
         "/images/portfolio/app/kp/01.png",
@@ -257,8 +257,8 @@ export default function AndroidPortfolioContentEn() {
     },
     {
       id: "pos_terminal",
-      title: "CTMS app",
-      description: "This product involves multiple products that need to be completed. I was responsible for the development of multiple projects.",
+      title: "Terminal Management System",
+      description: "This solution involves multiple systems. I was responsible for the development of several components.",
       images: [
         "/images/portfolio/app/ctms/01.png",
         "/images/portfolio/app/ctms/02.png",
@@ -273,12 +273,12 @@ export default function AndroidPortfolioContentEn() {
         "/images/portfolio/app/ctms/11.png"
       ],
       features: [
-        "Including CTMS app, CCore SDK, Sature Splash app, AWS Lambda integration, SGP Check Update app, etc.",
-        "CTMS is an app used in conjunction with Cashub Agent: In this project, I focused on implementing UI, network requests, local storage, AIDL communication, etc.",
-        "CCore SDK is designed for third-party use: It provides interface implementations for third-party developers.",
-        "Sature Splash app serves as the startup application for POS machines: This app listens for boot signals, implements page redirection, API requests, and other customized features.",
+        "Including Management App, System SDK, Startup Splash App, AWS Lambda integration, Update Service, etc.",
+        "Management App is used in conjunction with Terminal Agent: In this project, I focused on implementing UI, network requests, local storage, AIDL communication, etc.",
+        "System SDK is designed for third-party use: It provides interface implementations for third-party developers.",
+        "Startup Splash app serves as the startup application for POS machines: This app listens for boot signals, implements page redirection, API requests, and other customized features.",
         "AWS Lambda + S3: Integrating AWS services into our project, such as sending corresponding POS configuration commands to the backend server when certain conditions are met.",
-        "SGP Check Update, Ketting System app: These aim to allow customers to utilize the features of POS machines, primarily through the CTMS app for UI adjustments or customized feature requests."
+        "Update Service, Ticketing System app: These aim to allow customers to utilize the features of POS machines, primarily through the Management App for UI adjustments or customized feature requests."
       ]
     }
   ];
@@ -286,10 +286,10 @@ export default function AndroidPortfolioContentEn() {
   return (
     <div className="space-y-12">
       <PortfolioSection
-        title="Apps I Participated in at AirDroid"
-        apps={airdroidApps}
+        title="Apps I Participated in at Global Studio"
+        apps={studioApps}
       />
-      
+
       <PortfolioSection
         title="Other Projects I Participated In"
         apps={otherApps}

@@ -47,7 +47,7 @@ Android バージョンアップによる課題とその解決策について探
 </div>
   - 古い権限のみを要求するとクラッシュしますが、`すべてのファイルアクセス権`で代替できます。
   ![android13_access_permission.png](/images/others/android13_access_permission.png)
-  - AirDroidは`すべてのファイルアクセス権`を要求しているため、現在のところ変更は不要です。以下はそのページに遷移するIntentです。 
+  - このプロジェクトは`すべてのファイルアクセス権`を要求しているため、現在のところ変更は不要です。以下はそのページに遷移するIntentです。 
 
     `new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);`
   - 変更が必要な場合は、デモを参考にしてください：
@@ -66,6 +66,6 @@ Android バージョンアップによる課題とその解決策について探
     そうすれば、Manifest.permission.POST_NOTIFICATIONS権限を処理できます。
 
     または、target SDK 32の場合、NotificationManagerの初期化を後に移動します。
-    ただし、Manifest.permission.POST_NOTIFICATIONSに対するユーザーの拒否時の処理はできません。
+    ただし、Manifest.permission.POST_NOTIFICATIONSに対するユーザーの拒否時の處理はできません。
 
   - ターゲットSDK 33デモパッチ: [デモ](http://192.168.201.72:8080/c/airsos/+/21558)

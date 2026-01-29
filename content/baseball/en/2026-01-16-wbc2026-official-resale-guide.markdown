@@ -1,7 +1,7 @@
 ---
 title: "【2026 WBC】Official Resale Platform Coming Soon! Complete Safe Resale Ticket Guide"
 date: "2026-01-16 16:53:35"
-image: cover/wbc_logo.png
+image: cover/wbc_get_ticket.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Resale", "Ticket Transfer", "Official Resale", "Ticket Trading", "Japan", "Tokyo Dome"]

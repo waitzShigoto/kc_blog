@@ -147,7 +147,7 @@ fun buildLocalUrl(path: String, params: Map<String, String>? = null): String {
 **Key Constants**:
 ```kotlin
 private const val SCHEME = "https"
-private const val HOST = "local.airdroid.com"
+private const val HOST = "local.myapp.com"
 private const val WEB_RESOURCE_PATH = "WebApp"
 private const val INDEX_FILE = "index.html"
 
@@ -318,7 +318,7 @@ Using custom schemes will result in Chromium blocking the request, preventing ac
 `"Access to XMLHttpRequest at 'xxxxx' from origin 'app://' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'app:' that is not equal to the supplied origin.", source: app:///.//`
 
 ```kotlin
-2025-11-20 13:49:03.179 11737-11737 chromium com.sand.goinsight I [INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'https://biz-ucenter.airdroid.com/user/getJwtToken?mode_type=23&account_id=68745506&need_mode_type=24' from origin 'app://' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'app:' that is not equal to the supplied origin.", source: app:///.//local.airdroid.com/embed-chat?tk=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50X2lkIjo2ODc0NTUwNiwibW9kZV90eXBlIjoyMywiZXhwIjo0NjAxODU3NDIzfQ.erMp8PXuJD8a8NS9MCp6rcUA-K0bInTnu3xjU6hExaceK7-Eu2fnc1Pgrk8n6MhF82q0JZrfWMYmYf5g3GPZkHIs0HaWJD7EhW3NbSCeXgMSI6wEH9sE2ZrodXcyRjDoL-2lV4OUm0IEvRjG87z0_KpWS_6C93SZu_iXsP4DZhA&lang=en&env=production&vconsole=true (0)
+2025-11-20 13:49:03.179 11737-11737 chromium com.myapp.package I [INFO:CONSOLE(0)] "Access to XMLHttpRequest at 'https://api.myapp.com/user/getJwtToken?mode_type=23&account_id=68745506&need_mode_type=24' from origin 'app://' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: The 'Access-Control-Allow-Origin' header has a value 'app:' that is not equal to the supplied origin.\", source: app:///.//local.myapp.com/embed-chat?tk=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhY2NvdW50X2lkIjo2ODc0NTUwNiwibW9kZV90eXBlIjoyMywiZXhwIjo0NjAxODU3NDIzfQ.erMp8PXuJD8a8NS9MCp6rcUA-K0bInTnu3xjU6hExaceK7-Eu2fnc1Pgrk8n6MhF82q0JZrfWMYmYf5g3GPZkHIs0HaWJD7EhW3NbSCXgMSI6wEH9sE2ZrodXcyRjDoL-2lV4OU0IEvRjG87z0_KpWS_6C93SZu_iXsP4DZhA&lang=en&env=production&vconsole=true (0)"
 ```
 
 ## Data Flow
@@ -332,7 +332,7 @@ Using custom schemes will result in Chromium blocking the request, preventing ac
    ↓
 4. YourUseCase loads URL to WebView
    ↓
-5. LocalWebViewClient intercepts https://local.airdroid.com requests
+5. LocalWebViewClient intercepts https://local.myapp.com requests
    ↓
 6. Determines request type and loads corresponding resource from assets/WebApp
    ↓

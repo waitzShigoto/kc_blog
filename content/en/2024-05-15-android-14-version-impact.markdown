@@ -321,7 +321,7 @@ Now, when using ZipInputStream.getNextEntry(), paths containing `..` or `/` will
     ```
 
   - Other types follow similar concepts, but the permissions to be declared or the ServiceInfo to be added will vary depending on the type, please refer to the aforementioned documentation.
-  - Besides the above, currently using `AirDroid Remote Support` to adjust and see, there are several directions to fix this issue
+  - Besides the above, currently using the remote assistance tool to adjust and see, there are several directions to fix this issue
     a. Use the `dataSync` type to bypass this issue.
 
        `dataSync` does not require additional permissions at runtime, so the original process is less likely to be affected,

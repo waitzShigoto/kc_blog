@@ -69,7 +69,7 @@ categories: AndroidDev
     - Development permission declaration:
         - `Knox 3.0` provides the declaration of partial permissions, which can be declared in AndroidManifest.xml. If not declared, all Knox permissions are enabled by default. If declared, only the declared permissions are allowed. [Reference](https://docs.samsungknox.com/dev/common/tutorial-knox-permissions.htm)
 
-  * Current preliminary comparison with native `AirDroid Biz` using DevicePolicyManager (only comparing similar APIs for now, `can discuss which ones to use, then test actual behavior`)
+  * Current preliminary comparison with the native project using DevicePolicyManager (only comparing similar APIs for now, `can discuss which ones to use, then test actual behavior`)
     - All permissions can be [viewed here](https://docs.google.com/spreadsheets/d/1Os01grTu-vDTVm5SL8VVn1QZ4NH_3gbHDT9ILAGhiEM/edit?usp=sharing)
     - Actual comparison of `commonly used DevicePolicyManager` and Knox provided functionalities for reference
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ09cQTkBr3L2di8b886ZcjEA9FMlv0trg90SgQFMg4okJx3YERuAXBNDtdSzmVRdxmSXxWMdchBaXL/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" height="700"
@@ -132,7 +132,7 @@ categories: AndroidDev
 
 * Vpn Development
   - According to the development documents, two Vpn solutions are provided:
-    1. Similar to the previously researched native [Android Vpn Service](https://growi.airdroid.com/RD/Android%20Vpn%20%E7%9B%B8%E9%97%9C%E6%96%B9%E6%A1%88)
+    1. Similar to the previously researched native Android Vpn Service scheme
        Knox extends related functions on this basis: [Reference](https://docs.samsungknox.com/dev/knox-sdk/vpn-integrate-apps.htm)
 
     2. The other is [GenericVpnPolicy API](https://docs.samsungknox.com/devref/knox-sdk/reference/com/samsung/android/knox/net/vpn/GenericVpnPolicy.html)

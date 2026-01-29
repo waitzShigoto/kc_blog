@@ -9,9 +9,9 @@ export const siteConfig: SiteConfig = {
     avatar: '/images/C1.jpg',
     bio: 'I am a Android developer focusing on Kotlin and Jetpack Compose development. Always hungry to keep learning.',
     social: {
-      github: 'https://github.com/waitzShigoto',
+      github: '',
       twitter: 'https://twitter.com/intent/follow?screen_name=eleg_aces',
-      linkedin: 'https://linkedin.com/in/yourusername',
+      linkedin: '',
       facebook: 'https://facebook.com/eleg.aces',
       instagram: 'https://instagram.com/eleg.aces.kc',
     },
@@ -21,15 +21,15 @@ export const siteConfig: SiteConfig = {
   locales: ['zh', 'en', 'ja'],
   featuredPosts: {
     zh: [
-      '2023-06-26-review-my-android-app-portfolio',
+      '2026-01-27-wbc2026-schedule',
       '2024-05-23-android-qrcode-scanner-with-mlkit'
     ],
     en: [
-      '2023-06-26-review-my-android-app-portfolio',
+      '2026-01-27-wbc2026-schedule',
       '2024-05-23-android-qrcode-scanner-with-mlkit'
     ],
     ja: [
-      '2023-06-26-review-my-android-app-portfolio',
+      '2026-01-27-wbc2026-schedule',
       '2024-05-23-android-qrcode-scanner-with-mlkit'
     ]
   },

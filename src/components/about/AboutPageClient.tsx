@@ -5,15 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/config';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
-import { 
-  Github, 
-  Twitter, 
-  Instagram, 
-  Facebook, 
-  ExternalLink, 
-  Code, 
-  Smartphone, 
-  Database, 
+import {
+  Github,
+  Twitter,
+  Instagram,
+  Facebook,
+  ExternalLink,
+  Code,
+  Smartphone,
+  Database,
   Cloud,
   Zap,
   Users,
@@ -108,23 +108,21 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
       description: getText(
         '我在這裡主要使用 Kotlin 維護和開發多個應用程式。這些應用程式提供完整的 UI/UX 設計和圖形，我能夠完全實現它們。我們使用 ViewBinding、ViewModel 和 LiveData 等函式庫來實現強大的功能。',
         'I am maintaining and developing multiple apps primarily using Kotlin here. These apps offer complete UI/UX design with accompanying graphics, and I am capable of fully implementing them. We utilize libraries such as ViewBinding, ViewModel, and LiveData to enable robust functionality.',
-        'ここでは主にKotlinを使用して複数のアプリを保守・開発しています。これらのアプリは完全なUI/UXデザインとグラフィックを提供し、私はそれらを完全に実装することができます。ViewBinding、ViewModel、LiveDataなどのライブラリを使用して堅牢な機能を実現しています。'
+        'ここでは主にKotlinを使用して複数のアプリを保守・開發しています。これらのアプリは完全なUI/UXデザインとグラフィックを提供し、私はそれらを完全に実装することができます。ViewBinding、ViewModel、LiveDataなどのライブラリを使用して堅牢な機能を実現しています。'
       ),
-      image: '/images/about/airdroid.jpeg',
+      image: '/images/about/personal.png',
       link: '/posts/app_portfolio#airdroid',
-      external: 'https://play.google.com/store/apps/developer?id=SAND+STUDIO&hl=en&gl=US',
       tags: ['Android', 'Kotlin', 'Java']
     },
     {
-      title: getText('55688 計程車調度應用', '55688 Taxi Dispatch App', '55688 タクシー配車アプリ'),
+      title: getText('計程車調度應用', 'Taxi Dispatch App', 'タクシー配車アプリ'),
       description: getText(
         '我們的應用程式是一個按需計程車調度平台，通過向後端 GIS 系統請求來檢索相關服務。我使用 VIPER 架構並使用 Kotlin 重構了應用程式。我的職責包括開發新功能、開發自定義 UI 以及與後端服務或第三方服務整合。',
         'Our app is an on-demand taxi dispatching platform that retrieves relevant services through a request to the backend GIS system. I used the VIPER architecture and refactored the app using Kotlin. My responsibilities included developing the new features, developing custom UI, and integrating with backend services or third-party services.',
         '私たちのアプリは、バックエンドGISシステムへのリクエストを通じて関連サービスを取得するオンデマンドタクシー配車プラットフォームです。VIPERアーキテクチャを使用し、Kotlinでアプリをリファクタリングしました。私の責任には、新機能の開発、カスタムUIの開発、バックエンドサービスやサードパーティサービスとの統合が含まれていました。'
       ),
-      image: '/images/about/55688.jpeg',
+      image: '/images/about/personal.png',
       link: '/posts/app_portfolio#dispatch_car',
-      external: 'https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=en_US&gl=US',
       tags: ['Android', 'Kotlin', 'Java']
     },
     {
@@ -136,7 +134,6 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
       ),
       image: '/images/about/wm.jpeg',
       link: '/posts/app_portfolio#wm_app',
-      external: 'https://kuanchunchen.github.io/WM_Evt_Site/evtReports/android/full-test/r6/evt',
       tags: ['Android', 'Kotlin', 'Java', 'Appium']
     },
     {
@@ -178,7 +175,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
   const scrollToNextSection = () => {
     const aboutSection = document.getElementById('about-section');
     if (aboutSection) {
-      aboutSection.scrollIntoView({ 
+      aboutSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       });
@@ -188,29 +185,29 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
   return (
     <div className="min-h-screen bg-background">
       <HeaderWrapper locale={locale} />
-      
+
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-emerald-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="mb-8">
             <Image
-              src="/images/champion.JPG"
-              alt="Willy Chen"
+              src={siteConfig.author.avatar}
+              alt="WaitZ"
               width={150}
               height={150}
               className="mx-auto rounded-full border-4 border-white shadow-xl"
             />
           </div>
-          
+
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-            Willy Chen
+            WaitZ
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-muted-foreground mb-8">
             {getText('程式設計師 • Android 開發者', 'Programmer • Android Developer', 'プログラマー • Android 開発者')}
           </p>
-          
+
           {/* Social Links */}
           <div className="flex justify-center space-x-6 mb-12">
             <a
@@ -237,17 +234,19 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
             >
               <Facebook className="w-6 h-6 text-blue-600" />
             </a>
-            <a
-              href={siteConfig.author.social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 rounded-full bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-            >
-              <Github className="w-6 h-6 text-gray-700 dark:text-gray-300" />
-            </a>
+            {siteConfig.author.social.github && (
+              <a
+                href={siteConfig.author.social.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-white dark:bg-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+              >
+                <Github className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              </a>
+            )}
           </div>
-          
-          <button 
+
+          <button
             onClick={scrollToNextSection}
             className="animate-bounce cursor-pointer hover:text-primary transition-colors"
             aria-label={getText('滾動到下一個區塊', 'Scroll to next section', '次のセクションにスクロール')}
@@ -342,9 +341,8 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`flex flex-col ${
-                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } items-center gap-12`}
+                className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                  } items-center gap-12`}
               >
                 <div className="flex-1">
                   <div className="relative group">
@@ -358,12 +356,12 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 </div>
-                
+
                 <div className="flex-1 space-y-6">
                   <h3 className="text-2xl md:text-3xl font-bold text-foreground">
                     {project.title}
                   </h3>
-                  
+
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, tagIndex) => (
                       <span
@@ -374,11 +372,11 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                       </span>
                     ))}
                   </div>
-                  
+
                   <p className="text-muted-foreground leading-relaxed">
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-4">
                     <Link
                       href={`/${locale}${project.link}`}
@@ -386,17 +384,6 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
                     >
                       <span>{getText('更多詳情', 'More Details', '詳細を見る')}</span>
                     </Link>
-                    {project.external && (
-                      <a
-                        href={project.external}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-2 px-6 py-3 border border-border rounded-lg hover:bg-muted transition-colors"
-                      >
-                        <span>{getText('查看', 'Check it out', '確認する')}</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
@@ -409,7 +396,7 @@ export default function AboutPageClient({ locale }: AboutPageClientProps) {
       <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border">
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-muted-foreground">
-            © 2025 <a href="https://elegantaccess.org/" className="text-primary hover:underline">Elegant Access</a>
+            © 2026 <a href="https://elegantaccess.org/" className="text-primary hover:underline">Elegant Access</a>
           </p>
         </div>
       </footer>

@@ -120,9 +120,9 @@ excerpt: >-
 
     - 備考
 
-      - ここではAirdroidを例にしていますが、現在Airdroid & httphelperリポジトリは分かれているため、他の箇所も修正が必要です
+      - ここではプロジェクトの実行を例にしていますが、現在異なるモジュールとリポジトリは分かれているため、他の箇所も修正が必要です。
       - 隠れたPendingIntentも修正が必要で、implementされたライブラリ内でもPendingIntentが使用されています
-      現在の`Airdroid`プロジェクト内で使用されているGoogle Analytics 17.0.0バージョンでもエラーメッセージが表示されます
+      現在のプロジェクト内で使用されている Google Analytics 17.0.0 バージョンでもエラーメッセージが表示されます。
       (このような場合、実際にそのコードを実行してみないとPendingIntentのエラーがあるかどうかわかりません)
       ![android_12_error_01.png](/images/others/android_12_error_01.png)
       この場合、バージョンを上げるだけで解決します

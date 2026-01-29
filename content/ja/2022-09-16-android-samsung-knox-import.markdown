@@ -67,7 +67,7 @@ categories: AndroidDev
     - 開発権限の宣言：
         - `Knox 3.0` は一部の権限を宣言することを提供し、AndroidManifest.xmlでKnox権限を宣言できます。宣言しない場合、デフォルトですべてのKnox権限が有効になります。宣言した場合、宣言された権限のみが使用可能です。[参考](https://docs.samsungknox.com/dev/common/tutorial-knox-permissions.htm)
 
-  * 現在のネイティブ`AirDroid Biz`で使用されているDevicePolicyManagerとの初期比較 (類似APIのみを先に比較し、`使用したいものを議論し、実際の動作をテストする`)
+  * 現在のネイティブプロジェクトで使用されているDevicePolicyManagerとの初期比較 (類似APIのみを先に比較し、`使用したいものを議論し、実際の動作をテストする`)
     - すべての権限は[こちら](https://docs.google.com/spreadsheets/d/1Os01grTu-vDTVm5SL8VVn1QZ4NH_3gbHDT9ILAGhiEM/edit?usp=sharing)で確認できます
     - 実際の比較`一般的なDevicePolicyManager`とKnoxが提供する機能の参考
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ09cQTkBr3L2di8b886ZcjEA9FMlv0trg90SgQFMg4okJx3YERuAXBNDtdSzmVRdxmSXxWMdchBaXL/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" height="700"
@@ -130,7 +130,7 @@ categories: AndroidDev
 
  * Vpn開発
    - 開発ドキュメントによると、2つのVpnソリューションが提供されています。
-       1. 以前研究したネイティブの[Android Vpn Service](https://growi.airdroid.com/RD/Android%20Vpn%20%E7%9B%B8%E9%97%9C%E6%96%B9%E6%A1%88)に似ています。
+       1. 以前研究したネイティブの Android Vpn Service に似ています。
        Knoxはこれを基に関連機能を拡張しています：[参考](https://docs.samsungknox.com/dev/knox-sdk/vpn-integrate-apps.htm)
 
        2. もう一つは[GenericVpnPolicy API](https://docs.samsungknox.com/devref/knox-sdk/reference/com/samsung/android/knox/net/vpn/GenericVpnPolicy.html)です。

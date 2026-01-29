@@ -12,12 +12,12 @@ excerpt: Cursor (vscode) build flutter
 ---
 
 ## 前言
-* 在[flutter這篇](https://growi.airdroid.com/67beb564ddf687cea7ba5021)，我們安裝好了環境，我們都是用`手動下command 去 build`
+* 在先前的環境架設篇中，我們安裝好了環境，我們都是用`手動下command 去 build`
 * 現在我們嘗試透過用`Cursor (vscode)`來幫我們build
 
 ## 🛠 在IDE中設定flutter run環境
 ## 前言
-0. 安裝flutter 所需環境，不過[上一篇](https://growi.airdroid.com/67beb564ddf687cea7ba5021)寫過了，所以這邊就直接跳過。
+0. 安裝flutter 所需環境，不過先前已經寫過了，所以這邊就直接跳過。
 1. 在`MARKPLACE / EXTENSION` 中 下載flutter插件
 
 <img src="/images/flutter/012.png" alt="flutter">

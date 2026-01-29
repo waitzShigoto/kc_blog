@@ -121,9 +121,9 @@ excerpt: >-
 
     - 備註
 
-      - 這邊以Airdroid為例的話 目前Airdroid & httphelper repo分開所以其他有的地方也需修正
+      - 這邊以開發專案時為例，目前由於多個 repo 分開管理，所以其他相關的地方也需一併修正
       - 隱性PendingIntent也需修改，因implement的library內也有用到PendingIntent
-      如以目前`Airdroid`專案內使用到google analytics 17.0.0版，但亦出現error提示
+      如以目前執行專案時，內部使用到 google analytics 17.0.0 版，亦出現了 error 提示
       (這種要實際跑到該段code才會知道是否有PendingIntent的error)
       ![android_12_error_01.png](/images/others/android_12_error_01.png)
       這時候將版本升上去即可

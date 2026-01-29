@@ -2,7 +2,7 @@
 title: "e+ (eplus) Quick Guide: WBC2026 Ticket Purchase Process Fast Guide"
 date: "2026-01-15 12:00:00"
 author: "WaitZ"
-image: cover/wbc_logo.png
+image: cover/wbc_eplus_buy.png
 categories: ["Baseball"]
 tags: ["e+", "eplus", "tickets", "purchasing", "quick guide", "fast guide", "WBC", "Tokyo Dome"]
 topic: "e+ Quick Guide"

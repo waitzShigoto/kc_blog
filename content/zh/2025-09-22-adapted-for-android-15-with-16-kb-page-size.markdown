@@ -166,8 +166,8 @@ java.lang.UnsatisfiedLinkError: dlopen failed: empty/missing DT_HASH/DT_GNU_HASH
 * Crash log
 ```json
 pid: 8796, tid: 8891, name: pool 1  >>> com.xxx.xxxxxxxxxx <<<
-2025-05-21 14:29:47.380  8901-8901  DEBUG                   pid-8901                             A        #02 pc 0000000000006700  /data/app/~~p4bSI2XwdSmTfm3vZluhdw==/com.sand.airdroidkidp-9wKFuA4x7Jclg5hVTLRBSA==/base.apk!libtnet-3.1.14.so (offset 0x5504000) (BuildId: 2510ff56a9673370b9d664c21a3dcb04a541d939)
-2025-05-21 14:29:47.380  8901-8901  DEBUG                   pid-8901                             A        #03 pc 00000000000060c4  /data/app/~~p4bSI2XwdSmTfm3vZluhdw==/com.sand.airdroidkidp-9wKFuA4x7Jclg5hVTLRBSA==/base.apk!libtnet-3.1.14.so (offset 0x5504000) (JNI_OnLoad+76) (BuildId: 2510ff56a9673370b9d664c21a3dcb04a541d939)
+2025-05-21 14:29:47.380  8901-8901  DEBUG                   pid-8901                             A        #02 pc 0000000000006700  /data/app/~~xxxxx/com.myapp.package-xxxxx/base.apk!libtnet-3.1.14.so (offset 0x5504000) (BuildId: 2510ff56a9673370b9d664c21a3dcb04a541d939)
+2025-05-21 14:29:47.380  8901-8901  DEBUG                   pid-8901                             A        #03 pc 00000000000060c4  /data/app/~~xxxxx/com.myapp.package-xxxxx/base.apk!libtnet-3.1.14.so (offset 0x5504000) (JNI_OnLoad+76) (BuildId: 2510ff56a9673370b9d664c21a3dcb04a541d939)
 ```
 
 * `解決方法`：遷移到新版本<br>

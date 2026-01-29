@@ -194,7 +194,7 @@ excerpt: 什麼是 Cursor？
 
       <img src="/images/cursor/036.png" alt="flutter">
 
-    - 不過目前實測產生不出我們AirDroid預設的模板，且已在本地端git加入default的fotmat。
+    - 不過目前實測產生不出我們專案預設的模板，且已在本地端git加入default的fotmat。
       `預期`：<img src="/images/cursor/037.png" alt="flutter">
 
       `實際`：<img src="/images/cursor/038.png" alt="flutter">

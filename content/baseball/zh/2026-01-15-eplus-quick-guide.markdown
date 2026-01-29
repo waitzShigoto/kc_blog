@@ -2,7 +2,7 @@
 title: "e+（イープラス）搶票懶人包：WBC2026 購票流程快速指南"
 date: "2026-01-15 12:00:00"
 author: "WaitZ"
-image: cover/wbc_logo.png
+image: cover/wbc_eplus_buy.png
 categories: ["Baseball"]
 tags: ["e+", "イープラス", "門票", "購票", "懶人包", "快速指南", "WBC", "東京巨蛋"]
 topic: "e+購票懶人包"

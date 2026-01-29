@@ -2,7 +2,7 @@
 title: "WBC2026 General Sale January 15, 2026 19:00 JST (18:00 Taiwan Time) - e+ (eplus) First-Come First-Served Complete Purchasing Guide"
 date: "2026-01-14 18:00:00"
 author: "WaitZ"
-image: cover/wbc_logo.png
+image: cover/wbc_eplus_buy.png
 categories: ["Baseball"]
 tags: ["e+", "eplus", "tickets", "purchasing", "first-come first-served", "Japan", "WBC", "Tokyo Dome"]
 topic: "e+ Purchasing Guide"
