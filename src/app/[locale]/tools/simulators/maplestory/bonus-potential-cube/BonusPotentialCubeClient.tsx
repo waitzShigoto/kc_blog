@@ -18,6 +18,82 @@ interface PotentialLine {
   value: string;
 }
 
+// 翻譯文字的類型定義
+interface TranslationStats {
+  [key: string]: string;
+}
+
+interface TranslationEquipTypes {
+  [key: string]: string;
+}
+
+interface TranslationText {
+  title: string;
+  subtitle: string;
+  currentTier: string;
+  selectTier: string;
+  special: string;
+  rare: string;
+  epic: string;
+  legendary: string;
+  useCube: string;
+  use10Cubes: string;
+  autoTierUp: string;
+  reset: string;
+  statistics: string;
+  totalUsed: string;
+  premiumTierUps: string;
+  premiumTierUpRate: string;
+  history: string;
+  memorialSelectionStats: string;
+  memorialStatDistribution: string;
+  notRolledCount: string;
+  rowN: string;
+  countTimes: string;
+  tierUp: string;
+  noChange: string;
+  line: string;
+  probabilities: string;
+  tierUpProb: string;
+  lineDropProb: string;
+  currentToNext: string;
+  sameTier: string;
+  lowerTier: string;
+  rules: string;
+  memorialRules: string[];
+  absoluteRules: string[];
+  premiumRules: string[];
+  totalCubePoints: string;
+  disclaimer: string;
+  back: string;
+  noHistory: string;
+  potentialLines: string;
+  settings: string;
+  equipType: string;
+  equipLevel: string;
+  stop: string;
+  target: string;
+  targetStat: string;
+  targetMode: string;
+  bigDouble: string;
+  smallDouble: string;
+  doubleS: string;
+  cubeSelection: string;
+  premiumBonusCube: string;
+  memorialBonusCube: string;
+  absoluteBonusCube: string;
+  confirmRoll: string;
+  reselectLine: string;
+  cancel: string;
+  currentSelection: string;
+  targetSlot: string;
+  autoSelectRow: string;
+  autoTargetRowStat: string;
+  memorialEmptyWarning: string;
+  stats: TranslationStats;
+  equipTypes: TranslationEquipTypes;
+}
+
 // 歷史記錄
 interface CubeHistory {
   id: number;
@@ -509,7 +585,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     },
   };
 
-  const t = texts[locale as keyof typeof texts] || texts.zh;
+  const t: TranslationText = texts[locale as keyof typeof texts] || texts.zh;
 
   const tierNames: Record<PotentialTier, string> = {
     special: t.special,
@@ -603,7 +679,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     const uniqueAvailable: string[] = [];
 
     available.forEach(statKey => {
-      const label = (t.stats as any)[statKey] || statKey;
+      const label = t.stats[statKey] || statKey;
       if (!seenLabels.has(label)) {
         seenLabels.add(label);
         // 如果是 CritDmg 系列，統一存為 'CritDmg' 以便 isMatchTarget 處理
@@ -678,7 +754,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     }
     const statItem = weightedRandom(pool.map(p => ({ item: p.stat, weight: p.weight })));
 
-    let displayStat = (t.stats as any)[statItem] || statItem;
+    let displayStat = t.stats[statItem] || statItem;
     let value = '';
 
     // 嘗試從數值表取得
@@ -792,6 +868,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     ];
 
     return { afterTier, lines, tierChanged: inputTier !== afterTier };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [generateLine]);
 
   // 使用方塊（單次）
@@ -939,7 +1016,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
-  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount, recordStatOccurrence]);
+  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount]);
 
   // 洗到跳框
   const useUntilTierUp = useCallback(() => {
@@ -1007,7 +1084,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
-  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount, recordStatOccurrence]);
+  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount]);
 
   // 洗到指定屬性
   const useUntilTarget = useCallback(() => {
@@ -1122,6 +1199,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, memorialTargetSlot, targetStat, targetMode, rollCube, reselectMemorialLine, incrementCubeCount, checkTargetMet, isRolling]);
 
   // 停止自動洗
@@ -1228,7 +1306,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                   <div className="flex justify-center gap-2.5 animate-in fade-in slide-in-from-top-1 duration-500">
                     <div className="px-3 py-1 bg-muted/50 border border-border rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
-                      {(t as any).equipTypes?.[selectedEquip] || selectedEquip}
+                      {t.equipTypes[selectedEquip] || selectedEquip}
                     </div>
                     <div className="px-3 py-1 bg-muted/50 border border-border rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
@@ -1373,7 +1451,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                       onChange={(val) => setSelectedEquip(val as EquipmentType)}
                       options={EQUIPMENT_TYPES.map(type => ({
                         value: type,
-                        label: (t as any).equipTypes?.[type] || type
+                        label: t.equipTypes[type] || type
                       }))}
                     />
                   </div>
@@ -1522,7 +1600,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                           disabled={isRolling}
                           options={availableStats.map(stat => ({
                             value: stat,
-                            label: (t.stats as any)[stat] || stat
+                            label: t.stats[stat] || stat
                           }))}
                         />
                       </div>
@@ -1645,7 +1723,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
                       const isSpecial = key === '__NOT_ROLLED__';
                       const [statKey, tier] = isSpecial ? [key, null] : key.split(':') as [string, PotentialTier];
-                      const label = isSpecial ? t.notRolledCount : ((t.stats as any)[statKey] || statKey);
+                      const label = isSpecial ? t.notRolledCount : (t.stats[statKey] || statKey);
 
                       return (
                         <div key={key} className={`flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm ${isSpecial ? 'bg-muted/20 italic text-muted-foreground/60' : 'bg-muted/40 text-foreground'}`}>
@@ -1746,7 +1824,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                 - {selectedCube === 'premiumBonus' ? t.premiumBonusCube : selectedCube === 'memorialBonus' ? t.memorialBonusCube : t.absoluteBonusCube}
               </p>
               <ul className="space-y-3 text-sm text-muted-foreground leading-relaxed font-medium">
-                {(selectedCube === 'premiumBonus' ? t.premiumRules : selectedCube === 'memorialBonus' ? (t as any).memorialRules : (t as any).absoluteRules).map((rule: string, idx: number) => (
+                {(selectedCube === 'premiumBonus' ? t.premiumRules : selectedCube === 'memorialBonus' ? t.memorialRules : t.absoluteRules).map((rule: string, idx: number) => (
                   <li key={idx} className="flex gap-2">
                     <span className="text-primary font-bold">{idx + 1}.</span>
                     <span className="border-b border-border flex-1 pb-1">{rule}</span>

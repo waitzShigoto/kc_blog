@@ -10,7 +10,6 @@ import {
   Twitter,
   Instagram,
   Facebook,
-  ExternalLink,
   Code,
   Smartphone,
   Database,
