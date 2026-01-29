@@ -7,6 +7,7 @@ interface ShareButtonsProps {
   title: string;
   description?: string;
   locale: string;
+  shareText?: string;
 }
 
 interface SharePlatform {
@@ -17,7 +18,7 @@ interface SharePlatform {
   share: (url: string, title: string, description?: string) => void;
 }
 
-export default function ShareButtons({ url, title, description, locale }: ShareButtonsProps) {
+export default function ShareButtons({ url, title, description, locale, shareText }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -64,7 +65,8 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
 
   const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      const textToCopy = shareText || url;
+      await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setShowTooltip(true);
       setTimeout(() => {
@@ -87,7 +89,8 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
         </svg>
       ),
       share: (url) => {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
+        const text = shareText ? `${shareText}` : url;
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
       },
     },
     {
@@ -100,7 +103,8 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
         </svg>
       ),
       share: (url, title) => {
-        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank', 'width=600,height=400');
+        const text = shareText ? `${shareText}` : `${title} ${url}`;
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
       },
     },
     {
@@ -113,7 +117,8 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
         </svg>
       ),
       share: (url, title) => {
-        window.open(`https://threads.net/intent/post?text=${encodeURIComponent(title + ' ' + url)}`, '_blank', 'width=600,height=400');
+        const text = shareText ? `${shareText}` : `${title} ${url}`;
+        window.open(`https://threads.net/intent/post?text=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
       },
     },
     {
@@ -125,8 +130,9 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
         </svg>
       ),
-      share: (url) => {
-        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
+      share: (url, title) => {
+        const text = shareText || title;
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
       },
     },
     {
@@ -139,6 +145,7 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
         </svg>
       ),
       share: (url) => {
+        const text = shareText ? `${shareText}` : url;
         window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`, '_blank', 'width=600,height=400');
       },
     },
@@ -152,7 +159,8 @@ export default function ShareButtons({ url, title, description, locale }: ShareB
         </svg>
       ),
       share: (url, title) => {
-        window.open(`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`, '_blank', 'width=600,height=400');
+        const text = shareText ? `${shareText}` : url;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'width=600,height=400');
       },
     },
     {
