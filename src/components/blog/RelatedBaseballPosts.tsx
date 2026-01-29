@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns';
 import { BaseballPost } from '@/lib/daily-content';
+import { safeFormatDate } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 
 interface RelatedBaseballPostsProps {
@@ -108,7 +108,7 @@ export default function RelatedBaseballPosts({ posts, locale }: RelatedBaseballP
                   <div className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
                     <time dateTime={date}>
-                      {format(new Date(date), 'yyyy-MM-dd')}
+                      {safeFormatDate(date, 'yyyy-MM-dd')}
                     </time>
                   </div>
                 </div>

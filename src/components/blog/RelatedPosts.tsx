@@ -2,9 +2,8 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { format } from 'date-fns';
 import { BlogPost } from '@/types/blog';
-import { getPostUrl } from '@/lib/utils';
+import { getPostUrl, safeFormatDate } from '@/lib/utils';
 import { ChevronLeft, ChevronRight, Calendar, Clock } from 'lucide-react';
 
 interface RelatedPostsProps {
@@ -110,7 +109,7 @@ export default function RelatedPosts({ posts, locale }: RelatedPostsProps) {
                   <div className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
                     <time dateTime={date}>
-                      {format(new Date(date.replace(/-/g, '/')), 'yyyy-MM-dd')}
+                      {safeFormatDate(date, 'yyyy-MM-dd')}
                     </time>
                   </div>
                   <div className="flex items-center gap-1">

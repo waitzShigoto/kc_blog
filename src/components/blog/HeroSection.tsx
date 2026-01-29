@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '@/types/blog';
-import { format } from 'date-fns';
+import { safeFormatDate } from '@/lib/utils';
 import { zhTW, enUS, ja } from 'date-fns/locale';
 import { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -90,7 +90,7 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                     )}
                                     <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                                     <time dateTime={mainPost.frontMatter.date} className="font-medium tracking-wide">
-                                        {format(new Date(mainPost.frontMatter.date), 'MMM d, yyyy', { locale: dateLocale })}
+                                        {safeFormatDate(mainPost.frontMatter.date, 'MMM d, yyyy', dateLocale)}
                                     </time>
                                 </div>
 
@@ -183,7 +183,7 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                         )}
                                         <span>•</span>
                                         <time dateTime={post.frontMatter.date}>
-                                            {format(new Date(post.frontMatter.date), 'MMM d, yyyy', { locale: dateLocale })}
+                                            {safeFormatDate(post.frontMatter.date, 'MMM d, yyyy', dateLocale)}
                                         </time>
                                     </div>
                                     <h3 className="text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors leading-snug">

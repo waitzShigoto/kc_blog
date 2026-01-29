@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import HeroSection from '@/components/blog/HeroSection';
 import CategorySection from '@/components/blog/CategorySection';
-import { format } from 'date-fns';
+import { safeFormatDate } from '@/lib/utils';
 import { zhTW, enUS, ja } from 'date-fns/locale';
 
 interface HomePageProps {
@@ -182,7 +182,7 @@ export default async function HomePage({ params }: HomePageProps) {
                             {post.frontMatter.title}
                           </h4>
                           <time className="text-xs text-muted-foreground">
-                            {format(new Date(post.frontMatter.date), 'MM/dd', { locale: dateLocale })}
+                            {safeFormatDate(post.frontMatter.date, 'MM/dd', dateLocale)}
                           </time>
                         </div>
                       </Link>
