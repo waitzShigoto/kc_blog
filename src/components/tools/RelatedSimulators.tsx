@@ -41,6 +41,17 @@ const SIMULATORS = [
         path: 'maplestory/familiar-cube',
         icon: '🐾',
         color: 'from-purple-500 to-violet-500'
+    },
+    {
+        id: 'starlight-bag',
+        title: {
+            zh: '星光錦囊',
+            en: 'Starlight Lucky Bag',
+            ja: '星光の錦嚢'
+        },
+        path: 'maplestory/starlight-bag',
+        icon: '✨',
+        color: 'from-indigo-500 to-purple-500'
     }
 ];
 
