@@ -4,7 +4,6 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {
     VERSIONS,
-    ALL_GRAND_PRIZES,
     StarlightReward,
     StarlightGameVersion
 } from './data';
@@ -884,7 +883,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                             {t.inventory}: <span className="font-bold text-foreground">{inventory[activeTab as keyof typeof inventory]}</span>
                                         </p>
                                         <button
-                                            onClick={() => openBox(activeTab as any)}
+                                            onClick={() => openBox(activeTab as 'crystalline' | 'ore' | 'crystal' | 'brilliant')}
                                             disabled={isRolling || inventory[activeTab as keyof typeof inventory] <= 0}
                                             className="px-10 py-4 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
                                         >
