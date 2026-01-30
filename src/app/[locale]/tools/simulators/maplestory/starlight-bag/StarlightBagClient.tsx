@@ -3,14 +3,10 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {
-    STARLIGHT_BAG_REWARDS,
-    STARLIGHT_CRYSTALLINE_REWARDS,
-    STARLIGHT_ORE_REWARDS,
-    STARLIGHT_CRYSTAL_REWARDS,
-    BRILLIANT_STARLIGHT_REWARDS,
+    VERSIONS,
+    ALL_GRAND_PRIZES,
     StarlightReward,
-    BAG_GRAND_PRIZES,
-    ALL_GRAND_PRIZES
+    StarlightGameVersion
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -26,6 +22,8 @@ interface StarlightHistory {
     reward: string;
     type: 'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant';
 }
+
+type StarlightType = 'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant';
 
 // Custom Select Component
 function CustomSelect<T extends string | number>({
@@ -94,10 +92,82 @@ function CustomSelect<T extends string | number>({
     );
 }
 
+// Modal Component
+function Modal({
+    isOpen,
+    onClose,
+    onConfirm,
+    title,
+    message,
+    showCancel = false,
+    confirmText = "確定",
+    cancelText = "取消"
+}: {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm?: () => void;
+    title: string;
+    message: string;
+    showCancel?: boolean;
+    confirmText?: string;
+    cancelText?: string;
+}) {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <div
+                className="absolute inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
+                onClick={onClose}
+            />
+
+            {/* Modal Content */}
+            <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-sm w-full p-6 animate-in fade-in zoom-in duration-200">
+                <h3 className="text-lg font-bold text-foreground mb-2">{title}</h3>
+                <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{message}</p>
+
+                <div className="flex gap-3 justify-end">
+                    {showCancel && (
+                        <button
+                            onClick={onClose}
+                            className="px-4 py-2 text-sm font-semibold text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                        >
+                            {cancelText}
+                        </button>
+                    )}
+                    <button
+                        onClick={() => {
+                            onConfirm?.();
+                            onClose();
+                        }}
+                        className="px-6 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:opacity-90 shadow-lg shadow-primary/20 transition-all"
+                    >
+                        {confirmText}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default function StarlightBagClient({ locale }: StarlightBagClientProps) {
+    // 版本狀態
+    const [currentVersion, setCurrentVersion] = useState<StarlightGameVersion>(VERSIONS[VERSIONS.length - 1]);
+
+    // 彈窗狀態
+    const [modal, setModal] = useState({
+        isOpen: false,
+        title: '',
+        message: '',
+        onConfirm: () => { },
+        showCancel: false
+    });
+
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<StarlightHistory[]>([]);
-    const [totalBags, setTotalBags] = useState(0);
+
+    // 持有數量（用於操作）
     const [starlightCount, setStarlightCount] = useState(0);
     const [starlightFragments, setStarlightFragments] = useState(0);
     const [inventory, setInventory] = useState({
@@ -107,14 +177,44 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         brilliant: 0
     });
 
-    const [isRolling, setIsRolling] = useState(false);
-    const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
-    const [targetPrize, setTargetPrize] = useState<string>(BAG_GRAND_PRIZES[0]);
-    const [activeTab, setActiveTab] = useState<'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant'>('bag');
-    const [sidebarTab, setSidebarTab] = useState<'history' | 'prob'>('history');
-    const [probTab, setProbTab] = useState<'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant'>('bag');
+    // 統計數據（分開存放）
+    const [openedCounts, setOpenedCounts] = useState<Record<StarlightType, number>>({
+        bag: 0,
+        crystalline: 0,
+        ore: 0,
+        crystal: 0,
+        brilliant: 0
+    });
 
-    const totalBagsRef = useRef(0);
+    const [rewardStats, setRewardStats] = useState<Record<StarlightType, Record<string, number>>>({
+        bag: {},
+        crystalline: {},
+        ore: {},
+        crystal: {},
+        brilliant: {}
+    });
+
+    const [isRolling, setIsRolling] = useState(false);
+    const [targetPrize, setTargetPrize] = useState<string>(currentVersion.bagGrandPrizes[0]);
+    const [activeTab, setActiveTab] = useState<StarlightType>('bag');
+    const [sidebarTab, setSidebarTab] = useState<'history' | 'prob'>('history');
+    const [probTab, setProbTab] = useState<StarlightType>('bag');
+
+    // Refs 用於同一次操作中的高效同步
+    const openedCountsRef = useRef<Record<StarlightType, number>>({
+        bag: 0,
+        crystalline: 0,
+        ore: 0,
+        crystal: 0,
+        brilliant: 0
+    });
+    const rewardStatsRef = useRef<Record<StarlightType, Record<string, number>>>({
+        bag: {},
+        crystalline: {},
+        ore: {},
+        crystal: {},
+        brilliant: {}
+    });
     const starlightCountRef = useRef(0);
     const starlightFragmentsRef = useRef(0);
     const inventoryRef = useRef({
@@ -123,11 +223,35 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         crystal: 0,
         brilliant: 0
     });
-    const rewardCountsRef = useRef<Record<string, number>>({});
     const stopAutoRollRef = useRef(false);
     const historyIdRef = useRef(0);
 
-    // 多語言文字
+    // 當版本切換時重置目標大獎
+    useEffect(() => {
+        setTargetPrize(currentVersion.bagGrandPrizes[0]);
+    }, [currentVersion]);
+
+    const showAlert = (message: string, title: string = "提示") => {
+        setModal({
+            isOpen: true,
+            title,
+            message,
+            onConfirm: () => { },
+            showCancel: false
+        });
+    };
+
+    const showConfirm = (message: string, onConfirm: () => void, title: string = "確認") => {
+        setModal({
+            isOpen: true,
+            title,
+            message,
+            onConfirm,
+            showCancel: true
+        });
+    };
+
+    // 多語言文字 (略，保持不變)
     const texts = {
         zh: {
             title: '星光錦囊模擬器',
@@ -137,7 +261,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             use100Bags: '開啟 100 個',
             reset: '重置',
             statistics: '統計資料',
-            totalUsed: '已開啟錦囊',
+            totalUsed: '開啟數量',
             starlightCollected: '獲得玲瓏星光',
             starlightAvailable: '持有玲瓏星光',
             history: '抽獎歷史',
@@ -157,7 +281,6 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             countTimes: '{n} 次',
             probabilities: '獎勵機率',
             eventPeriod: '活動時間',
-            eventDate: '2025/09/10 ～ 2026/01/13 08:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -166,6 +289,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             exchangeAll: '一鍵換完',
             exchangeDesc: '消耗 4 顆玲瓏星光',
             insufficientFragments: '玲瓏星光不足',
+            version: '遊戲版本',
+            switchVersionConfirm: '切換版本將會重置目前的模擬進度，確定要切換嗎？',
+            confirm: '確定',
+            cancel: '取消',
             tabs: {
                 bag: '星光錦囊',
                 crystalline: '星光結晶體',
@@ -197,7 +324,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             use100Bags: 'Open 100 Bags',
             reset: 'Reset',
             statistics: 'Statistics',
-            totalUsed: 'Bags Opened',
+            totalUsed: 'Opened Count',
             starlightCollected: 'Luminous Starlight',
             starlightAvailable: 'Available Starlight',
             history: 'History',
@@ -217,7 +344,6 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             countTimes: '{n} times',
             probabilities: 'Probabilities',
             eventPeriod: 'Event Period',
-            eventDate: '2025/09/10 ~ 2026/01/13 08:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -226,6 +352,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             exchangeAll: 'Exchange All',
             exchangeDesc: 'Costs 4 Starlight',
             insufficientFragments: 'Insufficient Starlight',
+            version: 'Version',
+            switchVersionConfirm: 'Switching versions will reset current progress. Continue?',
+            confirm: 'Confirm',
+            cancel: 'Cancel',
             tabs: {
                 bag: 'Bag',
                 crystalline: 'Crystalline',
@@ -257,7 +387,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             use100Bags: '100個開ける',
             reset: 'リセット',
             statistics: '統計資料',
-            totalUsed: '開封済み錦嚢',
+            totalUsed: '開封數',
             starlightCollected: '玲瓏な星光獲得',
             starlightAvailable: '所持玲瓏な星光',
             history: '履歴',
@@ -269,7 +399,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             rulesList: [
                 '錦嚢から玲瓏な星光が出る確率 10%',
                 '玲瓏な星光4個で星光の結晶體1個に交換可能',
-                '結晶體や原石から高レアリティ報酬や次段階アイテムが出現',
+                '結晶體や原石から高レアリティ報酬や次段階アイテム出現',
                 '確率は公式數據に基づいています',
             ],
             disclaimer: '娛樂目的です。實際の確率は異なる場合があります。',
@@ -277,7 +407,6 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             countTimes: '{n}回',
             probabilities: '報酬確率',
             eventPeriod: 'イベント期間',
-            eventDate: '2025/09/10 ～ 2026/01/13 08:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標',
@@ -286,6 +415,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             exchangeAll: '一括交換',
             exchangeDesc: '玲瓏な星光 4個消費',
             insufficientFragments: '星光不足',
+            version: 'バージョン',
+            switchVersionConfirm: 'バージョンを切り替えると現在の進行狀況がリセットされます。よろしいですか？',
+            confirm: '確定',
+            cancel: 'キャンセル',
             tabs: {
                 bag: '錦嚢',
                 crystalline: '結晶體',
@@ -323,25 +456,33 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         return items[items.length - 1].name;
     };
 
-    const addToHistory = useCallback((reward: string, type: 'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant') => {
+    const addToHistory = useCallback((reward: string, type: StarlightType) => {
         historyIdRef.current += 1;
         const newHistory: StarlightHistory = {
             id: historyIdRef.current,
-            pullNumber: type === 'bag' ? totalBagsRef.current : 0,
+            pullNumber: type === 'bag' ? openedCountsRef.current.bag : 0,
             reward,
             type
         };
         setHistory(prev => [newHistory, ...prev].slice(0, 100));
     }, []);
 
-    const updateStats = useCallback((reward: string) => {
-        rewardCountsRef.current[reward] = (rewardCountsRef.current[reward] || 0) + 1;
-        setRewardCounts({ ...rewardCountsRef.current });
+    const updateStats = useCallback((reward: string, type: StarlightType) => {
+        // 更新該類別的開啟次數
+        openedCountsRef.current[type] += 1;
+        setOpenedCounts({ ...openedCountsRef.current });
+
+        // 更新該類別下的獎項計數
+        if (!rewardStatsRef.current[type][reward]) {
+            rewardStatsRef.current[type][reward] = 0;
+        }
+        rewardStatsRef.current[type][reward] += 1;
+        setRewardStats({ ...rewardStatsRef.current });
     }, []);
 
-    const handleReward = useCallback((reward: string, type: 'bag' | 'crystalline' | 'ore' | 'crystal' | 'brilliant') => {
+    const handleReward = useCallback((reward: string, type: StarlightType) => {
         setCurrentReward(reward);
-        updateStats(reward);
+        updateStats(reward, type);
         addToHistory(reward, type);
 
         // Special items logic
@@ -369,13 +510,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
     const useBag = useCallback(() => {
         setActiveTab('bag');
         setIsRolling(true);
-        totalBagsRef.current += 1;
-        setTotalBags(totalBagsRef.current);
-
-        const reward = weightedRandom(STARLIGHT_BAG_REWARDS);
+        const reward = weightedRandom(currentVersion.rewards.bag);
         handleReward(reward, 'bag');
         setIsRolling(false);
-    }, [handleReward]);
+    }, [handleReward, currentVersion]);
 
     const handleMultipleBags = useCallback((count: number) => {
         if (isRolling) return;
@@ -390,10 +528,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                 return;
             }
 
-            totalBagsRef.current += 1;
-            setTotalBags(totalBagsRef.current);
-
-            const reward = weightedRandom(STARLIGHT_BAG_REWARDS);
+            const reward = weightedRandom(currentVersion.rewards.bag);
             handleReward(reward, 'bag');
 
             processed++;
@@ -405,7 +540,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         };
 
         rollOnce();
-    }, [isRolling, handleReward]);
+    }, [isRolling, handleReward, currentVersion]);
 
     const rollUntilTarget = useCallback(() => {
         if (isRolling) return;
@@ -422,8 +557,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
             let found = false;
 
             for (let i = 0; i < 20; i++) {
-                totalBagsRef.current += 1;
-                const reward = weightedRandom(STARLIGHT_BAG_REWARDS);
+                const reward = weightedRandom(currentVersion.rewards.bag);
                 handleReward(reward, 'bag');
 
                 if (reward === targetPrize) {
@@ -432,7 +566,6 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                 }
             }
 
-            setTotalBags(totalBagsRef.current);
             if (found) {
                 setIsRolling(false);
             } else {
@@ -441,12 +574,12 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         };
 
         rollBatch();
-    }, [isRolling, targetPrize, handleReward]);
+    }, [isRolling, targetPrize, handleReward, currentVersion]);
 
     // Exchange
     const exchangeForCrystalline = () => {
         if (starlightFragmentsRef.current < 4) {
-            alert(t.insufficientFragments);
+            showAlert(t.insufficientFragments);
             return;
         }
         starlightFragmentsRef.current -= 4;
@@ -459,7 +592,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
     const exchangeAllCrystalline = () => {
         const count = Math.floor(starlightFragmentsRef.current / 4);
         if (count <= 0) {
-            alert(t.insufficientFragments);
+            showAlert(t.insufficientFragments);
             return;
         }
 
@@ -473,7 +606,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
     // Open Box
     const openBox = (type: 'crystalline' | 'ore' | 'crystal' | 'brilliant') => {
         if (inventoryRef.current[type] <= 0) {
-            alert(t.insufficientItems);
+            showAlert(t.insufficientItems);
             return;
         }
 
@@ -482,10 +615,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         setIsRolling(true);
 
         let rewards: StarlightReward[] = [];
-        if (type === 'crystalline') rewards = STARLIGHT_CRYSTALLINE_REWARDS;
-        else if (type === 'ore') rewards = STARLIGHT_ORE_REWARDS;
-        else if (type === 'crystal') rewards = STARLIGHT_CRYSTAL_REWARDS;
-        else if (type === 'brilliant') rewards = BRILLIANT_STARLIGHT_REWARDS;
+        if (type === 'crystalline') rewards = currentVersion.rewards.crystalline;
+        else if (type === 'ore') rewards = currentVersion.rewards.ore;
+        else if (type === 'crystal') rewards = currentVersion.rewards.crystal;
+        else if (type === 'brilliant') rewards = currentVersion.rewards.brilliant;
 
         const reward = weightedRandom(rewards);
         handleReward(reward, type);
@@ -496,25 +629,27 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
     const reset = () => {
         setCurrentReward('');
         setHistory([]);
-        setTotalBags(0);
         setStarlightCount(0);
         setStarlightFragments(0);
         setInventory({ crystalline: 0, ore: 0, crystal: 0, brilliant: 0 });
-        setRewardCounts({});
-        totalBagsRef.current = 0;
+
+        setOpenedCounts({ bag: 0, crystalline: 0, ore: 0, crystal: 0, brilliant: 0 });
+        setRewardStats({ bag: {}, crystalline: {}, ore: {}, crystal: {}, brilliant: {} });
+
+        openedCountsRef.current = { bag: 0, crystalline: 0, ore: 0, crystal: 0, brilliant: 0 };
+        rewardStatsRef.current = { bag: {}, crystalline: {}, ore: {}, crystal: {}, brilliant: {} };
         starlightCountRef.current = 0;
         starlightFragmentsRef.current = 0;
         inventoryRef.current = { crystalline: 0, ore: 0, crystal: 0, brilliant: 0 };
-        rewardCountsRef.current = {};
         historyIdRef.current = 0;
     };
 
     const getRarityColor = (probability: number) => {
-        if (probability <= 0.5) return 'text-red-500';
-        if (probability <= 1.0) return 'text-orange-500';
-        if (probability <= 5.0) return 'text-purple-500';
-        if (probability <= 10.0) return 'text-blue-500';
-        return 'text-gray-500';
+        if (probability <= 0.5) return 'text-red-500 font-bold';
+        if (probability <= 1.0) return 'text-orange-500 font-bold';
+        if (probability <= 5.0) return 'text-purple-500 font-semibold';
+        if (probability <= 10.0) return 'text-blue-500 font-semibold';
+        return 'text-gray-500 font-medium';
     };
 
     // Helper to get string safely from dynamic keys
@@ -525,6 +660,18 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
 
     return (
         <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+            {/* Custom Modal */}
+            <Modal
+                isOpen={modal.isOpen}
+                onClose={() => setModal({ ...modal, isOpen: false })}
+                onConfirm={modal.onConfirm}
+                title={modal.title}
+                message={modal.message}
+                showCancel={modal.showCancel}
+                confirmText={t.confirm}
+                cancelText={t.cancel}
+            />
+
             <div className="max-w-6xl mx-auto px-4 py-8">
                 {/* Back Link */}
                 <Link
@@ -541,6 +688,27 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                 <div className="text-center mb-8">
                     <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
                     <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+
+                    {/* 版本切換按鈕 */}
+                    <div className="flex justify-center gap-2 mt-4">
+                        <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                            {VERSIONS.map((v) => (
+                                <button
+                                    key={v.id}
+                                    onClick={() => {
+                                        if (currentVersion.id === v.id) return;
+                                        showConfirm(t.switchVersionConfirm, () => {
+                                            setCurrentVersion(v);
+                                            reset();
+                                        }, t.version);
+                                    }}
+                                    className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${currentVersion.id === v.id ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground hover:text-foreground'}`}
+                                >
+                                    {v.name}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -630,13 +798,13 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                     {(Object.keys(t.tabs) as Array<keyof typeof t.tabs>).map((tab) => (
                                         <button
                                             key={tab}
-                                            onClick={() => setActiveTab(tab)}
+                                            onClick={() => setActiveTab(tab as StarlightType)}
                                             className={`flex-1 px-3 py-2 text-xs font-medium rounded-lg transition-all ${activeTab === tab ? 'bg-background shadow text-foreground font-bold' : 'text-muted-foreground hover:text-foreground'}`}
                                         >
-                                            {t.tabs[tab]}
+                                            {t.tabs[tab as keyof typeof t.tabs]}
                                             {tab !== 'bag' && (
                                                 <span className="ml-1 inline-flex items-center justify-center px-1.5 py-0.5 bg-primary/10 text-primary rounded-full text-[10px]">
-                                                    {inventory[tab]}
+                                                    {inventory[tab as keyof typeof inventory]}
                                                 </span>
                                             )}
                                         </button>
@@ -654,7 +822,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                                     <CustomSelect
                                                         value={targetPrize}
                                                         onChange={setTargetPrize}
-                                                        options={BAG_GRAND_PRIZES.map(p => ({ value: p, label: p }))}
+                                                        options={currentVersion.bagGrandPrizes.map(p => ({ value: p, label: p }))}
                                                         disabled={isRolling}
                                                     />
                                                 </div>
@@ -713,11 +881,11 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                 ) : (
                                     <div className="flex flex-col items-center py-8 bg-muted/10 rounded-xl border border-dashed border-border">
                                         <p className="text-sm text-muted-foreground mb-4">
-                                            {t.inventory}: <span className="font-bold text-foreground">{inventory[activeTab]}</span>
+                                            {t.inventory}: <span className="font-bold text-foreground">{inventory[activeTab as keyof typeof inventory]}</span>
                                         </p>
                                         <button
                                             onClick={() => openBox(activeTab as any)}
-                                            disabled={isRolling || inventory[activeTab] <= 0}
+                                            disabled={isRolling || inventory[activeTab as keyof typeof inventory] <= 0}
                                             className="px-10 py-4 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-bold rounded-xl hover:opacity-90 transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed"
                                         >
                                             {t.openBox}
@@ -741,7 +909,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                     {(Object.keys(t.statTabs) as Array<keyof typeof t.statTabs>).map((tab) => (
                                         <button
                                             key={tab}
-                                            onClick={() => setActiveTab(tab)}
+                                            onClick={() => setActiveTab(tab as StarlightType)}
                                             className={`px-3 py-1 text-[10px] sm:text-xs font-medium rounded-md transition-all ${activeTab === tab ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
                                         >
                                             {getT(`switchTo${tab.charAt(0).toUpperCase() + tab.slice(1)}`)}
@@ -750,54 +918,111 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                 </div>
                             </div>
 
-                            {activeTab === 'bag' && (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="p-4 bg-muted/30 rounded-xl flex flex-col justify-center border border-border">
-                                        <p className="text-2xl font-bold text-foreground">{totalBags}</p>
-                                        <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed}</p>
-                                    </div>
+                            {/* 當前標籤頁面的開啟次數與核心數據 */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="p-4 bg-muted/30 rounded-xl flex flex-col justify-center border border-border">
+                                    <p className="text-2xl font-bold text-foreground">{openedCounts[activeTab]}</p>
+                                    <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed}</p>
+                                </div>
+                                {activeTab === 'bag' && (
                                     <div className="p-4 bg-muted/30 rounded-xl flex flex-col justify-center border border-border">
                                         <p className="text-2xl font-bold text-indigo-500">{starlightCount}</p>
                                         <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.starlightCollected}</p>
                                     </div>
-                                </div>
-                            )}
+                                )}
+                            </div>
 
                             {/* Rewards Distribution */}
                             <div className="pt-6 border-t border-border">
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">
-                                    {t.statTabs[activeTab]}
+                                    {t.statTabs[activeTab]} (獨立機率)
                                 </h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {(() => {
-                                        let tierRewards: StarlightReward[] = [];
-                                        if (activeTab === 'bag') tierRewards = STARLIGHT_BAG_REWARDS;
-                                        else if (activeTab === 'crystalline') tierRewards = STARLIGHT_CRYSTALLINE_REWARDS;
-                                        else if (activeTab === 'ore') tierRewards = STARLIGHT_ORE_REWARDS;
-                                        else if (activeTab === 'crystal') tierRewards = STARLIGHT_CRYSTAL_REWARDS;
-                                        else if (activeTab === 'brilliant') tierRewards = BRILLIANT_STARLIGHT_REWARDS;
 
-                                        const totalInTier = tierRewards.reduce((sum, r) => sum + (rewardCounts[r.name] || 0), 0);
+                                {activeTab === 'bag' ? (
+                                    <div className="space-y-6">
+                                        {/* Grand Prizes */}
+                                        <div>
+                                            <h4 className="text-xs font-bold text-primary mb-3 flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                                                {t.grandPrizes}
+                                            </h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                                {currentVersion.rewards.bag
+                                                    .filter(r => currentVersion.bagGrandPrizes.includes(r.name))
+                                                    .sort((a, b) => {
+                                                        const idxA = currentVersion.bagGrandPrizes.indexOf(a.name);
+                                                        const idxB = currentVersion.bagGrandPrizes.indexOf(b.name);
+                                                        return idxA - idxB;
+                                                    })
+                                                    .map((reward) => {
+                                                        const count = rewardStats.bag[reward.name] || 0;
+                                                        const totalOpened = openedCounts.bag;
+                                                        const actualRate = totalOpened > 0 ? ((count / totalOpened) * 100).toFixed(2) : '0.00';
+                                                        return (
+                                                            <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-primary/20 bg-primary/5">
+                                                                <span className={`font-bold truncate ${getRarityColor(reward.probability)}`}>{reward.name}</span>
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
+                                                                    <span className="text-muted-foreground text-[10px]">({actualRate}%)</span>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                            </div>
+                                        </div>
 
-                                        return tierRewards
-                                            .filter(r => ALL_GRAND_PRIZES.includes(r.name) || rewardCounts[r.name] > 0)
-                                            .sort((a, b) => (rewardCounts[b.name] || 0) - (rewardCounts[a.name] || 0))
-                                            .map((reward) => {
-                                                const count = rewardCounts[reward.name] || 0;
-                                                const actualRate = totalInTier > 0 ? ((count / totalInTier) * 100).toFixed(2) : '0.00';
+                                        {/* Other Rewards */}
+                                        <div>
+                                            <h4 className="text-xs font-bold text-muted-foreground mb-3 flex items-center gap-2">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                                                {t.otherRewards}
+                                            </h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 opacity-80">
+                                                {currentVersion.rewards.bag
+                                                    .filter(r => !currentVersion.bagGrandPrizes.includes(r.name))
+                                                    .sort((a, b) => (rewardStats.bag[b.name] || 0) - (rewardStats.bag[a.name] || 0))
+                                                    .map((reward) => {
+                                                        const count = rewardStats.bag[reward.name] || 0;
+                                                        const totalOpened = openedCounts.bag;
+                                                        const actualRate = totalOpened > 0 ? ((count / totalOpened) * 100).toFixed(2) : '0.00';
+                                                        return (
+                                                            <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border bg-muted/20">
+                                                                <span className="font-medium text-muted-foreground truncate">{reward.name}</span>
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="font-bold">{t.countTimes.replace('{n}', String(count))}</span>
+                                                                    <span className="text-muted-foreground/60 text-[10px]">({actualRate}%)</span>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                        {(() => {
+                                            const tierRewards = currentVersion.rewards[activeTab];
+                                            const totalOpened = openedCounts[activeTab];
 
-                                                return (
-                                                    <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border bg-muted/20">
-                                                        <span className={`font-medium truncate ${getRarityColor(reward.probability)}`}>{reward.name}</span>
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
-                                                            <span className="text-muted-foreground text-[10px]">({actualRate}%)</span>
+                                            return tierRewards
+                                                .sort((a, b) => (rewardStats[activeTab][b.name] || 0) - (rewardStats[activeTab][a.name] || 0))
+                                                .map((reward) => {
+                                                    const count = rewardStats[activeTab][reward.name] || 0;
+                                                    const actualRate = totalOpened > 0 ? ((count / totalOpened) * 100).toFixed(2) : '0.00';
+
+                                                    return (
+                                                        <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border bg-muted/20">
+                                                            <span className={`font-medium truncate ${getRarityColor(reward.probability)}`}>{reward.name}</span>
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
+                                                                <span className="text-muted-foreground text-[10px]">({actualRate}%)</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                );
-                                            });
-                                    })()}
-                                </div>
+                                                    );
+                                                });
+                                        })()}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -830,7 +1055,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                     <span className="text-xs font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                 </div>
                                 <div className="text-[11px] text-foreground font-medium pl-6">
-                                    {t.eventDate}
+                                    {currentVersion.eventDate}
                                 </div>
                             </div>
                             <div className="mt-4 p-3 bg-muted/40 rounded-lg text-xs text-muted-foreground border border-border/50">
@@ -871,11 +1096,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                                             {t.tabs[item.type]}
                                                         </span>
                                                         <span className={`text-sm font-medium truncate ${(() => {
-                                                            const pool = item.type === 'bag' ? STARLIGHT_BAG_REWARDS :
-                                                                item.type === 'crystalline' ? STARLIGHT_CRYSTALLINE_REWARDS :
-                                                                    item.type === 'ore' ? STARLIGHT_ORE_REWARDS :
-                                                                        item.type === 'crystal' ? STARLIGHT_CRYSTAL_REWARDS :
-                                                                            BRILLIANT_STARLIGHT_REWARDS;
+                                                            const pool = currentVersion.rewards[item.type];
                                                             const prob = pool.find(r => r.name === item.reward)?.probability || 100;
                                                             return getRarityColor(prob);
                                                         })()
@@ -893,21 +1114,16 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                             {(Object.keys(t.tabs) as Array<keyof typeof t.tabs>).map((tab) => (
                                                 <button
                                                     key={tab}
-                                                    onClick={() => setProbTab(tab)}
+                                                    onClick={() => setProbTab(tab as StarlightType)}
                                                     className={`px-2 py-1 text-[9px] font-bold rounded transition-all ${probTab === tab ? 'bg-background shadow text-primary' : 'text-muted-foreground hover:text-foreground'}`}
                                                 >
-                                                    {t.tabs[tab]}
+                                                    {t.tabs[tab as keyof typeof t.tabs]}
                                                 </button>
                                             ))}
                                         </div>
                                         <div className="space-y-1.5 max-h-[450px] overflow-y-auto pr-2 custom-scrollbar">
                                             {(() => {
-                                                let pool: StarlightReward[] = [];
-                                                if (probTab === 'bag') pool = STARLIGHT_BAG_REWARDS;
-                                                else if (probTab === 'crystalline') pool = STARLIGHT_CRYSTALLINE_REWARDS;
-                                                else if (probTab === 'ore') pool = STARLIGHT_ORE_REWARDS;
-                                                else if (probTab === 'crystal') pool = STARLIGHT_CRYSTAL_REWARDS;
-                                                else if (probTab === 'brilliant') pool = BRILLIANT_STARLIGHT_REWARDS;
+                                                const pool = currentVersion.rewards[probTab];
 
                                                 return pool.map((reward, i) => (
                                                     <div key={i} className="flex justify-between items-center text-xs p-1.5 border-b border-border/50">
@@ -924,9 +1140,9 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                     </div>
                 </div>
 
-                {/* Footer Related */}
-                <div className="mt-12 pt-12 border-t border-border">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+                {/* Share Section */}
+                <div className="mt-12 max-w-4xl mx-auto">
+                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                         <ShareButtons
                             title={t.title}
                             url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/starlight-bag`}
@@ -934,6 +1150,10 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                             locale={locale}
                         />
                     </div>
+                </div>
+
+                {/* Footer Related */}
+                <div className="mt-8">
                     <RelatedSimulators locale={locale} currentId="starlight-bag" />
                 </div>
             </div>
