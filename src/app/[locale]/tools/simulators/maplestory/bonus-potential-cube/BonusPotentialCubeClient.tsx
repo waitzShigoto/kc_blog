@@ -9,6 +9,7 @@ interface BonusPotentialCubeClientProps {
 
 import { getPool, EquipmentType, EquipmentLevel, EQUIPMENT_TYPES, EQUIPMENT_LEVELS, PotentialTier, STAT_VALUES_BY_LEVEL, CubeType } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
+import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
 
 interface PotentialLine {
@@ -1891,6 +1892,9 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
               locale={locale}
             />
           </div>
+
+          {/* Related Simulators */}
+          <RelatedSimulators currentId="bonus-potential-cube" locale={locale} />
         </div>
 
         {/* Disclaimer */}

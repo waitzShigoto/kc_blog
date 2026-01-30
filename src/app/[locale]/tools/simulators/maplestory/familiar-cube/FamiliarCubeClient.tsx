@@ -3,6 +3,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import ShareButtons from '@/components/blog/ShareButtons';
+import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
 
 type FamiliarTier = 'normal' | 'special' | 'rare' | 'epic' | 'legendary';
@@ -567,67 +568,67 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     if (mode === 'singleFD') return fdCount >= 1;
     if (mode === 'doubleFD') return fdCount >= 2;
     if (mode === 'tripleFD') return fdCount >= 3;
-    
+
     // 雙終物：2終傷% + 1物攻%
     if (mode === 'doubleFD_ATT') return fdCount === 2 && attPercentCount === 1;
-    
+
     // 雙終魔：2終傷% + 1魔攻%
     if (mode === 'doubleFD_MATT') return fdCount === 2 && mattPercentCount === 1;
-    
+
     // 雙終被：2終傷% + 1被動+2
     if (mode === 'doubleFD_Passive') return fdCount === 2 && passiveCount === 1;
-    
+
     // 雙終爆：2終傷% + 1爆擊%
     if (mode === 'doubleFD_Crit') return fdCount === 2 && critCount === 1;
-    
+
     // 雙終無：2終傷% + 1無視%
     if (mode === 'doubleFD_IED') return fdCount === 2 && iedCount === 1;
-    
+
     // 雙終加：2終傷% + 1加持%
     if (mode === 'doubleFD_Buff') return fdCount === 2 && buffCount === 1;
-    
+
     // 雙終力：2終傷% + 1STR%
     if (mode === 'doubleFD_STR') return fdCount === 2 && strPercentCount === 1;
-    
+
     // 雙終敏：2終傷% + 1DEX%
     if (mode === 'doubleFD_DEX') return fdCount === 2 && dexPercentCount === 1;
-    
+
     // 雙終智：2終傷% + 1INT%
     if (mode === 'doubleFD_INT') return fdCount === 2 && intPercentCount === 1;
-    
+
     // 雙終幸：2終傷% + 1LUK%
     if (mode === 'doubleFD_LUK') return fdCount === 2 && lukPercentCount === 1;
-    
+
     // 雙終HP：2終傷% + 1HP%
     if (mode === 'doubleFD_HP') return fdCount === 2 && hpPercentCount === 1;
-    
+
     // 三物：3物攻%
     if (mode === 'tripleATT') return attPercentCount === 3;
-    
+
     // 三魔：3魔攻%
     if (mode === 'tripleMATT') return mattPercentCount === 3;
-    
+
     // 三防：3防禦%
     if (mode === 'tripleDEF') return defPercentCount === 3;
-    
+
     // 雙加持：2加持%
     if (mode === 'doubleBuff') return buffCount >= 2;
-    
+
     // 三加持：3加持%
     if (mode === 'tripleBuff') return buffCount === 3;
-    
+
     // 雙物：2物攻%
     if (mode === 'doubleATT') return attPercentCount >= 2;
-    
+
     // 雙魔：2魔攻%
     if (mode === 'doubleMATT') return mattPercentCount >= 2;
-    
+
     // 雙物終：2物攻% + 1終傷%
     if (mode === 'doubleATT_FD') return attPercentCount === 2 && fdCount === 1;
-    
+
     // 雙魔終：2魔攻% + 1終傷%
     if (mode === 'doubleMATT_FD') return mattPercentCount === 2 && fdCount === 1;
-    
+
     return false;
   }, []);
 
@@ -647,19 +648,19 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     setTargetStats(prev => {
       const newStats = { ...prev };
       let hasAnyTarget = false;
-      
+
       allTargetModes.forEach(mode => {
         if (checkTargetMet(lines, mode)) {
           newStats[mode] = (newStats[mode] || 0) + 1;
           hasAnyTarget = true;
         }
       });
-      
+
       // 如果不符合任何目標類型，計入爛潛
       if (!hasAnyTarget) {
         newStats.trash = (newStats.trash || 0) + 1;
       }
-      
+
       return newStats;
     });
   }, [checkTargetMet]);
@@ -1016,17 +1017,16 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                         type="button"
                         onClick={() => setTargetMode(option.value)}
                         disabled={isRolling}
-                        className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-200 ${
-                          targetMode === option.value
-                            ? 'text-white shadow-lg scale-105'
-                            : 'bg-muted/50 text-foreground hover:bg-muted hover:scale-[1.02]'
-                        } ${isRolling ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                        className={`px-3 py-2 text-xs font-bold rounded-lg transition-all duration-200 ${targetMode === option.value
+                          ? 'text-white shadow-lg scale-105'
+                          : 'bg-muted/50 text-foreground hover:bg-muted hover:scale-[1.02]'
+                          } ${isRolling ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                         style={
                           targetMode === option.value
                             ? {
-                                background: 'linear-gradient(to right, rgb(124, 58, 237), rgb(147, 51, 234), rgb(192, 38, 211))',
-                                boxShadow: '0 10px 15px -3px rgba(168, 85, 247, 0.5)'
-                              }
+                              background: 'linear-gradient(to right, rgb(124, 58, 237), rgb(147, 51, 234), rgb(192, 38, 211))',
+                              boxShadow: '0 10px 15px -3px rgba(168, 85, 247, 0.5)'
+                            }
                             : undefined
                         }
                       >
@@ -1087,16 +1087,16 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                       const isBTrash = keyB === 'trash';
                       const isATop = topTargets.includes(keyA);
                       const isBTop = topTargets.includes(keyB);
-                      
+
                       // 爛潛最頂
                       if (isATrash) return -1;
                       if (isBTrash) return 1;
-                      
+
                       // 頂級目標次之，按機率排序
                       if (isATop && !isBTop) return -1;
                       if (!isATop && isBTop) return 1;
                       if (isATop && isBTop) return b - a;
-                      
+
                       // 其他按機率排序
                       return b - a;
                     })
@@ -1104,25 +1104,22 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                       const probability = ((count / totalCubes) * 100).toFixed(2);
                       const isTrash = mode === 'trash';
                       const displayName = isTrash ? t.trash : t[mode as TargetMode];
-                      
+
                       return (
-                        <div 
-                          key={mode} 
-                          className={`px-3 py-2 rounded-lg border ${
-                            isTrash 
-                              ? 'bg-red-500/10 border-red-500/20' 
-                              : 'bg-muted/50 border-border'
-                          }`}
+                        <div
+                          key={mode}
+                          className={`px-3 py-2 rounded-lg border ${isTrash
+                            ? 'bg-red-500/10 border-red-500/20'
+                            : 'bg-muted/50 border-border'
+                            }`}
                         >
                           <div className="flex justify-between items-center mb-1">
-                            <span className={`text-sm font-medium ${
-                              isTrash ? 'text-red-500' : 'text-foreground'
-                            }`}>
+                            <span className={`text-sm font-medium ${isTrash ? 'text-red-500' : 'text-foreground'
+                              }`}>
                               {displayName}
                             </span>
-                            <span className={`text-xs ${
-                              isTrash ? 'text-red-500/70' : 'text-muted-foreground'
-                            }`}>
+                            <span className={`text-xs ${isTrash ? 'text-red-500/70' : 'text-muted-foreground'
+                              }`}>
                               {probability}%
                             </span>
                           </div>
@@ -1130,9 +1127,8 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                             <span className={
                               isTrash ? 'text-red-500/70' : 'text-muted-foreground'
                             }>{t.occurrences}</span>
-                            <span className={`font-bold ${
-                              isTrash ? 'text-red-500' : 'text-foreground'
-                            }`}>{count}</span>
+                            <span className={`font-bold ${isTrash ? 'text-red-500' : 'text-foreground'
+                              }`}>{count}</span>
                           </div>
                         </div>
                       );
@@ -1195,6 +1191,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
             />
           </div>
         </div>
+
+        {/* Related Simulators */}
+        <RelatedSimulators currentId="familiar-cube" locale={locale} />
 
         {/* Disclaimer */}
         <p className="text-center text-muted-foreground text-sm mt-8">

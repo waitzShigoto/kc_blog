@@ -4,6 +4,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { GOLDEN_APPLE_REWARDS, GoldenAppleReward, GRAND_PRIZES, GOLDEN_BOX_REWARDS } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
+import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
 
 interface GoldenAppleClientProps {
@@ -89,7 +90,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const [totalApples, setTotalApples] = useState(0);
     const [fragments, setFragments] = useState(0);
     const [isRolling, setIsRolling] = useState(false);
-    const [_showAnimation, setShowAnimation] = useState(false);
+    const [, setShowAnimation] = useState(false);
     const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
     const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES[0]);
 
@@ -943,6 +944,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         />
                     </div>
                 </div>
+
+                {/* Related Simulators */}
+                <RelatedSimulators currentId="golden-apple" locale={locale} />
 
                 {/* Disclaimer */}
                 <p className="text-center text-slate-500 text-sm mt-8">
