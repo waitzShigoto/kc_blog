@@ -9,8 +9,8 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-    const { locale } = params;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+    const { locale } = await params;
 
     const titles = {
         zh: '黃金蘋果模擬器 - GAME',
@@ -38,6 +38,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     };
 }
 
-export default function GoldenApplePage({ params }: { params: { locale: string } }) {
-    return <GoldenAppleClient locale={params.locale} />;
+export default async function GoldenApplePage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    return <GoldenAppleClient locale={locale} />;
 }
