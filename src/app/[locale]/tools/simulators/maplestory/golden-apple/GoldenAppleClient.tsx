@@ -89,7 +89,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const [totalApples, setTotalApples] = useState(0);
     const [fragments, setFragments] = useState(0);
     const [isRolling, setIsRolling] = useState(false);
-    const [showAnimation, setShowAnimation] = useState(false);
+    const [_showAnimation, setShowAnimation] = useState(false);
     const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
     const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES[0]);
 
@@ -294,7 +294,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     }, []);
 
     // 使用多個黃金蘋果
-    const useMultipleApples = useCallback((count: number) => {
+    const handleMultipleApples = useCallback((count: number) => {
         if (isRolling) return;
         setActiveTab('apple');
         setIsRolling(true);
@@ -622,14 +622,14 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                         {t.useApple}
                                     </button>
                                     <button
-                                        onClick={() => useMultipleApples(10)}
+                                        onClick={() => handleMultipleApples(10)}
                                         disabled={isRolling}
                                         className="px-6 py-2.5 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all border border-border"
                                     >
                                         {t.use10Apples}
                                     </button>
                                     <button
-                                        onClick={() => useMultipleApples(100)}
+                                        onClick={() => handleMultipleApples(100)}
                                         disabled={isRolling}
                                         className="px-6 py-2.5 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed transition-all border border-border"
                                     >
