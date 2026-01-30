@@ -376,6 +376,8 @@
   margin: 2rem auto;
   display: block;
   max-width: 100%;
+  max-height: 600px; /* 限制最大高度，避免直式截圖過大 */
+  width: auto; /* 配合 max-height 自動調整寬度 */
   height: auto;
   transition: all 0.3s ease;
   /* 防止 CLS - 確保圖片加載時保持空間 */

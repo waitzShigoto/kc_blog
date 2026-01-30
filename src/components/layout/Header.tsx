@@ -50,6 +50,16 @@ export default function Header({ locale }: HeaderProps) {
       description: locale === 'zh' ? 'Base64 編碼解碼工具' : locale === 'en' ? 'Base64 encoder and decoder tool' : 'Base64 エンコード・デコードツール'
     },
     {
+      name: locale === 'zh' ? '姓名轉片假名' : locale === 'en' ? 'Name to Katakana' : '名前カタカナ変換',
+      href: `/${locale}/tools/chinese-name-to-katakana`,
+      icon: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      ),
+      description: locale === 'zh' ? '中文姓名轉日文讀音' : locale === 'en' ? 'Chinese name to Katakana' : '中国語名前をカタカナに変換'
+    },
+    {
       name: locale === 'zh' ? '模擬器' : locale === 'en' ? 'Simulators' : 'シミュレーター',
       href: `/${locale}/tools/simulators`,
       icon: (

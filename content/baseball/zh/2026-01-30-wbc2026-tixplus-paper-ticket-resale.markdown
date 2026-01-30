@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】官方二次販售平台 2/2 開跑！紙本票轉讓、原價交易與 Tixplus 使用全攻略"
 date: "2026-01-30 16:30:00"
-image: cover/wbc_get_ticket.png
+image: cover/wbc_tlxplus_summary.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Resale", "Ticket", "Tixplus", "Tokyodome"]
@@ -95,7 +95,9 @@ WBC 官方終於釋出關於「二次流通」（Resale）的最新消息啦！
 *   **發券手續費**：每張票 **165 日圓** (含稅)。
 
 ### Q3: 海外粉絲可以使用嗎？
-**A:** 關鍵在於 **APP 的認證**。Tixplus 的 App 通常需要驗證日本手機號碼 (SMS 認證)。如果你沒有日本手機門號，可能會卡在 App 註冊這一關。建議先嘗試下載 App 並註冊帳號看看，確認這一步是否能通過。
+**A:** 根據最新實測結果，海外粉絲在使用 Tixplus App 時，**不需要驗證日本手機號碼**！這對沒有日本門號的海外球迷來說絕對是個好消息。只要下載 App 並完成註冊，原則上就可以參與購票。
+
+![26.png](/images/wbc/26.png)
 
 ### Q4: 什麼時候開始？
 **A:** 官方網站已經正式公告，將於 **2026年2月2日 (週一)** 正式開始！建議大家現在就先把 App 下載好，並註冊 Plus Member ID 備用。

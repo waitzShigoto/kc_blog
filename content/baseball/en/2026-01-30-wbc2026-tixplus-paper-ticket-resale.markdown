@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】Official Resale for Paper Tickets Starts Feb 2nd! Tixplus Guide"
 date: "2026-01-30 16:30:00"
-image: cover/wbc_get_ticket.png
+image: cover/wbc_tlxplus_summary.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Resale", "Ticket", "Tixplus", "Tokyodome"]
@@ -95,7 +95,9 @@ Lost all lotteries? Missed the general sale? This is your last legitimate chance
 *   **Ticketing Fee**: **165 JPY** per ticket.
 
 ### Q3: Can overseas fans use this?
-**A:** The main hurdle is **SMS Verification**. The Tixplus App typically requires a Japanese mobile number to activate. If you don't have one, you might get stuck at the registration/login step. Try downloading the app first to see if you can verify it.
+**A:** Great news! It has been confirmed that **a Japanese mobile number is NOT required** for overseas fans to use the Tixplus App. You should be able to register and participate in the resale without needing SMS verification from a Japanese carrier.
+    
+![26.png](/images/wbc/26.png)
 
 ### Q4: When does it start?
 **A:** Officially announced to start on **February 2, 2026 (Monday)**! Recommended to download the app and register your ID now.
