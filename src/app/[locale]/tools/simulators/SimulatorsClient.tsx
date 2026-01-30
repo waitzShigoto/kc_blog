@@ -111,6 +111,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'familiar-cube',
+          name: {
+            zh: '萌獸方塊模擬器',
+            en: 'Familiar Cube Simulator',
+            ja: 'ファミリアキューブシミュレーター',
+          },
+          description: {
+            zh: '模擬萌獸潛能方塊的結果',
+            en: 'Simulate familiar cube results',
+            ja: 'ファミリアキューブの結果をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/familiar-cube`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          ),
+        },
+        {
           id: 'starforce',
           name: {
             zh: '星力強化模擬器',
