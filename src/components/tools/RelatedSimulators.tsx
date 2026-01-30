@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { siteConfig } from '@/lib/config';
+
 
 interface RelatedSimulatorsProps {
     currentId: string;
