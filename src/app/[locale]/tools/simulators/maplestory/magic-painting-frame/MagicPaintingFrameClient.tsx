@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { MAIN_REWARDS, Reward, EXCHANGE_BOXES, ExchangeBox, GRAND_PRIZES } from './data';
+import { MAIN_REWARDS, Reward, EXCHANGE_BOXES, GRAND_PRIZES } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
@@ -111,7 +111,6 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
     const fragmentsRef = useRef(0);
     const rewardCountsRef = useRef<Record<string, number>>({});
     const stopAutoRollRef = useRef(false);
-    const historyContainerRef = useRef<HTMLDivElement>(null);
 
     // 多語言文字
     const texts = {
@@ -351,6 +350,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
         }
 
         setActiveTab('exchange');
+        setExchangeInfoTab(selectedExchangeId);
         setIsRolling(true);
 
         const reward = weightedRandom(box.rewards);
@@ -401,7 +401,6 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
         return 'text-foreground';
     };
 
-    const shareTitle = t.title;
     const shareDescription = `${t.subtitle}${t.title}，模擬魔法畫框抽獎。`;
     const dynamicShareText = totalFrames === 0
         ? `${t.title} - ${t.subtitle}\n魔法畫框模擬器\n${siteConfig.siteUrl}/${locale}/tools/simulators/magic-painting-frame`
@@ -476,9 +475,9 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                                                 <button
                                                     key={box.id}
                                                     onClick={() => setSelectedExchangeId(box.id)}
-                                                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${selectedExchangeId === box.id
-                                                        ? 'bg-primary text-primary-foreground border-primary shadow-md'
-                                                        : 'bg-background text-foreground border-border hover:bg-muted'
+                                                    className={`px-4 py-2 rounded-xl text-xs font-black transition-all border-2 ${selectedExchangeId === box.id
+                                                        ? 'bg-[#4285f4] text-white border-[#4285f4] shadow-lg shadow-blue-500/20'
+                                                        : 'bg-white text-gray-700 border-gray-100 hover:border-gray-200 shadow-sm'
                                                         }`}
                                                 >
                                                     {box.name.replace('卷軸抽取券', '')}
@@ -557,16 +556,16 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                                     </svg>
                                     {t.statistics}
                                 </h2>
-                                <div className="flex p-1 bg-muted/50 rounded-lg">
+                                <div className="flex p-1 bg-muted/30 rounded-xl border border-border">
                                     <button
                                         onClick={() => setActiveTab('main')}
-                                        className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === 'main' ? 'bg-background shadow text-primary' : 'text-muted-foreground'}`}
+                                        className={`px-4 py-1.5 text-xs font-black rounded-lg transition-all ${activeTab === 'main' ? 'bg-[#4285f4] text-white shadow-md' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         {t.switchToMain}
                                     </button>
                                     <button
                                         onClick={() => setActiveTab('exchange')}
-                                        className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${activeTab === 'exchange' ? 'bg-background shadow text-primary' : 'text-muted-foreground'}`}
+                                        className={`px-4 py-1.5 text-xs font-black rounded-lg transition-all ${activeTab === 'exchange' ? 'bg-[#4285f4] text-white shadow-md' : 'text-muted-foreground hover:text-foreground'}`}
                                     >
                                         {t.switchToExchange}
                                     </button>
@@ -643,7 +642,10 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                                             <button
                                                 key={box.id}
                                                 onClick={() => setExchangeInfoTab(box.id)}
-                                                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all border ${exchangeInfoTab === box.id ? 'bg-primary text-primary-foreground border-primary shadow-sm' : 'bg-muted text-muted-foreground border-border hover:bg-muted/80'}`}
+                                                className={`px-4 py-2 rounded-xl text-xs font-black transition-all border-2 ${exchangeInfoTab === box.id
+                                                    ? 'bg-[#4285f4] text-white border-[#4285f4] shadow-lg shadow-blue-500/20'
+                                                    : 'bg-white text-gray-700 border-gray-100 hover:border-gray-200 shadow-sm'
+                                                    }`}
                                             >
                                                 {box.name.replace('卷軸抽取券', '')}
                                             </button>
@@ -693,7 +695,6 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                                         <div key={item.id} className="py-4 animate-in fade-in slide-in-from-right-4 duration-300">
                                             <div className="flex items-center justify-between mb-1">
                                                 <span className="text-[10px] font-mono text-muted-foreground bg-muted px-2 py-0.5 rounded-md">#{item.frameNumber}</span>
-                                                <span className="text-[10px] text-muted-foreground">{new Date(item.id).toLocaleTimeString()}</span>
                                             </div>
                                             <p className="text-sm font-bold text-foreground leading-snug">{item.reward}</p>
                                         </div>
