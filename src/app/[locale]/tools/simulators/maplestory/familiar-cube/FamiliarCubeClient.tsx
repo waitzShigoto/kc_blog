@@ -846,8 +846,8 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     : `我一共花了 ${totalCubes} 顆萌獸方塊，快來看看我的潛能結果！`;
 
   const dynamicShareText = !hasStarted || currentLines.length === 0
-    ? `${t.title} - ${t.subtitle}\n萌獸潛能方塊模擬測試\n${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/familiar-cube`
-    : `${t.title}\n我一共花了 ${totalCubes} 顆萌獸方塊\n【目前萌獸潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/familiar-cube`;
+    ? `${t.title} - ${t.subtitle}\n萌獸潛能方塊模擬測試\n${siteConfig.siteUrl}/${locale}/tools/simulators/familiar-cube`
+    : `${t.title}\n我一共花了 ${totalCubes} 顆萌獸方塊\n【目前萌獸潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/familiar-cube`;
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -1183,7 +1183,7 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
             <ShareButtons
-              url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/familiar-cube`}
+              url={`${siteConfig.siteUrl}/${locale}/tools/simulators/familiar-cube`}
               title={shareTitle}
               description={shareDescription}
               shareText={dynamicShareText}

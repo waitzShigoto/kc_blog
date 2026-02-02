@@ -191,6 +191,46 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'magic-aura',
+          name: {
+            zh: '魔法靈氣模擬器',
+            en: 'Magic Aura Simulator',
+            ja: '魔法靈氣シミュレーター',
+          },
+          description: {
+            zh: '模擬魔法靈氣各階段機率與屬性',
+            en: 'Simulate Magic Aura stages and attributes',
+            ja: '魔法靈氣の各段階確率と属性をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/magic-aura`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          ),
+        },
+        {
+          id: 'magic-painting-frame',
+          name: {
+            zh: '魔法畫框模擬器',
+            en: 'Magic Painting Frame Simulator',
+            ja: 'マジックペインティングフレームシミュレーター',
+          },
+          description: {
+            zh: '模擬魔法畫框開啟與碎片兌換卷軸箱',
+            en: 'Simulate Magic Painting Frame and fragment exchange',
+            ja: 'マジックペインティングフレーム開封と欠片交換をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/magic-painting-frame`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          ),
+        },
+        {
           id: 'starforce',
           name: {
             zh: '星力強化模擬器',

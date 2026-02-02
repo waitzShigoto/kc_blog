@@ -1144,7 +1144,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                     <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                         <ShareButtons
                             title={t.title}
-                            url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/starlight-bag`}
+                            url={`${siteConfig.siteUrl}/${locale}/tools/simulators/starlight-bag`}
                             description={t.title}
                             locale={locale}
                         />

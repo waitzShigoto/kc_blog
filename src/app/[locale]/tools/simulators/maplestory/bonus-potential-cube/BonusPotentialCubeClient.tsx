@@ -1261,8 +1261,8 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     : `我一共花了 ${totalCubes} 顆方塊 (${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus})，快來看看我的潛能結果！`;
 
   const dynamicShareText = !hasStarted || currentLines.length === 0
-    ? `${t.title} - ${t.subtitle}\n${t.premiumBonusCube}與${t.memorialBonusCube}模擬測試\n${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/bonus-potential-cube`
-    : `${t.title}\n我一共花了 ${totalCubes} 顆方塊（${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus} / ${t.absoluteBonusCube}：${cubesByType.absoluteBonus}）\n【目前附加潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/bonus-potential-cube`;
+    ? `${t.title} - ${t.subtitle}\n${t.premiumBonusCube}與${t.memorialBonusCube}模擬測試\n${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`
+    : `${t.title}\n我一共花了 ${totalCubes} 顆方塊（${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus} / ${t.absoluteBonusCube}：${cubesByType.absoluteBonus}）\n【目前附加潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`;
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -1885,7 +1885,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
         <div className="mt-12 max-w-4xl mx-auto">
           <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
             <ShareButtons
-              url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/bonus-potential-cube`}
+              url={`${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`}
               title={shareTitle}
               description={shareDescription}
               shareText={dynamicShareText}

@@ -74,6 +74,17 @@ const SIMULATORS = [
         path: 'maplestory/magic-aura',
         icon: '🌀',
         color: 'from-cyan-500 to-blue-500'
+    },
+    {
+        id: 'magic-painting-frame',
+        title: {
+            zh: '魔法畫框',
+            en: 'Magic Painting Frame',
+            ja: '魔法畫框'
+        },
+        path: 'maplestory/magic-painting-frame',
+        icon: '🖼️',
+        color: 'from-pink-500 to-rose-500'
     }
 ];
 

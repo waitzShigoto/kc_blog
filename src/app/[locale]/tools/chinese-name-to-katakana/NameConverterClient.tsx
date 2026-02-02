@@ -183,8 +183,8 @@ export default function NameConverterClient({ locale }: NameConverterClientProps
             <div className="max-w-4xl mx-auto px-4 py-12">
                 {/* Header */}
                 <div className="text-center mb-12">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-violet-500 text-white mb-6 shadow-lg shadow-primary/20">
-                        <User className="w-8 h-8" />
+                    <div className="flex items-center justify-center mb-6">
+                        <User className="w-12 h-12 text-foreground/80" />
                     </div>
                     <h1 className="text-4xl font-bold text-foreground mb-4">{t.title}</h1>
                     <p className="text-lg text-muted-foreground">{t.description}</p>
@@ -419,6 +419,18 @@ export default function NameConverterClient({ locale }: NameConverterClientProps
                                     href: `/${locale}/tools/simulators/maplestory/familiar-cube`,
                                     desc: locale === 'zh' ? '萌獸潛能模擬' : locale === 'en' ? 'Familiar potential' : '潜在シミュレーション',
                                     icon: <div className="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold text-xs">🐾</div>
+                                },
+                                {
+                                    name: locale === 'zh' ? '魔法畫框模擬' : locale === 'en' ? 'Magic Frame' : '魔法画框',
+                                    href: `/${locale}/tools/simulators/maplestory/magic-painting-frame`,
+                                    desc: locale === 'zh' ? '碎片兌換與機率統計' : locale === 'en' ? 'Fragment exchange simulation' : '欠片交換と統計',
+                                    icon: <div className="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-500 flex items-center justify-center font-bold text-xs">🖼️</div>
+                                },
+                                {
+                                    name: locale === 'zh' ? '魔法靈氣模擬' : locale === 'en' ? 'Magic Aura' : '魔法靈氣',
+                                    href: `/${locale}/tools/simulators/maplestory/magic-aura`,
+                                    desc: locale === 'zh' ? '各階段機率統計' : locale === 'en' ? 'Aura stage simulation' : 'オーラ段階統計',
+                                    icon: <div className="w-10 h-10 rounded-lg bg-cyan-500/10 text-cyan-500 flex items-center justify-center font-bold text-xs">🌀</div>
                                 },
                                 {
                                     name: locale === 'zh' ? '附加方塊模擬器' : locale === 'en' ? 'Bonus Cube' : '追加キューブ',

@@ -334,13 +334,13 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
 
     const dynamicShareText = totalCubes === 0
         ? `${t.title} - ${t.subtitle}`
-        : `${t.title}\n我一共花了 ${totalCubes} 次魔法靈氣\n【目前魔法靈氣數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${t.stats[l.stat] || l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/magic-aura`;
+        : `${t.title}\n我一共花了 ${totalCubes} 次魔法靈氣\n【目前魔法靈氣數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${t.stats[l.stat] || l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/magic-aura`;
 
     return (
         <div className="min-h-screen bg-background text-foreground pb-20">
             <div className="max-w-6xl mx-auto px-4 py-8">
                 <Link
-                    href={`/${locale}/tools/simulators/maplestory`}
+                    href={`/${locale}/tools/simulators`}
                     className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -592,7 +592,7 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
             <div className="mt-12 max-w-4xl mx-auto">
                 <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                     <ShareButtons
-                        url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/magic-aura`}
+                        url={`${siteConfig.siteUrl}/${locale}/tools/simulators/magic-aura`}
                         title={t.title}
                         description={shareDescription}
                         shareText={dynamicShareText}

@@ -483,8 +483,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const shareTitle = t.title;
     const shareDescription = `${t.subtitle}${t.title}，模擬黃金蘋果抽獎。`;
     const dynamicShareText = totalApples === 0
-        ? `${t.title} - ${t.subtitle}\n黃金蘋果模擬器\n${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/golden-apple`
-        : `${t.title}\n我一共使用了 ${totalApples} 個黃金蘋果，獲得 ${fragments} 個碎片！\n最近獲得：${currentReward}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/golden-apple`;
+        ? `${t.title} - ${t.subtitle}\n黃金蘋果模擬器\n${siteConfig.siteUrl}/${locale}/tools/simulators/golden-apple`
+        : `${t.title}\n我一共使用了 ${totalApples} 個黃金蘋果，獲得 ${fragments} 個碎片！\n最近獲得：${currentReward}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/golden-apple`;
 
     return (
         <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -936,7 +936,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                 <div className="mt-12 max-w-4xl mx-auto">
                     <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                         <ShareButtons
-                            url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/golden-apple`}
+                            url={`${siteConfig.siteUrl}/${locale}/tools/simulators/golden-apple`}
                             title={shareTitle}
                             description={shareDescription}
                             shareText={dynamicShareText}
