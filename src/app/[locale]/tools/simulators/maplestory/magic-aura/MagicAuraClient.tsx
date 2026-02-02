@@ -100,7 +100,38 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
     useEffect(() => { currentStageRef.current = currentStage; }, [currentStage]);
     useEffect(() => { totalCubesRef.current = totalCubes; }, [totalCubes]);
 
-    const texts: any = {
+    interface Trans {
+        title: string;
+        subtitle: string;
+        currentTier: string;
+        selectTier: string;
+        useCube: string;
+        autoTierUp: string;
+        targetRoll: string;
+        reset: string;
+        statistics: string;
+        totalUsed: string;
+        history: string;
+        probabilities: string;
+        tierUpProb: string;
+        lineProb: string;
+        rules: string;
+        disclaimer: string;
+        back: string;
+        noHistory: string;
+        potentialLines: string;
+        stop: string;
+        targetGoalLabel: string;
+        stageN: string;
+        line: string;
+        stats: Record<string, string>;
+        att2plus: string;
+        att3: string;
+        matt2plus: string;
+        matt3: string;
+    }
+
+    const texts: Record<string, Trans> = {
         zh: {
             title: '魔法靈氣模擬器',
             subtitle: 'GAME',
@@ -224,7 +255,7 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
         setTimeout(() => setIsRolling(false), 50);
     }, [isRolling, isAutoRolling, roll]);
 
-    const runAutoLoop = async (condition: (r: any) => boolean) => {
+    const runAutoLoop = async (condition: (r: { nextStage: AuraStage; newLines: AuraLine[]; newTotal: number }) => boolean) => {
         setIsAutoRolling(true);
         stopRequestedRef.current = false;
 
@@ -275,8 +306,8 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
 
     const useUntilTarget = () => {
         runAutoLoop((r) => {
-            const attCount = r.newLines.filter((l: any) => l.statKey === 'ATT').length;
-            const mattCount = r.newLines.filter((l: any) => l.statKey === 'MATT').length;
+            const attCount = r.newLines.filter((l: AuraLine) => l.statKey === 'ATT').length;
+            const mattCount = r.newLines.filter((l: AuraLine) => l.statKey === 'MATT').length;
 
             if (targetGoal === 'att2') return attCount >= 2;
             if (targetGoal === 'att3') return attCount === 3;
@@ -412,7 +443,7 @@ export default function MagicAuraClient({ locale }: MagicAuraClientProps) {
                                             <label className="block text-muted-foreground text-[10px] mb-2 font-bold uppercase tracking-wider ml-1">{t.targetGoalLabel}</label>
                                             <CustomSelect
                                                 value={targetGoal}
-                                                onChange={(val) => setTargetGoal(val as any)}
+                                                onChange={(val) => setTargetGoal(val as 'att2' | 'att3' | 'matt2' | 'matt3')}
                                                 disabled={isAutoRolling}
                                                 options={[
                                                     { value: 'att2', label: t.att2plus },
