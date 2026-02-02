@@ -171,6 +171,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'soul-orb',
+          name: {
+            zh: '靈魂寶珠模擬器',
+            en: 'Soul Orb Simulator',
+            ja: '魂の玉シミュレーター',
+          },
+          description: {
+            zh: '模擬靈魂寶珠潛能刷新與機率統計',
+            en: 'Simulate Soul Orb potential rolling and statistics',
+            ja: '魂の玉潜在能力変更と確率統計をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/soul-orb`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A10.003 10.003 0 0020 11a10.003 10.003 0 00-11-9.974M21 11a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          ),
+        },
+        {
           id: 'starforce',
           name: {
             zh: '星力強化模擬器',

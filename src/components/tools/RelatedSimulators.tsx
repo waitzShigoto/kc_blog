@@ -52,6 +52,28 @@ const SIMULATORS = [
         path: 'maplestory/starlight-bag',
         icon: '✨',
         color: 'from-indigo-500 to-purple-500'
+    },
+    {
+        id: 'soul-orb',
+        title: {
+            zh: '靈魂寶珠',
+            en: 'Soul Orb',
+            ja: '魂の玉'
+        },
+        path: 'maplestory/soul-orb',
+        icon: '🔮',
+        color: 'from-blue-600 to-indigo-600'
+    },
+    {
+        id: 'magic-aura',
+        title: {
+            zh: '魔法靈氣',
+            en: 'Magic Aura',
+            ja: '魔法靈氣'
+        },
+        path: 'maplestory/magic-aura',
+        icon: '🌀',
+        color: 'from-cyan-500 to-blue-500'
     }
 ];
 
