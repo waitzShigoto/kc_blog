@@ -111,6 +111,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'lucky-red-envelope',
+          name: {
+            zh: '幸運紅包模擬器',
+            en: 'Lucky Red Envelope Simulator',
+            ja: '幸運の紅包シミュレーター',
+          },
+          description: {
+            zh: '模擬幸運紅包開啟與多階層紅包兌換',
+            en: 'Simulate Lucky Red Envelope opening and multi-tier exchange',
+            ja: '幸運の紅包開封と多段階交換をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/lucky-red-envelope`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z" />
+            </svg>
+          ),
+        },
+        {
           id: 'familiar-cube',
           name: {
             zh: '萌獸方塊模擬器',

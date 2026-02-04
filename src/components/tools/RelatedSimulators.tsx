@@ -65,17 +65,6 @@ const SIMULATORS = [
         color: 'from-blue-600 to-indigo-600'
     },
     {
-        id: 'magic-aura',
-        title: {
-            zh: '魔法靈氣',
-            en: 'Magic Aura',
-            ja: '魔法靈氣'
-        },
-        path: 'maplestory/magic-aura',
-        icon: '🌀',
-        color: 'from-cyan-500 to-blue-500'
-    },
-    {
         id: 'magic-painting-frame',
         title: {
             zh: '魔法畫框',
@@ -85,6 +74,17 @@ const SIMULATORS = [
         path: 'maplestory/magic-painting-frame',
         icon: '🖼️',
         color: 'from-pink-500 to-rose-500'
+    },
+    {
+        id: 'lucky-red-envelope',
+        title: {
+            zh: '幸運紅包',
+            en: 'Lucky Red Envelope',
+            ja: '幸運の紅包'
+        },
+        path: 'maplestory/lucky-red-envelope',
+        icon: '🧧',
+        color: 'from-red-500 to-yellow-500'
     }
 ];
 
