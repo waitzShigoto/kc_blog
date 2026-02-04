@@ -176,7 +176,7 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
     const texts = {
         zh: {
             title: '幸運紅包模擬器',
-            subtitle: '幸運紅包',
+            subtitle: 'GAME',
             eventPeriod: '活動時間',
             useRed: '開啟幸運紅包(紅色)',
             use10Red: '開啟 10 個',
@@ -233,7 +233,7 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
         },
         en: {
             title: 'Lucky Red Envelope Simulator',
-            subtitle: 'Lucky Red Envelope',
+            subtitle: 'GAME',
             eventPeriod: 'Event Period',
             useRed: 'Open Red Envelope',
             use10Red: 'Open 10',
@@ -290,7 +290,7 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
         },
         ja: {
             title: '幸運の紅包シミュレーター',
-            subtitle: '幸運の紅包',
+            subtitle: 'GAME',
             eventPeriod: '開催期間',
             useRed: '紅包(赤)を開ける',
             use10Red: '10個開ける',
@@ -626,6 +626,23 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
         return 'text-gray-500 font-medium';
     };
 
+    const ENVELOPE_THEMES: Record<EnvelopeType, {
+        text: string,
+        bg: string,
+        border: string,
+        hover: string,
+        lightBg: string,
+        shadow: string
+    }> = {
+        red: { text: 'text-red-600', bg: 'bg-red-600', border: 'border-red-500/20', hover: 'hover:bg-red-700', lightBg: 'bg-red-50', shadow: 'shadow-red-500/20' },
+        orange: { text: 'text-orange-600', bg: 'bg-orange-500', border: 'border-orange-500/20', hover: 'hover:bg-orange-600', lightBg: 'bg-orange-50', shadow: 'shadow-orange-500/20' },
+        yellow: { text: 'text-yellow-600', bg: 'bg-yellow-500', border: 'border-yellow-500/20', hover: 'hover:bg-yellow-600', lightBg: 'bg-yellow-50', shadow: 'shadow-yellow-500/20' },
+        green: { text: 'text-green-600', bg: 'bg-green-600', border: 'border-green-500/20', hover: 'hover:bg-green-700', lightBg: 'bg-green-50', shadow: 'shadow-green-500/20' },
+        blue: { text: 'text-blue-600', bg: 'bg-blue-600', border: 'border-blue-500/20', hover: 'hover:bg-blue-700', lightBg: 'bg-blue-50', shadow: 'shadow-blue-500/20' },
+        indigo: { text: 'text-indigo-600', bg: 'bg-indigo-600', border: 'border-indigo-500/20', hover: 'hover:bg-indigo-700', lightBg: 'bg-indigo-50', shadow: 'shadow-indigo-500/20' },
+        purple: { text: 'text-purple-600', bg: 'bg-purple-600', border: 'border-purple-500/20', hover: 'hover:bg-purple-700', lightBg: 'bg-purple-50', shadow: 'shadow-purple-500/20' },
+    };
+
     const getEnvelopeGradient = (type: EnvelopeType): string => {
         const gradients = {
             red: 'bg-gradient-to-br from-red-500 to-red-600',
@@ -665,8 +682,8 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
 
                 <div className="text-center mb-8">
                     <p className="text-primary text-sm font-medium mb-1">{t.subtitle}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">{t.title}</h1>
-                    <p className="text-xs text-muted-foreground mb-4">
+                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-1">{t.title}</h1>
+                    <p className="text-[10px] text-muted-foreground mb-4">
                         {t.eventPeriod}: {currentVersion.period}
                     </p>
                     {/* Version Switcher */}
@@ -727,7 +744,7 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
                                         <button
                                             key={tab}
                                             onClick={() => setActiveTab(tab)}
-                                            className={`flex-1 min-w-[80px] px-3 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === tab ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
+                                            className={`flex-1 min-w-[80px] px-3 py-2 text-sm font-bold rounded-lg transition-all ${activeTab === tab ? `bg-background shadow-sm ${ENVELOPE_THEMES[tab].text}` : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
                                         >
                                             {t.tabs[tab]}
                                             {tab !== 'red' && inventory[tab] > 0 && (
@@ -740,10 +757,10 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
                                 </div>
 
                                 {activeTab === 'red' ? (
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                                        <button onClick={openRed} disabled={isRolling || stopAutoRollRef.current} className="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-red-500/20 active:translate-y-0.5">{t.useRed}</button>
-                                        <button onClick={() => handleMultipleRed(10)} disabled={isRolling || stopAutoRollRef.current} className="w-full py-3 bg-card border-2 border-red-500/20 text-red-600 font-bold rounded-xl hover:bg-red-50 hover:border-red-500/40 disabled:opacity-50 transition-all">{t.use10Red}</button>
-                                        <button onClick={() => handleMultipleRed(100)} disabled={isRolling || stopAutoRollRef.current} className="w-full py-3 bg-card border-2 border-red-500/20 text-red-600 font-bold rounded-xl hover:bg-red-50 hover:border-red-500/40 disabled:opacity-50 transition-all">{t.use100Red}</button>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                        <button onClick={openRed} disabled={isRolling || stopAutoRollRef.current} className={`w-full py-3 ${ENVELOPE_THEMES.red.bg} text-white font-bold rounded-xl ${ENVELOPE_THEMES.red.hover} disabled:opacity-50 transition-all ${ENVELOPE_THEMES.red.shadow} active:translate-y-0.5`}>{t.useRed}</button>
+                                        <button onClick={() => handleMultipleRed(10)} disabled={isRolling || stopAutoRollRef.current} className={`w-full py-3 bg-card border-2 ${ENVELOPE_THEMES.red.border} ${ENVELOPE_THEMES.red.text} font-bold rounded-xl ${ENVELOPE_THEMES.red.lightBg} hover:border-red-500/40 disabled:opacity-50 transition-all`}>{t.use10Red}</button>
+                                        <button onClick={() => handleMultipleRed(100)} disabled={isRolling || stopAutoRollRef.current} className={`w-full py-3 bg-card border-2 ${ENVELOPE_THEMES.red.border} ${ENVELOPE_THEMES.red.text} font-bold rounded-xl ${ENVELOPE_THEMES.red.lightBg} hover:border-red-500/40 disabled:opacity-50 transition-all`}>{t.use100Red}</button>
 
                                         {/* Auto Roll Section */}
                                         <div className="relative group">
@@ -769,25 +786,25 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
                                         <p className="text-center text-muted-foreground font-medium">
                                             {t.inventory}: <span className="text-foreground font-bold text-xl ml-2">{inventory[activeTab]}</span>
                                         </p>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                             <button
                                                 onClick={() => openEnvelope(activeTab)}
                                                 disabled={isRolling || inventory[activeTab] <= 0 || stopAutoRollRef.current}
-                                                className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-primary/25 active:translate-y-0.5"
+                                                className={`w-full py-3 ${ENVELOPE_THEMES[activeTab].bg} text-white font-bold rounded-xl ${ENVELOPE_THEMES[activeTab].hover} disabled:opacity-50 disabled:cursor-not-allowed transition-all ${ENVELOPE_THEMES[activeTab].shadow} active:translate-y-0.5`}
                                             >
                                                 {t.open1}
                                             </button>
                                             <button
                                                 onClick={() => handleMultipleEnvelopes(activeTab, 10)}
                                                 disabled={isRolling || inventory[activeTab] < 10 || stopAutoRollRef.current}
-                                                className="w-full py-3 bg-card border-2 border-primary/20 text-primary font-bold rounded-xl hover:bg-primary/5 hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                                className={`w-full py-3 bg-card border-2 ${ENVELOPE_THEMES[activeTab].border} ${ENVELOPE_THEMES[activeTab].text} font-bold rounded-xl ${ENVELOPE_THEMES[activeTab].lightBg} hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all`}
                                             >
                                                 {t.open10}
                                             </button>
                                             <button
                                                 onClick={() => handleMultipleEnvelopes(activeTab, 100)}
                                                 disabled={isRolling || inventory[activeTab] < 100 || stopAutoRollRef.current}
-                                                className="w-full py-3 bg-card border-2 border-primary/20 text-primary font-bold rounded-xl hover:bg-primary/5 hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                                className={`w-full py-3 bg-card border-2 ${ENVELOPE_THEMES[activeTab].border} ${ENVELOPE_THEMES[activeTab].text} font-bold rounded-xl ${ENVELOPE_THEMES[activeTab].lightBg} hover:border-primary/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all`}
                                             >
                                                 {t.open100}
                                             </button>
@@ -797,7 +814,7 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
                                                 {isRolling ? (
                                                     <button
                                                         onClick={() => { stopAutoRollRef.current = true; }}
-                                                        className="w-full py-3 bg-primary/10 text-primary font-bold rounded-xl hover:bg-primary/20 border border-primary/20 transition-all animate-pulse"
+                                                        className={`w-full py-3 ${ENVELOPE_THEMES[activeTab].lightBg} ${ENVELOPE_THEMES[activeTab].text} font-bold rounded-xl border ${ENVELOPE_THEMES[activeTab].border} transition-all animate-pulse`}
                                                     >
                                                         {t.stop}
                                                     </button>
