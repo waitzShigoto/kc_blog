@@ -176,7 +176,8 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
     const texts = {
         zh: {
             title: '幸運紅包模擬器',
-            subtitle: 'GAME',
+            subtitle: '幸運紅包',
+            eventPeriod: '活動時間',
             useRed: '開啟幸運紅包(紅色)',
             use10Red: '開啟 10 個',
             use100Red: '開啟 100 個',
@@ -232,7 +233,8 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
         },
         en: {
             title: 'Lucky Red Envelope Simulator',
-            subtitle: 'GAME',
+            subtitle: 'Lucky Red Envelope',
+            eventPeriod: 'Event Period',
             useRed: 'Open Red Envelope',
             use10Red: 'Open 10',
             use100Red: 'Open 100',
@@ -288,7 +290,8 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
         },
         ja: {
             title: '幸運の紅包シミュレーター',
-            subtitle: 'GAME',
+            subtitle: '幸運の紅包',
+            eventPeriod: '開催期間',
             useRed: '紅包(赤)を開ける',
             use10Red: '10個開ける',
             use100Red: '100個開ける',
@@ -661,8 +664,11 @@ export default function LuckyRedEnvelopeClient({ locale }: LuckyRedEnvelopeClien
                 </Link>
 
                 <div className="text-center mb-8">
-                    <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                    <p className="text-primary text-sm font-medium mb-1">{t.subtitle}</p>
+                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">{t.title}</h1>
+                    <p className="text-xs text-muted-foreground mb-4">
+                        {t.eventPeriod}: {currentVersion.period}
+                    </p>
                     {/* Version Switcher */}
                     <div className="flex justify-center gap-2 mt-4">
                         <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
