@@ -1,7 +1,6 @@
 import NewYearBreathClient from './NewYearBreathClient';
 import { siteConfig } from '@/lib/config';
 import { Metadata } from 'next';
-import JsonLd from '@/components/seo/JsonLd';
 
 interface NewYearBreathPageProps {
     params: Promise<{ locale: string }>;
