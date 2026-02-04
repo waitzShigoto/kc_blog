@@ -131,6 +131,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'new-year-breath',
+          name: {
+            zh: '新年的氣息模擬器',
+            en: 'New Year Breath Simulator',
+            ja: '新年の気息シミュレーター',
+          },
+          description: {
+            zh: '模擬開啟氣息收集 12 生肖並兌換高級心願箱',
+            en: 'Simulate collecting 12 Zodiacs to exchange for high-tier wish boxes',
+            ja: '十二生肖を集めて高級な願い箱と交換することをシミュレート',
+          },
+          href: `/tools/simulators/maplestory/new-year-breath`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          ),
+        },
+        {
           id: 'familiar-cube',
           name: {
             zh: '萌獸方塊模擬器',
