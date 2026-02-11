@@ -5,8 +5,8 @@ export interface GoldenAppleReward {
     probability: number;
 }
 
-// 黃金蘋果獎勵池
-export const GOLDEN_APPLE_REWARDS: GoldenAppleReward[] = [
+// 黃金蘋果獎勵池 V1 (2026/01/28 09:00 ～ 2026/02/11 07:59)
+export const GOLDEN_APPLE_REWARDS_V1: GoldenAppleReward[] = [
     { name: '武公的靈魂寶珠', probability: 0.50 },
     { name: '赤之寶石圖騰', probability: 0.35 },
     { name: '綠之寶石圖騰', probability: 0.35 },
@@ -94,8 +94,92 @@ export const GOLDEN_APPLE_REWARDS: GoldenAppleReward[] = [
     { name: '亞尼的靈魂寶珠', probability: 1.50 },
 ];
 
-// 本期大獎列表（按順序顯示）
-export const GRAND_PRIZES = [
+// 黃金蘋果獎勵池 V2 (2026/02/11 09:00 ～ 2026/02/24 23:59)
+export const GOLDEN_APPLE_REWARDS_V2: GoldenAppleReward[] = [
+    { name: '輪迴碑石', probability: 0.05 },
+    { name: '漆黑的BOSS飾品碎片', probability: 6.00 },
+    { name: '經驗值4倍券(30分)', probability: 2.50 },
+    { name: '經驗值3倍券(30分)', probability: 4.00 },
+    { name: '角色更名券', probability: 0.40 },
+    { name: '神祕冥界武器變換箱', probability: 0.30 },
+    { name: '神祕冥界防具變換箱', probability: 0.30 },
+    { name: '星力16星強化券', probability: 0.40 },
+    { name: '星力15星強化券', probability: 0.40 },
+    { name: '星力14星強化券', probability: 0.40 },
+    { name: '鈦之心', probability: 0.40 },
+    { name: '妖精之心', probability: 0.40 },
+    { name: '露希妲靈魂寶珠', probability: 0.30 },
+    { name: '艾畢奈亞的靈魂寶珠', probability: 0.30 },
+    { name: '帽子內襯交換券', probability: 0.60 },
+    { name: '臉飾內襯交換券', probability: 0.60 },
+    { name: '武器內襯交換券', probability: 0.60 },
+    { name: '特別附加潛在能力賦予卷軸', probability: 0.80 },
+    { name: '睿智葫蘆', probability: 0.40 },
+    { name: '破曉墜飾', probability: 0.75 },
+    { name: '星耀耳環', probability: 0.75 },
+    { name: '暮光印記', probability: 0.75 },
+    { name: '黎明守護者天使戒指', probability: 0.75 },
+    { name: '稀有航海師武器選擇箱', probability: 2.60 },
+    { name: '稀有航海師防具選擇箱', probability: 4.40 },
+    { name: '核心寶石20個交換券', probability: 5.00 },
+    { name: '暗黑輪迴星火', probability: 6.00 },
+    { name: '永遠的輪迴星火', probability: 1.80 },
+    { name: '奧術之河水滴石', probability: 1.20 },
+    { name: '太初的水滴石', probability: 1.20 },
+    { name: '水中信紙眼飾', probability: 1.20 },
+    { name: '凝聚力量的結晶石', probability: 1.20 },
+    { name: '銀花戒指', probability: 1.20 },
+    { name: '戴雅希杜斯耳環', probability: 1.20 },
+    { name: '混沌闇黑龍王的項鍊', probability: 1.20 },
+    { name: '金花草腰帶', probability: 1.20 },
+    { name: '梅克奈特墜飾', probability: 1.20 },
+    { name: '皇家暗黑合金護肩', probability: 1.20 },
+    { name: '支配者墜飾', probability: 1.20 },
+    { name: '星力13星強化券', probability: 1.20 },
+    { name: '星力12星強化券', probability: 1.20 },
+    { name: '水晶愛心', probability: 1.20 },
+    { name: '鋰愛心', probability: 1.20 },
+    { name: '強力輪迴星火', probability: 1.45 },
+    { name: '製作物品 20格欄位背包', probability: 1.20 },
+    { name: '製作法20格背包', probability: 1.20 },
+    { name: '椅子20格欄位背包', probability: 1.20 },
+    { name: '稱號20格名片夾', probability: 1.20 },
+    { name: '卷軸20格背包', probability: 1.20 },
+    { name: '回真卷軸 100%', probability: 1.20 },
+    { name: '稀有潛在能力賦予卷軸100%', probability: 1.20 },
+    { name: '幸運日卷軸', probability: 1.20 },
+    { name: '機器人商店使用卷 (30天)', probability: 1.20 },
+    { name: '初級能量硬幣(A級)', probability: 1.20 },
+    { name: '微弱烙印的靈魂石', probability: 1.20 },
+    { name: '星力11星強化券', probability: 1.20 },
+    { name: '星力10星強化券', probability: 1.20 },
+    { name: '選擇欄位8格擴充券', probability: 1.20 },
+    { name: '黃金愛心', probability: 1.20 },
+    { name: '經驗累積的祕藥', probability: 0.65 },
+    { name: '獲得財物的祕藥', probability: 0.65 },
+    { name: '忍耐的祕藥', probability: 0.70 },
+    { name: '覺醒的祕藥', probability: 0.70 },
+    { name: '無敵的祕藥', probability: 0.70 },
+    { name: '最上級力量強化祕藥', probability: 0.70 },
+    { name: '最上級智慧強化祕藥', probability: 0.70 },
+    { name: '最上級敏捷強化祕藥', probability: 0.70 },
+    { name: '最上級幸運強化祕藥', probability: 0.70 },
+    { name: '傳說中的英雄祕藥', probability: 0.60 },
+    { name: '傳說中的祝福祕藥', probability: 0.60 },
+    { name: '最上級英雄的祕藥', probability: 0.60 },
+    { name: '最上級祝福的祕藥', probability: 0.60 },
+    { name: '粉豆的靈魂寶珠', probability: 1.50 },
+    { name: '凡雷恩的靈魂寶珠', probability: 1.50 },
+    { name: '搖滾精神的靈魂寶珠', probability: 1.50 },
+    { name: '闇黑龍王的靈魂寶珠', probability: 1.50 },
+    { name: '雷克斯的靈魂寶珠', probability: 1.50 },
+    { name: '龍騎士的靈魂寶珠', probability: 1.50 },
+    { name: '殘暴炎魔的靈魂寶珠', probability: 1.50 },
+    { name: '亞尼的靈魂寶珠', probability: 1.50 },
+];
+
+// 本期大獎列表 V1
+export const GRAND_PRIZES_V1 = [
     '武公的靈魂寶珠',
     '赤之寶石圖騰',
     '綠之寶石圖騰',
@@ -104,7 +188,13 @@ export const GRAND_PRIZES = [
     '彩虹月石寶石圖騰',
 ];
 
-export const GOLDEN_BOX_REWARDS: GoldenAppleReward[] = [
+// 本期大獎列表 V2
+export const GRAND_PRIZES_V2 = [
+    '輪迴碑石',
+];
+
+// 金箱子獎勵 V1
+export const GOLDEN_BOX_REWARDS_V1: GoldenAppleReward[] = [
     { name: '武公的靈魂寶珠', probability: 1.00 },
     { name: '赤之寶石圖騰', probability: 4.00 },
     { name: '綠之寶石圖騰', probability: 4.00 },
@@ -125,3 +215,29 @@ export const GOLDEN_BOX_REWARDS: GoldenAppleReward[] = [
     { name: '露希妲靈魂寶珠', probability: 9.00 },
     { name: '艾畢奈亞的靈魂寶珠', probability: 9.00 },
 ];
+
+// 金箱子獎勵 V2 - 幸運的金色箱子
+export const GOLDEN_BOX_REWARDS_V2: GoldenAppleReward[] = [
+    { name: '輪迴碑石', probability: 10.00 },
+    { name: '漆黑的BOSS飾品碎片*20', probability: 1.50 },
+    { name: '漆黑的BOSS飾品碎片*15', probability: 3.50 },
+    { name: '漆黑的BOSS飾品碎片*10', probability: 5.00 },
+    { name: '帽子內襯交換券', probability: 6.00 },
+    { name: '臉飾內襯交換券', probability: 6.00 },
+    { name: '武器內襯交換券', probability: 6.00 },
+    { name: '神祕冥界武器變換箱', probability: 6.00 },
+    { name: '神祕冥界防具變換箱', probability: 7.00 },
+    { name: '星力18星強化券', probability: 5.00 },
+    { name: '星力17星強化券', probability: 5.00 },
+    { name: '星力16星強化券', probability: 7.00 },
+    { name: '星力15星強化券', probability: 7.00 },
+    { name: '鈦之心', probability: 3.50 },
+    { name: '妖精之心', probability: 3.50 },
+    { name: '露希妲靈魂寶珠', probability: 9.00 },
+    { name: '艾畢奈亞的靈魂寶珠', probability: 9.00 },
+];
+
+// 向後兼容的導出
+export const GOLDEN_APPLE_REWARDS = GOLDEN_APPLE_REWARDS_V1;
+export const GRAND_PRIZES = GRAND_PRIZES_V1;
+export const GOLDEN_BOX_REWARDS = GOLDEN_BOX_REWARDS_V1;

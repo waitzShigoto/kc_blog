@@ -17,6 +17,8 @@ interface HeroSectionProps {
 
 export default function HeroSection({ latestPosts = [], featuredPosts = [], locale }: HeroSectionProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [touchStart, setTouchStart] = useState<number | null>(null);
+    const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
     const sidePosts = featuredPosts.slice(0, 2);
 
@@ -61,7 +63,21 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
         <section className="mb-12">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Featured Post (Carousel) */}
-                <div className="lg:col-span-2 group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-card">
+                <div
+                    className="lg:col-span-2 group relative rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-card touch-pan-y"
+                    onTouchStart={(e) => setTouchStart(e.targetTouches[0].clientX)}
+                    onTouchMove={(e) => setTouchEnd(e.targetTouches[0].clientX)}
+                    onTouchEnd={() => {
+                        if (!touchStart || !touchEnd) return;
+                        const distance = touchStart - touchEnd;
+                        const isLeftSwipe = distance > 50;
+                        const isRightSwipe = distance < -50;
+                        if (isLeftSwipe) nextSlide();
+                        if (isRightSwipe) prevSlide();
+                        setTouchEnd(null);
+                        setTouchStart(null);
+                    }}
+                >
                     <Link href={`/${locale}/posts/${mainPost.slug}`} className="block h-full relative">
                         <div className="relative h-[480px] w-full">
                             {getImageUrl(mainPost.frontMatter.image) ? (
@@ -79,7 +95,7 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                             {/* Overlay Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-                            <div className="absolute bottom-0 left-0 p-6 md:p-10 text-white w-full z-10">
+                            <div className="absolute bottom-0 left-0 p-6 md:p-10 text-white w-full z-10 select-none pb-16 md:pb-10">
                                 <div className="mb-4 flex items-center gap-3 text-sm text-gray-200">
                                     {mainPost.frontMatter.categories && (
                                         <span className="bg-primary/90 px-3 py-1 rounded-md text-xs font-bold text-white shadow-sm backdrop-blur-sm">
@@ -114,10 +130,10 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                     e.stopPropagation();
                                     prevSlide();
                                 }}
-                                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110 active:scale-95 border border-white/10"
                                 aria-label="Previous Slide"
                             >
-                                <ChevronLeft className="w-6 h-6" />
+                                <ChevronLeft className="w-8 h-8" />
                             </button>
                             <button
                                 onClick={(e) => {
@@ -125,17 +141,17 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                     e.stopPropagation();
                                     nextSlide();
                                 }}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/30 hover:bg-black/50 backdrop-blur-sm text-white flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 z-20 hover:scale-110 active:scale-95 border border-white/10"
                                 aria-label="Next Slide"
                             >
-                                <ChevronRight className="w-6 h-6" />
+                                <ChevronRight className="w-8 h-8" />
                             </button>
                         </>
                     )}
 
-                    {/* Indicators */}
+                    {/* Material Design 3 Style Indicators */}
                     {carouselPosts.length > 1 && (
-                        <div className="absolute bottom-6 right-6 flex space-x-2 z-20">
+                        <div className="absolute bottom-6 left-0 right-0 flex justify-center items-center gap-1.5 z-20 px-4">
                             {carouselPosts.map((_, idx) => (
                                 <button
                                     key={idx}
@@ -144,12 +160,16 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                         e.stopPropagation();
                                         setCurrentIndex(idx);
                                     }}
-                                    className={`h-1.5 rounded-full transition-all duration-300 backdrop-blur-sm shadow-sm ${idx === currentIndex
-                                        ? 'bg-primary w-8'
-                                        : 'bg-white/40 w-2 hover:bg-white/80 hover:w-4'
-                                        }`}
+                                    className="group/indicator p-1.5 transition-all duration-200 hover:scale-110 active:scale-95"
                                     aria-label={`Go to slide ${idx + 1}`}
-                                />
+                                >
+                                    <div
+                                        className={`rounded-full transition-all duration-300 ease-out ${idx === currentIndex
+                                                ? 'w-8 h-2 bg-white shadow-lg shadow-white/50'
+                                                : 'w-2 h-2 bg-white/50 hover:bg-white/80 group-hover/indicator:w-3'
+                                            }`}
+                                    />
+                                </button>
                             ))}
                         </div>
                     )}

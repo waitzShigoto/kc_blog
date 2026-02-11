@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { MAIN_REWARDS, Reward, EXCHANGE_BOXES, GRAND_PRIZES } from './data';
+import { MAIN_REWARDS_V1, MAIN_REWARDS_V2, Reward, EXCHANGE_BOXES, GRAND_PRIZES_V1, GRAND_PRIZES_V2 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
@@ -92,7 +92,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
     const [fragments, setFragments] = useState(0);
     const [isRolling, setIsRolling] = useState(false);
     const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
-    const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES[0]);
+    const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES_V2[0]);
 
     // 碎片兌換相關
     const [selectedExchangeId, setSelectedExchangeId] = useState<string>(EXCHANGE_BOXES[0].id);
@@ -106,11 +106,16 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
 
     const [activeTab, setActiveTab] = useState<'main' | 'exchange'>('main');
     const [exchangeInfoTab, setExchangeInfoTab] = useState<string>('red');
+    const [version, setVersion] = useState<'v1' | 'v2'>('v2');
 
     const totalFramesRef = useRef(0);
     const fragmentsRef = useRef(0);
     const rewardCountsRef = useRef<Record<string, number>>({});
     const stopAutoRollRef = useRef(false);
+
+    // Dynamic Data based on Version
+    const MAIN_REWARDS = version === 'v1' ? MAIN_REWARDS_V1 : MAIN_REWARDS_V2;
+    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : GRAND_PRIZES_V2;
 
     // 多語言文字
     const texts = {
@@ -143,7 +148,12 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
             topRewards: '熱門獎勵 TOP 10',
             probability: '機率',
             eventPeriod: '活動時間',
-            eventDate: '2025/07/02 09:00 ～ 2025/07/23 07:59',
+            eventDateV1: '2025/07/02 09:00 ～ 2025/07/23 07:59',
+            eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
+            btnTitleV1: '07/02 ~ 07/23',
+            btnSubtitleV1: '第一期',
+            btnTitleV2: '02/11 ~ 02/24',
+            btnSubtitleV2: '第二期',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -185,7 +195,12 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
             topRewards: 'Top 10 Rewards',
             probability: 'Probability',
             eventPeriod: 'Event Period',
-            eventDate: '2025/07/02 09:00 ～ 2025/07/23 07:59',
+            eventDateV1: '2025/07/02 09:00 ～ 2025/07/23 07:59',
+            eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
+            btnTitleV1: 'Jul 02 - Jul 23',
+            btnSubtitleV1: 'Period 1',
+            btnTitleV2: 'Feb 11 - Feb 24',
+            btnSubtitleV2: 'Period 2',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -419,9 +434,41 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                     {t.back}
                 </Link>
 
-                <div className="text-center mb-10">
-                    <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                <div className="flex flex-col items-center justify-center mb-8 gap-4">
+                    <div className="text-center">
+                        <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
+                        <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                    </div>
+
+                    {/* Version Selection */}
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                        <button
+                            onClick={() => {
+                                setVersion('v1');
+                                setTargetPrize(GRAND_PRIZES_V1[0]);
+                            }}
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v1'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV1}</span>
+                            <span className="text-sm">{t.btnSubtitleV1}</span>
+                        </button>
+                        <button
+                            onClick={() => {
+                                setVersion('v2');
+                                setTargetPrize(GRAND_PRIZES_V2[0]);
+                            }}
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV2}</span>
+                            <span className="text-sm">{t.btnSubtitleV2}</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -579,7 +626,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
                                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                             {t.eventPeriod}
                                         </div>
-                                        <div className="font-medium text-foreground pl-5">{t.eventDate}</div>
+                                        <div className="font-medium text-foreground pl-5">{version === 'v1' ? t.eventDateV1 : t.eventDateV2}</div>
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-4">

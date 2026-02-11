@@ -2,7 +2,15 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { GOLDEN_APPLE_REWARDS, GoldenAppleReward, GRAND_PRIZES, GOLDEN_BOX_REWARDS } from './data';
+import {
+    GOLDEN_APPLE_REWARDS_V1,
+    GOLDEN_APPLE_REWARDS_V2,
+    GoldenAppleReward,
+    GRAND_PRIZES_V1,
+    GRAND_PRIZES_V2,
+    GOLDEN_BOX_REWARDS_V1,
+    GOLDEN_BOX_REWARDS_V2
+} from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
@@ -85,6 +93,9 @@ function CustomSelect<T extends string | number>({
 }
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
+    // 版本選擇狀態
+    const [version, setVersion] = useState<'v1' | 'v2'>('v2'); // 默認使用最新版本
+
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
     const [totalApples, setTotalApples] = useState(0);
@@ -92,7 +103,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const [isRolling, setIsRolling] = useState(false);
     const [, setShowAnimation] = useState(false);
     const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
-    const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES[0]);
+    const [targetPrize, setTargetPrize] = useState<string>('');
 
     // 金箱子相關狀態
     const [activeTab, setActiveTab] = useState<'apple' | 'box'>('apple');
@@ -107,6 +118,18 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const stopAutoRollRef = useRef(false);
     const totalGoldenBoxesRef = useRef(0);
     const goldenBoxRewardCountsRef = useRef<Record<string, number>>({});
+
+    // 根據版本選擇數據源
+    const GOLDEN_APPLE_REWARDS = version === 'v1' ? GOLDEN_APPLE_REWARDS_V1 : GOLDEN_APPLE_REWARDS_V2;
+    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : GRAND_PRIZES_V2;
+    const GOLDEN_BOX_REWARDS = version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : GOLDEN_BOX_REWARDS_V2;
+
+    // 當版本切換時，重置目標大獎
+    useEffect(() => {
+        if (GRAND_PRIZES.length > 0) {
+            setTargetPrize(GRAND_PRIZES[0]);
+        }
+    }, [version, GRAND_PRIZES]);
 
     // 自動捲動歷史紀錄
     useEffect(() => {
@@ -148,7 +171,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             topRewards: '熱門獎勵 TOP 10',
             probability: '機率',
             eventPeriod: '活動時間',
-            eventDate: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -160,6 +184,12 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             switchToApple: '切換黃金蘋果',
             switchToBox: '切換金箱子',
             insufficientFragments: '碎片不足',
+            versionV1: '第一期',
+            versionV2: '第二期',
+            btnTitleV1: '01/28 ~ 02/11',
+            btnSubtitleV1: '武公寶珠',
+            btnTitleV2: '02/11 ~ 02/24',
+            btnSubtitleV2: '輪迴碑石',
         },
         en: {
             title: 'Golden Apple Simulator',
@@ -191,7 +221,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             topRewards: 'Top 10 Rewards',
             probability: 'Probability',
             eventPeriod: 'Event Period',
-            eventDate: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -203,6 +234,12 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             switchToApple: 'Switch to Golden Apple',
             switchToBox: 'Switch to Golden Box',
             insufficientFragments: 'Insufficient Fragments',
+            versionV1: 'Period 1',
+            versionV2: 'Period 2',
+            btnTitleV1: 'Jan 28 - Feb 11',
+            btnSubtitleV1: 'Wu Gong',
+            btnTitleV2: 'Feb 11 - Feb 24',
+            btnSubtitleV2: 'Frenzy',
         },
         ja: {
             title: 'ゴールデンアップルシミュレーター',
@@ -234,7 +271,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             topRewards: 'トップ10報酬',
             probability: '確率',
             eventPeriod: 'イベント期間',
-            eventDate: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
+            eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標大賞',
@@ -246,6 +284,12 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             switchToApple: 'ゴールデンアップルへ',
             switchToBox: 'ゴールデンボックスへ',
             insufficientFragments: '欠片不足',
+            versionV1: '第1期',
+            versionV2: '第2期',
+            btnTitleV1: '01/28 ~ 02/11',
+            btnSubtitleV1: '武公パンダ',
+            btnTitleV2: '02/11 ~ 02/24',
+            btnSubtitleV2: 'フレンジー',
         },
     };
 
@@ -501,9 +545,43 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                 </Link>
 
                 {/* Header */}
-                <div className="text-center mb-8">
+                <div className="text-center mb-6">
                     <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
                     <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                </div>
+
+                {/* Version Selection Tab */}
+                <div className="flex justify-center mb-8">
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                        <button
+                            onClick={() => setVersion('v1')}
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v1'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV1}</span>
+                            <span className="text-sm">{t.btnSubtitleV1}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v2')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV2}</span>
+                            <div className="flex items-center gap-1">
+                                <span className="text-sm">{t.btnSubtitleV2}</span>
+                                <span className="bg-red-600 text-white text-[8px] px-1 py-px rounded font-black tracking-tighter animate-pulse border border-red-700 shadow-sm leading-none">
+                                    UP
+                                </span>
+                            </div>
+                            <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
+                                NEW
+                            </span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -683,7 +761,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                         <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                     </div>
                                     <div className="text-foreground font-medium pl-5">
-                                        {t.eventDate}
+                                        {version === 'v1' ? t.eventDateV1 : t.eventDateV2}
                                     </div>
                                 </div>
                             )}
@@ -897,25 +975,27 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                 {activeTab === 'apple' && (
                                     <div className="text-right">
                                         <p className="text-[10px] text-muted-foreground font-medium">{t.eventPeriod}</p>
-                                        <p className="text-[9px] text-muted-foreground">{t.eventDate}</p>
+                                        <p className="text-[9px] text-muted-foreground">{version === 'v1' ? t.eventDateV1 : t.eventDateV2}</p>
                                     </div>
                                 )}
                             </div>
 
                             {/* Tab Switch */}
-                            <div className="grid grid-cols-2 bg-muted p-1 rounded-lg mb-4">
-                                <button
-                                    onClick={() => setActiveTab('apple')}
-                                    className={`py-1.5 text-xs font-semibold rounded-md transition-all ${activeTab === 'apple' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-                                >
-                                    {t.title}
-                                </button>
-                                <button
-                                    onClick={() => setActiveTab('box')}
-                                    className={`py-1.5 text-xs font-semibold rounded-md transition-all ${activeTab === 'box' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-                                >
-                                    {t.goldenBox}
-                                </button>
+                            <div className="flex flex-col gap-2 mb-4">
+                                <div className="grid grid-cols-2 bg-muted p-1 rounded-lg">
+                                    <button
+                                        onClick={() => setActiveTab('apple')}
+                                        className={`py-1.5 text-xs font-semibold rounded-md transition-all ${activeTab === 'apple' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        {t.title}
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveTab('box')}
+                                        className={`py-1.5 text-xs font-semibold rounded-md transition-all ${activeTab === 'box' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        {t.goldenBox}
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="space-y-2 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">

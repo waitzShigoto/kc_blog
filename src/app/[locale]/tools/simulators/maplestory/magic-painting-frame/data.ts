@@ -11,7 +11,7 @@ export interface ExchangeBox {
     rewards: Reward[];
 }
 
-export const MAIN_REWARDS: Reward[] = [
+export const MAIN_REWARDS_V1: Reward[] = [
     { name: '工匠方塊', probability: 20.00 },
     { name: '名匠方塊', probability: 2.50 },
     { name: '完美烙印的印章', probability: 5.00 },
@@ -75,7 +75,7 @@ export const MAIN_REWARDS: Reward[] = [
     { name: '星彩防具魔力卷軸', probability: 0.05 },
 ];
 
-export const GRAND_PRIZES = [
+export const GRAND_PRIZES_V1 = [
     '星彩單手武器攻擊力卷軸', '星彩單手武器魔力卷軸', '星彩雙手武器攻擊力卷軸', '星彩雙手武器魔力卷軸',
     '星彩飾品攻擊力卷軸', '星彩飾品魔力卷軸', '星彩防具攻擊力卷軸', '星彩防具魔力卷軸',
     '星彩寵物裝備攻擊力卷軸', '星彩寵物裝備魔力卷軸',
@@ -86,6 +86,88 @@ export const GRAND_PRIZES = [
     '命運飾品攻擊力卷軸', '命運飾品魔力卷軸', '命運防具攻擊力卷軸', '命運防具魔力卷軸',
     '命運寵物裝備攻擊力卷軸', '命運寵物裝備魔力卷軸',
 ];
+
+export const MAIN_REWARDS_V2: Reward[] = [
+    { name: '工匠方塊', probability: 23.00 },
+    { name: '名匠方塊', probability: 4.50 },
+    { name: '卷軸20格背包', probability: 4.00 },
+    { name: '性向成長的祕藥', probability: 6.00 },
+    { name: '選擇欄位8格擴充券', probability: 5.30 },
+    { name: '特殊名譽勳章', probability: 5.00 },
+    { name: '200 靈魂卷軸 100%', probability: 3.00 },
+    { name: '純白的卷軸 100%', probability: 5.00 },
+    { name: '恢復卡交換券', probability: 3.00 },
+    { name: '回真卷軸 100%', probability: 4.00 },
+    { name: 'V單手武器攻擊力卷軸', probability: 2.10 },
+    { name: 'V單手武器魔力卷軸', probability: 2.10 },
+    { name: 'V雙手武器攻擊力卷軸', probability: 2.10 },
+    { name: 'V雙手武器魔力卷軸', probability: 2.10 },
+    { name: 'V防具攻擊力卷軸', probability: 2.10 },
+    { name: 'V防具魔力卷軸', probability: 2.10 },
+    { name: 'V飾品攻擊力卷軸', probability: 2.10 },
+    { name: 'V飾品魔力卷軸', probability: 2.10 },
+    { name: 'V寵物裝備攻擊力卷軸', probability: 2.10 },
+    { name: 'V寵物裝備魔力卷軸', probability: 2.10 },
+    { name: '究極的黑暗雙手武器攻擊力卷軸', probability: 0.75 },
+    { name: '究極的黑暗雙手武器魔力卷軸', probability: 0.75 },
+    { name: '究極的黑暗單手武器攻擊力卷軸', probability: 0.75 },
+    { name: '究極的黑暗單手武器魔力卷軸', probability: 0.75 },
+    { name: '究極的黑暗飾品攻擊力卷軸', probability: 0.75 },
+    { name: '究極的黑暗飾品魔力卷軸', probability: 0.75 },
+    { name: '究極的黑暗防具攻擊力卷軸', probability: 0.75 },
+    { name: '究極的黑暗防具魔力卷軸', probability: 0.75 },
+    { name: '究極的黑暗寵物裝備攻擊力卷軸', probability: 0.75 },
+    { name: '究極的黑暗寵物裝備魔力卷軸', probability: 0.75 },
+    { name: '命運單手武器攻擊力卷軸', probability: 0.70 },
+    { name: '命運單手武器魔力卷軸', probability: 0.70 },
+    { name: '命運雙手武器攻擊力卷軸', probability: 0.70 },
+    { name: '命運雙手武器魔力卷軸', probability: 0.70 },
+    { name: '命運飾品攻擊力卷軸', probability: 0.70 },
+    { name: '命運飾品魔力卷軸', probability: 0.70 },
+    { name: '命運防具攻擊力卷軸', probability: 0.70 },
+    { name: '命運防具魔力卷軸', probability: 0.70 },
+    { name: '命運寵物裝備攻擊力卷軸', probability: 0.70 },
+    { name: '命運寵物裝備魔力卷軸', probability: 0.70 },
+    { name: '救世單手武器攻擊力卷軸', probability: 0.12 },
+    { name: '救世單手武器魔力卷軸', probability: 0.12 },
+    { name: '救世雙手武器攻擊力卷軸', probability: 0.12 },
+    { name: '救世雙手武器魔力卷軸', probability: 0.12 },
+    { name: '救世寵物裝備攻擊力卷軸', probability: 0.12 },
+    { name: '救世寵物裝備魔力卷軸', probability: 0.12 },
+    { name: '救世飾品攻擊力卷軸', probability: 0.12 },
+    { name: '救世飾品魔力卷軸', probability: 0.12 },
+    { name: '救世防具攻擊力卷軸', probability: 0.12 },
+    { name: '救世防具魔力卷軸', probability: 0.12 },
+    { name: '星彩單手武器攻擊力卷軸', probability: 0.05 },
+    { name: '星彩單手武器魔力卷軸', probability: 0.05 },
+    { name: '星彩雙手武器攻擊力卷軸', probability: 0.05 },
+    { name: '星彩雙手武器魔力卷軸', probability: 0.05 },
+    { name: '星彩寵物裝備攻擊力卷軸', probability: 0.05 },
+    { name: '星彩寵物裝備魔力卷軸', probability: 0.05 },
+    { name: '星彩飾品攻擊力卷軸', probability: 0.05 },
+    { name: '星彩飾品魔力卷軸', probability: 0.05 },
+    { name: '星彩防具攻擊力卷軸', probability: 0.05 },
+    { name: '星彩防具魔力卷軸', probability: 0.05 },
+];
+
+export const GRAND_PRIZES_V2 = [
+    '星彩單手武器攻擊力卷軸', '星彩單手武器魔力卷軸', '星彩雙手武器攻擊力卷軸', '星彩雙手武器魔力卷軸',
+    '星彩飾品攻擊力卷軸', '星彩飾品魔力卷軸', '星彩防具攻擊力卷軸', '星彩防具魔力卷軸',
+    '星彩寵物裝備攻擊力卷軸', '星彩寵物裝備魔力卷軸',
+    '救世單手武器攻擊力卷軸', '救世單手武器魔力卷軸', '救世雙手武器攻擊力卷軸', '救世雙手武器魔力卷軸',
+    '救世寵物裝備攻擊力卷軸', '救世寵物裝備魔力卷軸', '救世飾品攻擊力卷軸', '救世飾品魔力卷軸',
+    '救世防具攻擊力卷軸', '救世防具魔力卷軸',
+    '命運單手武器攻擊力卷軸', '命運單手武器魔力卷軸', '命運雙手武器攻擊力卷軸', '命運雙手武器魔力卷軸',
+    '命運飾品攻擊力卷軸', '命運飾品魔力卷軸', '命運防具攻擊力卷軸', '命運防具魔力卷軸',
+    '命運寵物裝備攻擊力卷軸', '命運寵物裝備魔力卷軸',
+    '究極的黑暗雙手武器攻擊力卷軸', '究極的黑暗雙手武器魔力卷軸', '究極的黑暗單手武器攻擊力卷軸', '究極的黑暗單手武器魔力卷軸',
+    '究極的黑暗飾品攻擊力卷軸', '究極的黑暗飾品魔力卷軸', '究極的黑暗防具攻擊力卷軸', '究極的黑暗防具魔力卷軸',
+    '究極的黑暗寵物裝備攻擊力卷軸', '究極的黑暗寵物裝備魔力卷軸',
+];
+
+// 向後兼容
+export const MAIN_REWARDS = MAIN_REWARDS_V1;
+export const GRAND_PRIZES = GRAND_PRIZES_V1;
 
 export const EXCHANGE_BOXES: ExchangeBox[] = [
     {
