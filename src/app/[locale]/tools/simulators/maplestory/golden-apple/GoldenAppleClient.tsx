@@ -5,11 +5,14 @@ import Link from 'next/link';
 import {
     GOLDEN_APPLE_REWARDS_V1,
     GOLDEN_APPLE_REWARDS_V2,
+    GOLDEN_APPLE_REWARDS_V3,
     GoldenAppleReward,
     GRAND_PRIZES_V1,
     GRAND_PRIZES_V2,
+    GRAND_PRIZES_V3,
     GOLDEN_BOX_REWARDS_V1,
-    GOLDEN_BOX_REWARDS_V2
+    GOLDEN_BOX_REWARDS_V2,
+    GOLDEN_BOX_REWARDS_V3
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -94,7 +97,7 @@ function CustomSelect<T extends string | number>({
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 版本選擇狀態
-    const [version, setVersion] = useState<'v1' | 'v2'>('v2'); // 默認使用最新版本
+    const [version, setVersion] = useState<'v1' | 'v2' | 'v3'>('v3'); // 默認使用最新版本
 
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
@@ -120,9 +123,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const goldenBoxRewardCountsRef = useRef<Record<string, number>>({});
 
     // 根據版本選擇數據源
-    const GOLDEN_APPLE_REWARDS = version === 'v1' ? GOLDEN_APPLE_REWARDS_V1 : GOLDEN_APPLE_REWARDS_V2;
-    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : GRAND_PRIZES_V2;
-    const GOLDEN_BOX_REWARDS = version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : GOLDEN_BOX_REWARDS_V2;
+    const GOLDEN_APPLE_REWARDS = version === 'v1' ? GOLDEN_APPLE_REWARDS_V1 : (version === 'v2' ? GOLDEN_APPLE_REWARDS_V2 : GOLDEN_APPLE_REWARDS_V3);
+    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : (version === 'v2' ? GRAND_PRIZES_V2 : GRAND_PRIZES_V3);
+    const GOLDEN_BOX_REWARDS = version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : (version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : GOLDEN_BOX_REWARDS_V3);
 
     // 當版本切換時，重置目標大獎
     useEffect(() => {
@@ -173,6 +176,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventPeriod: '活動時間',
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
+            eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -186,10 +190,13 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             insufficientFragments: '碎片不足',
             versionV1: '第一期',
             versionV2: '第二期',
+            versionV3: '第三期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公寶珠',
             btnTitleV2: '02/11 ~ 02/24',
             btnSubtitleV2: '輪迴碑石',
+            btnTitleV3: '02/25 ~ 03/11',
+            btnSubtitleV3: '黑翼胸章',
         },
         en: {
             title: 'Golden Apple Simulator',
@@ -223,6 +230,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventPeriod: 'Event Period',
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
+            eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -236,10 +244,13 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             insufficientFragments: 'Insufficient Fragments',
             versionV1: 'Period 1',
             versionV2: 'Period 2',
+            versionV3: 'Period 3',
             btnTitleV1: 'Jan 28 - Feb 11',
             btnSubtitleV1: 'Wu Gong',
             btnTitleV2: 'Feb 11 - Feb 24',
             btnSubtitleV2: 'Frenzy',
+            btnTitleV3: 'Feb 25 - Mar 11',
+            btnSubtitleV3: 'Black Wing',
         },
         ja: {
             title: 'ゴールデンアップルシミュレーター',
@@ -273,6 +284,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventPeriod: 'イベント期間',
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
+            eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標大賞',
@@ -286,10 +298,13 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             insufficientFragments: '欠片不足',
             versionV1: '第1期',
             versionV2: '第2期',
+            versionV3: '第3期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公パンダ',
             btnTitleV2: '02/11 ~ 02/24',
             btnSubtitleV2: 'フレンジー',
+            btnTitleV3: '02/25 ~ 03/11',
+            btnSubtitleV3: '黑翼の胸章',
         },
     };
 
@@ -565,7 +580,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v2')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -577,6 +592,16 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                     UP
                                 </span>
                             </div>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v3')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v3'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV3}</span>
+                            <span className="text-sm">{t.btnSubtitleV3}</span>
                             <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
                                 NEW
                             </span>
@@ -595,7 +620,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                     <div className={`absolute inset-0 rounded-full bg-gradient-to-br from-yellow-400 to-amber-600 ${isRolling ? 'opacity-80' : 'opacity-60'} transition-opacity`}></div>
                                     <div className="absolute inset-1.5 rounded-full bg-card flex items-center justify-center border border-border/50">
                                         <svg className="w-12 h-12 sm:w-16 sm:h-16 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                                            <path d="M14 6c-1 0-2 1-2 1S11 6 10 6s-2 1-2 1-1-1-2-1c-2.2 0-4 1.8-4 4c0 3 4 8 8 8s8-5 8-8c0-2.2-1.8-4-4-4z M10 4c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1s-1 .4-1 1v2c0 .6.4 1 1 1z" />
                                         </svg>
                                     </div>
                                 </div>
@@ -755,13 +780,13 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                             {activeTab === 'apple' && (
                                 <div className="bg-muted/30 rounded-lg p-3 text-xs border border-border">
                                     <div className="flex items-center gap-2 mb-1">
-                                        <svg className="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
                                         </svg>
                                         <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                     </div>
                                     <div className="text-foreground font-medium pl-5">
-                                        {version === 'v1' ? t.eventDateV1 : t.eventDateV2}
+                                        {version === 'v1' ? t.eventDateV1 : (version === 'v2' ? t.eventDateV2 : t.eventDateV3)}
                                     </div>
                                 </div>
                             )}
