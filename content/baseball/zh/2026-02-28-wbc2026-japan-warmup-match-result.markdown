@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】侍ジャパン強化賽連勝！牧秀悟、森下翔太雙轟炸裂，7-3 擊敗中日龍"
-date: "2026-02-28 23:15:00"
-image: cover/wbc_2026_japan_vs_dragons.png
+date: "2026-02-28 23:30:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "侍ジャパン", "日本代表", "強化賽", "牧秀悟", "森下翔太"]

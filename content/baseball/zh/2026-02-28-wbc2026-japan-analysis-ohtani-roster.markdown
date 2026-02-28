@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】侍日本最新戰報：大谷翔平牛棚練投狀態絕佳！守護神翁田大勢因傷退賽，救援陣容面臨考驗"
-date: "2026-02-28 23:30:00"
-image: cover/wbc_2026_japan_ohtani_update.png
+date: "2026-02-28 23:35:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "大谷翔平", "侍ジャパン", "日本代表", "翁田大勢", "金丸夢斗"]

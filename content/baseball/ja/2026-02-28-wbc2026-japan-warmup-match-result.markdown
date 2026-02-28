@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】侍ジャパンが連勝！牧秀悟・森下翔太の豪快弾で中日に 7-3 で快勝"
-date: "2026-02-28 23:15:00"
-image: cover/wbc_2026_japan_vs_dragons.png
+date: "2026-02-28 23:30:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "侍ジャパン", "日本代表", "強化試会", "牧秀悟", "森下翔太"]

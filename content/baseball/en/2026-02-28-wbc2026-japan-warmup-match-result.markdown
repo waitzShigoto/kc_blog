@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】Samurai Japan Sweeps Warm-up Series! Maki and Morishita Blast Homers in 7-3 Victory Over Dragons"
-date: "2026-02-28 23:15:00"
-image: cover/wbc_2026_japan_vs_dragons.png
+date: "2026-02-28 23:30:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Samurai Japan", "Japan", "Warm-up Game", "Shugo Maki", "Shota Morishita"]

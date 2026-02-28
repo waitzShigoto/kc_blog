@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】侍ジャパン最新動向：大谷翔平のブルペン・キャッチボールに騒然！守護神候補の大勢が離脱、救援陣の再構築へ"
-date: "2026-02-28 23:30:00"
-image: cover/wbc_2026_japan_ohtani_update.png
+date: "2026-02-28 23:35:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "大谷翔平", "侍ジャパン", "大勢", "金丸夢斗", "救援陣"]

@@ -1,7 +1,7 @@
 ---
 title: "【WBC 2026】Samurai Japan Update: Shohei Ohtani Shines in Bullpen! Taisei Forced Out by Injury, Bullpen Faces Critical Test"
-date: "2026-02-28 23:30:00"
-image: cover/wbc_2026_japan_ohtani_update.png
+date: "2026-02-28 23:35:00"
+image: cover/wbc_20260228_news.png
 author: "WaitZ"
 categories: ["Baseball"]
 tags: ["WBC", "2026", "Shohei Ohtani", "Samurai Japan", "Japan", "Taisei", "Yumehiro Kanemaru"]
