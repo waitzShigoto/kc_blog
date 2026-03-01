@@ -11,6 +11,8 @@ import HeroSection from '@/components/blog/HeroSection';
 import CategorySection from '@/components/blog/CategorySection';
 import { safeFormatDate } from '@/lib/utils';
 import { zhTW, enUS, ja } from 'date-fns/locale';
+import { WBC_TEAMS } from '@/lib/wbc-data';
+import WBCCountdown from '@/components/wbc/WBCCountdown';
 
 interface HomePageProps {
   params: Promise<{ locale: string }>;
@@ -85,6 +87,14 @@ export default async function HomePage({ params }: HomePageProps) {
     .filter(p => !featuredSlugs.includes(p.slug))
     .slice(0, 8);
 
+  // Calculate WBC Start Date
+  const allGames = WBC_TEAMS.flatMap(team =>
+    team.rotation.map(game => ({
+      dateTime: new Date(`${game.date}T${game.time}:00+08:00`),
+    }))
+  ).sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
+  const wbcStartDate = allGames.length > 0 ? allGames[0].dateTime.toISOString() : '2026-03-05T12:00:00+08:00';
+
   const dateLocale = locale === 'zh' ? zhTW : locale === 'ja' ? ja : enUS;
 
   return (
@@ -107,6 +117,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
             {/* 1. Hero Section - 重點精選 */}
             <HeroSection latestPosts={carouselPosts} featuredPosts={featuredPosts} locale={locale} />
+
 
             <div className="flex flex-col lg:flex-row gap-12">
               {/* 2. Main Feed - 分類區塊 */}
@@ -167,6 +178,35 @@ export default async function HomePage({ params }: HomePageProps) {
 
               {/* 3. Right Sidebar - 最新快訊 & 標籤 */}
               <div className="w-full lg:w-80 flex-shrink-0 space-y-8">
+
+                {/* WBC Team Analysis Highlight - Standard Style with HOT tag (Same as Baseball Page) */}
+                <div className="bg-card rounded-xl shadow-sm border border-border p-5 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 z-20">
+                    <div className="bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg shadow-sm animate-pulse tracking-tighter">
+                      HOT
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="w-1.5 h-5 bg-primary rounded-full"></span>
+                    <h3 className="font-bold text-foreground">WBC 2026 戰力分析</h3>
+                  </div>
+
+                  <div className="space-y-5">
+                    {/* Countdown Timer */}
+                    <WBCCountdown targetDate={wbcStartDate} />
+
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {locale === 'zh' ? '深入分析各隊先發輪值、主力成員與對戰策略預測。' : 'Deep dive into roster rotations, key players, and matchup predictions.'}
+                    </p>
+                    <Link
+                      href={`/${locale}/wbc-players`}
+                      className="flex items-center justify-center w-full px-4 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:opacity-90 transition-all group-hover:scale-[1.02] shadow-md"
+                    >
+                      {locale === 'zh' ? '進入成員分析' : 'Explore Rosters'}
+                    </Link>
+                  </div>
+                </div>
 
                 {/* 最新文章列表 */}
                 <div className="bg-card rounded-xl shadow-sm border border-border p-6">

@@ -78,8 +78,8 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                         setTouchStart(null);
                     }}
                 >
-                    <Link href={`/${locale}/posts/${mainPost.slug}`} className="block h-full relative">
-                        <div className="relative h-[480px] w-full">
+                    <Link href={`/${locale}/posts/${mainPost.slug}`} className="block relative h-full">
+                        <div className="relative aspect-video w-full h-full lg:h-auto">
                             {getImageUrl(mainPost.frontMatter.image) ? (
                                 <Image
                                     key={mainPost.slug}
@@ -95,26 +95,25 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                             {/* Overlay Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-                            <div className="absolute bottom-0 left-0 p-6 md:p-10 text-white w-full z-10 select-none pb-16 md:pb-10">
-                                <div className="mb-4 flex items-center gap-3 text-sm text-gray-200">
+                            <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white w-full z-10 select-none pb-12 md:pb-8">
+                                <div className="mb-2 flex items-center gap-2 text-xs text-gray-200">
                                     {mainPost.frontMatter.categories && (
-                                        <span className="bg-primary/90 px-3 py-1 rounded-md text-xs font-bold text-white shadow-sm backdrop-blur-sm">
+                                        <span className="bg-primary/90 px-2 py-0.5 rounded text-[10px] md:text-xs font-bold text-white shadow-sm backdrop-blur-sm">
                                             {Array.isArray(mainPost.frontMatter.categories)
                                                 ? mainPost.frontMatter.categories[0]
                                                 : mainPost.frontMatter.categories}
                                         </span>
                                     )}
-                                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                                     <time dateTime={mainPost.frontMatter.date} className="font-medium tracking-wide">
                                         {safeFormatDate(mainPost.frontMatter.date, 'MMM d, yyyy', dateLocale)}
                                     </time>
                                 </div>
 
-                                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight group-hover:text-blue-200 transition-colors animate-in slide-in-from-bottom-2 fade-in duration-500">
+                                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 leading-tight group-hover:text-blue-200 transition-colors animate-in slide-in-from-bottom-2 fade-in duration-500 line-clamp-2">
                                     {mainPost.frontMatter.title}
                                 </h2>
 
-                                <p className="text-gray-200 line-clamp-2 text-base md:text-lg max-w-2xl animate-in slide-in-from-bottom-2 fade-in duration-500 delay-100 font-light">
+                                <p className="text-gray-200 line-clamp-1 text-xs md:text-sm max-w-xl animate-in slide-in-from-bottom-2 fade-in duration-500 delay-100 font-light opacity-90">
                                     {mainPost.frontMatter.excerpt}
                                 </p>
                             </div>
@@ -165,8 +164,8 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                 >
                                     <div
                                         className={`rounded-full transition-all duration-300 ease-out ${idx === currentIndex
-                                                ? 'w-8 h-2 bg-white shadow-lg shadow-white/50'
-                                                : 'w-2 h-2 bg-white/50 hover:bg-white/80 group-hover/indicator:w-3'
+                                            ? 'w-8 h-2 bg-white shadow-lg shadow-white/50'
+                                            : 'w-2 h-2 bg-white/50 hover:bg-white/80 group-hover/indicator:w-3'
                                             }`}
                                     />
                                 </button>
@@ -179,8 +178,8 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
                     {sidePosts.map((post) => (
                         <Link key={post.slug} href={`/${locale}/posts/${post.slug}`} className="group block h-full">
-                            <div className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col bg-card border border-border group-hover:-translate-y-1">
-                                <div className="relative h-40 w-full overflow-hidden">
+                            <div className="relative rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full bg-card group-hover:-translate-y-1">
+                                <div className="relative aspect-video w-full overflow-hidden">
                                     {getImageUrl(post.frontMatter.image) ? (
                                         <Image
                                             src={getImageUrl(post.frontMatter.image)!}
@@ -191,24 +190,27 @@ export default function HeroSection({ latestPosts = [], featuredPosts = [], loca
                                     ) : (
                                         <div className="w-full h-full bg-gradient-to-br from-blue-100 to-emerald-100 dark:from-blue-900/40 dark:to-emerald-900/40" />
                                     )}
-                                </div>
-                                <div className="p-4 flex flex-col flex-1">
-                                    <div className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
-                                        {post.frontMatter.categories && (
-                                            <span className="text-primary font-medium">
-                                                {Array.isArray(post.frontMatter.categories)
-                                                    ? post.frontMatter.categories[0]
-                                                    : post.frontMatter.categories}
-                                            </span>
-                                        )}
-                                        <span>•</span>
-                                        <time dateTime={post.frontMatter.date}>
-                                            {safeFormatDate(post.frontMatter.date, 'MMM d, yyyy', dateLocale)}
-                                        </time>
+
+                                    {/* Overlay Gradient */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
+
+                                    <div className="absolute bottom-0 left-0 p-4 text-white w-full z-10">
+                                        <div className="mb-1.5 flex items-center gap-2 text-[10px] md:text-xs text-gray-200">
+                                            {post.frontMatter.categories && (
+                                                <span className="bg-primary/80 px-2 py-0.5 rounded text-[10px] font-bold">
+                                                    {Array.isArray(post.frontMatter.categories)
+                                                        ? post.frontMatter.categories[0]
+                                                        : post.frontMatter.categories}
+                                                </span>
+                                            )}
+                                            <time dateTime={post.frontMatter.date}>
+                                                {safeFormatDate(post.frontMatter.date, 'MMM d, yyyy', dateLocale)}
+                                            </time>
+                                        </div>
+                                        <h3 className="text-sm md:text-base font-bold line-clamp-2 leading-tight group-hover:text-blue-200 transition-colors">
+                                            {post.frontMatter.title}
+                                        </h3>
                                     </div>
-                                    <h3 className="text-base font-bold mb-2 line-clamp-2 group-hover:text-primary transition-colors leading-snug">
-                                        {post.frontMatter.title}
-                                    </h3>
                                 </div>
                             </div>
                         </Link>

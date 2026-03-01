@@ -58,7 +58,7 @@ npm run new-algorithm "Binary Search" --difficulty beginner --time-complexity "O
 | `--langs` | 指定要創建的語言版本 | `zh,en,ja` | `--langs zh,en` |
 | `--category` | 指定文章分類 | `Android` | `--category "Kotlin"` |
 | `--tags` | 指定文章標籤（逗號分隔） | `Android,Kotlin` | `--tags "Android,Kotlin,Compose"` |
-| `--image` | 指定封面圖片路徑 | `cover/default-cover.jpg` | `--image "cover/flutter.png"` |
+| `--image` | 指定封面圖片路徑 | `無` | `--image "cover/flutter.png"` |
 
 每日英文 (`new-daily-english`)
 

@@ -6,6 +6,8 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { getBaseballPosts, getRecentPosts } from '@/lib/daily-content';
+import { WBC_TEAMS } from '@/lib/wbc-data';
+import WBCCountdown from '@/components/wbc/WBCCountdown';
 
 interface BaseballPageProps {
   params: Promise<{
@@ -23,13 +25,13 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: BaseballPageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   const titles = {
     zh: '棒球 - elegantaccess',
     en: 'Baseball - elegantaccess',
     ja: '野球 - elegantaccess'
   };
-  
+
   const descriptions = {
     zh: '棒球相關討論與記錄',
     en: 'Baseball discussions and records',
@@ -82,7 +84,7 @@ export async function generateMetadata({ params }: BaseballPageProps): Promise<M
 
 export default async function BaseballPage({ params }: BaseballPageProps) {
   const { locale } = await params;
-  
+
   // 驗證語言是否有效
   if (!siteConfig.locales.includes(locale)) {
     notFound();
@@ -101,7 +103,7 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
   }, {} as Record<string, number>);
 
   // 獲取所有唯一的分類
-  const uniqueCategories = Array.from(new Set(allPosts.flatMap(post => post.categories)));
+  const uniqueCategories = Array.from(new Set(allPosts.flatMap(post => post.categories))) as string[];
 
   // 為每個分類獲取最新的3篇文章
   const getCategoryPosts = (categoryName: string) => {
@@ -179,6 +181,17 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
 
   const currentContent = content[locale as keyof typeof content];
 
+  // Calculate the earliest game time from all teams
+  const allGames = WBC_TEAMS.flatMap(team =>
+    team.rotation.map(game => ({
+      dateTime: new Date(`${game.date}T${game.time}:00+08:00`), // Assuming UTC+8 for WBC start
+      date: game.date,
+      time: game.time
+    }))
+  ).sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
+
+  const wbcStartDate = allGames.length > 0 ? allGames[0].dateTime.toISOString() : '2026-03-05T12:00:00+08:00';
+
   // 麵包屑資料
   const breadcrumbItems = [
     {
@@ -195,7 +208,7 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
     <div className="min-h-screen bg-background">
       <BreadcrumbSchema items={breadcrumbItems} />
       <HeaderWrapper locale={locale} />
-      
+
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -302,6 +315,35 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* WBC Team Analysis Highlight - Standard Style with HOT tag */}
+            <div className="bg-card rounded-lg shadow-sm border border-border p-4 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 z-20">
+                <div className="bg-red-500 text-white text-[10px] font-black px-3 py-1 rounded-bl-lg shadow-sm animate-pulse tracking-tighter">
+                  HOT
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-1 h-4 bg-primary rounded-full"></span>
+                <h3 className="font-semibold text-foreground">WBC 2026 戰力分析</h3>
+              </div>
+
+              <div className="space-y-4">
+                {/* Countdown Timer */}
+                <WBCCountdown targetDate={wbcStartDate} />
+
+                <p className="text-xs text-muted-foreground leading-relaxed px-1">
+                  {locale === 'zh' ? '深入分析各隊先發輪值、主力成員與對戰策略預測。' : 'Deep dive into roster rotations, key players, and matchup predictions.'}
+                </p>
+                <Link
+                  href={`/${locale}/wbc-players`}
+                  className="flex items-center justify-center w-full px-4 py-2 bg-primary text-white text-sm font-bold rounded-[8px] hover:opacity-90 transition-all group-hover:scale-[1.01] shadow-sm"
+                >
+                  {locale === 'zh' ? '進入成員分析' : 'Explore Rosters'}
+                </Link>
+              </div>
+            </div>
+
             {/* Categories */}
             <div className="bg-card rounded-lg shadow-sm p-4">
               {categories.map((category, index) => (
@@ -314,7 +356,7 @@ export default async function BaseballPage({ params }: BaseballPageProps) {
                         {category.count} {currentContent.categoryCountSuffix}
                       </span>
                     </div>
-                    
+
                     {/* 顯示最新文章 */}
                     {category.recentPosts.length > 0 ? (
                       <>
