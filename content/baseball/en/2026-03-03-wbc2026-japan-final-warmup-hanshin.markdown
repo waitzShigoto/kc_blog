@@ -7,7 +7,7 @@ categories: ["Baseball"]
 tags: ["WBC", "2026", "Samurai Japan", "Masataka Yoshida", "Shohei Ohtani", "Warm-up Match"]
 topic: "WBC2026 Prep"
 locale: "en"
-summary: "The countdown for WBC 2026 is on! Samurai Japan will face the Hanshin Tigers today (March 3) at Kyocera Dome for their final tune-up game. With Masataka Yoshida's official addition to the roster, the defending champions are fully geared up for their Pool C opener on March 6."
+summary: "The countdown for WBC 2026 is on! Samurai Japan will face the Hanshin Tigers today (March 3) at Kyocera Dome for their final tune-up game. With Masataka Yoshida's official addition as the 30th member of the roster, the defending champions are fully geared up for their Pool C opener on March 6."
 ---
 
 With the World Baseball Classic (WBC) 2026 just days away, defending champions **Samurai Japan** have entered the final stretch of their preparations!
@@ -19,7 +19,7 @@ Today (March 3), the Japanese national team takes on the **Hanshin Tigers** at K
 ## Key Highlights
 
 ### 1. Masataka Yoshida officially joins the roster
-The Boston Red Sox outfielder, **Masataka Yoshida**, has been officially confirmed as the 29th member of the Samurai Japan squad. A hero of the last WBC tournament, Yoshida's presence adds a vital offensive boost to the outfield and the middle of the lineup.
+The Boston Red Sox outfielder, **Masataka Yoshida**, has been officially confirmed as the 30th member of the Samurai Japan squad. A hero of the last WBC tournament, Yoshida's presence adds a vital offensive boost to the outfield and the middle of the lineup, completing the star-studded 30-man roster.
 
 ### 2. Final Lineup Tuning
 Manager Hirokazu Ibata has specified that today's game against Hanshin will be the final test for player fitness and tactical cohesion. Fans are eagerly watching the core lineup, including Shohei Ohtani (DH), Munetaka Murakami, and Kazuma Okamoto, to see their synchronization before the real tournament begins.
