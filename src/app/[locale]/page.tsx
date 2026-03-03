@@ -199,12 +199,20 @@ export default async function HomePage({ params }: HomePageProps) {
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       {locale === 'zh' ? '深入分析各隊先發輪值、主力成員與對戰策略預測。' : 'Deep dive into roster rotations, key players, and matchup predictions.'}
                     </p>
-                    <Link
-                      href={`/${locale}/wbc-players`}
-                      className="flex items-center justify-center w-full px-4 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:opacity-90 transition-all group-hover:scale-[1.02] shadow-md"
-                    >
-                      {locale === 'zh' ? '進入成員分析' : 'Explore Rosters'}
-                    </Link>
+                    <div className="flex flex-col gap-3">
+                      <Link
+                        href={`/${locale}/wbc-players`}
+                        className="flex items-center justify-center w-full px-4 py-3 bg-primary text-white text-sm font-bold rounded-xl hover:opacity-90 transition-all group-hover:scale-[1.02] shadow-md"
+                      >
+                        {locale === 'zh' ? '進入成員分析' : 'Explore Rosters'}
+                      </Link>
+                      <Link
+                        href={`/${locale}/wbc-simulator`}
+                        className="flex items-center justify-center w-full px-4 py-3 bg-card text-primary border border-primary/20 text-sm font-bold rounded-xl hover:bg-primary/5 transition-all group-hover:scale-[1.02] shadow-sm"
+                      >
+                        {locale === 'zh' ? '戰況模擬器 🏆' : 'WBC Simulator 🏆'}
+                      </Link>
+                    </div>
                   </div>
                 </div>
 

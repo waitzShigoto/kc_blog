@@ -251,7 +251,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
         };
         setHistory(prev => [newHistory, ...prev].slice(0, 100));
         setIsRolling(false);
-    }, []);
+    }, [MAIN_REWARDS]);
 
     const handleMultipleFrames = useCallback((count: number) => {
         if (isRolling) return;
@@ -295,7 +295,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
         };
 
         rollOnce();
-    }, [isRolling]);
+    }, [isRolling, MAIN_REWARDS]);
 
     const rollUntilTarget = useCallback(() => {
         if (isRolling) return;
@@ -353,7 +353,7 @@ export default function MagicPaintingFrameClient({ locale }: MagicPaintingFrameC
         };
 
         rollBatch();
-    }, [isRolling, targetPrize]);
+    }, [isRolling, targetPrize, MAIN_REWARDS]);
 
     const useExchange = useCallback(() => {
         const box = EXCHANGE_BOXES.find(b => b.id === selectedExchangeId);

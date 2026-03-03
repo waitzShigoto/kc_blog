@@ -91,7 +91,7 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                 {/* Back Link */}
                 <div className="mb-8">
                     <Link href={`/${locale}/baseball`} className="text-primary hover:opacity-80 font-medium text-sm flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" suppressHydrationWarning>
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                         </svg>
                         {t.backToBaseball}
@@ -114,10 +114,10 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                         return (
                             <section key={poolId} className="flex-1 min-w-0">
                                 <div className="flex items-center gap-4 mb-8 lg:mb-6">
-                                    <h2 className="text-xl lg:text-lg font-black bg-muted/50 px-3 py-1.5 rounded-lg border-l-4 border-primary whitespace-nowrap">
+                                    <h2 className="text-xl lg:text-lg font-black bg-primary/5 text-primary px-4 py-2 rounded-xl whitespace-nowrap">
                                         {t.pools[poolId]}
                                     </h2>
-                                    <div className="h-px flex-1 bg-border/30 lg:hidden"></div>
+                                    <div className="h-px flex-1 bg-primary/10 lg:hidden"></div>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-4">
@@ -125,7 +125,7 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                                         <Link
                                             key={team.id}
                                             href={`/${locale}/wbc-players/${team.id}`}
-                                            className="card-material group transition-all hover:border-primary/30 overflow-hidden border-border/20 shadow-sm"
+                                            className="group transition-all hover:scale-[1.02] active:scale-95 overflow-hidden bg-card/50 rounded-2xl shadow-sm hover:shadow-md"
                                         >
                                             <div className="p-3 lg:p-4 flex items-center gap-4">
                                                 <div className="relative w-10 h-6 lg:w-12 lg:h-8 flex-shrink-0 flex items-center justify-center">
@@ -145,7 +145,7 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                                                         {locale === 'zh' ? team.nameZh : team.name}
                                                     </h3>
                                                 </div>
-                                                <svg className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg className="w-4 h-4 text-muted-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24" suppressHydrationWarning>
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                                 </svg>
                                             </div>

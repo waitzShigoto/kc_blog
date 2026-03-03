@@ -351,7 +351,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
 
         setIsRolling(false);
         setShowAnimation(false);
-    }, []);
+    }, [GOLDEN_APPLE_REWARDS]);
 
     // 使用多個黃金蘋果
     const handleMultipleApples = useCallback((count: number) => {
@@ -401,7 +401,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         };
 
         rollOnce();
-    }, [isRolling]);
+    }, [isRolling, GOLDEN_APPLE_REWARDS]);
 
     // 抽到指定大獎為止
     const rollUntilTarget = useCallback(() => {
@@ -465,7 +465,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         };
 
         rollBatch();
-    }, [isRolling, targetPrize]);
+    }, [isRolling, targetPrize, GOLDEN_APPLE_REWARDS]);
 
     // 使用金箱子
     const useGoldenBox = useCallback(() => {
@@ -503,7 +503,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
 
         setIsRolling(false);
         setShowAnimation(false);
-    }, [t.insufficientFragments]);
+    }, [t.insufficientFragments, GOLDEN_BOX_REWARDS]);
 
     const stopRolling = () => {
         stopAutoRollRef.current = true;
