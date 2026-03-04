@@ -52,7 +52,10 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                 B: 'Pool B (Houston)',
                 C: 'Pool C (Tokyo)',
                 D: 'Pool D (Miami)'
-            }
+            },
+            simulatorTitle: 'WBC 2026 戰況模擬器',
+            simulatorDesc: '立即模擬比賽，預測各國奪冠及晉級機率',
+            goToSimulator: '前往模擬 →'
         },
         en: {
             title: 'WBC 2026 Rosters',
@@ -64,7 +67,10 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                 B: 'Pool B (Houston)',
                 C: 'Pool C (Tokyo)',
                 D: 'Pool D (Miami)'
-            }
+            },
+            simulatorTitle: 'WBC 2026 Simulator',
+            simulatorDesc: 'Simulate matches and predict tournament outcomes',
+            goToSimulator: 'Try Simulator →'
         },
         ja: {
             title: 'WBC 2026 出場選手',
@@ -76,7 +82,10 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                 B: 'プール B (ヒューストン)',
                 C: 'プール C (東京)',
                 D: 'プール D (マイアミ)'
-            }
+            },
+            simulatorTitle: 'WBC 2026 戦況シミュレーター',
+            simulatorDesc: '試合をシミュレートし、優勝と進出確率を予測',
+            goToSimulator: 'シミュレーターへ →'
         }
     };
 
@@ -104,6 +113,50 @@ export default async function WBCPlayersIndex({ params }: WBCPlayersIndexProps) 
                         <h1 className="text-4xl font-black tracking-tight">{t.title}</h1>
                     </div>
                     <p className="text-xl text-muted-foreground">{t.subtitle}</p>
+                </div>
+
+                {/* Simulator Link Section */}
+                <div className="mb-12">
+                    <Link
+                        href={`/${locale}/wbc-simulator`}
+                        className="group block relative p-8 rounded-[2rem] bg-[#001529] border border-white/10 overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(0,21,41,0.5)]"
+                    >
+                        {/* Mesh Gradient Background Decor */}
+                        <div className="absolute inset-0 opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+                            <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[80%] bg-blue-600/30 blur-[100px] rounded-full" />
+                            <div className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[70%] bg-red-600/20 blur-[100px] rounded-full" />
+                        </div>
+
+                        {/* Background Decorative Icon */}
+                        <div className="absolute -bottom-10 -right-10 p-4 opacity-[0.05] group-hover:opacity-[0.1] group-hover:scale-110 group-hover:-rotate-12 transition-all duration-700">
+                            <svg className="w-56 h-56 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+
+                        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-3">
+                                    <span className="px-3 py-1 bg-[#fbbf24] text-[#001529] text-[10px] font-black uppercase tracking-[0.15em] rounded-md shadow-lg shadow-yellow-500/20">
+                                        New Feature
+                                    </span>
+                                    <h2 className="text-2xl md:text-3xl font-black italic uppercase tracking-tight text-white group-hover:text-[#fbbf24] transition-colors">
+                                        {t.simulatorTitle}
+                                    </h2>
+                                </div>
+                                <p className="text-blue-100/70 font-medium text-lg leading-relaxed max-w-xl">
+                                    {t.simulatorDesc}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center">
+                                <div className="inline-flex items-center justify-center px-10 py-4 bg-white text-[#001529] font-black text-xs tracking-[0.2em] uppercase rounded-full shadow-xl group-hover:bg-[#fbbf24] group-hover:scale-105 active:scale-95 transition-all duration-300">
+                                    {t.goToSimulator}
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-12">

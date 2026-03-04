@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import ShareButtons from '@/components/blog/ShareButtons';
 import { siteConfig } from '@/lib/config';
+import NextImage from 'next/image';
 
 interface SimulatorsClientProps {
   locale: string;
@@ -40,6 +41,10 @@ interface Simulator {
   href: string;
   status: 'available' | 'coming_soon';
   icon: React.ReactNode;
+  designedBy?: {
+    name: string;
+    logo: string;
+  };
 }
 
 export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
@@ -72,6 +77,51 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
 
   // 模擬器分類資料
   const categories: SimulatorCategory[] = [
+    {
+      id: 'sport',
+      name: {
+        zh: 'SPORT',
+        en: 'Sports',
+        ja: 'スポーツ',
+      },
+      description: {
+        zh: '運動賽事模擬器',
+        en: 'Sports tournament simulators',
+        ja: 'スポーツ大会シミュレーター',
+      },
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      simulators: [
+        {
+          id: 'wbc-simulator',
+          name: {
+            zh: 'WBC 戰況模擬器',
+            en: 'WBC Tournament Simulator',
+            ja: 'WBC 戦況シミュレーター',
+          },
+          description: {
+            zh: '模擬 2026 WBC 賽程並預測機率',
+            en: 'Simulate 2026 WBC bracket and predict outcomes',
+            ja: '2026 WBC の組み合わせをシミュレートし、結果を予測',
+          },
+          href: `/wbc-simulator`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          ),
+          designedBy: {
+            name: 'Elegant Access',
+            logo: '/images/kc_cover_logo.png'
+          }
+        },
+      ],
+    },
     {
       id: 'maplestory',
       name: {
@@ -359,7 +409,6 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
                     <p className="text-sm text-muted-foreground mb-4">
                       {simulator.description[locale as keyof typeof simulator.description] || simulator.description.zh}
                     </p>
-
                     {/* Action */}
                     {simulator.status === 'available' ? (
                       <Link
@@ -373,6 +422,24 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
                       </Link>
                     ) : (
                       <span className="text-sm text-muted-foreground">{t.comingSoon}</span>
+                    )}
+
+                    {/* Designed By Section */}
+                    {simulator.designedBy && (
+                      <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-between">
+                        <span className="text-[10px] text-muted-foreground font-medium uppercase tracking-wider text-primary/70 italic">Designed by</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-bold text-foreground/70">{simulator.designedBy.name}</span>
+                          <div className="relative w-12 h-8 rounded-sm overflow-hidden group-hover:scale-105 transition-transform">
+                            <NextImage
+                              src={simulator.designedBy.logo}
+                              alt={simulator.designedBy.name}
+                              fill
+                              className="object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     )}
                   </div>
                 ))}
@@ -400,6 +467,6 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           />
         </div>
       </div>
-    </div>
+    </div >
   );
 }

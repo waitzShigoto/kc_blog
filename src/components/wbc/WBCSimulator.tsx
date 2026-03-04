@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import { WBC_TEAMS, TeamData } from '@/lib/wbc-data';
 import NextImage from 'next/image';
+import { siteConfig } from '@/lib/config';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, RefreshCw, Zap, Star, BarChart3 } from 'lucide-react';
+import { Trophy, RefreshCw, Zap, BarChart3 } from 'lucide-react';
 
 interface Match {
     home: TeamData;
@@ -180,7 +181,23 @@ export default function WBCSimulator({ locale }: { locale: string }) {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-[2rem] bg-card/40 backdrop-blur shadow-sm">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="w-5 h-5 text-primary" /></div>
-                    <h2 className="text-xl font-black italic uppercase tracking-tighter">{t.title}</h2>
+                    <div className="flex flex-col">
+                        <h2 className="text-xl font-black italic uppercase tracking-tighter leading-none">{t.title}</h2>
+                        <div className="flex items-center gap-1.5 mt-1 px-0.5 transition-all duration-300">
+                            <span className="text-[8px] font-bold uppercase tracking-wider italic">Designed by</span>
+                            <div className="flex items-center gap-1">
+                                <span className="text-[8px] font-black">{siteConfig.author.name}</span>
+                                <div className="relative w-12 h-6">
+                                    <NextImage
+                                        src="/images/kc_cover_logo.png"
+                                        alt="Logo"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                     <button
