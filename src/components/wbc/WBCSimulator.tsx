@@ -5,7 +5,8 @@ import { WBC_TEAMS, TeamData } from '@/lib/wbc-data';
 import NextImage from 'next/image';
 import { siteConfig } from '@/lib/config';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, RefreshCw, Zap, BarChart3 } from 'lucide-react';
+import { Trophy, RefreshCw, Zap, BarChart3, Share2 } from 'lucide-react';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 interface Match {
     home: TeamData;
@@ -63,10 +64,10 @@ export default function WBCSimulator({ locale }: { locale: string }) {
         .sort((a, b) => b.count - a.count);
 
     const t: Record<string, string> = ({
-        zh: { title: 'WBC戰況模擬器', simulate: '開始模擬', simulate10: '模擬 10 次', simulate100: '模擬 100 次', resetStats: '重置數據', simulating: '數據運算中...', winner: '冠軍', quarter: '八強', semi: '四強', final: '決賽', reset: '模擬 1 次', knockout: '淘汰賽', poolStage: '分組預賽', stats: '模擬統計', history: '奪冠紀錄', total: '總模擬次數', winProb: '奪冠機率排行', top8Prob: '進入八強機率' },
-        en: { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank', top8Prob: 'Top 8 Probability' },
-        ja: { title: 'WBC戦況シミュレーター', simulate: '予測開始', simulate10: '10回連續模擬', simulate100: '100回連續模擬', resetStats: '履歴リセット', simulating: '解析中...', winner: '優勝', quarter: '準於決勝', semi: '準決勝', final: '決勝', reset: '1回模擬', knockout: '決勝トーナメント', poolStage: '予選リーグ', stats: 'シミュレーション統計', history: '歴代優勝チーム', total: 'シミュレーション回數', winProb: '優勝確率ランキング', top8Prob: 'ベスト8進出確率' }
-    }[locale as 'zh' | 'en' | 'ja'] || { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank' }) as Record<string, string>;
+        zh: { title: 'WBC戰況模擬器', simulate: '開始模擬', simulate10: '模擬 10 次', simulate100: '模擬 100 次', resetStats: '重置數據', simulating: '數據運算中...', winner: '冠軍', quarter: '八強', semi: '四強', final: '決賽', reset: '模擬 1 次', knockout: '淘汰賽', poolStage: '分組預賽', stats: '模擬統計', history: '奪冠紀錄', total: '總模擬次數', winProb: '奪冠機率排行', top8Prob: '進入八強機率', shareTitle: 'WBC 2026 戰況預測', shareDesc: '快來模擬你的 2026 WBC 冠軍路徑！', predictMsg: '我預測的 WBC 2026 冠軍是 {team}！\n跟我一起模擬吧：' },
+        en: { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank', top8Prob: 'Top 8 Probability', shareTitle: 'WBC 2026 Prediction', shareDesc: 'Come simulate your 2026 WBC champion path!', predictMsg: 'My predicted WBC 2026 Champion is {team}!\nSimulate with me: ' },
+        ja: { title: 'WBC戦況シミュレーター', simulate: '予測開始', simulate10: '10回連續模擬', simulate100: '100回連續模擬', resetStats: '履歴リセット', simulating: '解析中...', winner: '優勝', quarter: '準於決勝', semi: '準決勝', final: '決勝', reset: '1回模擬', knockout: '決勝トーナメント', poolStage: '予選リーグ', stats: 'シミュレーション統計', history: '歴代優勝チーム', total: 'シミュレーション回數', winProb: '優勝確率ランキング', top8Prob: 'ベスト8進出確率', shareTitle: 'WBC 2026 優勝予想', shareDesc: 'あなたの 2026 WBC 優勝ルートをシミュレーションしよう！', predictMsg: '私が予想する WBC 2026 の優勝チームは {team} です！\n一緒にシミュレーションしましょう：' }
+    }[locale as 'zh' | 'en' | 'ja'] || { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank', shareTitle: 'WBC 2026 Prediction', shareDesc: 'Come simulate your 2026 WBC champion path!', predictMsg: 'My predicted WBC 2026 Champion is {team}!\nSimulate with me: ' }) as Record<string, string>;
 
     const simulateGame = (teamA: TeamData, teamB: TeamData): Match => {
         const pA = TEAM_POWER[teamA.id] || 50;
@@ -178,16 +179,21 @@ export default function WBCSimulator({ locale }: { locale: string }) {
     return (
         <div className="w-full space-y-10 py-6 max-w-7xl mx-auto px-4">
             {/* Action Bar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 rounded-[2rem] bg-card/40 backdrop-blur shadow-sm">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary/10 rounded-lg"><BarChart3 className="w-5 h-5 text-primary" /></div>
-                    <div className="flex flex-col">
-                        <h2 className="text-xl font-black italic uppercase tracking-tighter leading-none">{t.title}</h2>
-                        <div className="flex items-center gap-1.5 mt-1 px-0.5 transition-all duration-300">
-                            <span className="text-[8px] font-bold uppercase tracking-wider italic">Designed by</span>
-                            <div className="flex items-center gap-1">
-                                <span className="text-[8px] font-black">{siteConfig.author.name}</span>
-                                <div className="relative w-12 h-6">
+            <div className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 p-6 lg:p-10 rounded-[2rem] bg-card/40 backdrop-blur-xl border border-white/10 shadow-sm relative overflow-hidden group text-center lg:text-left">
+                {/* Decorative Background for Premium Look */}
+                <div className="absolute -top-24 -left-24 w-48 h-48 bg-primary/5 rounded-full blur-3xl pointer-events-none transition-colors group-hover:bg-primary/10" />
+
+                <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto relative z-10">
+                    <div className="p-3 bg-primary/10 rounded-2xl shadow-inner flex-shrink-0">
+                        <BarChart3 className="w-7 h-7 text-primary" />
+                    </div>
+                    <div className="flex flex-col items-center sm:items-start">
+                        <h2 className="text-xl sm:text-2xl font-black italic uppercase tracking-tighter leading-tight text-foreground">{t.title}</h2>
+                        <div className="flex items-center gap-2 mt-1 px-0.5 opacity-80">
+                            <span className="text-[10px] font-bold uppercase tracking-wider italic text-muted-foreground">Designed by</span>
+                            <div className="flex items-center gap-1.5 px-3 py-1 bg-muted/30 rounded-full border border-border/50 backdrop-blur-sm">
+                                <span className="text-[10px] font-black">{siteConfig.author.name}</span>
+                                <div className="relative w-10 h-5">
                                     <NextImage
                                         src="/images/kc_cover_logo.png"
                                         alt="Logo"
@@ -199,29 +205,32 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-3">
+
+                <div className="flex flex-col sm:flex-row items-center gap-4 w-full lg:w-auto relative z-10">
                     <button
                         onClick={() => runSimulation(1)}
                         disabled={step === 'simulating'}
-                        className="flex items-center gap-3 px-8 py-3 bg-foreground text-background font-black text-xs tracking-widest uppercase rounded-full shadow-xl hover:scale-105 transition-all"
+                        className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-3.5 bg-foreground text-background font-black text-xs tracking-widest uppercase rounded-full shadow-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
                     >
                         {step === 'simulating' ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Zap className="w-4 h-4" />}
-                        {step === 'simulating' ? t.simulating : (step === 'finished' ? t.reset : t.simulate)}
+                        <span className="whitespace-nowrap">{step === 'simulating' ? t.simulating : (step === 'finished' ? t.reset : t.simulate)}</span>
                     </button>
-                    <button
-                        onClick={() => runSimulation(10)}
-                        disabled={step === 'simulating'}
-                        className="flex items-center gap-2 px-6 py-3 bg-primary/10 text-primary font-black text-xs tracking-widest uppercase rounded-full shadow-md hover:bg-primary/20 hover:scale-105 transition-all border border-primary/10"
-                    >
-                        {t.simulate10}
-                    </button>
-                    <button
-                        onClick={() => runSimulation(100)}
-                        disabled={step === 'simulating'}
-                        className="flex items-center gap-2 px-6 py-3 bg-amber-500/10 text-amber-600 font-black text-xs tracking-widest uppercase rounded-full shadow-md hover:bg-amber-500/20 hover:scale-105 transition-all border border-amber-500/10"
-                    >
-                        {t.simulate100}
-                    </button>
+                    <div className="grid grid-cols-2 gap-3 w-full sm:w-auto">
+                        <button
+                            onClick={() => runSimulation(10)}
+                            disabled={step === 'simulating'}
+                            className="flex items-center justify-center gap-2 px-6 py-3.5 bg-primary/10 text-primary font-black text-xs tracking-widest uppercase rounded-full shadow-md hover:bg-primary/20 hover:scale-105 active:scale-95 transition-all border border-primary/20 disabled:opacity-50"
+                        >
+                            {t.simulate10}
+                        </button>
+                        <button
+                            onClick={() => runSimulation(100)}
+                            disabled={step === 'simulating'}
+                            className="flex items-center justify-center gap-2 px-6 py-3.5 bg-amber-500/10 text-amber-600 font-black text-xs tracking-widest uppercase rounded-full shadow-md hover:bg-amber-500/20 hover:scale-105 active:scale-95 transition-all border border-amber-500/20 disabled:opacity-50"
+                        >
+                            {t.simulate100}
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -231,15 +240,12 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                         {step === 'finished' && final && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} key="finished" className="space-y-12 pb-20">
                                 {/* THE BRACKET TREE */}
-                                <div className="relative overflow-x-auto pb-8">
-                                    <div className="min-w-[700px] grid grid-cols-4 gap-4 items-center relative">
+                                {/* THE BRACKET TREE */}
+                                <div className="relative overflow-hidden">
+                                    {/* Desktop View (Keep Horizontal Grid) */}
+                                    <div className="hidden lg:grid grid-cols-4 gap-4 items-center relative py-12">
                                         {/* Labels */}
-                                        <div className="absolute -top-12 left-0 w-full flex items-center gap-4 mb-4">
-                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-primary/10 text-primary px-3 py-1 rounded-full whitespace-nowrap">{t.knockout}</span>
-                                            <div className="h-px flex-1 bg-primary/10"></div>
-                                        </div>
-
-                                        <div className="absolute -top-6 left-0 w-full grid grid-cols-4 px-2 text-[9px] font-black uppercase tracking-[0.3em] opacity-60">
+                                        <div className="absolute top-0 left-0 w-full grid grid-cols-4 px-2 text-[9px] font-black uppercase tracking-[0.3em] opacity-60">
                                             <span>{t.quarter}</span>
                                             <span>{t.semi}</span>
                                             <span>{t.final}</span>
@@ -279,6 +285,73 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                                             </div>
                                         </div>
                                     </div>
+
+                                    {/* Mobile View (Hierarchical Pyramid) */}
+                                    <div className="lg:hidden flex flex-col items-center gap-10">
+                                        <div className="absolute -top-12 left-0 w-full flex items-center gap-4 mb-4">
+                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-primary/10 text-primary px-3 py-1 rounded-full whitespace-nowrap">{t.knockout}</span>
+                                            <div className="h-px flex-1 bg-primary/10"></div>
+                                        </div>
+
+                                        {/* 1. Champion Highlight (一眼看到冠軍) */}
+                                        <div className="flex flex-col items-center gap-4 py-8 px-10 bg-primary/5 rounded-[3rem] border border-primary/10 w-full">
+                                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 10 }}>
+                                                <Trophy className="w-24 h-24 text-yellow-500 drop-shadow-[0_0_30px_rgba(234,179,8,0.4)]" />
+                                            </motion.div>
+                                            <div className="text-center">
+                                                <div className="text-[11px] font-black text-primary uppercase tracking-[0.5em] mb-2">Champion</div>
+                                                <h3 className="text-4xl font-black uppercase tracking-tighter italic drop-shadow-sm">
+                                                    {locale === 'zh' ? final.winner.nameZh : final.winner.name}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        {/* Vertical Path with Connectors */}
+                                        <div className="w-full space-y-8 relative">
+                                            {/* Final Match */}
+                                            <div className="flex flex-col items-center gap-4">
+                                                <div className="w-px h-8 bg-gradient-to-b from-primary/50 to-transparent"></div>
+                                                <div className="w-full max-w-[280px]">
+                                                    <div className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-2">{t.final}</div>
+                                                    <BracketMatch match={final} />
+                                                </div>
+                                            </div>
+
+                                            {/* Semifinals */}
+                                            <div className="flex flex-col items-center gap-4">
+                                                <div className="flex w-full px-12 justify-between">
+                                                    <div className="w-px h-8 bg-border"></div>
+                                                    <div className="w-px h-8 bg-border"></div>
+                                                </div>
+                                                <div className="w-full grid grid-cols-2 gap-3 px-1">
+                                                    <div className="flex flex-col gap-2">
+                                                        <div className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-1">{t.semi}</div>
+                                                        <BracketMatch match={semiFinals[0]} />
+                                                    </div>
+                                                    <div className="flex flex-col gap-2">
+                                                        <div className="text-[9px] font-black">&nbsp;</div>
+                                                        <BracketMatch match={semiFinals[1]} />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Quarterfinals */}
+                                            <div className="flex flex-col items-center gap-4 pt-4 border-t border-border/20">
+                                                <div className="w-full grid grid-cols-2 gap-4">
+                                                    <div className="space-y-3">
+                                                        <div className="text-[9px] font-black uppercase tracking-widest opacity-40 mb-1">{t.quarter}</div>
+                                                        <BracketMatch match={quarterFinals[0]} />
+                                                        <BracketMatch match={quarterFinals[2]} />
+                                                    </div>
+                                                    <div className="space-y-3">
+                                                        <div className="text-[9px] font-black">&nbsp;</div>
+                                                        <BracketMatch match={quarterFinals[1]} />
+                                                        <BracketMatch match={quarterFinals[3]} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 {/* POOL RESULTS */}
@@ -311,6 +384,20 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                                             </div>
                                         ))}
                                     </div>
+                                </div>
+
+                                {/* SHARE SECTION */}
+                                <div className="mt-12 bg-card/60 backdrop-blur border border-border/50 rounded-[2.5rem] p-8 lg:p-10 shadow-xl overflow-hidden relative">
+                                    <div className="absolute top-0 right-0 p-8 opacity-5">
+                                        <Share2 className="w-32 h-32" />
+                                    </div>
+                                    <ShareButtons
+                                        url={`${siteConfig.siteUrl}/${locale}/wbc-simulator`}
+                                        title={t.shareTitle}
+                                        description={t.shareDesc}
+                                        shareText={t.predictMsg.replace('{team}', locale === 'zh' ? final.winner.nameZh : final.winner.name) + `${siteConfig.siteUrl}/${locale}/wbc-simulator`}
+                                        locale={locale}
+                                    />
                                 </div>
                             </motion.div>
                         )}
