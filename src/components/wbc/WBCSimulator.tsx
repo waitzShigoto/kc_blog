@@ -35,6 +35,7 @@ export default function WBCSimulator({ locale }: { locale: string }) {
     const [semiFinals, setSemiFinals] = useState<Match[]>([]);
     const [final, setFinal] = useState<Match | null>(null);
     const [history, setHistory] = useState<TeamData[]>([]);
+    const [top8History, setTop8History] = useState<string[]>([]);
 
     const winRates = history.reduce((acc, team) => {
         acc[team.id] = (acc[team.id] || 0) + 1;
@@ -48,11 +49,23 @@ export default function WBCSimulator({ locale }: { locale: string }) {
         })
         .sort((a, b) => b.count - a.count);
 
+    const top8Counts = top8History.reduce((acc, id) => {
+        acc[id] = (acc[id] || 0) + 1;
+        return acc;
+    }, {} as Record<string, number>);
+
+    const sortedTop8Rates = Object.entries(top8Counts)
+        .map(([id, count]) => {
+            const team = WBC_TEAMS.find(t => t.id === id)!;
+            return { team, count, rate: (count / history.length * 100).toFixed(1) };
+        })
+        .sort((a, b) => b.count - a.count);
+
     const t: Record<string, string> = ({
-        zh: { title: 'WBC戰況模擬器', simulate: '開始模擬', simulate10: '模擬 10 次', simulate100: '模擬 100 次', resetStats: '重置數據', simulating: '數據運算中...', winner: '冠軍', quarter: '八強', semi: '四強', final: '決賽', reset: '重新模擬', knockout: '淘汰賽', poolStage: '分組預賽', stats: '模擬統計', history: '奪冠紀錄', total: '總模擬次數', winProb: '奪冠機率排行' },
-        en: { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Retry', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank' },
-        ja: { title: 'WBC戦況シミュレーター', simulate: '予測開始', simulate10: '10回連続模擬', simulate100: '100回連續模擬', resetStats: '履歴リセット', simulating: '解析中...', winner: '優勝', quarter: '準於決勝', semi: '準決勝', final: '決勝', reset: 'やり直す', knockout: '決勝トーナメント', poolStage: '予選リーグ', stats: 'シミュレーション統計', history: '歴代優勝チーム', total: 'シミュレーション回数', winProb: '優勝確率ランキング' }
-    }[locale as 'zh' | 'en' | 'ja'] || { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Retry', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank' }) as Record<string, string>;
+        zh: { title: 'WBC戰況模擬器', simulate: '開始模擬', simulate10: '模擬 10 次', simulate100: '模擬 100 次', resetStats: '重置數據', simulating: '數據運算中...', winner: '冠軍', quarter: '八強', semi: '四強', final: '決賽', reset: '模擬 1 次', knockout: '淘汰賽', poolStage: '分組預賽', stats: '模擬統計', history: '奪冠紀錄', total: '總模擬次數', winProb: '奪冠機率排行', top8Prob: '進入八強機率' },
+        en: { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank', top8Prob: 'Top 8 Probability' },
+        ja: { title: 'WBC戦況シミュレーター', simulate: '予測開始', simulate10: '10回連續模擬', simulate100: '100回連續模擬', resetStats: '履歴リセット', simulating: '解析中...', winner: '優勝', quarter: '準於決勝', semi: '準決勝', final: '決勝', reset: '1回模擬', knockout: '決勝トーナメント', poolStage: '予選リーグ', stats: 'シミュレーション統計', history: '歴代優勝チーム', total: 'シミュレーション回數', winProb: '優勝確率ランキング', top8Prob: 'ベスト8進出確率' }
+    }[locale as 'zh' | 'en' | 'ja'] || { title: 'WBC Tournament Simulator', simulate: 'Simulate', simulate10: 'Simulate 10x', simulate100: 'Simulate 100x', resetStats: 'Reset Data', simulating: 'Calculating...', winner: 'CHAMPION', quarter: 'Quarterfinals', semi: 'Semifinals', final: 'Final', reset: 'Simulate 1x', knockout: 'Knockout Stage', poolStage: 'Pool Stage', stats: 'Simulator Stats', history: 'Champion History', total: 'Total Sims', winProb: 'Win Probability Rank' }) as Record<string, string>;
 
     const simulateGame = (teamA: TeamData, teamB: TeamData): Match => {
         const pA = TEAM_POWER[teamA.id] || 50;
@@ -111,6 +124,7 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                 setSemiFinals(sf);
                 setFinal(finalMatch);
                 setHistory(prev => [finalMatch.winner, ...prev]);
+                setTop8History(prev => [...pResults.flatMap(p => p.qualified.map(t => t.id)), ...prev]);
                 setStep('finished');
             }, 300);
         } else {
@@ -123,6 +137,7 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                 setSemiFinals(sf);
                 setFinal(finalMatch);
                 setHistory(prev => [finalMatch.winner, ...prev]);
+                setTop8History(prev => [...pResults.flatMap(p => p.qualified.map(t => t.id)), ...prev]);
 
                 count++;
                 if (count >= iterations) {
@@ -285,7 +300,6 @@ export default function WBCSimulator({ locale }: { locale: string }) {
 
                         {step === 'idle' && (
                             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} key="idle" className="py-24 text-center space-y-6 bg-muted/10 rounded-[3rem]">
-                                <Star className="w-12 h-12 text-primary/10 mx-auto" />
                                 <p className="text-[10px] font-black uppercase tracking-[0.5em] opacity-20 italic">Initialize Simulation to View Bracket</p>
                             </motion.div>
                         )}
@@ -308,7 +322,10 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                                 <h3 className="text-sm font-black uppercase tracking-widest text-foreground">{t.stats}</h3>
                             </div>
                             <button
-                                onClick={() => setHistory([])}
+                                onClick={() => {
+                                    setHistory([]);
+                                    setTop8History([]);
+                                }}
                                 className="p-2 hover:bg-muted rounded-lg transition-colors group"
                                 title={t.resetStats}
                             >
@@ -326,7 +343,7 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                                     </div>
                                     <div className="space-y-3">
                                         <span className="text-[10px] font-black text-foreground/70 uppercase tracking-widest block">{t.winProb}</span>
-                                        <div className="space-y-3 max-h-[220px] overflow-y-auto pr-2 custom-scrollbar pb-2">
+                                        <div className="space-y-3 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar pb-2">
                                             {sortedWinRates.map((item, idx) => (
                                                 <div key={item.team.id} className="space-y-1.5">
                                                     <div className="flex items-center justify-between text-[11px] font-bold">
@@ -344,6 +361,33 @@ export default function WBCSimulator({ locale }: { locale: string }) {
                                                             initial={{ width: 0 }}
                                                             animate={{ width: `${item.rate}%` }}
                                                             className="h-full bg-primary"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <span className="text-[10px] font-black text-foreground/70 uppercase tracking-widest block">{t.top8Prob}</span>
+                                        <div className="space-y-3 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar pb-2">
+                                            {sortedTop8Rates.map((item, idx) => (
+                                                <div key={item.team.id} className="space-y-1.5">
+                                                    <div className="flex items-center justify-between text-[11px] font-bold">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="opacity-30">{idx + 1}.</span>
+                                                            <span>{locale === 'zh' ? item.team.nameZh : item.team.name}</span>
+                                                        </div>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="text-[9px] opacity-40 font-black">{item.count}{locale === 'zh' ? '次' : (locale === 'ja' ? '回' : ' times')}</span>
+                                                            <span className="font-mono text-blue-400 font-black">{item.rate}%</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
+                                                        <motion.div
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: `${item.rate}%` }}
+                                                            className="h-full bg-blue-400"
                                                         />
                                                     </div>
                                                 </div>
