@@ -76,6 +76,21 @@ export interface BaseballPost {
   frontMatter: Record<string, unknown>;
 }
 
+// AI 文章的介面
+export interface AIPost {
+  slug: string;
+  title: string;
+  date: string;
+  author?: string;
+  image?: string;
+  topic?: string;
+  tags: string[];
+  categories: string[];
+  summary?: string;
+  content: string;
+  frontMatter: Record<string, unknown>;
+}
+
 // 學習統計介面
 export interface LearningStats {
   totalDays: number;
@@ -94,7 +109,7 @@ export interface LearningStats {
  */
 export async function getDailyEnglishPosts(locale: string = 'zh'): Promise<DailyEnglishPost[]> {
   const contentDir = path.join(process.cwd(), 'content', 'daily-english', locale);
-  
+
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -112,9 +127,9 @@ export async function getDailyEnglishPosts(locale: string = 'zh'): Promise<Daily
 
         // 只讀取每日英文分類的文章
         const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
-        const isDailyEnglishPost = categories.includes('Daily English') || 
-                                   categories.includes('Vocabulary') ||
-                                   frontMatter.word; // 或者有 word 欄位的也算
+        const isDailyEnglishPost = categories.includes('Daily English') ||
+          categories.includes('Vocabulary') ||
+          frontMatter.word; // 或者有 word 欄位的也算
 
         if (!isDailyEnglishPost) {
           continue;
@@ -152,7 +167,7 @@ export async function getDailyEnglishPosts(locale: string = 'zh'): Promise<Daily
  */
 export async function getAlgorithmPosts(locale: string = 'zh'): Promise<AlgorithmPost[]> {
   const contentDir = path.join(process.cwd(), 'content', 'algorithms', locale);
-  
+
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -170,8 +185,8 @@ export async function getAlgorithmPosts(locale: string = 'zh'): Promise<Algorith
 
         // 只讀取演算法分類的文章
         const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
-        const isAlgorithmPost = categories.includes('Algorithm Journal') || 
-                               frontMatter.topic; // 或者有 topic 欄位的也算
+        const isAlgorithmPost = categories.includes('Algorithm Journal') ||
+          frontMatter.topic; // 或者有 topic 欄位的也算
 
         if (!isAlgorithmPost) {
           continue;
@@ -213,7 +228,7 @@ export async function getAlgorithmPosts(locale: string = 'zh'): Promise<Algorith
  */
 export async function getLeetCodePosts(locale: string = 'zh'): Promise<LeetCodePost[]> {
   const contentDir = path.join(process.cwd(), 'content', 'leetcode', locale);
-  
+
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -231,8 +246,8 @@ export async function getLeetCodePosts(locale: string = 'zh'): Promise<LeetCodeP
 
         // 只讀取 LeetCode 分類的文章
         const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
-        const isLeetCodePost = categories.includes('LeetCode') || 
-                               typeof frontMatter.leetcodeId !== 'undefined'; // 或者有 leetcodeId 欄位的也算
+        const isLeetCodePost = categories.includes('LeetCode') ||
+          typeof frontMatter.leetcodeId !== 'undefined'; // 或者有 leetcodeId 欄位的也算
 
         if (!isLeetCodePost) {
           continue;
@@ -276,7 +291,7 @@ export async function getLeetCodePosts(locale: string = 'zh'): Promise<LeetCodeP
  */
 export async function getBaseballPosts(locale: string = 'zh'): Promise<BaseballPost[]> {
   const contentDir = path.join(process.cwd(), 'content', 'baseball', locale);
-  
+
   // 檢查目錄是否存在
   if (!fs.existsSync(contentDir)) {
     return [];
@@ -294,9 +309,9 @@ export async function getBaseballPosts(locale: string = 'zh'): Promise<BaseballP
 
         // 只讀取棒球分類的文章
         const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
-        const isBaseballPost = categories.includes('Baseball') || 
-                               categories.includes('棒球') ||
-                               frontMatter.team || frontMatter.player; // 或者有 team/player 欄位的也算
+        const isBaseballPost = categories.includes('Baseball') ||
+          categories.includes('棒球') ||
+          frontMatter.team || frontMatter.player; // 或者有 team/player 欄位的也算
 
         if (!isBaseballPost) {
           continue;
@@ -328,6 +343,58 @@ export async function getBaseballPosts(locale: string = 'zh'): Promise<BaseballP
     return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   } catch (error) {
     console.error('Error reading baseball posts:', error);
+    return [];
+  }
+}
+
+/**
+ * 讀取 AI 文章
+ */
+export async function getAIPosts(locale: string = 'zh'): Promise<AIPost[]> {
+  const contentDir = path.join(process.cwd(), 'content', 'ai', locale);
+
+  // 檢查目錄是否存在
+  if (!fs.existsSync(contentDir)) {
+    return [];
+  }
+
+  try {
+    const files = fs.readdirSync(contentDir);
+    const posts: AIPost[] = [];
+
+    for (const file of files) {
+      if (file.endsWith('.markdown') || file.endsWith('.md')) {
+        const filePath = path.join(contentDir, file);
+        const fileContent = fs.readFileSync(filePath, 'utf-8');
+        const { data: frontMatter, content } = matter(fileContent);
+
+        // 只讀取 AI 分類的文章
+        const categories = Array.isArray(frontMatter.categories) ? frontMatter.categories : [];
+        // 為了相容，我們把路徑在 ai 底下的都算是 AIPost
+
+        // 從檔名提取 slug
+        const slug = file.replace(/\.(markdown|md)$/, '');
+
+        posts.push({
+          slug,
+          title: frontMatter.title || slug,
+          date: frontMatter.date || '',
+          author: frontMatter.author,
+          image: frontMatter.image,
+          topic: frontMatter.topic,
+          tags: Array.isArray(frontMatter.tags) ? frontMatter.tags : [],
+          categories: categories,
+          summary: frontMatter.summary || extractSummary(content),
+          content: await marked(content),
+          frontMatter
+        });
+      }
+    }
+
+    // 按日期排序（最新的在前）
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error('Error reading AI posts:', error);
     return [];
   }
 }
@@ -392,11 +459,11 @@ export function calculateDailyEnglishStats(posts: DailyEnglishPost[]): LearningS
 
   // 計算平均學習時間（如果有記錄的話）
   const timePosts = posts.filter(p => typeof p.frontMatter.studyTime === 'number');
-  const averageTime = timePosts.length > 0 
+  const averageTime = timePosts.length > 0
     ? Math.round(timePosts.reduce((sum, p) => {
-        const studyTime = typeof p.frontMatter.studyTime === 'number' ? p.frontMatter.studyTime : 0;
-        return sum + studyTime;
-      }, 0) / timePosts.length)
+      const studyTime = typeof p.frontMatter.studyTime === 'number' ? p.frontMatter.studyTime : 0;
+      return sum + studyTime;
+    }, 0) / timePosts.length)
     : 0;
 
   return {
@@ -440,7 +507,7 @@ export function calculateAlgorithmStats(posts: AlgorithmPost[]): LearningStats {
 
   // 計算平均學習時間
   const timePosts = posts.filter(p => p.studyTime && p.studyTime > 0);
-  const averageTime = timePosts.length > 0 
+  const averageTime = timePosts.length > 0
     ? Math.round(timePosts.reduce((sum, p) => sum + (p.studyTime || 0), 0) / timePosts.length)
     : 0;
 
@@ -451,6 +518,37 @@ export function calculateAlgorithmStats(posts: AlgorithmPost[]): LearningStats {
     problemsSolved,
     topicsLearned,
     averageTime
+  };
+}
+
+/**
+ * 計算 AI 學習統計
+ */
+export function calculateAIStats(posts: AIPost[]): LearningStats {
+  if (posts.length === 0) {
+    return {
+      totalDays: 0,
+      currentStreak: 0,
+      totalEntries: 0,
+      topicsLearned: 0,
+    };
+  }
+
+  // 計算總天數
+  const totalDays = posts.length;
+
+  // 計算連續學習天數
+  const currentStreak = calculateStreak(posts.map(p => p.date));
+
+  // 計算學習的主題數量（去重）
+  const topics = new Set(posts.map(p => p.topic).filter(Boolean));
+  const topicsLearned = topics.size;
+
+  return {
+    totalDays,
+    currentStreak,
+    totalEntries: totalDays,
+    topicsLearned
   };
 }
 
@@ -508,7 +606,7 @@ function calculateStreak(dates: string[]): number {
   for (let i = 0; i < sortedDates.length; i++) {
     const currentDate = new Date(sortedDates[i]);
     currentDate.setHours(0, 0, 0, 0);
-    
+
     const expectedDate = new Date(today);
     expectedDate.setDate(today.getDate() - i);
 
@@ -560,24 +658,24 @@ export async function getRelatedBaseballPosts(currentPost: BaseballPost, locale:
   const allPosts = await getBaseballPosts(locale);
   const currentTags = currentPost.tags || [];
   const currentCategories = currentPost.categories || [];
-  
+
   // 過濾掉當前文章
   const otherPosts = allPosts.filter(post => post.slug !== currentPost.slug);
-  
+
   // 計算相關性分數
   const postsWithScore = otherPosts.map(post => {
     let score = 0;
     const postTags = post.tags || [];
     const postCategories = post.categories || [];
-    
+
     // 標籤匹配得分（每個匹配的標籤 +2 分）
     const tagMatches = currentTags.filter(tag => postTags.includes(tag));
     score += tagMatches.length * 2;
-    
+
     // 分類匹配得分（每個匹配的分類 +3 分）
     const categoryMatches = currentCategories.filter(category => postCategories.includes(category));
     score += categoryMatches.length * 3;
-    
+
     return {
       post,
       score,
@@ -585,7 +683,7 @@ export async function getRelatedBaseballPosts(currentPost: BaseballPost, locale:
       categoryMatches: categoryMatches.length
     };
   });
-  
+
   // 按分數排序，分數相同時按日期排序（較新的在前）
   const sortedPosts = postsWithScore
     .filter(item => item.score > 0) // 只返回有相關性的文章
@@ -598,10 +696,10 @@ export async function getRelatedBaseballPosts(currentPost: BaseballPost, locale:
       const dateB = new Date(b.post.date);
       return dateB.getTime() - dateA.getTime();
     });
-  
+
   // 如果相關文章不足，用最新文章補足
   let relatedPosts = sortedPosts.slice(0, limit).map(item => item.post);
-  
+
   if (relatedPosts.length < limit) {
     const remainingCount = limit - relatedPosts.length;
     const relatedSlugs = new Set(relatedPosts.map(p => p.slug));
@@ -609,9 +707,9 @@ export async function getRelatedBaseballPosts(currentPost: BaseballPost, locale:
       .filter(post => !relatedSlugs.has(post.slug))
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, remainingCount);
-    
+
     relatedPosts = [...relatedPosts, ...additionalPosts];
   }
-  
+
   return relatedPosts;
 }
