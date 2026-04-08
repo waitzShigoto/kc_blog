@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Search, Home, ArrowLeft, Mail, MessageCircle } from 'lucide-react';
+import { Search, Home, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import HeaderWrapper from '@/components/layout/HeaderWrapper';
@@ -9,7 +9,6 @@ import Navbar from '@/components/layout/Navbar';
 
 const NotFound = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [locale, setLocale] = useState('zh');
   const [isRedirecting, setIsRedirecting] = useState(true);
   const pathname = usePathname();
@@ -60,17 +59,6 @@ const NotFound = () => {
     }
   }, [pathname, router]);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 20,
-        y: (e.clientY / window.innerHeight) * 20
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
