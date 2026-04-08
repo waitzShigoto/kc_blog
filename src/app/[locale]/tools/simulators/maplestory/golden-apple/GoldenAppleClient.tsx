@@ -6,13 +6,16 @@ import {
     GOLDEN_APPLE_REWARDS_V1,
     GOLDEN_APPLE_REWARDS_V2,
     GOLDEN_APPLE_REWARDS_V3,
+    GOLDEN_APPLE_REWARDS_V4,
     GoldenAppleReward,
     GRAND_PRIZES_V1,
     GRAND_PRIZES_V2,
     GRAND_PRIZES_V3,
+    GRAND_PRIZES_V4,
     GOLDEN_BOX_REWARDS_V1,
     GOLDEN_BOX_REWARDS_V2,
-    GOLDEN_BOX_REWARDS_V3
+    GOLDEN_BOX_REWARDS_V3,
+    GOLDEN_BOX_REWARDS_V4
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -97,7 +100,7 @@ function CustomSelect<T extends string | number>({
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 版本選擇狀態
-    const [version, setVersion] = useState<'v1' | 'v2' | 'v3'>('v3'); // 默認使用最新版本
+    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4'>('v4'); // 默認使用最新版本 (一拳超人)
 
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
@@ -123,9 +126,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     const goldenBoxRewardCountsRef = useRef<Record<string, number>>({});
 
     // 根據版本選擇數據源
-    const GOLDEN_APPLE_REWARDS = version === 'v1' ? GOLDEN_APPLE_REWARDS_V1 : (version === 'v2' ? GOLDEN_APPLE_REWARDS_V2 : GOLDEN_APPLE_REWARDS_V3);
-    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : (version === 'v2' ? GRAND_PRIZES_V2 : GRAND_PRIZES_V3);
-    const GOLDEN_BOX_REWARDS = version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : (version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : GOLDEN_BOX_REWARDS_V3);
+    const GOLDEN_APPLE_REWARDS = version === 'v1' ? GOLDEN_APPLE_REWARDS_V1 : (version === 'v2' ? GOLDEN_APPLE_REWARDS_V2 : (version === 'v3' ? GOLDEN_APPLE_REWARDS_V3 : GOLDEN_APPLE_REWARDS_V4));
+    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : (version === 'v2' ? GRAND_PRIZES_V2 : (version === 'v3' ? GRAND_PRIZES_V3 : GRAND_PRIZES_V4));
+    const GOLDEN_BOX_REWARDS = version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : (version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : (version === 'v3' ? GOLDEN_BOX_REWARDS_V3 : GOLDEN_BOX_REWARDS_V4));
 
     // 當版本切換時，重置目標大獎
     useEffect(() => {
@@ -144,8 +147,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 多語言文字
     const texts = {
         zh: {
-            title: '黃金蘋果模擬器',
-            subtitle: 'GAME',
+            title: '一拳超人',
+            subtitle: '黃金蘋果',
             useApple: '使用黃金蘋果',
             use10Apples: '使用 10 個',
             use100Apples: '使用 100 個',
@@ -177,6 +180,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
+            eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -191,16 +195,19 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV1: '第一期',
             versionV2: '第二期',
             versionV3: '第三期',
+            versionV4: '一拳超人',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公寶珠',
             btnTitleV2: '02/11 ~ 02/24',
             btnSubtitleV2: '輪迴碑石',
             btnTitleV3: '02/25 ~ 03/11',
             btnSubtitleV3: '黑翼胸章',
+            btnTitleV4: '04/08 ~ 04/22',
+            btnSubtitleV4: '一拳超人',
         },
         en: {
-            title: 'Golden Apple Simulator',
-            subtitle: 'MapleStory',
+            title: 'One Punch Man',
+            subtitle: 'Golden Apple',
             useApple: 'Use Golden Apple',
             use10Apples: 'Use 10 Apples',
             use100Apples: 'Use 100 Apples',
@@ -231,6 +238,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
+            eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -245,16 +253,19 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV1: 'Period 1',
             versionV2: 'Period 2',
             versionV3: 'Period 3',
+            versionV4: 'OPM',
             btnTitleV1: 'Jan 28 - Feb 11',
             btnSubtitleV1: 'Wu Gong',
             btnTitleV2: 'Feb 11 - Feb 24',
             btnSubtitleV2: 'Frenzy',
             btnTitleV3: 'Feb 25 - Mar 11',
             btnSubtitleV3: 'Black Wing',
+            btnTitleV4: 'Apr 08 - Apr 22',
+            btnSubtitleV4: 'OPM',
         },
         ja: {
-            title: 'ゴールデンアップルシミュレーター',
-            subtitle: 'メイプルストーリー',
+            title: 'ワンパンマン',
+            subtitle: 'ゴールデンアップル',
             useApple: 'ゴールデンアップル使用',
             use10Apples: '10個使用',
             use100Apples: '100個使用',
@@ -270,12 +281,12 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             currentReward: '現在の報酬',
             rules: 'ルール',
             rulesList: [
-                'ゴールデンアップル使用ごとに1つの欠片を獲得',
+                'ゴールデンアップル使用ごとに1つの欠片獲得',
                 '100個の欠片でゴールデンボックスを1つ開封可能',
                 '使用ごとにランダムな報酬を1つ獲得',
                 '報酬確率は公式データに基づく',
             ],
-            disclaimer: 'このシミュレーターは娯楽目的です。実際のゲーム確率は若干異なる場合があります。',
+            disclaimer: 'このシミュレーターは娯樂目的です。実際のゲーム確率は若干異なる場合があります。',
             back: 'シミュレーター一覧に戻る',
             countTimes: '{n}回',
             probabilities: '報酬確率',
@@ -285,6 +296,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV1: '2026/01/28 09:00 ～ 2026/02/11 07:59',
             eventDateV2: '2026/02/11 09:00 ～ 2026/02/24 23:59',
             eventDateV3: '2026/02/25 09:00 ～ 2026/03/11 07:59',
+            eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標大賞',
@@ -299,12 +311,15 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV1: '第1期',
             versionV2: '第2期',
             versionV3: '第3期',
+            versionV4: 'ワンパンマン',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公パンダ',
             btnTitleV2: '02/11 ~ 02/24',
             btnSubtitleV2: 'フレンジー',
             btnTitleV3: '02/25 ~ 03/11',
             btnSubtitleV3: '黑翼の胸章',
+            btnTitleV4: '04/08 ~ 04/22',
+            btnSubtitleV4: 'ワンパンマン',
         },
     };
 
@@ -602,6 +617,16 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         >
                             <span className="text-[10px] opacity-80">{t.btnTitleV3}</span>
                             <span className="text-sm">{t.btnSubtitleV3}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v4')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v4'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV4}</span>
+                            <span className="text-sm">{t.btnSubtitleV4}</span>
                             <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
                                 NEW
                             </span>
@@ -786,7 +811,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                         <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                     </div>
                                     <div className="text-foreground font-medium pl-5">
-                                        {version === 'v1' ? t.eventDateV1 : (version === 'v2' ? t.eventDateV2 : t.eventDateV3)}
+                                        {version === 'v1' ? t.eventDateV1 : (version === 'v2' ? t.eventDateV2 : (version === 'v3' ? t.eventDateV3 : t.eventDateV4))}
                                     </div>
                                 </div>
                             )}
