@@ -85,6 +85,17 @@ const SIMULATORS = [
         path: 'maplestory/lucky-red-envelope',
         icon: '🧧',
         color: 'from-red-500 to-yellow-500'
+    },
+    {
+        id: 'familiar-card-pack',
+        title: {
+            zh: '萌獸卡牌包',
+            en: 'Familiar Card Pack',
+            ja: 'ファミリアカードパック'
+        },
+        path: 'maplestory/familiar-card-pack',
+        icon: '🎴',
+        color: 'from-violet-500 to-purple-500'
     }
 ];
 
