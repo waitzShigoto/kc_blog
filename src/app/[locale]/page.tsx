@@ -76,6 +76,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const webPosts = await getPostsByCategory(locale, 'Web');
   const thoughtPosts = await getPostsByCategory(locale, 'Thoughts');
   const baseballPosts = await getPostsByCategory(locale, 'Baseball');
+  const aiPosts = await getPostsByCategory(locale, 'AI');
 
   // 最新文章列表 (排除掉已經顯示在 Hero 區塊的文章，避免重複感)
   // 這裡簡單處理：取 Hero 之後的最新 10 篇文章做為側欄列表
@@ -122,6 +123,16 @@ export default async function HomePage({ params }: HomePageProps) {
             <div className="flex flex-col lg:flex-row gap-12">
               {/* 2. Main Feed - 分類區塊 */}
               <div className="flex-1 min-w-0">
+
+                {/* 分類區塊：AI (放在最上面) */}
+                {aiPosts.length > 0 && (
+                  <CategorySection
+                    title={locale === 'zh' ? '探索 AI 技術' : locale === 'ja' ? 'AI 技術を探索' : 'Exploring AI'}
+                    posts={aiPosts.slice(0, 6)}
+                    categorySlug="AI"
+                    locale={locale}
+                  />
+                )}
 
                 {/* 分類區塊：Baseball (放在歡迎標語上方) */}
                 {baseballPosts.length > 0 && (
