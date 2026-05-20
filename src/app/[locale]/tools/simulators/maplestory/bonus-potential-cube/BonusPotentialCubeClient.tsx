@@ -10,14 +10,12 @@ interface BonusPotentialCubeClientProps {
 import { getPool, EquipmentType, EquipmentLevel, EQUIPMENT_TYPES, EQUIPMENT_LEVELS, PotentialTier, STAT_VALUES_BY_LEVEL, CubeType } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
+import CustomSelect from '@/components/ui/CustomSelect';
+import { weightedRandom } from '@/lib/simulator-utils';
+import { useSimulatorState } from '@/hooks/useSimulatorState';
+import { PotentialLine, DrawHistoryEntry } from '@/types/simulators';
 import { siteConfig } from '@/lib/config';
 
-interface PotentialLine {
-  tier: PotentialTier;
-  statKey: string; // 用於邏輯判斷的原始 Key (例如 'ATT%', 'STRPer9Lv')
-  stat: string;    // 用於顯示的文字
-  value: string;
-}
 
 // 翻譯文字的類型定義
 interface TranslationStats {
@@ -96,9 +94,7 @@ interface TranslationText {
 }
 
 // 歷史記錄
-interface CubeHistory {
-  id: number;
-  cubeNumber: number; // 第幾顆方塊
+interface CubeHistory extends DrawHistoryEntry {
   beforeTier: PotentialTier;
   afterTier: PotentialTier;
   tierChanged: boolean;
@@ -135,72 +131,6 @@ const TIER_COLORS: Record<PotentialTier, { bg: string; text: string; border: str
 // 數值範圍
 // 移除舊的 STAT_VALUES，改用 data.ts 中的 STAT_VALUES_BY_LEVEL
 
-// Custom Select Component matching site language switcher style
-function CustomSelect<T extends string | number>({
-  value,
-  onChange,
-  options,
-  disabled = false,
-  className = ""
-}: {
-  value: T,
-  onChange: (val: T) => void,
-  options: { value: T, label: string }[],
-  disabled?: boolean,
-  className?: string
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const selectedOption = options.find(opt => opt.value === value);
-
-  return (
-    <div className={`relative ${className}`} ref={containerRef}>
-      <button
-        type="button"
-        onClick={() => !disabled && setIsOpen(!isOpen)}
-        disabled={disabled}
-        className={`w-full flex items-center justify-between px-3 py-2 text-sm bg-muted/50 border border-border rounded-lg text-foreground hover:bg-muted transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 ${disabled ? 'opacity-70 cursor-not-allowed' : ''}`}
-      >
-        <span className="truncate">{selectedOption?.label || value}</span>
-        <svg className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-
-      {isOpen && (
-        <div className="absolute left-0 right-0 mt-2 bg-background border border-border rounded-lg shadow-xl py-2 z-50 max-h-60 overflow-y-auto custom-scrollbar">
-          {options.map((opt) => (
-            <button
-              key={String(opt.value)}
-              type="button"
-              onClick={() => {
-                onChange(opt.value);
-                setIsOpen(false);
-              }}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${value === opt.value
-                ? 'bg-primary/10 text-primary font-bold'
-                : 'text-foreground hover:bg-muted font-medium'
-                }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeClientProps) {
   const [selectedEquip, setSelectedEquip] = useState<EquipmentType>('Weapon');
@@ -208,37 +138,47 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
   const [currentTier, setCurrentTier] = useState<PotentialTier>('rare');
   const [currentLines, setCurrentLines] = useState<PotentialLine[]>([]);
-  const [history, setHistory] = useState<CubeHistory[]>([]);
-  const [totalCubes, setTotalCubes] = useState(0);
+  const {
+    totalDraws,
+    history,
+    counts: statCounts,
+    isRolling,
+    setIsRolling,
+    showAnimation,
+    setShowAnimation,
+    setTotalDraws,
+    setCounts,
+    setHistory,
+    totalDrawsRef,
+    countsRef: statCountsRef,
+    stopRef: stopRequestedRef,
+    recordDraw,
+    addHistory,
+    reset: baseReset,
+  } = useSimulatorState<CubeHistory>();
+
   const [cubesByType, setCubesByType] = useState<Record<CubeType, number>>({
     premiumBonus: 0,
     memorialBonus: 0,
     absoluteBonus: 0,
   });
   const [tierUpCount, setTierUpCount] = useState(0);
-  const [isRolling, setIsRolling] = useState(false);
-  const [isAutoRolling, setIsAutoRolling] = useState(false); // 新增自動洗的狀態
-  const [isTargetRolling, setIsTargetRolling] = useState(false); // 洗到指定屬性
+  const [isAutoRolling, setIsAutoRolling] = useState(false);
+  const [isTargetRolling, setIsTargetRolling] = useState(false);
   const [targetMode, setTargetMode] = useState<'big' | 'small' | 'doubleS'>('big');
   const [targetStat, setTargetStat] = useState<string>('ATT%');
-  const [selectedCube, setSelectedCube] = useState<CubeType>('premiumBonus'); // 新增方塊選擇
-  const [memorialSelectedIndex, setMemorialSelectedIndex] = useState<number | null>(null); // 結合附加方塊選擇的排數 (0-2)
-  const [memorialTargetSlot, setMemorialTargetSlot] = useState<number>(0); // 目標排數 (0-2)
-  const [showAnimation, setShowAnimation] = useState(false);
-  const stopRequestedRef = useRef(false); // 用於中斷自動洗
-  const [hasStarted, setHasStarted] = useState(false); // 是否已開始使用方塊
-  const totalCubesRef = useRef(0); // 使用 Ref 來確保計數準確
+  const [selectedCube, setSelectedCube] = useState<CubeType>('premiumBonus');
+  const [memorialSelectedIndex, setMemorialSelectedIndex] = useState<number | null>(null);
+  const [memorialTargetSlot, setMemorialTargetSlot] = useState<number>(0);
+
+  const [memorialRowCounts, setMemorialRowCounts] = useState<number[]>([0, 0, 0]);
+  const memorialRowCountsRef = useRef<number[]>([0, 0, 0]);
+
   const cubesByTypeRef = useRef<Record<CubeType, number>>({
     premiumBonus: 0,
     memorialBonus: 0,
     absoluteBonus: 0,
   });
-  const [memorialRowCounts, setMemorialRowCounts] = useState<number[]>([0, 0, 0]);
-  const memorialRowCountsRef = useRef<number[]>([0, 0, 0]);
-
-  // 屬性統計：Record<EquipmentType, Record<statKey, count>>
-  const [statCounts, setStatCounts] = useState<Record<string, number>>({});
-  const statCountsRef = useRef<Record<string, number>>({});
   const totalLinesRolledRef = useRef(0);
   const [cubePoints, setCubePoints] = useState(0);
   const cubePointsRef = useRef(0);
@@ -595,16 +535,6 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     legendary: t.legendary,
   };
 
-  // 根據權重隨機選擇
-  const weightedRandom = <T,>(items: { item: T; weight: number }[]): T => {
-    const totalWeight = items.reduce((sum, i) => sum + i.weight, 0);
-    let random = Math.random() * totalWeight;
-    for (const { item, weight } of items) {
-      random -= weight;
-      if (random <= 0) return item;
-    }
-    return items[items.length - 1].item;
-  };
 
   // 判斷是否符合目標屬性 (考量變體如 CritDmg_Glove)
   const isMatchTarget = useCallback((rolledKey: string, targetKey: string) => {
@@ -708,9 +638,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
   }, [selectedEquip, getAvailableTargetStats, targetStat]);
 
   const incrementCubeCount = useCallback((cubeType: CubeType, memorialRowIdx?: number) => {
-    totalCubesRef.current += 1;
-    const newTotal = totalCubesRef.current;
-    setTotalCubes(newTotal);
+    const newTotal = recordDraw(cubeType);
 
     cubesByTypeRef.current[cubeType] += 1;
     setCubesByType({ ...cubesByTypeRef.current });
@@ -726,11 +654,11 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       // 用戶要求：統計「重新選擇但未確定」的次數
       // 這裡先預設為「未確定」，等到 recordStatOccurrence (確定洗) 時再減去
       statCountsRef.current['__NOT_ROLLED__'] = (statCountsRef.current['__NOT_ROLLED__'] || 0) + 1;
-      setStatCounts({ ...statCountsRef.current });
+      setCounts({ ...statCountsRef.current });
     }
 
     return newTotal;
-  }, []);
+  }, [recordDraw, cubesByTypeRef, cubePointsRef, memorialRowCountsRef, statCountsRef, setTotalDraws, setCubesByType, setCubePoints, setMemorialRowCounts, setCounts]);
 
   const recordStatOccurrence = useCallback((lines: PotentialLine[], memorialIdx: number) => {
     const line = lines[memorialIdx];
@@ -744,8 +672,8 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     const trackKey = line.statKey === '__NOT_ROLLED__' ? line.statKey : `${line.statKey}:${line.tier}`;
     statCountsRef.current[trackKey] = (statCountsRef.current[trackKey] || 0) + 1;
     totalLinesRolledRef.current += 1;
-    setStatCounts({ ...statCountsRef.current });
-  }, []);
+    setCounts({ ...statCountsRef.current });
+  }, [statCountsRef, setCounts]);
 
   // 生成單條潛能
   const generateLine = useCallback((tier: PotentialTier, cubeType: CubeType = 'premiumBonus'): PotentialLine => {
@@ -753,7 +681,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     if (!pool || pool.length === 0) {
       return { tier, statKey: 'UNKNOWN', stat: 'UNKNOWN', value: '?' };
     }
-    const statItem = weightedRandom(pool.map(p => ({ item: p.stat, weight: p.weight })));
+    const statItem = weightedRandom(pool, 'weight').stat;
 
     let displayStat = t.stats[statItem] || statItem;
     let value = '';
@@ -878,12 +806,10 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       // 第一步：隨機選擇一排，此時即消耗一顆
       const picked = Math.floor(Math.random() * 3);
       setMemorialSelectedIndex(picked);
-      setHasStarted(true);
       incrementCubeCount('memorialBonus', picked);
       return;
     }
 
-    setHasStarted(true);
     setIsRolling(true);
     setShowAnimation(true);
 
@@ -902,7 +828,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     }
 
     // 更新計數 (如果是結合附加，在選擇排數時已計數，此處確認時不重複計數)
-    let newTotal = totalCubesRef.current;
+    let newTotal = totalDrawsRef.current;
     if (selectedCube !== 'memorialBonus') {
       newTotal = incrementCubeCount(selectedCube);
     }
@@ -910,13 +836,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     // 加入歷史
     const newHistory: CubeHistory = {
       id: Date.now(),
-      cubeNumber: newTotal,
+      drawNumber: newTotal,
       beforeTier,
       afterTier: result.afterTier,
       tierChanged: result.tierChanged,
       lines: result.lines,
     };
-    setHistory(prevHistory => [newHistory, ...prevHistory].slice(0, 50));
+    addHistory(newHistory, 50);
 
     setIsRolling(false);
     setShowAnimation(false);
@@ -925,7 +851,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     if (selectedCube === 'memorialBonus') {
       setMemorialSelectedIndex(null);
     }
-  }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, rollCube, incrementCubeCount, recordStatOccurrence]);
+  }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, rollCube, incrementCubeCount, recordStatOccurrence, totalDrawsRef, addHistory, setIsRolling, setShowAnimation]);
 
   // 重新選擇排數（結合附加專用）
   const reselectMemorialLine = useCallback(() => {
@@ -964,12 +890,11 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     pickOnce();
-  }, [isRolling, reselectMemorialLine]);
+  }, [isRolling, reselectMemorialLine, setIsRolling, stopRequestedRef]);
 
   // 使用 10 個方塊
   const use10Cubes = useCallback(() => {
     if (isRolling) return;
-    setHasStarted(true);
     setIsRolling(true); // 鎖定按鈕直到全部完成
 
     let count = 0;
@@ -997,13 +922,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
         // 加入歷史
         const newHistory: CubeHistory = {
           id: Date.now() + count, // 稍微錯開 ID
-          cubeNumber: newTotal,
+          drawNumber: newTotal,
           beforeTier,
           afterTier: result.afterTier,
           tierChanged: result.tierChanged,
           lines: result.lines,
         };
-        setHistory(prevHistory => [newHistory, ...prevHistory].slice(0, 50));
+        addHistory(newHistory, 50);
 
         setShowAnimation(false);
 
@@ -1017,12 +942,11 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
-  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount]);
+  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount, setIsRolling, setShowAnimation, addHistory]);
 
   // 洗到跳框
   const useUntilTierUp = useCallback(() => {
     if (isRolling || currentTier === 'legendary') return;
-    setHasStarted(true);
     setIsRolling(true);
     setIsAutoRolling(true);
     stopRequestedRef.current = false;
@@ -1061,13 +985,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
         // 加入歷史
         const newHistory: CubeHistory = {
           id: Date.now() + count,
-          cubeNumber: newTotal,
+          drawNumber: newTotal,
           beforeTier,
           afterTier: result.afterTier,
           tierChanged: result.tierChanged,
           lines: result.lines,
         };
-        setHistory(prevHistory => [newHistory, ...prevHistory].slice(0, 50));
+        addHistory(newHistory, 50);
 
         setShowAnimation(false);
 
@@ -1085,12 +1009,11 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
-  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount]);
+  }, [currentTier, currentLines, selectedCube, rollCube, isRolling, incrementCubeCount, setIsRolling, setIsAutoRolling, setShowAnimation, addHistory, stopRequestedRef]);
 
   // 洗到指定屬性
   const useUntilTarget = useCallback(() => {
     if (isRolling || currentTier !== 'legendary') return;
-    setHasStarted(true);
     setIsRolling(true);
     setIsTargetRolling(true);
     stopRequestedRef.current = false;
@@ -1134,13 +1057,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
             // 加入歷史紀錄 (每次屬性跳動都紀錄)
             const newHistory: CubeHistory = {
               id: Date.now() + iterations,
-              cubeNumber: totalCubesRef.current,
+              drawNumber: totalDrawsRef.current,
               beforeTier: localTier,
               afterTier: localTier,
               tierChanged: false,
               lines: result.lines,
             };
-            setHistory(prev => [newHistory, ...prev].slice(0, 50));
+            addHistory(newHistory, 50);
 
             targetMet = isMatchTarget(result.lines[memorialTargetSlot].statKey, targetStat);
 
@@ -1179,13 +1102,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
         const newHistory: CubeHistory = {
           id: Date.now() + iterations,
-          cubeNumber: nTotal,
+          drawNumber: nTotal,
           beforeTier: bTier,
           afterTier: result.afterTier,
           tierChanged: bTier !== result.afterTier,
           lines: result.lines,
         };
-        setHistory(prev => [newHistory, ...prev].slice(0, 50));
+        addHistory(newHistory, 50);
 
         targetMet = checkTargetMet(result.lines, targetMode, targetStat);
         iterations++;
@@ -1200,8 +1123,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     };
 
     rollOnce();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, memorialTargetSlot, targetStat, targetMode, rollCube, reselectMemorialLine, incrementCubeCount, checkTargetMet, isRolling]);
+  }, [currentTier, currentLines, selectedCube, memorialTargetSlot, targetStat, targetMode, rollCube, reselectMemorialLine, incrementCubeCount, checkTargetMet, isRolling, addHistory, setIsRolling, setIsTargetRolling, setShowAnimation, recordStatOccurrence, isMatchTarget, totalDrawsRef, stopRequestedRef]);
 
   // 停止自動洗
   const stopAutoRoll = () => {
@@ -1211,11 +1133,12 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
   // 重置
   const reset = () => {
+    baseReset();
     setCurrentTier('rare');
     setCurrentLines([]);
     setHistory([]);
-    setTotalCubes(0);
-    totalCubesRef.current = 0; // 重置 Ref
+    setTotalDraws(0);
+    totalDrawsRef.current = 0; // 重置 Ref
     setCubesByType({
       premiumBonus: 0,
       memorialBonus: 0,
@@ -1229,12 +1152,12 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     setTierUpCount(0);
     setCubePoints(0);
     cubePointsRef.current = 0;
-    setHasStarted(false); // 重置後可以重新選擇起始等級
+    // 重置後可以重新選擇起始等級
     setSelectedCube('premiumBonus'); // 重置時回到珍貴附加
     setMemorialSelectedIndex(null); // 清除選擇狀態
     setMemorialRowCounts([0, 0, 0]);
     memorialRowCountsRef.current = [0, 0, 0];
-    setStatCounts({});
+    setCounts({});
     statCountsRef.current = {};
     totalLinesRolledRef.current = 0;
 
@@ -1251,18 +1174,18 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
   };
 
   // 計算升階率
-  const calculatedTierUpRate = totalCubes > 0 ? ((tierUpCount / totalCubes) * 100).toFixed(2) : '0.00';
+  const calculatedTierUpRate = totalDraws > 0 ? ((tierUpCount / totalDraws) * 100).toFixed(2) : '0.00';
 
   // 分享資訊
   const shareTitle = t.title;
 
-  const shareDescription = !hasStarted || currentLines.length === 0
+  const shareDescription = totalDraws === 0 || currentLines.length === 0
     ? `${t.subtitle}${t.title}，支援${t.premiumBonusCube}與${t.memorialBonusCube}。`
-    : `我一共花了 ${totalCubes} 顆方塊 (${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus})，快來看看我的潛能結果！`;
+    : `我一共花了 ${totalDraws} 顆方塊 (${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus})，快來看看我的潛能結果！`;
 
-  const dynamicShareText = !hasStarted || currentLines.length === 0
+  const dynamicShareText = totalDraws === 0 || currentLines.length === 0
     ? `${t.title} - ${t.subtitle}\n${t.premiumBonusCube}與${t.memorialBonusCube}模擬測試\n${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`
-    : `${t.title}\n我一共花了 ${totalCubes} 顆方塊（${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus} / ${t.absoluteBonusCube}：${cubesByType.absoluteBonus}）\n【目前附加潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`;
+    : `${t.title}\n我一共花了 ${totalDraws} 顆方塊（${t.premiumBonusCube}：${cubesByType.premiumBonus} / ${t.memorialBonusCube}：${cubesByType.memorialBonus} / ${t.absoluteBonusCube}：${cubesByType.absoluteBonus}）\n【目前附加潛能數據】\n${currentLines.map((l, i) => `第 ${i + 1} 排：${l.stat} ${l.value}`).join('\n')}\n\n網址：${siteConfig.siteUrl}/${locale}/tools/simulators/bonus-potential-cube`;
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -1303,7 +1226,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                   </div>
                 </div>
 
-                {hasStarted && (
+                {totalDraws > 0 && (
                   <div className="flex justify-center gap-2.5 animate-in fade-in slide-in-from-top-1 duration-500">
                     <div className="px-3 py-1 bg-muted/50 border border-border rounded-full text-[10px] font-bold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-primary/30"></span>
@@ -1443,7 +1366,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
               )}
 
               {/* Equipment Selection */}
-              {!(selectedCube === 'memorialBonus' && currentLines.length === 0) && !hasStarted && (
+              {!(selectedCube === 'memorialBonus' && currentLines.length === 0) && totalDraws === 0 && (
                 <div className="mb-6 grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-muted-foreground text-sm mb-2">{t.equipType}</label>
@@ -1468,7 +1391,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
               )}
 
               {/* Tier Selection - 只在尚未開始時顯示 */}
-              {!(selectedCube === 'memorialBonus' && currentLines.length === 0) && !hasStarted && (
+              {!(selectedCube === 'memorialBonus' && currentLines.length === 0) && totalDraws === 0 && (
                 <div className="mb-6">
                   <p className="text-slate-400 text-sm mb-3 text-center">{t.selectTier}</p>
                   <div className="flex flex-wrap justify-center gap-2">
@@ -1657,7 +1580,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                 <div className="p-4 bg-muted/50 rounded-xl flex flex-col gap-2 border border-border shadow-sm">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-sm text-muted-foreground">{t.totalUsed}</span>
-                    <span className="text-2xl font-bold text-foreground tracking-tight">{totalCubes}</span>
+                    <span className="text-2xl font-bold text-foreground tracking-tight">{totalDraws}</span>
                   </div>
                   <div className="flex justify-between items-center text-xs mb-2">
                     <span className="text-muted-foreground/80">{t.totalCubePoints}</span>
@@ -1854,7 +1777,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     >
                       <div className="flex justify-between items-center">
                         <span className="text-muted-foreground/60 font-mono text-[10px] min-w-[2.5rem]">
-                          #{record.cubeNumber}
+                          #{record.drawNumber}
                         </span>
                         <div className="flex items-center gap-1.5 flex-1 justify-center">
                           <span className={`${TIER_COLORS[record.beforeTier].text} font-medium`}>

@@ -7,11 +7,12 @@ import {
     GRAND_PRIZES,
     GRADE_PROBABILITIES,
     SPECIAL_GRADE_PROBABILITIES,
-    FamiliarCardReward,
-    GradeInfo,
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
+import CustomSelect from '@/components/ui/CustomSelect';
+import { weightedRandom } from '@/lib/simulator-utils';
+import { useSimulatorState } from '@/hooks/useSimulatorState';
 import { siteConfig } from '@/lib/config';
 
 interface Props { locale: string; }
@@ -30,55 +31,30 @@ const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }>
     '傳說': { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
 };
 
-function CustomSelect<T extends string | number>({ value, onChange, options, disabled = false, className = "" }: {
-    value: T; onChange: (val: T) => void; options: { value: T; label: string }[]; disabled?: boolean; className?: string;
-}) {
-    const [isOpen, setIsOpen] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const h = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false); };
-        document.addEventListener('mousedown', h);
-        return () => document.removeEventListener('mousedown', h);
-    }, []);
-    const sel = options.find(o => o.value === value);
-    return (
-        <div className={`relative ${className}`} ref={ref}>
-            <button type="button" onClick={() => !disabled && setIsOpen(!isOpen)} disabled={disabled}
-                className={`w-full flex items-center justify-between px-3 py-2 text-sm bg-muted/50 border border-border rounded-lg text-foreground hover:bg-muted transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 ${disabled ? 'opacity-70 cursor-not-allowed' : ''}`}>
-                <span className="truncate">{sel?.label || value}</span>
-                <svg className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-            </button>
-            {isOpen && (
-                <div className="absolute left-0 right-0 mt-2 bg-background border border-border rounded-lg shadow-xl py-2 z-50 max-h-60 overflow-y-auto custom-scrollbar">
-                    {options.map(o => (
-                        <button key={String(o.value)} type="button" onClick={() => { onChange(o.value); setIsOpen(false); }}
-                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${value === o.value ? 'bg-primary/10 text-primary font-bold' : 'text-foreground hover:bg-muted font-medium'}`}>
-                            {o.label}
-                        </button>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
-}
 
 export default function FamiliarCardPackClient({ locale }: Props) {
     const [currentFamiliar, setCurrentFamiliar] = useState('');
     const [currentGrade, setCurrentGrade] = useState('');
-    const [history, setHistory] = useState<DrawHistory[]>([]);
-    const [totalDraws, setTotalDraws] = useState(0);
-    const [isRolling, setIsRolling] = useState(false);
-    const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
-    const [gradeCounts, setGradeCounts] = useState<Record<string, number>>({});
     const [targetPrize, setTargetPrize] = useState(GRAND_PRIZES[0]);
 
-    const totalDrawsRef = useRef(0);
-    const rewardCountsRef = useRef<Record<string, number>>({});
+    const {
+        totalDraws,
+        history,
+        counts: rewardCounts,
+        isRolling,
+        setIsRolling,
+        totalDrawsRef,
+        stopRef,
+        recordDraw,
+        addHistory,
+        addBatchHistory,
+        reset: baseReset,
+    } = useSimulatorState<DrawHistory>();
+
+    // We still need a separate count for grades
+    const [gradeCounts, setGradeCounts] = useState<Record<string, number>>({});
     const gradeCountsRef = useRef<Record<string, number>>({});
     const historyRef = useRef<HTMLDivElement>(null);
-    const stopRef = useRef(false);
 
     useEffect(() => { if (historyRef.current) historyRef.current.scrollTop = 0; }, [history]);
 
@@ -183,50 +159,42 @@ export default function FamiliarCardPackClient({ locale }: Props) {
 
     const t = texts[locale as keyof typeof texts] || texts.zh;
 
-    const weightedRandom = (items: FamiliarCardReward[] | GradeInfo[]): string => {
-        const total = items.reduce((s, i) => s + i.probability, 0);
-        let r = Math.random() * total;
-        for (const item of items) { r -= item.probability; if (r <= 0) return item.name; }
-        return items[items.length - 1].name;
-    };
 
-    const rollGrade = (): string => {
-        const initial = weightedRandom(GRADE_PROBABILITIES);
+    const rollGrade = useCallback((): string => {
+        const initial = weightedRandom(GRADE_PROBABILITIES, 'probability').name;
         if (initial === '特殊') {
-            return weightedRandom(SPECIAL_GRADE_PROBABILITIES);
+            return weightedRandom(SPECIAL_GRADE_PROBABILITIES, 'probability').name;
         }
         return initial;
-    };
+    }, []);
 
-    const drawOnce = (): { familiar: string; grade: string } => {
-        const familiar = weightedRandom(FAMILIAR_CARD_REWARDS);
+    const drawOnce = useCallback((): { familiar: string; grade: string } => {
+        const familiar = weightedRandom(FAMILIAR_CARD_REWARDS, 'probability').name;
         const grade = rollGrade();
         return { familiar, grade };
-    };
+    }, [rollGrade]);
 
-    const applyDraw = (familiar: string, grade: string, idx: number) => {
-        totalDrawsRef.current += 1;
-        rewardCountsRef.current[familiar] = (rewardCountsRef.current[familiar] || 0) + 1;
+    const applyDraw = useCallback((familiar: string, grade: string, idx: number) => {
+        recordDraw(familiar);
         gradeCountsRef.current[grade] = (gradeCountsRef.current[grade] || 0) + 1;
-        return { id: Date.now() + idx, drawNumber: totalDrawsRef.current, familiar, grade } as DrawHistory;
-    };
-
-    const syncState = (lastFamiliar: string, lastGrade: string) => {
-        setTotalDraws(totalDrawsRef.current);
-        setRewardCounts({ ...rewardCountsRef.current });
         setGradeCounts({ ...gradeCountsRef.current });
+
+        return { id: Date.now() + idx, drawNumber: totalDrawsRef.current, familiar, grade } as DrawHistory;
+    }, [recordDraw, totalDrawsRef]);
+
+    const syncState = useCallback((lastFamiliar: string, lastGrade: string) => {
         setCurrentFamiliar(lastFamiliar);
         setCurrentGrade(lastGrade);
-    };
+    }, []);
 
     const drawCard = useCallback(() => {
         setIsRolling(true);
         const { familiar, grade } = drawOnce();
         const h = applyDraw(familiar, grade, 0);
         syncState(familiar, grade);
-        setHistory(prev => [h, ...prev].slice(0, 100));
+        addHistory(h);
         setIsRolling(false);
-    }, []);
+    }, [addHistory, setIsRolling, drawOnce, applyDraw, syncState]);
 
     const handleMultipleDraws = useCallback((count: number) => {
         if (isRolling) return;
@@ -239,13 +207,13 @@ export default function FamiliarCardPackClient({ locale }: Props) {
             const { familiar, grade } = drawOnce();
             const h = applyDraw(familiar, grade, processed);
             syncState(familiar, grade);
-            setHistory(prev => [h, ...prev].slice(0, 100));
+            addHistory(h);
             processed++;
             if (processed < count) setTimeout(rollOnce, 50);
             else setIsRolling(false);
         };
         rollOnce();
-    }, [isRolling]);
+    }, [isRolling, addHistory, setIsRolling, drawOnce, applyDraw, syncState, stopRef]);
 
     const rollUntilTarget = useCallback(() => {
         if (isRolling) return;
@@ -272,21 +240,21 @@ export default function FamiliarCardPackClient({ locale }: Props) {
 
             processed += newHistories.length;
             syncState(lastFamiliar, lastGrade);
-            setHistory(prev => [...newHistories.reverse(), ...prev].slice(0, 100));
+            addBatchHistory(newHistories);
 
             if (found) setIsRolling(false);
             else setTimeout(rollBatch, 20);
         };
         rollBatch();
-    }, [isRolling, targetPrize]);
+    }, [isRolling, targetPrize, addBatchHistory, setIsRolling, stopRef, drawOnce, applyDraw, syncState]);
 
     const reset = () => {
         if (isRolling) return;
-        setCurrentFamiliar(''); setCurrentGrade('');
-        setHistory([]); setTotalDraws(0);
-        setRewardCounts({}); setGradeCounts({});
-        totalDrawsRef.current = 0;
-        rewardCountsRef.current = {}; gradeCountsRef.current = {};
+        baseReset();
+        setCurrentFamiliar('');
+        setCurrentGrade('');
+        setGradeCounts({});
+        gradeCountsRef.current = {};
     };
 
     const getRarityColor = (p: number) => {
