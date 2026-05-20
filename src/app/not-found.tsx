@@ -25,37 +25,113 @@ const NotFound = () => {
     const validSegments = [
       'about', 'ai', 'algorithms', 'archives', 'baseball', 'categories',
       'daily-english', 'leetcode', 'posts', 'search', 'tags', 'tools',
-      'wbc-players', 'wbc-simulator'
+      'wbc-players', 'wbc-simulator',
     ];
+
+    // 所有文章的 permalink 短網址 → 對應到 /posts/{slug}
+    // 格式：{ 'permalink-slug': 'posts/permalink-slug' }
+    const permalinkMap: Record<string, string> = {
+      'adapted-for-android-15-with-16-kb-page-size': 'posts/adapted-for-android-15-with-16-kb-page-size',
+      'android-16-note': 'posts/android-16-note',
+      'android-emulator-detection': 'posts/android-emulator-detection',
+      'android-jetpack-compose-structure-part1': 'posts/android-jetpack-compose-structure-part1',
+      'android-jetpack-compose-structure-part2': 'posts/android-jetpack-compose-structure-part2',
+      'android-jetpack-compose-structure-part3': 'posts/android-jetpack-compose-structure-part3',
+      'android-jetpack-compose-structure-part4': 'posts/android-jetpack-compose-structure-part4',
+      'android-kt-jetpack-compose-base': 'posts/android-kt-jetpack-compose-base',
+      'android-kt-jetpack-compose-list': 'posts/android-kt-jetpack-compose-list',
+      'android-kt-jetpack-compose-splash': 'posts/android-kt-jetpack-compose-splash',
+      'android-kt-jetpack-compose-swiperefresh': 'posts/android-kt-jetpack-compose-swiperefresh',
+      'android-kt-rxjava': 'posts/android-kt-rxjava',
+      'android-qrcode-scanner-with-mlkit': 'posts/android-qrcode-scanner-with-mlkit',
+      'android-target-sdk-35': 'posts/android-target-sdk-35',
+      'android-upgrade-to-toml-tutorial': 'posts/android-upgrade-to-toml-tutorial',
+      'android-webview-kotlin-compose-next-js': 'posts/android-webview-kotlin-compose-next-js',
+      'android_aidl': 'posts/android_aidl',
+      'android_custom01': 'posts/android_custom01',
+      'android_custom02': 'posts/android_custom02',
+      'android_custom03': 'posts/android_custom03',
+      'android_huawei_map': 'posts/android_huawei_map',
+      'app_portfolio': 'posts/app_portfolio',
+      'clear_use_extension_to_set_margin': 'posts/clear_use_extension_to_set_margin',
+      'compose-multiplatform-datastore': 'posts/compose-multiplatform-datastore',
+      'compose-multiplatform-day-1': 'posts/compose-multiplatform-day-1',
+      'compose-multiplatform-day-2': 'posts/compose-multiplatform-day-2',
+      'compose-multiplatform-day-3': 'posts/compose-multiplatform-day-3',
+      'compose-multiplatform-day-4': 'posts/compose-multiplatform-day-4',
+      'compose-multiplatform-day-5': 'posts/compose-multiplatform-day-5',
+      'compose-multiplatform-day-6': 'posts/compose-multiplatform-day-6',
+      'compose-multiplatform-day-7': 'posts/compose-multiplatform-day-7',
+      'compose-multiplatform-day-8': 'posts/compose-multiplatform-day-8',
+      'compose-multiplatform-day-9': 'posts/compose-multiplatform-day-9',
+      'compose-multiplatform-day-10': 'posts/compose-multiplatform-day-10',
+      'compose-multiplatform-day-11': 'posts/compose-multiplatform-day-11',
+      'compose-multiplatform-day-12': 'posts/compose-multiplatform-day-12',
+      'compose-multiplatform-day-13': 'posts/compose-multiplatform-day-13',
+      'compose-multiplatform-day-14': 'posts/compose-multiplatform-day-14',
+      'compose-multiplatform-day-15': 'posts/compose-multiplatform-day-15',
+      'compose-multiplatform-di-context': 'posts/compose-multiplatform-di-context',
+      'compose-multiplatform-guide': 'posts/compose-multiplatform-guide',
+      'compose-multiplatform-ios-cocoapods': 'posts/compose-multiplatform-ios-cocoapods',
+      'compose-multiplatform-koin': 'posts/compose-multiplatform-koin',
+      'compose-multiplatform-room': 'posts/compose-multiplatform-room',
+      'compose-multiplatform-sqldelight': 'posts/compose-multiplatform-sqldelight',
+      'cursor-ai-note': 'posts/cursor-ai-note',
+      'cursor-ai-with-android': 'posts/cursor-ai-with-android',
+      'deepwiki': 'posts/deepwiki',
+      'easy_use_chat_gpt_with_line_bot': 'posts/easy_use_chat_gpt_with_line_bot',
+      'flutter-newer': 'posts/flutter-newer',
+      'flutter-use-cursor': 'posts/flutter-use-cursor',
+      'jeykll_deploy_4_x': 'posts/jeykll_deploy_4_x',
+      'kotlin_flow_refactor': 'posts/kotlin_flow_refactor',
+      'kotlin_room': 'posts/kotlin_room',
+      'kotlin_snake_game': 'posts/kotlin_snake_game',
+      'navigation_with_kotlin': 'posts/navigation_with_kotlin',
+      'safe_browser': 'posts/safe_browser',
+      'use-atlassian-mcp-to-solve-jira-problem': 'posts/use-atlassian-mcp-to-solve-jira-problem',
+      'wbc-tournament-simulator': 'posts/wbc-tournament-simulator',
+    };
+
+    // 偵測瀏覽器語言的共用函式
+    const detectLocale = (): string => {
+      const browserLangs = navigator.languages || [navigator.language];
+      for (const lang of browserLangs) {
+        const primaryLang = lang.split('-')[0].toLowerCase();
+        if (supportedLocales.includes(primaryLang)) return primaryLang;
+      }
+      return 'en';
+    };
 
     // 1. 如果發現路徑開頭符合合法分類，但沒有語系前綴，執行智慧跳轉
     if (!supportedLocales.includes(firstSegment) && validSegments.includes(firstSegment)) {
-      // 智慧偵測地區：解析瀏覽器語言順序
-      const browserLangs = navigator.languages || [navigator.language];
-      let targetLocale = 'en'; // 預設以後補英文
-
-      for (const lang of browserLangs) {
-        const primaryLang = lang.split('-')[0].toLowerCase();
-        if (supportedLocales.includes(primaryLang)) {
-          targetLocale = primaryLang;
-          break;
-        }
-      }
-
+      const targetLocale = detectLocale();
       const searchParams = window.location.search;
       const newPath = `/${targetLocale}${currentPath === '/' ? '' : currentPath}${searchParams}`;
-
-      // 使用 replace 確保瀏覽器紀錄正確，且不閃爍
       router.replace(newPath);
       return;
     }
 
-    // 2. 如果不需要跳轉，確認介面顯示語言並顯示 404 UI
+    // 2. 如果發現路徑符合已知 permalink 短網址（例如 /app_portfolio），帶入 locale 並跳轉至正確文章頁
+    // 同時也支援帶有 hash fragment 的 permalink（例如 /app_portfolio#section）
+    const pathWithoutHash = currentPath.split('#')[0];
+    const hashFragment = window.location.hash; // 例如 '#airdroid'
+    const cleanFirstSegment = pathWithoutHash.split('/').filter(Boolean)[0] || '';
+    if (!supportedLocales.includes(cleanFirstSegment) && permalinkMap[cleanFirstSegment]) {
+      const targetLocale = detectLocale();
+      const searchParams = window.location.search;
+      const mappedPath = permalinkMap[cleanFirstSegment];
+      // 若 URL 有多個 segments（例如 /android/huawei_map），使用完整路徑，否則使用 map 結果
+      const newPath = `/${targetLocale}/${mappedPath}${searchParams}${hashFragment}`;
+      router.replace(newPath);
+      return;
+    }
+
+    // 3. 如果不需要跳轉，確認介面顯示語言並顯示 404 UI
     setIsRedirecting(false);
     if (supportedLocales.includes(firstSegment)) {
       setLocale(firstSegment);
     } else {
-      setLocale('zh'); // 預設 404 頁言為中文
+      setLocale('zh'); // 預設 404 頁面語言為中文
     }
   }, [pathname, router]);
 
