@@ -102,12 +102,21 @@ const NotFound = () => {
       return 'en';
     };
 
-    // 1. 如果發現路徑開頭符合合法分類，但沒有語系前綴，執行智慧跳轉
-    if (!supportedLocales.includes(firstSegment) && validSegments.includes(firstSegment)) {
+    // 1. 如果發現路徑開頭符合合法分類（含 .html 結尾），但沒有語系前綴，執行智慧跳轉
+    const segmentWithoutHtml = firstSegment?.replace(/\.html$/, '');
+    if (!supportedLocales.includes(firstSegment) && validSegments.includes(segmentWithoutHtml)) {
       const targetLocale = detectLocale();
       const searchParams = window.location.search;
-      const newPath = `/${targetLocale}${currentPath === '/' ? '' : currentPath}${searchParams}`;
+      const pathForRedirect = (currentPath === '/' ? '' : currentPath).replace(/\.html$/, '');
+      const newPath = `/${targetLocale}${pathForRedirect}${searchParams}`;
       router.replace(newPath);
+      return;
+    }
+
+    // 1.5. 如果有語系前綴，但網址結尾多帶了 .html，自動移除並重新導向
+    if (supportedLocales.includes(firstSegment) && currentPath.endsWith('.html')) {
+      const pathWithoutHtml = currentPath.replace(/\.html$/, '');
+      router.replace(`${pathWithoutHtml}${window.location.search}`);
       return;
     }
 
