@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 簡單紀錄：如何在 Kotlin 用 Mutex 加上 ConcurrentHashMap 幫個別的 Key 上鎖
+title: "簡單紀錄：如何在 Kotlin 用 Mutex 加上 ConcurrentHashMap 幫個別的 Key 上鎖"
 date: '2026-06-04 11:15:00 +0800'
 image: cover/generated/2026-06-04-android-concurrent-form-draft-repository-cover.png
 tags:

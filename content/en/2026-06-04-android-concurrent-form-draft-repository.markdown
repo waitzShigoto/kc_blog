@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Quick Note: Locking Individual Keys with Mutex and ConcurrentHashMap in Kotlin
+title: "Quick Note: Locking Individual Keys with Mutex and ConcurrentHashMap in Kotlin"
 date: '2026-06-04 11:15:00 +0800'
 image: cover/generated/2026-06-04-android-concurrent-form-draft-repository-cover.png
 tags:
