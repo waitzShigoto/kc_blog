@@ -241,6 +241,27 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'pandora-box',
+          name: {
+            zh: '潘朵拉箱子模擬器',
+            en: 'Pandora Box Simulator',
+            ja: 'パンドラの箱シミュレーター',
+          },
+          description: {
+            zh: '模擬開啟潘朵拉箱子，獲得各種潛在能力卷軸與傳說裝備',
+            en: 'Simulate opening Pandora Box to obtain potential scrolls and legendary equipment',
+            ja: 'パンドラの箱を開封し、各種潜在能力書と伝説装備の獲得をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/pandora-box`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth={2} />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v8m-4-4h8" />
+            </svg>
+          ),
+        },
+        {
           id: 'familiar-card-pack',
           name: {
             zh: '萌獸卡牌包模擬器',
