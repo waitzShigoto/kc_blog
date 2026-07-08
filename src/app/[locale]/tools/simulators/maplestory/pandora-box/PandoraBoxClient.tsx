@@ -3,8 +3,10 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {
-    PANDORA_REWARDS,
-    GRAND_PRIZES,
+    PANDORA_REWARDS_V1,
+    PANDORA_REWARDS_V2,
+    GRAND_PRIZES_V1,
+    GRAND_PRIZES_V2,
     PandoraReward
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
@@ -91,6 +93,9 @@ function CustomSelect<T extends string | number>({
 }
 
 export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
+    // 版本選擇狀態
+    const [version, setVersion] = useState<'v1' | 'v2'>('v2'); // 默認使用最新版本 (第二期)
+
     const [currentReward, setCurrentReward] = useState<string>('');
     const [currentRewardGrade, setCurrentRewardGrade] = useState<string>('');
     const [history, setHistory] = useState<PandoraHistory[]>([]);
@@ -105,12 +110,16 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
     const historyContainerRef = useRef<HTMLDivElement>(null);
     const stopAutoRollRef = useRef(false);
 
-    // 當大獎加載時，設定預設目標大獎
+    // 根據版本選擇數據源
+    const PANDORA_REWARDS = version === 'v1' ? PANDORA_REWARDS_V1 : PANDORA_REWARDS_V2;
+    const GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : GRAND_PRIZES_V2;
+
+    // 當大獎加載或版本切換時，設定預設目標大獎
     useEffect(() => {
         if (GRAND_PRIZES.length > 0) {
             setTargetPrize(GRAND_PRIZES[0]);
         }
-    }, []);
+    }, [version, GRAND_PRIZES]);
 
     // 自動捲動歷史紀錄
     useEffect(() => {
@@ -147,13 +156,20 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
             probabilities: '獎勵機率',
             probability: '機率',
             eventPeriod: '活動時間',
-            eventDate: '2025/12/24 09:00 ~ 2100/12/31 23:59',
+            eventDateV1: '2025/12/24 09:00 ～ 2026/07/08 08:59',
+            eventDateV2: '2026/07/08 09:00 ～ 2026/07/22 07:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
             rollUntil: '抽到為止',
             gradeLegendary: '傳說',
-            gradeRare: '稀有'
+            gradeRare: '稀有',
+            versionV1: '第一期',
+            versionV2: '第二期',
+            btnTitleV1: '12/24 ~ 07/08',
+            btnSubtitleV1: '第一期',
+            btnTitleV2: '07/08 ~ 07/22',
+            btnSubtitleV2: '第二期',
         },
         en: {
             title: 'Pandora Box',
@@ -181,13 +197,20 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
             probabilities: 'Reward Probabilities',
             probability: 'Probability',
             eventPeriod: 'Event Period',
-            eventDate: '2025/12/24 09:00 ~ 2100/12/31 23:59',
+            eventDateV1: '2025/12/24 09:00 ~ 2026/07/08 08:59',
+            eventDateV2: '2026/07/08 09:00 ~ 2026/07/22 07:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
             rollUntil: 'Roll Until',
             gradeLegendary: 'Legendary',
-            gradeRare: 'Rare'
+            gradeRare: 'Rare',
+            versionV1: 'Period 1',
+            versionV2: 'Period 2',
+            btnTitleV1: 'Dec 24 - Jul 08',
+            btnSubtitleV1: 'Period 1',
+            btnTitleV2: 'Jul 08 - Jul 22',
+            btnSubtitleV2: 'Period 2',
         },
         ja: {
             title: 'パンドラの箱',
@@ -215,17 +238,30 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
             probabilities: '確率表',
             probability: '確率',
             eventPeriod: '期間',
-            eventDate: '2025/12/24 09:00 ~ 2100/12/31 23:59',
+            eventDateV1: '2025/12/24 09:00 ～ 2026/07/08 08:59',
+            eventDateV2: '2026/07/08 09:00 ～ 2026/07/22 07:59',
             autoRoll: '自動開封',
             stop: '停止',
             targetPrize: '目標アイテム',
             rollUntil: '出るまで引く',
             gradeLegendary: '伝説',
-            gradeRare: '希少'
+            gradeRare: '希少',
+            versionV1: '第1期',
+            versionV2: '第2期',
+            btnTitleV1: '12/24 ~ 07/08',
+            btnSubtitleV1: '第1期',
+            btnTitleV2: '07/08 ~ 07/22',
+            btnSubtitleV2: '第2期',
         }
     };
 
     const t = texts[locale as keyof typeof texts] || texts.zh;
+
+    const currentVersionName = 
+        version === 'v1' ? t.versionV1 : t.versionV2;
+
+    const currentTitle = 
+        version === 'v1' ? `${t.title} (${t.versionV1})` : `${t.title} (${t.versionV2})`;
 
     // 根據權重隨機選擇
     const weightedRandom = (items: PandoraReward[]): PandoraReward => {
@@ -430,7 +466,40 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{currentTitle}</h1>
+
+                    {/* Version Tab Buttons */}
+                    <div className="flex justify-center gap-3 mt-4">
+                        {(['v1', 'v2'] as const).map((v) => {
+                            const isActive = version === v;
+                            const btnTitle = v === 'v1' ? t.btnTitleV1 : t.btnTitleV2;
+                            const btnSub = v === 'v1' ? t.btnSubtitleV1 : t.btnSubtitleV2;
+                            return (
+                                <button
+                                    key={v}
+                                    onClick={() => {
+                                        setVersion(v);
+                                        // Reset state on version change
+                                        setCurrentReward('');
+                                        setCurrentRewardGrade('');
+                                        setHistory([]);
+                                        setTotalBoxes(0);
+                                        setRewardCounts({});
+                                        totalBoxesRef.current = 0;
+                                        rewardCountsRef.current = {};
+                                    }}
+                                    className={`px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${
+                                        isActive
+                                            ? 'bg-purple-600 border-purple-500 text-white shadow-md shadow-purple-500/20'
+                                            : 'bg-card border-border text-muted-foreground hover:border-purple-400 hover:text-foreground'
+                                    }`}
+                                >
+                                    <div className="text-xs font-bold">{btnTitle}</div>
+                                    <div className="text-[10px] opacity-80">{btnSub}</div>
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -694,7 +763,7 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
                                 <h2 className="text-lg font-semibold text-foreground">{t.probabilities}</h2>
                                 <div className="text-right">
                                     <p className="text-[10px] text-muted-foreground font-medium">{t.eventPeriod}</p>
-                                    <p className="text-[9px] text-muted-foreground break-all">{t.eventDate}</p>
+                                    <p className="text-[9px] text-muted-foreground break-all">{version === 'v1' ? t.eventDateV1 : t.eventDateV2}</p>
                                 </div>
                             </div>
 
