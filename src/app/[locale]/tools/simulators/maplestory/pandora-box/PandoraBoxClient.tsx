@@ -257,10 +257,7 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
 
     const t = texts[locale as keyof typeof texts] || texts.zh;
 
-    const currentVersionName = 
-        version === 'v1' ? t.versionV1 : t.versionV2;
-
-    const currentTitle = 
+    const currentTitle =
         version === 'v1' ? `${t.title} (${t.versionV1})` : `${t.title} (${t.versionV2})`;
 
     // 根據權重隨機選擇
@@ -303,7 +300,7 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
 
         setIsRolling(false);
         setShowAnimation(false);
-    }, []);
+    }, [PANDORA_REWARDS]);
 
     // 使用多個潘朵拉箱子
     const handleMultipleBoxes = useCallback((count: number) => {
@@ -352,7 +349,7 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
         };
 
         rollOnce();
-    }, [isRolling]);
+    }, [isRolling, PANDORA_REWARDS]);
 
     // 抽到指定大獎為止
     const rollUntilTarget = useCallback(() => {
@@ -415,7 +412,7 @@ export default function PandoraBoxClient({ locale }: PandoraBoxClientProps) {
         };
 
         rollBatch();
-    }, [isRolling, targetPrize]);
+    }, [isRolling, targetPrize, PANDORA_REWARDS]);
 
     const stopRolling = () => {
         stopAutoRollRef.current = true;
