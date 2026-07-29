@@ -632,38 +632,68 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     return false;
   }, []);
 
-  // 更新統計數據
+  // 將潛能結果歸類為唯一的獨立項目（不重複計算）
+  const getCategoryForLines = useCallback((lines: PotentialLine[]): TargetMode | 'trash' => {
+    const fdCount = lines.filter(l => l.stat === '最終傷害%').length;
+    const attPercentCount = lines.filter(l => l.stat === '物理攻擊力%').length;
+    const mattPercentCount = lines.filter(l => l.stat === '魔法攻擊力%').length;
+    const passiveCount = lines.filter(l => l.stat === '增加被動技能等級' && l.value === '+2').length;
+    const critCount = lines.filter(l => l.stat === '爆擊機率%').length;
+    const iedCount = lines.filter(l => l.stat === '無視怪物防禦率%').length;
+    const buffCount = lines.filter(l => l.stat === '加持技能持續時間%').length;
+    const strPercentCount = lines.filter(l => l.stat === 'STR%').length;
+    const dexPercentCount = lines.filter(l => l.stat === 'DEX%').length;
+    const intPercentCount = lines.filter(l => l.stat === 'INT%').length;
+    const lukPercentCount = lines.filter(l => l.stat === 'LUK%').length;
+    const hpPercentCount = lines.filter(l => l.stat === 'MaxHP%').length;
+    const defPercentCount = lines.filter(l => l.stat === '防禦力%').length;
+
+    // 1. 三終
+    if (fdCount >= 3) return 'tripleFD';
+
+    // 2. 雙終 + 特定第3排
+    if (fdCount === 2) {
+      if (attPercentCount >= 1) return 'doubleFD_ATT';
+      if (mattPercentCount >= 1) return 'doubleFD_MATT';
+      if (passiveCount >= 1) return 'doubleFD_Passive';
+      if (critCount >= 1) return 'doubleFD_Crit';
+      if (iedCount >= 1) return 'doubleFD_IED';
+      if (buffCount >= 1) return 'doubleFD_Buff';
+      if (strPercentCount >= 1) return 'doubleFD_STR';
+      if (dexPercentCount >= 1) return 'doubleFD_DEX';
+      if (intPercentCount >= 1) return 'doubleFD_INT';
+      if (lukPercentCount >= 1) return 'doubleFD_LUK';
+      if (hpPercentCount >= 1) return 'doubleFD_HP';
+      return 'doubleFD'; // 雙終（其他第3排）
+    }
+
+    // 3. 雙物終 / 雙魔終 / 單終
+    if (fdCount === 1) {
+      if (attPercentCount >= 2) return 'doubleATT_FD';
+      if (mattPercentCount >= 2) return 'doubleMATT_FD';
+      return 'singleFD';
+    }
+
+    // 4. 無終傷的優質組合
+    if (attPercentCount >= 3) return 'tripleATT';
+    if (mattPercentCount >= 3) return 'tripleMATT';
+    if (defPercentCount >= 3) return 'tripleDEF';
+    if (buffCount >= 3) return 'tripleBuff';
+    if (buffCount === 2) return 'doubleBuff';
+    if (attPercentCount === 2) return 'doubleATT';
+    if (mattPercentCount === 2) return 'doubleMATT';
+
+    return 'trash';
+  }, []);
+
+  // 更新統計數據（每次使用方塊僅對應一個獨佔分類，總和與使用數一致）
   const updateTargetStats = useCallback((lines: PotentialLine[]) => {
-    const allTargetModes: TargetMode[] = [
-      'singleFD', 'doubleFD', 'tripleFD',
-      'doubleFD_ATT', 'doubleFD_MATT', 'doubleFD_Passive',
-      'doubleFD_Crit', 'doubleFD_IED', 'doubleFD_Buff',
-      'doubleFD_STR', 'doubleFD_DEX', 'doubleFD_INT',
-      'doubleFD_LUK', 'doubleFD_HP',
-      'tripleATT', 'tripleMATT', 'tripleDEF',
-      'doubleBuff', 'tripleBuff',
-      'doubleATT', 'doubleMATT', 'doubleATT_FD', 'doubleMATT_FD'
-    ];
-
-    setTargetStats(prev => {
-      const newStats = { ...prev };
-      let hasAnyTarget = false;
-
-      allTargetModes.forEach(mode => {
-        if (checkTargetMet(lines, mode)) {
-          newStats[mode] = (newStats[mode] || 0) + 1;
-          hasAnyTarget = true;
-        }
-      });
-
-      // 如果不符合任何目標類型，計入爛潛
-      if (!hasAnyTarget) {
-        newStats.trash = (newStats.trash || 0) + 1;
-      }
-
-      return newStats;
-    });
-  }, [checkTargetMet]);
+    const category = getCategoryForLines(lines);
+    setTargetStats(prev => ({
+      ...prev,
+      [category]: (prev[category] || 0) + 1,
+    }));
+  }, [getCategoryForLines]);
 
   // 使用方塊（單次）
   const useCube = useCallback(() => {
@@ -1088,9 +1118,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                       const isATop = topTargets.includes(keyA);
                       const isBTop = topTargets.includes(keyB);
 
-                      // 爛潛最頂
-                      if (isATrash) return -1;
-                      if (isBTrash) return 1;
+                      // 爛潛放在最底部
+                      if (isATrash) return 1;
+                      if (isBTrash) return -1;
 
                       // 頂級目標次之，按機率排序
                       if (isATop && !isBTop) return -1;
