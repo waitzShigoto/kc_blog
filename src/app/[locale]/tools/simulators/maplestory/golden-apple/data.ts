@@ -672,18 +672,24 @@ export const GRAND_PRIZES_V6 = [
     '受詛咒的黃魔導書',
 ];
 
-// 金箱子獎勵 V6 - 幸運的金色、銀色箱子
+// 金箱子獎勵 V6 - 幸運的金色箱子
 export const GOLDEN_BOX_REWARDS_V6: GoldenAppleReward[] = [
-    { name: '特別附加潛在能力賦予卷軸', probability: 30.00 },
-    { name: '睿智葫蘆', probability: 6.00 },
-    { name: '破曉墜飾', probability: 2.00 },
-    { name: '星耀耳環', probability: 2.00 },
-    { name: '暮光印記', probability: 2.00 },
-    { name: '黎明守護者天使戒指', probability: 2.00 },
-    { name: '稀有航海師武器選擇箱', probability: 3.00 },
-    { name: '稀有航海師防具選擇箱', probability: 3.00 },
-    { name: '核心寶石20個交換券', probability: 15.00 },
-    { name: '暗黑輪迴星火', probability: 35.00 },
+    { name: '天上的氣息', probability: 2.00 },
+    { name: '受詛咒的赤魔導書', probability: 4.50 },
+    { name: '受詛咒的青魔導書', probability: 4.50 },
+    { name: '受詛咒的綠魔導書', probability: 4.50 },
+    { name: '受詛咒的黃魔導書', probability: 4.50 },
+    { name: '帽子內襯交換券', probability: 7.00 },
+    { name: '臉飾內襯交換券', probability: 7.00 },
+    { name: '武器內襯交換券', probability: 7.00 },
+    { name: '神祕冥界武器變換箱', probability: 8.00 },
+    { name: '神祕冥界防具變換箱', probability: 9.00 },
+    { name: '星力18星強化券', probability: 5.00 },
+    { name: '星力17星強化券', probability: 5.00 },
+    { name: '星力16星強化券', probability: 7.00 },
+    { name: '星力15星強化券', probability: 7.00 },
+    { name: '鈦之心', probability: 9.00 },
+    { name: '妖精之心', probability: 9.00 },
 ];
 
 export const GOLDEN_APPLE_REWARDS = GOLDEN_APPLE_REWARDS_V6;
