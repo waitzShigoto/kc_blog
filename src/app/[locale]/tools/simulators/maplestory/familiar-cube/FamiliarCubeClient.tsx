@@ -298,6 +298,15 @@ type TargetMode =
   | 'doubleFD_INT'  // 雙終智
   | 'doubleFD_LUK'  // 雙終幸
   | 'doubleFD_HP'   // 雙終HP
+  | 'FD_ATT'        // 終物
+  | 'FD_MATT'       // 終魔
+  | 'FD_Passive'    // 終被
+  | 'MATT_Passive'  // 魔被
+  | 'ATT_Passive'   // 物被
+  | 'FD_MATT_Passive'  // 終魔被
+  | 'FD_ATT_Passive'   // 終物被
+  | 'doubleATT_Passive' // 物物被
+  | 'doubleMATT_Passive' // 魔魔被
   | 'tripleATT'     // 三物
   | 'tripleMATT'    // 三魔
   | 'tripleDEF'     // 三防
@@ -346,6 +355,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     doubleMATT: 0,
     doubleATT_FD: 0,
     doubleMATT_FD: 0,
+    FD_ATT: 0,
+    FD_MATT: 0,
+    FD_Passive: 0,
+    MATT_Passive: 0,
+    ATT_Passive: 0,
+    FD_MATT_Passive: 0,
+    FD_ATT_Passive: 0,
+    doubleATT_Passive: 0,
+    doubleMATT_Passive: 0,
   });
 
   const texts = {
@@ -390,6 +408,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleFD_INT: '雙終智 (2終+1INT%)',
       doubleFD_LUK: '雙終幸 (2終+1LUK%)',
       doubleFD_HP: '雙終HP (2終+1HP%)',
+      FD_ATT: '終物 (1終+1物攻%)',
+      FD_MATT: '終魔 (1終+1魔攻%)',
+      FD_Passive: '終被 (1終+1被動+2)',
+      MATT_Passive: '魔被 (1魔攻%+1被動+2)',
+      ATT_Passive: '物被 (1物攻%+1被動+2)',
+      FD_MATT_Passive: '終魔被 (1終+1魔+1被)',
+      FD_ATT_Passive: '終物被 (1終+1物+1被)',
+      doubleATT_Passive: '物物被 (2物攻%+1被動+2)',
+      doubleMATT_Passive: '魔魔被 (2魔攻%+1被動+2)',
       tripleATT: '三物 (3排物攻%)',
       tripleMATT: '三魔 (3排魔攻%)',
       tripleDEF: '三防 (3排防禦%)',
@@ -446,6 +473,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleFD_INT: '2FD + INT%',
       doubleFD_LUK: '2FD + LUK%',
       doubleFD_HP: '2FD + HP%',
+      FD_ATT: 'FD + ATT%',
+      FD_MATT: 'FD + MATT%',
+      FD_Passive: 'FD + Passive+2',
+      MATT_Passive: 'MATT% + Passive+2',
+      ATT_Passive: 'ATT% + Passive+2',
+      FD_MATT_Passive: 'FD + MATT% + Passive+2',
+      FD_ATT_Passive: 'FD + ATT% + Passive+2',
+      doubleATT_Passive: '2ATT% + Passive+2',
+      doubleMATT_Passive: '2MATT% + Passive+2',
       tripleATT: 'Triple ATT%',
       tripleMATT: 'Triple MATT%',
       tripleDEF: 'Triple DEF%',
@@ -502,6 +538,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleFD_INT: '2終+INT%',
       doubleFD_LUK: '2終+LUK%',
       doubleFD_HP: '2終+HP%',
+      FD_ATT: '終物 (1終+物攻%)',
+      FD_MATT: '終魔 (1終+魔攻%)',
+      FD_Passive: '終被 (1終+パッシブ+2)',
+      MATT_Passive: '魔被 (1魔攻%+パッシブ+2)',
+      ATT_Passive: '物被 (1物攻%+パッシブ+2)',
+      FD_MATT_Passive: '終魔被 (1終+魔+パッシブ)',
+      FD_ATT_Passive: '終物被 (1終+物+パッシブ)',
+      doubleATT_Passive: '物物被 (2物攻%+パッシブ+2)',
+      doubleMATT_Passive: '魔魔被 (2魔攻%+パッシブ+2)',
       tripleATT: '三物攻%',
       tripleMATT: '三魔攻%',
       tripleDEF: '三防御%',
@@ -629,6 +674,17 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     // 雙魔終：2魔攻% + 1終傷%
     if (mode === 'doubleMATT_FD') return mattPercentCount === 2 && fdCount === 1;
 
+    // 新增熱門潛能組合
+    if (mode === 'FD_ATT') return fdCount >= 1 && attPercentCount >= 1;
+    if (mode === 'FD_MATT') return fdCount >= 1 && mattPercentCount >= 1;
+    if (mode === 'FD_Passive') return fdCount >= 1 && passiveCount >= 1;
+    if (mode === 'MATT_Passive') return mattPercentCount >= 1 && passiveCount >= 1;
+    if (mode === 'ATT_Passive') return attPercentCount >= 1 && passiveCount >= 1;
+    if (mode === 'FD_MATT_Passive') return fdCount >= 1 && mattPercentCount >= 1 && passiveCount >= 1;
+    if (mode === 'FD_ATT_Passive') return fdCount >= 1 && attPercentCount >= 1 && passiveCount >= 1;
+    if (mode === 'doubleATT_Passive') return attPercentCount >= 2 && passiveCount >= 1;
+    if (mode === 'doubleMATT_Passive') return mattPercentCount >= 2 && passiveCount >= 1;
+
     return false;
   }, []);
 
@@ -667,10 +723,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       return 'doubleFD'; // 雙終（其他第3排）
     }
 
-    // 3. 雙物終 / 雙魔終 / 單終
+    // 3. 雙物終 / 雙魔終 / 終物被 / 終魔被 / 終物 / 終魔 / 終被 / 單終
     if (fdCount === 1) {
       if (attPercentCount >= 2) return 'doubleATT_FD';
       if (mattPercentCount >= 2) return 'doubleMATT_FD';
+      if (attPercentCount >= 1 && passiveCount >= 1) return 'FD_ATT_Passive';
+      if (mattPercentCount >= 1 && passiveCount >= 1) return 'FD_MATT_Passive';
+      if (attPercentCount >= 1) return 'FD_ATT';
+      if (mattPercentCount >= 1) return 'FD_MATT';
+      if (passiveCount >= 1) return 'FD_Passive';
       return 'singleFD';
     }
 
@@ -679,6 +740,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     if (mattPercentCount >= 3) return 'tripleMATT';
     if (defPercentCount >= 3) return 'tripleDEF';
     if (buffCount >= 3) return 'tripleBuff';
+    if (attPercentCount >= 2 && passiveCount >= 1) return 'doubleATT_Passive';
+    if (mattPercentCount >= 2 && passiveCount >= 1) return 'doubleMATT_Passive';
+    if (attPercentCount >= 1 && passiveCount >= 1) return 'ATT_Passive';
+    if (mattPercentCount >= 1 && passiveCount >= 1) return 'MATT_Passive';
     if (buffCount === 2) return 'doubleBuff';
     if (attPercentCount === 2) return 'doubleATT';
     if (mattPercentCount === 2) return 'doubleMATT';
@@ -866,6 +931,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleMATT: 0,
       doubleATT_FD: 0,
       doubleMATT_FD: 0,
+      FD_ATT: 0,
+      FD_MATT: 0,
+      FD_Passive: 0,
+      MATT_Passive: 0,
+      ATT_Passive: 0,
+      FD_MATT_Passive: 0,
+      FD_ATT_Passive: 0,
+      doubleATT_Passive: 0,
+      doubleMATT_Passive: 0,
     });
   };
 
@@ -1032,6 +1106,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                       { value: 'doubleFD_INT' as TargetMode, label: t.doubleFD_INT },
                       { value: 'doubleFD_LUK' as TargetMode, label: t.doubleFD_LUK },
                       { value: 'doubleFD_HP' as TargetMode, label: t.doubleFD_HP },
+                      { value: 'FD_ATT' as TargetMode, label: t.FD_ATT },
+                      { value: 'FD_MATT' as TargetMode, label: t.FD_MATT },
+                      { value: 'FD_Passive' as TargetMode, label: t.FD_Passive },
+                      { value: 'MATT_Passive' as TargetMode, label: t.MATT_Passive },
+                      { value: 'ATT_Passive' as TargetMode, label: t.ATT_Passive },
+                      { value: 'FD_MATT_Passive' as TargetMode, label: t.FD_MATT_Passive },
+                      { value: 'FD_ATT_Passive' as TargetMode, label: t.FD_ATT_Passive },
+                      { value: 'doubleATT_Passive' as TargetMode, label: t.doubleATT_Passive },
+                      { value: 'doubleMATT_Passive' as TargetMode, label: t.doubleMATT_Passive },
                       { value: 'tripleATT' as TargetMode, label: t.tripleATT },
                       { value: 'tripleMATT' as TargetMode, label: t.tripleMATT },
                       { value: 'tripleDEF' as TargetMode, label: t.tripleDEF },
@@ -1112,7 +1195,11 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                   {Object.entries(targetStats)
                     .filter(([, count]) => count > 0)
                     .sort(([keyA, a], [keyB, b]) => {
-                      const topTargets = ['doubleFD_ATT', 'doubleMATT_FD', 'tripleATT', 'tripleMATT', 'tripleFD'];
+                      const topTargets = [
+                        'doubleFD_ATT', 'doubleMATT_FD', 'tripleATT', 'tripleMATT', 'tripleFD',
+                        'FD_ATT', 'FD_MATT', 'FD_Passive', 'MATT_Passive', 'ATT_Passive',
+                        'FD_MATT_Passive', 'FD_ATT_Passive', 'doubleATT_Passive', 'doubleMATT_Passive'
+                      ];
                       const isATrash = keyA === 'trash';
                       const isBTrash = keyB === 'trash';
                       const isATop = topTargets.includes(keyA);

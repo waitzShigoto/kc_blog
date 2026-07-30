@@ -658,7 +658,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     }
 
     return newTotal;
-  }, [recordDraw, cubesByTypeRef, cubePointsRef, memorialRowCountsRef, statCountsRef, setTotalDraws, setCubesByType, setCubePoints, setMemorialRowCounts, setCounts]);
+  }, [recordDraw, cubesByTypeRef, cubePointsRef, memorialRowCountsRef, statCountsRef, setCubesByType, setCubePoints, setMemorialRowCounts, setCounts]);
 
   const recordStatOccurrence = useCallback((lines: PotentialLine[], memorialIdx: number) => {
     const line = lines[memorialIdx];
