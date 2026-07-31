@@ -10,8 +10,122 @@ export interface GradeInfo {
     probability: number;
 }
 
-// 萌獸卡牌包獎勵池 (2026/07/29 00:00 ~ 2026/09/08 23:59)
-export const FAMILIAR_CARD_REWARDS: FamiliarCardReward[] = [
+// ========== 第一期 (2026/04/08 ~ 2026/05/05) ==========
+export const FAMILIAR_CARD_REWARDS_V1: FamiliarCardReward[] = [
+    { name: '埼玉', probability: 0.10 },
+    { name: '傑諾斯', probability: 0.10 },
+    { name: '戰慄的龍卷', probability: 0.10 },
+    { name: '咖凌(解決師)', probability: 0.01 },
+    { name: '嫩寶', probability: 1.99 },
+    { name: '藍寶', probability: 1.99 },
+    { name: '菇菇仔', probability: 1.99 },
+    { name: '木妖', probability: 1.99 },
+    { name: '紅寶', probability: 1.99 },
+    { name: '芽芽花盆', probability: 1.99 },
+    { name: '喇叭花花盆', probability: 1.00 },
+    { name: '葡萄酒瓶', probability: 1.00 },
+    { name: '綠水靈', probability: 1.00 },
+    { name: '綠菇菇', probability: 1.00 },
+    { name: '黑木妖', probability: 1.00 },
+    { name: '挫折的綠菇菇', probability: 1.00 },
+    { name: '三眼章魚', probability: 1.00 },
+    { name: '斧木妖', probability: 1.00 },
+    { name: '發芽木妖', probability: 1.00 },
+    { name: '奸笑的發芽木妖', probability: 1.00 },
+    { name: '巡邏機器人', probability: 1.00 },
+    { name: '奇怪的里程碑', probability: 1.00 },
+    { name: '大蛇王', probability: 1.00 },
+    { name: '肥肥', probability: 1.00 },
+    { name: '緞帶肥肥', probability: 1.00 },
+    { name: '菇菇寶貝', probability: 1.00 },
+    { name: '藍水靈', probability: 1.00 },
+    { name: '藍色緞帶肥肥', probability: 1.00 },
+    { name: '奇怪的肥肥', probability: 1.00 },
+    { name: '刺菇菇', probability: 1.00 },
+    { name: '沙漠毒蠍', probability: 1.00 },
+    { name: '黑斧木妖', probability: 1.00 },
+    { name: '青蛇', probability: 1.00 },
+    { name: '竊水賊', probability: 1.00 },
+    { name: '垃圾桶', probability: 1.00 },
+    { name: '路燈', probability: 1.00 },
+    { name: '巡邏機器人S', probability: 1.00 },
+    { name: '紅寶王', probability: 1.00 },
+    { name: '藍菇菇', probability: 1.00 },
+    { name: '哭泣的藍菇菇', probability: 1.00 },
+    { name: '火獨眼獸', probability: 1.00 },
+    { name: '殭屍菇菇', probability: 1.00 },
+    { name: '黑肥肥', probability: 1.00 },
+    { name: '綠海馬', probability: 1.00 },
+    { name: '黃金海馬', probability: 1.00 },
+    { name: '獨角尼莫', probability: 1.00 },
+    { name: '海膽', probability: 1.00 },
+    { name: '泡泡魚', probability: 1.00 },
+    { name: '木面怪人', probability: 1.00 },
+    { name: '石面怪人', probability: 1.00 },
+    { name: '膽小的黑肥肥', probability: 1.00 },
+    { name: '暗獨眼獸', probability: 1.00 },
+    { name: '沼澤爛泥怪物', probability: 1.00 },
+    { name: '煩躁的殭屍菇菇', probability: 1.00 },
+    { name: '花鯰魚', probability: 1.00 },
+    { name: '蝙蝠', probability: 1.00 },
+    { name: '幼紅獨角獅', probability: 1.00 },
+    { name: '幼黃獨角獅', probability: 1.00 },
+    { name: '幼藍獨角獅', probability: 1.00 },
+    { name: '叛徒菇菇仔', probability: 1.00 },
+    { name: '毒菇', probability: 1.00 },
+    { name: '中毒的肥肥', probability: 1.00 },
+    { name: '頭盔企鵝王', probability: 1.00 },
+    { name: '親衛隊企鵝王', probability: 1.00 },
+    { name: '葛雷雪吉拉和企鵝國王', probability: 1.00 },
+    { name: '黃金雪吉拉和企鵝國王', probability: 1.00 },
+    { name: '純白雪吉拉和企鵝國王', probability: 1.00 },
+    { name: '草莓珍奶', probability: 1.00 },
+    { name: '珍珠奶茶', probability: 1.00 },
+    { name: '抹茶珍奶', probability: 1.00 },
+    { name: '雪吉拉娃娃機', probability: 1.00 },
+    { name: '小企鵝王娃娃機', probability: 1.00 },
+    { name: '變身娃娃機A', probability: 1.00 },
+    { name: '變身娃娃機B', probability: 1.00 },
+    { name: '鋼鐵穆太', probability: 1.00 },
+    { name: '強化鋼鐵穆太', probability: 1.00 },
+    { name: '鋰礦穆太', probability: 1.00 },
+    { name: '土龍', probability: 1.00 },
+    { name: '鋼之肥肥', probability: 1.00 },
+    { name: '菇菇寶貝★', probability: 1.00 },
+    { name: '柔道貓熊', probability: 1.00 },
+    { name: '鱷魚克洛克', probability: 1.00 },
+    { name: '船員克魯', probability: 1.00 },
+    { name: '魔龍', probability: 1.00 },
+    { name: '冰龍', probability: 1.00 },
+    { name: '黑龍', probability: 1.00 },
+    { name: '橡木甲蟲', probability: 1.00 },
+    { name: '金屬甲蟲', probability: 1.00 },
+    { name: '月牙牛魔王', probability: 1.00 },
+    { name: '長槍牛魔王', probability: 1.00 },
+    { name: '暗黑半人馬', probability: 1.00 },
+    { name: '火焰半人馬', probability: 1.00 },
+    { name: '寒冰半人馬', probability: 1.00 },
+    { name: '大副凱丁', probability: 0.50 },
+    { name: '萊西', probability: 0.50 },
+    { name: '黑暗萊西', probability: 0.50 },
+    { name: '邪惡綿羊', probability: 0.50 },
+    { name: '惡魔綿羊', probability: 0.50 },
+    { name: '煉獄獵犬', probability: 0.50 },
+    { name: '骨骸魚', probability: 0.50 },
+    { name: '藍色雙角龍', probability: 0.50 },
+    { name: '暗黑三角龍', probability: 0.50 },
+    { name: '總理大臣', probability: 0.50 },
+];
+
+export const GRAND_PRIZES_V1 = [
+    '咖凌(解決師)',
+    '埼玉',
+    '傑諾斯',
+    '戰慄的龍卷',
+];
+
+// ========== 第二期 (2026/07/29 ~ 2026/09/08) ==========
+export const FAMILIAR_CARD_REWARDS_V2: FamiliarCardReward[] = [
     { name: '夜的引導者', probability: 0.30 },
     { name: '幻影的引導者', probability: 0.30 },
     { name: '靈魂屠殺者', probability: 0.30 },
@@ -117,13 +231,16 @@ export const FAMILIAR_CARD_REWARDS: FamiliarCardReward[] = [
     { name: '總理大臣', probability: 0.50 },
 ];
 
-// 本期大獎 (最稀有萌獸)
-export const GRAND_PRIZES = [
+export const GRAND_PRIZES_V2 = [
     '希拉(赤紅女皇)',
     '夜的引導者',
     '幻影的引導者',
     '靈魂屠殺者',
 ];
+
+// ========== 現用別名（最新一期）==========
+export const FAMILIAR_CARD_REWARDS = FAMILIAR_CARD_REWARDS_V2;
+export const GRAND_PRIZES = GRAND_PRIZES_V2;
 
 // 階級機率 (標準)
 export const GRADE_PROBABILITIES: GradeInfo[] = [

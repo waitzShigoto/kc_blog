@@ -3,10 +3,13 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import {
-    FAMILIAR_CARD_REWARDS,
-    GRAND_PRIZES,
+    FAMILIAR_CARD_REWARDS_V1,
+    FAMILIAR_CARD_REWARDS_V2,
+    GRAND_PRIZES_V1,
+    GRAND_PRIZES_V2,
     GRADE_PROBABILITIES,
     SPECIAL_GRADE_PROBABILITIES,
+    FamiliarCardReward,
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -31,11 +34,18 @@ const GRADE_STYLES: Record<string, { bg: string; text: string; border: string }>
     '傳說': { bg: 'bg-amber-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
 };
 
+type Version = 'v1' | 'v2';
+
+const VERSION_DATA: Record<Version, { rewards: FamiliarCardReward[]; grandPrizes: string[] }> = {
+    v1: { rewards: FAMILIAR_CARD_REWARDS_V1, grandPrizes: GRAND_PRIZES_V1 },
+    v2: { rewards: FAMILIAR_CARD_REWARDS_V2, grandPrizes: GRAND_PRIZES_V2 },
+};
 
 export default function FamiliarCardPackClient({ locale }: Props) {
+    const [version, setVersion] = useState<Version>('v2');
     const [currentFamiliar, setCurrentFamiliar] = useState('');
     const [currentGrade, setCurrentGrade] = useState('');
-    const [targetPrize, setTargetPrize] = useState(GRAND_PRIZES[0]);
+    const [targetPrize, setTargetPrize] = useState(GRAND_PRIZES_V2[0]);
 
     const {
         totalDraws,
@@ -55,6 +65,29 @@ export default function FamiliarCardPackClient({ locale }: Props) {
     const [gradeCounts, setGradeCounts] = useState<Record<string, number>>({});
     const gradeCountsRef = useRef<Record<string, number>>({});
     const historyRef = useRef<HTMLDivElement>(null);
+
+    // 根據版本選擇資料
+    const FAMILIAR_CARD_REWARDS = VERSION_DATA[version].rewards;
+    const GRAND_PRIZES = VERSION_DATA[version].grandPrizes;
+
+    // 版本切換時重置並更新目標
+    const handleVersionChange = useCallback((v: Version) => {
+        if (isRolling) return;
+        setVersion(v);
+        setCurrentFamiliar('');
+        setCurrentGrade('');
+        setGradeCounts({});
+        gradeCountsRef.current = {};
+        baseReset();
+        setTargetPrize(VERSION_DATA[v].grandPrizes[0]);
+    }, [isRolling, baseReset]);
+
+    // 當版本的 grand prizes 改變時，確保 targetPrize 有效
+    useEffect(() => {
+        if (!GRAND_PRIZES.includes(targetPrize)) {
+            setTargetPrize(GRAND_PRIZES[0]);
+        }
+    }, [version, GRAND_PRIZES, targetPrize]);
 
     useEffect(() => { if (historyRef.current) historyRef.current.scrollTop = 0; }, [history]);
 
@@ -84,12 +117,17 @@ export default function FamiliarCardPackClient({ locale }: Props) {
             countTimes: '{n} 次',
             probabilities: '獎勵機率',
             eventPeriod: '活動時間',
-            eventDate: '2026/04/08 09:00 ～ 2026/05/05 23:59',
             stop: '停止',
             targetPrize: '目標大獎',
             rollUntil: '抽到為止',
             gradeDistribution: '階級分佈',
             grade: '階級機率',
+            btnTitleV1: '04/08 ~ 05/05',
+            btnSubtitleV1: '一拳超人',
+            btnTitleV2: '07/29 ~ 09/08',
+            btnSubtitleV2: '夜之旅人',
+            eventDateV1: '2026/04/08 09:00 ～ 2026/05/05 23:59',
+            eventDateV2: '2026/07/29 00:00 ～ 2026/09/08 23:59',
         },
         en: {
             title: 'Familiar Card Pack',
@@ -116,12 +154,17 @@ export default function FamiliarCardPackClient({ locale }: Props) {
             countTimes: '{n} times',
             probabilities: 'Probabilities',
             eventPeriod: 'Event Period',
-            eventDate: '2026/04/08 09:00 ～ 2026/05/05 23:59',
             stop: 'Stop',
             targetPrize: 'Target Prize',
             rollUntil: 'Roll Until',
             gradeDistribution: 'Grade Distribution',
             grade: 'Grade Probabilities',
+            btnTitleV1: '04/08 ~ 05/05',
+            btnSubtitleV1: 'One Punch Man',
+            btnTitleV2: '07/29 ~ 09/08',
+            btnSubtitleV2: 'Night Walker',
+            eventDateV1: '2026/04/08 09:00 ～ 2026/05/05 23:59',
+            eventDateV2: '2026/07/29 00:00 ～ 2026/09/08 23:59',
         },
         ja: {
             title: 'ファミリアカードパック',
@@ -148,17 +191,22 @@ export default function FamiliarCardPackClient({ locale }: Props) {
             countTimes: '{n}回',
             probabilities: '確率表',
             eventPeriod: 'イベント期間',
-            eventDate: '2026/04/08 09:00 ～ 2026/05/05 23:59',
             stop: '停止',
             targetPrize: '目標大賞',
             rollUntil: '出るまで回す',
             gradeDistribution: '等級分布',
             grade: '等級確率',
+            btnTitleV1: '04/08 ~ 05/05',
+            btnSubtitleV1: 'ワンパンマン',
+            btnTitleV2: '07/29 ~ 09/08',
+            btnSubtitleV2: 'ナイトウォーカー',
+            eventDateV1: '2026/04/08 09:00 ～ 2026/05/05 23:59',
+            eventDateV2: '2026/07/29 00:00 ～ 2026/09/08 23:59',
         },
     };
 
     const t = texts[locale as keyof typeof texts] || texts.zh;
-
+    const eventDate = version === 'v1' ? t.eventDateV1 : t.eventDateV2;
 
     const rollGrade = useCallback((): string => {
         const initial = weightedRandom(GRADE_PROBABILITIES, 'probability').name;
@@ -172,7 +220,7 @@ export default function FamiliarCardPackClient({ locale }: Props) {
         const familiar = weightedRandom(FAMILIAR_CARD_REWARDS, 'probability').name;
         const grade = rollGrade();
         return { familiar, grade };
-    }, [rollGrade]);
+    }, [rollGrade, FAMILIAR_CARD_REWARDS]);
 
     const applyDraw = useCallback((familiar: string, grade: string, idx: number) => {
         recordDraw(familiar);
@@ -281,10 +329,38 @@ export default function FamiliarCardPackClient({ locale }: Props) {
                     {t.back}
                 </Link>
 
-                <div className="text-center mb-8">
+                <div className="text-center mb-6">
                     <p className="text-primary text-sm font-medium mb-2">{t.subtitle}</p>
-                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">{t.title}</h1>
-                    <p className="text-xs text-muted-foreground">{t.eventPeriod}：{t.eventDate}</p>
+                    <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t.title}</h1>
+                </div>
+
+                {/* Version Selection Tab */}
+                <div className="flex justify-center mb-8">
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                        <button
+                            onClick={() => handleVersionChange('v1')}
+                            className={`px-5 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v1'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV1}</span>
+                            <span className="text-sm">{t.btnSubtitleV1}</span>
+                        </button>
+                        <button
+                            onClick={() => handleVersionChange('v2')}
+                            className={`relative px-5 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV2}</span>
+                            <span className="text-sm">{t.btnSubtitleV2}</span>
+                            <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
+                                NEW
+                            </span>
+                        </button>
+                    </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -362,7 +438,7 @@ export default function FamiliarCardPackClient({ locale }: Props) {
                                     <svg className="w-3.5 h-3.5 text-violet-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" /></svg>
                                     <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                 </div>
-                                <div className="text-foreground font-medium pl-5">{t.eventDate}</div>
+                                <div className="text-foreground font-medium pl-5">{eventDate}</div>
                             </div>
 
                             <div className="grid grid-cols-1 gap-4">
@@ -512,7 +588,7 @@ export default function FamiliarCardPackClient({ locale }: Props) {
                                 {FAMILIAR_CARD_REWARDS.map((reward, idx) => (
                                     <div key={idx} className="flex justify-between items-center text-xs border-b border-border pb-2 last:border-0 hover:bg-muted/40 transition-colors rounded px-1">
                                         <span className={`font-medium truncate flex-1 mr-2 ${getRarityColor(reward.probability)}`}>{reward.name}</span>
-                                        <span className="text-foreground font-mono text-[10px] flex-shrink-0">{reward.probability.toFixed(2)}%</span>
+                                        <span className="text-foreground font-mono text-[10px] flex-shrink-0">{reward.probability.toFixed(3)}%</span>
                                     </div>
                                 ))}
                             </div>
