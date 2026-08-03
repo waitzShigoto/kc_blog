@@ -459,7 +459,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
         historyIdRef.current += 1;
         const newHistory: StarlightHistory = {
             id: historyIdRef.current,
-            pullNumber: type === 'bag' ? openedCountsRef.current.bag : 0,
+            pullNumber: openedCountsRef.current[type],
             reward,
             type
         };
@@ -1088,7 +1088,7 @@ export default function StarlightBagClient({ locale }: StarlightBagClientProps) 
                                             history.map((item) => (
                                                 <div key={item.id} className="flex items-center gap-3 p-2 rounded-lg bg-muted/20 border border-border/50 group hover:bg-muted/30 transition-colors">
                                                     <span className="flex-shrink-0 w-8 h-8 rounded-full bg-background border border-border flex items-center justify-center text-[10px] font-mono text-muted-foreground group-hover:text-primary transition-colors">
-                                                        {item.type === 'bag' ? `#${item.pullNumber}` : 'Box'}
+                                                        #{item.pullNumber}
                                                     </span>
                                                     <div className="flex flex-col min-w-0">
                                                         <span className="text-[9px] text-indigo-500 uppercase font-bold tracking-tighter opacity-70">
