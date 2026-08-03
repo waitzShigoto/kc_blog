@@ -10,6 +10,18 @@ export interface GradeInfo {
     probability: number;
 }
 
+export interface FamiliarGameVersion {
+    id: string;
+    name: string;
+    eventDate: string;
+}
+
+export const VERSION_1: FamiliarGameVersion = {
+    id: 'v1',
+    name: '解決師',
+    eventDate: '2026/04/08 ~ 2026/05/05',
+};
+
 // ========== 第一期 (2026/04/08 ~ 2026/05/05) ==========
 export const FAMILIAR_CARD_REWARDS_V1: FamiliarCardReward[] = [
     { name: '埼玉', probability: 0.10 },
@@ -123,6 +135,12 @@ export const GRAND_PRIZES_V1 = [
     '傑諾斯',
     '戰慄的龍卷',
 ];
+
+export const VERSION_2: FamiliarGameVersion = {
+    id: 'v2',
+    name: '赤紅女皇',
+    eventDate: '2026/07/29 ~ 2026/09/08',
+};
 
 // ========== 第二期 (2026/07/29 ~ 2026/09/08) ==========
 export const FAMILIAR_CARD_REWARDS_V2: FamiliarCardReward[] = [
