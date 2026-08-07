@@ -428,6 +428,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleMATT_FD: '雙魔終 (2魔攻%+1終傷%)',
       stop: '停止',
       targetStats: '目標統計',
+      aggregatedStats: '綜合統計',
+      atLeastDoubleFD: '全部雙終以上',
+      atLeastDoubleATT: '全部雙物以上',
+      atLeastDoubleMATT: '全部雙魔以上',
       occurrences: '出現次數',
       probability: '出現機率',
       trash: '爛潛',
@@ -493,6 +497,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleMATT_FD: '2MATT% + 1FD%',
       stop: 'Stop',
       targetStats: 'Target Stats',
+      aggregatedStats: 'Aggregated Stats',
+      atLeastDoubleFD: 'Double FD or better',
+      atLeastDoubleATT: 'Double ATT% or better',
+      atLeastDoubleMATT: 'Double MATT% or better',
       occurrences: 'Occurrences',
       probability: 'Probability',
       trash: 'Trash',
@@ -558,6 +566,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       doubleMATT_FD: '2魔攻%+1終傷%',
       stop: '停止',
       targetStats: 'ターゲット統計',
+      aggregatedStats: '総合統計',
+      atLeastDoubleFD: '全双終以上',
+      atLeastDoubleATT: '全双物攻%以上',
+      atLeastDoubleMATT: '全双魔攻%以上',
       occurrences: '出現回数',
       probability: '出現確率',
       trash: 'ゴミ潜在',
@@ -895,6 +907,28 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     stopRequestedRef.current = true;
   };
 
+  // Cleanup
+  useEffect(() => {
+    return () => {
+      stopRequestedRef.current = true;
+    };
+  }, []);
+
+  const atLeastDoubleFDCount = [
+    'tripleFD', 'doubleFD', 'doubleFD_ATT', 'doubleFD_MATT',
+    'doubleFD_Passive', 'doubleFD_Crit', 'doubleFD_IED',
+    'doubleFD_Buff', 'doubleFD_STR', 'doubleFD_DEX',
+    'doubleFD_INT', 'doubleFD_LUK', 'doubleFD_HP'
+  ].reduce((sum, key) => sum + (targetStats[key as TargetMode] || 0), 0);
+
+  const atLeastDoubleATTCount = [
+    'tripleATT', 'doubleATT', 'doubleATT_FD', 'doubleATT_Passive'
+  ].reduce((sum, key) => sum + (targetStats[key as TargetMode] || 0), 0);
+
+  const atLeastDoubleMATTCount = [
+    'tripleMATT', 'doubleMATT', 'doubleMATT_FD', 'doubleMATT_Passive'
+  ].reduce((sum, key) => sum + (targetStats[key as TargetMode] || 0), 0);
+
   // 重置
   const reset = () => {
     setFamiliarTier('legendary');
@@ -1191,7 +1225,54 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
             {totalCubes > 0 && (
               <div className="bg-card backdrop-blur rounded-2xl border border-border shadow-sm p-6">
                 <h2 className="text-lg font-semibold text-foreground mb-4">{t.targetStats}</h2>
-                <div className="max-h-96 overflow-y-auto space-y-2">
+                <div className="max-h-96 overflow-y-auto space-y-2 pr-2">
+                  
+                  {/* 綜合統計區塊 */}
+                  {(atLeastDoubleFDCount > 0 || atLeastDoubleATTCount > 0 || atLeastDoubleMATTCount > 0) && (
+                    <div className="mb-4 space-y-2">
+                      <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">
+                        {t.aggregatedStats}
+                      </div>
+                      {atLeastDoubleFDCount > 0 && (
+                        <div className="px-3 py-2 rounded-lg border bg-primary/10 border-primary/20">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-sm font-bold text-primary">{t.atLeastDoubleFD}</span>
+                            <span className="text-xs text-primary/70">{((atLeastDoubleFDCount / totalCubes) * 100).toFixed(2)}%</span>
+                          </div>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="text-primary/70">{t.occurrences}</span>
+                            <span className="font-bold text-primary">{atLeastDoubleFDCount}</span>
+                          </div>
+                        </div>
+                      )}
+                      {atLeastDoubleATTCount > 0 && (
+                        <div className="px-3 py-2 rounded-lg border bg-blue-500/10 border-blue-500/20">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-sm font-bold text-blue-500">{t.atLeastDoubleATT}</span>
+                            <span className="text-xs text-blue-500/70">{((atLeastDoubleATTCount / totalCubes) * 100).toFixed(2)}%</span>
+                          </div>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="text-blue-500/70">{t.occurrences}</span>
+                            <span className="font-bold text-blue-500">{atLeastDoubleATTCount}</span>
+                          </div>
+                        </div>
+                      )}
+                      {atLeastDoubleMATTCount > 0 && (
+                        <div className="px-3 py-2 rounded-lg border bg-purple-500/10 border-purple-500/20">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-sm font-bold text-purple-500">{t.atLeastDoubleMATT}</span>
+                            <span className="text-xs text-purple-500/70">{((atLeastDoubleMATTCount / totalCubes) * 100).toFixed(2)}%</span>
+                          </div>
+                          <div className="flex justify-between items-center text-xs">
+                            <span className="text-purple-500/70">{t.occurrences}</span>
+                            <span className="font-bold text-purple-500">{atLeastDoubleMATTCount}</span>
+                          </div>
+                        </div>
+                      )}
+                      <div className="h-px bg-border my-4"></div>
+                    </div>
+                  )}
+
                   {Object.entries(targetStats)
                     .filter(([, count]) => count > 0)
                     .sort(([keyA, a], [keyB, b]) => {
