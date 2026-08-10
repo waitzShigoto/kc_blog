@@ -367,27 +367,31 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
   });
 
   const [statsViewMode, setStatsViewMode] = useState<'probability' | 'value'>('probability');
-  const [exchangeRate, setExchangeRate] = useState<string>('0.35'); // Default 1:0.35 億
+  const [exchangeRate, setExchangeRate] = useState<string>('0.27'); // Default 1:0.27 億
   const [categoryPrices, setCategoryPrices] = useState<Record<string, string>>({
-    tripleFD: '5000',
+    tripleFD: '20000',
     doubleFD: '600',
-    doubleFD_ATT: '800',
-    doubleFD_MATT: '800',
-    doubleFD_Passive: '700',
-    doubleFD_Crit: '650',
+    doubleFD_ATT: '3700',
+    doubleFD_MATT: '2200',
+    doubleFD_Passive: '1000',
+    doubleFD_Crit: '600',
     doubleFD_IED: '650',
-    doubleFD_Buff: '650',
+    doubleFD_Buff: '600',
     doubleFD_STR: '650',
-    doubleFD_DEX: '650',
+    doubleFD_DEX: '600',
     doubleFD_INT: '650',
-    doubleFD_LUK: '650',
-    doubleFD_HP: '650',
-    FD_ATT: '50',
-    FD_MATT: '50',
-    doubleATT_FD: '100',
-    doubleMATT_FD: '100',
-    tripleATT: '200',
-    tripleMATT: '200',
+    doubleFD_LUK: '600',
+    doubleFD_HP: '600',
+    FD_ATT: '175',
+    FD_MATT: '135',
+    doubleATT_FD: '1150',
+    doubleMATT_FD: '700',
+    tripleATT: '1150',
+    tripleMATT: '700',
+    FD_ATT_Passive: '600',
+    FD_MATT_Passive: '600',
+    doubleATT_Passive: '800',
+    doubleMATT_Passive: '600',
   });
 
   const texts = {
