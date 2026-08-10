@@ -401,6 +401,7 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
 
   const [cubePrice, setCubePrice] = useState<string>('27');
   const [cubeDiscount, setCubeDiscount] = useState<string>('1.0');
+  const [sellingFee, setSellingFee] = useState<string>('50');
 
   const texts = {
     zh: {
@@ -482,6 +483,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       cubePrice: '方塊單價',
       discount: '折扣',
       totalCost: '總花費',
+      sellingFeeLabel: '賣出手續費',
+      totalFee: '手續費總額',
+      netProfit: '收益',
+      itemCount: '隻',
     },
     en: {
       title: 'Familiar Cube Simulator',
@@ -562,6 +567,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       cubePrice: 'Cube Price',
       discount: 'Discount',
       totalCost: 'Total Cost',
+      sellingFeeLabel: 'Selling Fee',
+      totalFee: 'Total Fee',
+      netProfit: 'Net Profit',
+      itemCount: ' items',
     },
     ja: {
       title: 'ファミリアキューブシミュレーター',
@@ -642,6 +651,10 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       cubePrice: 'キューブ単価',
       discount: '割引',
       totalCost: '総費用',
+      sellingFeeLabel: '販売手数料',
+      totalFee: '手数料総額',
+      netProfit: '純利益',
+      itemCount: '匹',
     },
   };
 
@@ -998,25 +1011,36 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     'tripleMATT', 'doubleMATT', 'doubleMATT_FD', 'doubleMATT_Passive'
   ].reduce((sum, key) => sum + (targetStats[key as TargetMode] || 0), 0);
 
-  const totalValue = useMemo(() => {
+  const { totalValue, feeItemCount } = useMemo(() => {
     let total = 0;
+    let feeItems = 0;
     Object.entries(targetStats).forEach(([key, count]) => {
       if (key === 'trash') return;
       const price = parseFloat(categoryPrices[key] || '0');
       if (!isNaN(price) && price > 0) {
         total += count * price;
+        if (price >= 50) {
+          feeItems += count;
+        }
       }
     });
-    return total;
+    return { totalValue: total, feeItemCount: feeItems };
   }, [targetStats, categoryPrices]);
+
+  const totalFeeValue = useMemo(() => {
+    const fee = parseFloat(sellingFee) || 0;
+    return feeItemCount * fee;
+  }, [feeItemCount, sellingFee]);
+
+  const netProfitValue = totalValue - totalFeeValue;
 
   const convertedTotal = useMemo(() => {
     const rate = parseFloat(exchangeRate);
     if (!isNaN(rate) && rate > 0) {
-      return (totalValue / rate).toFixed(0);
+      return (netProfitValue / rate).toFixed(0);
     }
     return '0';
-  }, [totalValue, exchangeRate]);
+  }, [netProfitValue, exchangeRate]);
 
   // 重置
   const reset = () => {
@@ -1372,10 +1396,36 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
 
                 {statsViewMode === 'value' && (
                   <div className="mb-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-3">
-                    <div className="flex justify-between items-end">
-                      <span className="text-sm font-medium text-amber-600 dark:text-amber-500">{t.totalValue}</span>
-                      <span className="text-2xl font-bold text-amber-600 dark:text-amber-500">{totalValue.toLocaleString()} <span className="text-sm font-normal">{t.billionMesos}</span></span>
+                    {/* Gross Value */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium text-amber-600/80 dark:text-amber-500/80">{t.totalValue}</span>
+                      <span className="text-lg font-bold text-amber-600/80 dark:text-amber-500/80">{totalValue.toLocaleString()} <span className="text-xs font-normal">{t.billionMesos}</span></span>
                     </div>
+                    
+                    {/* Fee Calculation */}
+                    <div className="flex justify-between items-center">
+                      <div className="flex items-center gap-1">
+                        <span className="text-sm font-medium text-amber-600/80 dark:text-amber-500/80">
+                          {t.totalFee}({feeItemCount}{t.itemCount})
+                        </span>
+                        <input
+                          type="number"
+                          value={sellingFee}
+                          onChange={(e) => setSellingFee(e.target.value)}
+                          className="w-12 px-1 py-0.5 text-xs bg-background border border-amber-500/30 rounded focus:outline-none focus:ring-1 focus:ring-amber-500 text-right ml-2"
+                          min="0"
+                        />
+                      </div>
+                      <span className="text-lg font-bold text-red-500/80 dark:text-red-400/80">- {totalFeeValue.toLocaleString()} <span className="text-xs font-normal">{t.billionMesos}</span></span>
+                    </div>
+
+                    {/* Net Profit */}
+                    <div className="flex justify-between items-center pt-2 border-t border-amber-500/30">
+                      <span className="text-base font-bold text-amber-600 dark:text-amber-500">{t.netProfit}</span>
+                      <span className="text-2xl font-bold text-amber-600 dark:text-amber-500">{netProfitValue.toLocaleString()} <span className="text-sm font-normal">{t.billionMesos}</span></span>
+                    </div>
+
+                    {/* Exchange Rate Conversion */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-amber-500/20">
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-amber-600/80 dark:text-amber-500/80">{t.exchangeRate}</span>
