@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -366,6 +366,30 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     doubleMATT_Passive: 0,
   });
 
+  const [statsViewMode, setStatsViewMode] = useState<'probability' | 'value'>('probability');
+  const [exchangeRate, setExchangeRate] = useState<string>('0.35'); // Default 1:0.35 億
+  const [categoryPrices, setCategoryPrices] = useState<Record<string, string>>({
+    tripleFD: '5000',
+    doubleFD: '600',
+    doubleFD_ATT: '800',
+    doubleFD_MATT: '800',
+    doubleFD_Passive: '700',
+    doubleFD_Crit: '650',
+    doubleFD_IED: '650',
+    doubleFD_Buff: '650',
+    doubleFD_STR: '650',
+    doubleFD_DEX: '650',
+    doubleFD_INT: '650',
+    doubleFD_LUK: '650',
+    doubleFD_HP: '650',
+    FD_ATT: '50',
+    FD_MATT: '50',
+    doubleATT_FD: '100',
+    doubleMATT_FD: '100',
+    tripleATT: '200',
+    tripleMATT: '200',
+  });
+
   const texts = {
     zh: {
       title: '萌獸方塊模擬器',
@@ -435,6 +459,14 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       occurrences: '出現次數',
       probability: '出現機率',
       trash: '爛潛',
+      probabilityMode: '機率視角',
+      valueMode: '價值視角',
+      exchangeRate: '匯率 1:',
+      billionMesos: '億遊戲幣',
+      convertedTotal: '折合總額',
+      totalValue: '總價值',
+      price: '單價(億)',
+      rowTotal: '小計(億)',
     },
     en: {
       title: 'Familiar Cube Simulator',
@@ -504,6 +536,14 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       occurrences: 'Occurrences',
       probability: 'Probability',
       trash: 'Trash',
+      probabilityMode: 'Probability',
+      valueMode: 'Value',
+      exchangeRate: 'Rate 1:',
+      billionMesos: 'B Mesos',
+      convertedTotal: 'Converted',
+      totalValue: 'Total Value',
+      price: 'Price(B)',
+      rowTotal: 'Total(B)',
     },
     ja: {
       title: 'ファミリアキューブシミュレーター',
@@ -573,6 +613,14 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       occurrences: '出現回数',
       probability: '出現確率',
       trash: 'ゴミ潜在',
+      probabilityMode: '確率視点',
+      valueMode: '価値視点',
+      exchangeRate: 'レート 1:',
+      billionMesos: '億メル',
+      convertedTotal: '換算合計',
+      totalValue: '総価値',
+      price: '単価(億)',
+      rowTotal: '小計(億)',
     },
   };
 
@@ -929,6 +977,26 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     'tripleMATT', 'doubleMATT', 'doubleMATT_FD', 'doubleMATT_Passive'
   ].reduce((sum, key) => sum + (targetStats[key as TargetMode] || 0), 0);
 
+  const totalValue = useMemo(() => {
+    let total = 0;
+    Object.entries(targetStats).forEach(([key, count]) => {
+      if (key === 'trash') return;
+      const price = parseFloat(categoryPrices[key] || '0');
+      if (!isNaN(price) && price > 0) {
+        total += count * price;
+      }
+    });
+    return total;
+  }, [targetStats, categoryPrices]);
+
+  const convertedTotal = useMemo(() => {
+    const rate = parseFloat(exchangeRate);
+    if (!isNaN(rate) && rate > 0) {
+      return (totalValue / rate).toFixed(0);
+    }
+    return '0';
+  }, [totalValue, exchangeRate]);
+
   // 重置
   const reset = () => {
     setFamiliarTier('legendary');
@@ -1223,9 +1291,53 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
 
             {/* Target Statistics */}
             {totalCubes > 0 && (
-              <div className="bg-card backdrop-blur rounded-2xl border border-border shadow-sm p-6">
-                <h2 className="text-lg font-semibold text-foreground mb-4">{t.targetStats}</h2>
-                <div className="max-h-96 overflow-y-auto space-y-2 pr-2">
+              <div className="bg-card backdrop-blur rounded-2xl border border-border shadow-sm p-6 flex flex-col h-full max-h-[800px]">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold text-foreground">{t.targetStats}</h2>
+                  <div className="flex bg-muted/50 p-1 rounded-lg">
+                    <button
+                      onClick={() => setStatsViewMode('probability')}
+                      className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${statsViewMode === 'probability' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      {t.probabilityMode}
+                    </button>
+                    <button
+                      onClick={() => setStatsViewMode('value')}
+                      className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${statsViewMode === 'value' ? 'bg-background shadow text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                    >
+                      {t.valueMode}
+                    </button>
+                  </div>
+                </div>
+
+                {statsViewMode === 'value' && (
+                  <div className="mb-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 space-y-3">
+                    <div className="flex justify-between items-end">
+                      <span className="text-sm font-medium text-amber-600 dark:text-amber-500">{t.totalValue}</span>
+                      <span className="text-2xl font-bold text-amber-600 dark:text-amber-500">{totalValue.toLocaleString()} <span className="text-sm font-normal">{t.billionMesos}</span></span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-amber-500/20">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-amber-600/80 dark:text-amber-500/80">{t.exchangeRate}</span>
+                        <input
+                          type="number"
+                          value={exchangeRate}
+                          onChange={(e) => setExchangeRate(e.target.value)}
+                          className="w-16 px-2 py-1 text-xs bg-background border border-amber-500/30 rounded focus:outline-none focus:ring-1 focus:ring-amber-500"
+                          step="0.01"
+                          min="0"
+                        />
+                        <span className="text-xs text-amber-600/80 dark:text-amber-500/80">{t.billionMesos}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-amber-600/80 dark:text-amber-500/80">{t.convertedTotal}:</span>
+                        <span className="font-bold text-amber-600 dark:text-amber-500">{Number(convertedTotal).toLocaleString()}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="flex-1 overflow-y-auto space-y-2 pr-2">
                   
                   {/* 綜合統計區塊 */}
                   {(atLeastDoubleFDCount > 0 || atLeastDoubleATTCount > 0 || atLeastDoubleMATTCount > 0) && (
@@ -1316,17 +1428,40 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                               }`}>
                               {displayName}
                             </span>
-                            <span className={`text-xs ${isTrash ? 'text-red-500/70' : 'text-muted-foreground'
-                              }`}>
-                              {probability}%
-                            </span>
+                            {statsViewMode === 'probability' ? (
+                              <span className={`text-xs ${isTrash ? 'text-red-500/70' : 'text-muted-foreground'
+                                }`}>
+                                {probability}%
+                              </span>
+                            ) : (
+                              !isTrash && (
+                                <div className="flex items-center gap-1">
+                                  <span className="text-[10px] text-muted-foreground">{t.price}:</span>
+                                  <input
+                                    type="number"
+                                    value={categoryPrices[mode] || ''}
+                                    onChange={(e) => setCategoryPrices(prev => ({ ...prev, [mode]: e.target.value }))}
+                                    className="w-14 px-1 py-0.5 text-xs bg-background border border-border rounded focus:outline-none focus:ring-1 focus:ring-primary"
+                                    placeholder="0"
+                                    min="0"
+                                  />
+                                </div>
+                              )
+                            )}
                           </div>
                           <div className="flex justify-between items-center text-xs">
                             <span className={
                               isTrash ? 'text-red-500/70' : 'text-muted-foreground'
                             }>{t.occurrences}</span>
-                            <span className={`font-bold ${isTrash ? 'text-red-500' : 'text-foreground'
-                              }`}>{count}</span>
+                            <div className="flex items-center gap-3">
+                              <span className={`font-bold ${isTrash ? 'text-red-500' : 'text-foreground'
+                                }`}>{count}</span>
+                              {statsViewMode === 'value' && !isTrash && (
+                                <span className="text-amber-500 font-bold min-w-[3rem] text-right">
+                                  {(count * parseFloat(categoryPrices[mode] || '0')).toLocaleString()}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       );
