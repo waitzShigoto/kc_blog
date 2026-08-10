@@ -394,6 +394,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     doubleMATT_Passive: '600',
   });
 
+  const [cubePrice, setCubePrice] = useState<string>('27');
+  const [cubeDiscount, setCubeDiscount] = useState<string>('1.0');
+
   const texts = {
     zh: {
       title: '萌獸方塊模擬器',
@@ -471,6 +474,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       totalValue: '總價值',
       price: '單價(億)',
       rowTotal: '小計(億)',
+      cubePrice: '方塊單價',
+      discount: '折扣',
+      totalCost: '總花費',
     },
     en: {
       title: 'Familiar Cube Simulator',
@@ -548,6 +554,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       totalValue: 'Total Value',
       price: 'Price(B)',
       rowTotal: 'Total(B)',
+      cubePrice: 'Cube Price',
+      discount: 'Discount',
+      totalCost: 'Total Cost',
     },
     ja: {
       title: 'ファミリアキューブシミュレーター',
@@ -625,6 +634,9 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
       totalValue: '総価値',
       price: '単価(億)',
       rowTotal: '小計(億)',
+      cubePrice: 'キューブ単価',
+      discount: '割引',
+      totalCost: '総費用',
     },
   };
 
@@ -1290,6 +1302,45 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                   <span className="text-muted-foreground">{t.totalUsed}</span>
                   <span className="text-2xl font-bold text-foreground">{totalCubes}</span>
                 </div>
+                
+                {/* Cost stats */}
+                <div className="pt-3 border-t border-border space-y-2">
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">{t.cubePrice}</span>
+                      <input
+                        type="number"
+                        value={cubePrice}
+                        onChange={(e) => setCubePrice(e.target.value)}
+                        className="w-14 px-1 py-0.5 text-xs bg-background border border-border rounded focus:outline-none focus:ring-1 focus:ring-primary text-right"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">{t.discount}</span>
+                      <input
+                        type="number"
+                        value={cubeDiscount}
+                        onChange={(e) => setCubeDiscount(e.target.value)}
+                        className="w-16 px-1 py-0.5 text-xs bg-background border border-border rounded focus:outline-none focus:ring-1 focus:ring-primary text-right"
+                        step="0.05"
+                        min="0"
+                        max="1"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center bg-muted/30 p-2 rounded-lg">
+                    <span className="text-sm font-medium">{t.totalCost}</span>
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-foreground">
+                        {Math.floor(totalCubes * (parseFloat(cubePrice) || 0) * (parseFloat(cubeDiscount) || 1)).toLocaleString()}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        ≈ {(Math.floor(totalCubes * (parseFloat(cubePrice) || 0) * (parseFloat(cubeDiscount) || 1)) * (parseFloat(exchangeRate) || 0)).toFixed(2)} {t.billionMesos}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
