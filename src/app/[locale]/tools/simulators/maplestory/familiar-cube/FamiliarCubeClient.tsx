@@ -392,6 +392,11 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     FD_MATT_Passive: '600',
     doubleATT_Passive: '800',
     doubleMATT_Passive: '600',
+    MATT_Passive: '120',
+    ATT_Passive: '100',
+    FD_Passive: '145',
+    doubleMATT: '80',
+    doubleATT: '120',
   });
 
   const [cubePrice, setCubePrice] = useState<string>('27');
