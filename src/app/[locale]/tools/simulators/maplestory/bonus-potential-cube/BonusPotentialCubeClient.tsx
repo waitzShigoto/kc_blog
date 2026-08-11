@@ -1639,6 +1639,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                   {Object.entries(statCounts)
+                    .filter(([key]) => !['memorialBonus', 'premiumBonus', 'absoluteBonus'].includes(key))
                     .sort(([, a], [, b]) => b - a)
                     .map(([key, count]) => {
                       const prob = totalLinesRolledRef.current > 0
