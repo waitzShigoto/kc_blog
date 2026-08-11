@@ -550,42 +550,38 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     const isSpecialEquip = selectedEquip === 'Gloves' || selectedEquip === 'Hat';
 
     if (isSpecialStat && isSpecialEquip) {
-      const hasLegendaryStat = lines.some(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat));
-      const isPercentLike = (l: PotentialLine) => {
-        return l.statKey.endsWith('%') || ['CritDmg', 'CritDmg_Glove', 'CDR', 'BossDmg', 'IED'].includes(l.statKey);
-      };
+      const legendaryCount = lines.filter(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat)).length;
+      const isPercentLike = (l: PotentialLine) =>
+        l.statKey.endsWith('%') || ['CritDmg', 'CritDmg_Glove', 'CDR', 'BossDmg', 'IED'].includes(l.statKey);
 
-      if (mode === 'big') {
-        // 大雙：必須有一排傳說特殊屬性，且另外兩排中至少有一排是「任意 % 屬性」
-        const mainLineIdx = lines.findIndex(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat));
-        if (mainLineIdx === -1) return false;
+      // 雙S（最高），所有模式都達標
+      if (legendaryCount >= 2) return true;
+      if (mode === 'doubleS') return false;
 
-        return lines.some((l, idx) => idx !== mainLineIdx && isPercentLike(l));
-      } else if (mode === 'small') {
-        // 小雙：只要有一排傳說特殊屬性即可
-        return hasLegendaryStat;
-      } else if (mode === 'doubleS') {
-        // 雙S：必須有兩排傳說特殊屬性
-        const legendaryCount = lines.filter(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat)).length;
-        return legendaryCount >= 2;
-      }
+      // 大雙：一排傳說 + 另一排任意 % 屬性
+      const mainLineIdx = lines.findIndex(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat));
+      const isBig = mainLineIdx !== -1 && lines.some((l, idx) => idx !== mainLineIdx && isPercentLike(l));
+      if (isBig) return true;
+      if (mode === 'big') return false;
+
+      // 小雙：至少一排傳說
+      return legendaryCount >= 1;
     }
 
-    // 原始通用邏輯
+    // 通用邏輯
     const legendCount = lines.filter(l => l.tier === 'legendary' && l.statKey === stat).length;
     const epicCount = lines.filter(l => l.tier === 'epic' && l.statKey === stat).length;
 
-    if (mode === 'big') {
-      // 大雙: 至少一排傳說 + 一排罕見
-      return legendCount >= 1 && epicCount >= 1;
-    } else if (mode === 'small') {
-      // 小雙: 至少兩排罕見
-      return epicCount >= 2;
-    } else if (mode === 'doubleS') {
-      // 雙S: 至少兩排傳說
-      return legendCount >= 2;
-    }
-    return false;
+    // 雙S（最高），所有模式都達標
+    if (legendCount >= 2) return true;
+    if (mode === 'doubleS') return false;
+
+    // 大雙：一傳說 + 一罕見
+    if (legendCount >= 1 && epicCount >= 1) return true;
+    if (mode === 'big') return false;
+
+    // 小雙：兩排罕見
+    return epicCount >= 2;
   }, [selectedEquip, isMatchTarget]);
 
   // 獲取當前部位可選擇的目標屬性
