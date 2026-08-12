@@ -1506,7 +1506,11 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     {t.reset}
                   </button>
                 )}
-{
+                {/* Target Roll Area - 只有傳說等級才顯示 */}
+                {currentTier === 'legendary' && (
+                  <div className="w-full mt-4 p-4 bg-muted/30 rounded-xl border border-border shadow-sm">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                      {selectedCube === 'memorialBonus' ? (
                         <div>
                           <label className="block text-muted-foreground text-xs mb-1.5 ml-1">{t.targetSlot}</label>
                           <CustomSelect
