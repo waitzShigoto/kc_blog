@@ -1608,9 +1608,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     <span className="text-muted-foreground/80">{t.totalCubePoints}</span>
                     <span className="text-primary font-bold">{cubePoints.toLocaleString()}</span>
                   </div>
-                  <div className="pt-2 border-t border-border space-y-1">
-                    {/* Bonus cube counts hidden */}
-                  </div>
+
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
