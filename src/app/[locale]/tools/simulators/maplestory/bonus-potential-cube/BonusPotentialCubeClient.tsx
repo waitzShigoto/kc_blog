@@ -405,6 +405,8 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       bigDouble: 'Big Double (1L 1E)',
       smallDouble: 'Small Double (2E)',
       doubleS: 'Double S (2L)',
+      bigTriple: 'Big Triple (1L 2E)',
+      doubleSTriple: 'Double S Triple (2L 1E)',
       cubeSelection: 'Select Cube',
       premiumBonusCube: 'Premium Bonus Potential Cube',
       memorialBonusCube: 'Memorial Bonus Potential Cube',
@@ -499,6 +501,8 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       bigDouble: '大ダブル(1L 1E)',
       smallDouble: '小ダブル(2E)',
       doubleS: 'ダブルS(2L)',
+      bigTriple: '大トリプル(1L 2E)',
+      doubleSTriple: 'ダブルSトリプル(2L 1E)',
       cubeSelection: '使用するキューブを選択',
       premiumBonusCube: 'ミスティックアディショナルキューブ',
       memorialBonusCube: '結合アディショナルキューブ',
@@ -1525,12 +1529,14 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                           <label className="block text-muted-foreground text-xs mb-1.5 ml-1">{t.targetMode}</label>
                           <CustomSelect
                             value={targetMode}
-                            onChange={(val) => setTargetMode(val as 'big' | 'small' | 'doubleS')}
+                            onChange={(val) => setTargetMode(val as 'big' | 'small' | 'doubleS' | 'bigTriple' | 'doubleSTriple')}
                             disabled={isRolling}
                             options={[
                               { value: 'big', label: t.bigDouble },
                               { value: 'small', label: t.smallDouble },
                               { value: 'doubleS', label: t.doubleS },
+                              { value: 'bigTriple', label: t.bigTriple },
+                              { value: 'doubleSTriple', label: t.doubleSTriple },
                             ]}
                           />
                           <p className="text-[10px] text-muted-foreground/60 mt-1 ml-1 font-bold">
@@ -1608,7 +1614,20 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     <span className="text-muted-foreground/80">{t.totalCubePoints}</span>
                     <span className="text-primary font-bold">{cubePoints.toLocaleString()}</span>
                   </div>
-
+                  <div className="pt-2 border-t border-border space-y-1">
+                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
+                      <span className="text-muted-foreground">{t.premiumBonusCube}</span>
+                      <span className="text-foreground font-mono font-medium">{cubesByType.premiumBonus}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
+                      <span className="text-muted-foreground">{t.memorialBonusCube}</span>
+                      <span className="text-foreground font-mono font-medium">{cubesByType.memorialBonus}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
+                      <span className="text-muted-foreground">{t.absoluteBonusCube}</span>
+                      <span className="text-foreground font-mono font-medium">{cubesByType.absoluteBonus}</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
