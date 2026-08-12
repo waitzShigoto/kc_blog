@@ -77,6 +77,8 @@ interface TranslationText {
   bigDouble: string;
   smallDouble: string;
   doubleS: string;
+  bigTriple: string;
+  doubleSTriple: string;
   cubeSelection: string;
   premiumBonusCube: string;
   memorialBonusCube: string;
