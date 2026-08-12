@@ -165,7 +165,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
   const [tierUpCount, setTierUpCount] = useState(0);
   const [isAutoRolling, setIsAutoRolling] = useState(false);
   const [isTargetRolling, setIsTargetRolling] = useState(false);
-  const [targetMode, setTargetMode] = useState<'big' | 'small' | 'doubleS'>('big');
+  const [targetMode, setTargetMode] = useState<'big' | 'small' | 'doubleS' | 'bigTriple' | 'doubleSTriple'>('big');
   const [targetStat, setTargetStat] = useState<string>('ATT%');
   const [selectedCube, setSelectedCube] = useState<CubeType>('premiumBonus');
   const [memorialSelectedIndex, setMemorialSelectedIndex] = useState<number | null>(null);
@@ -261,6 +261,8 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       bigDouble: '大雙 (1傳1罕)',
       smallDouble: '小雙 (2罕)',
       doubleS: '雙S (2傳)',
+      bigTriple: '大三排 (1傳2罕)',
+      doubleSTriple: '雙S三排 (2傳1罕)',
       cubeSelection: '選擇使用的附加方塊',
       premiumBonusCube: '珍貴附加方塊',
       memorialBonusCube: '結合附加方塊',
@@ -544,44 +546,69 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
   }, []);
 
   // Check if target is met
-  const checkTargetMet = useCallback((lines: PotentialLine[], mode: 'big' | 'small' | 'doubleS', stat: string): boolean => {
+  const checkTargetMet = useCallback((lines: PotentialLine[], mode: 'big' | 'small' | 'doubleS' | 'bigTriple' | 'doubleSTriple', stat: string): boolean => {
     // 特殊邏輯：手套/帽子的爆傷、帽子的冷卻
     const isSpecialStat = stat === 'CritDmg' || stat === 'CDR';
     const isSpecialEquip = selectedEquip === 'Gloves' || selectedEquip === 'Hat';
 
     if (isSpecialStat && isSpecialEquip) {
       const legendaryCount = lines.filter(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat)).length;
+      const epicCount = lines.filter(l => l.tier === 'epic' && isMatchTarget(l.statKey, stat)).length;
       const isPercentLike = (l: PotentialLine) =>
         l.statKey.endsWith('%') || ['CritDmg', 'CritDmg_Glove', 'CDR', 'BossDmg', 'IED'].includes(l.statKey);
 
-      // 雙S（最高），所有模式都達標
+      // 雙S（最高）
       if (legendaryCount >= 2) return true;
       if (mode === 'doubleS') return false;
 
-      // 大雙：一排傳說 + 另一排任意 % 屬性
+      // 大三排：1傳說 + 2罕見
+      if (mode === 'bigTriple') {
+        return legendaryCount >= 1 && epicCount >= 2;
+      }
+
+      // 雙S三排：2傳說 + 1罕見
+      if (mode === 'doubleSTriple') {
+        return legendaryCount >= 2 && epicCount >= 1;
+      }
+
+      // 大雙：1傳說 + 任意 % 屬性
       const mainLineIdx = lines.findIndex(l => l.tier === 'legendary' && isMatchTarget(l.statKey, stat));
       const isBig = mainLineIdx !== -1 && lines.some((l, idx) => idx !== mainLineIdx && isPercentLike(l));
-      if (isBig) return true;
+      if (mode === 'big' && isBig) return true;
       if (mode === 'big') return false;
 
       // 小雙：至少一排傳說
-      return legendaryCount >= 1;
+      if (mode === 'small') return legendaryCount >= 1;
+
+      // 其餘模式已在下方通用邏輯處理
     }
 
     // 通用邏輯
     const legendCount = lines.filter(l => l.tier === 'legendary' && l.statKey === stat).length;
     const epicCount = lines.filter(l => l.tier === 'epic' && l.statKey === stat).length;
 
-    // 雙S（最高），所有模式都達標
+    // 雙S（最高）
     if (legendCount >= 2) return true;
     if (mode === 'doubleS') return false;
 
-    // 大雙：一傳說 + 一罕見
+    // 大三排：1傳說 + 2罕見
+    // 大三排：1傳說 + 2罕見
+    if (mode === 'bigTriple' && legendCount >= 1 && epicCount >= 2) return true;
+    if (mode === 'bigTriple') return false;
+
+
+    // 雙S三排：2傳說 + 1罕見
+    if (mode === 'doubleSTriple') {
+      return legendCount >= 2 && epicCount >= 1;
+    }
+
+    // 大雙：1傳說 + 1罕見
     if (legendCount >= 1 && epicCount >= 1) return true;
     if (mode === 'big') return false;
 
     // 小雙：兩排罕見
-    return epicCount >= 2;
+    if (mode === 'small') return epicCount >= 2;
+    return false;
   }, [selectedEquip, isMatchTarget]);
 
   // 獲取當前部位可選擇的目標屬性
@@ -1479,12 +1506,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     {t.reset}
                   </button>
                 )}
-
-                {/* Target Roll Area - 只有傳說等級才顯示 */}
-                {currentTier === 'legendary' && (
-                  <div className="w-full mt-4 p-4 bg-muted/30 rounded-xl border border-border shadow-sm">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-                      {selectedCube === 'memorialBonus' ? (
+{
                         <div>
                           <label className="block text-muted-foreground text-xs mb-1.5 ml-1">{t.targetSlot}</label>
                           <CustomSelect
@@ -1583,18 +1605,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                     <span className="text-primary font-bold">{cubePoints.toLocaleString()}</span>
                   </div>
                   <div className="pt-2 border-t border-border space-y-1">
-                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
-                      <span className="text-muted-foreground">{t.premiumBonusCube}</span>
-                      <span className="text-foreground font-mono font-medium">{cubesByType.premiumBonus}</span>
-                    </div>
-                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
-                      <span className="text-muted-foreground">{t.memorialBonusCube}</span>
-                      <span className="text-foreground font-mono font-medium">{cubesByType.memorialBonus}</span>
-                    </div>
-                    <div className="flex justify-between items-center text-[10px] uppercase tracking-wide">
-                      <span className="text-muted-foreground">{t.absoluteBonusCube}</span>
-                      <span className="text-foreground font-mono font-medium">{cubesByType.absoluteBonus}</span>
-                    </div>
+                    {/* Bonus cube counts hidden */}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
