@@ -1520,7 +1520,7 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                         const statName = mode.replace('triple_', '');
                         displayName = `三${statName}`;
                       } else {
-                        displayName = (t as any)[mode] || mode;
+                        displayName = (t as Record<string, string>)[mode] || mode;
                       }
 
                       return (
