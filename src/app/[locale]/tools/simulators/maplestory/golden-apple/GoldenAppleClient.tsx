@@ -9,6 +9,7 @@ import {
     GOLDEN_APPLE_REWARDS_V4,
     GOLDEN_APPLE_REWARDS_V5,
     GOLDEN_APPLE_REWARDS_V6,
+    GOLDEN_APPLE_REWARDS_V7,
     GoldenAppleReward,
     GRAND_PRIZES_V1,
     GRAND_PRIZES_V2,
@@ -16,12 +17,14 @@ import {
     GRAND_PRIZES_V4,
     GRAND_PRIZES_V5,
     GRAND_PRIZES_V6,
+    GRAND_PRIZES_V7,
     GOLDEN_BOX_REWARDS_V1,
     GOLDEN_BOX_REWARDS_V2,
     GOLDEN_BOX_REWARDS_V3,
     GOLDEN_BOX_REWARDS_V4,
     GOLDEN_BOX_REWARDS_V5,
-    GOLDEN_BOX_REWARDS_V6
+    GOLDEN_BOX_REWARDS_V6,
+    GOLDEN_BOX_REWARDS_V7
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -106,7 +109,7 @@ function CustomSelect<T extends string | number>({
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 版本選擇狀態
-    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6'>('v6'); // 默認使用最新版本 (第六期)
+    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6' | 'v7'>('v7'); // 默認使用最新版本 (第七期)
 
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
@@ -138,21 +141,24 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v3' ? GOLDEN_APPLE_REWARDS_V3 : 
         version === 'v4' ? GOLDEN_APPLE_REWARDS_V4 : 
         version === 'v5' ? GOLDEN_APPLE_REWARDS_V5 : 
-        GOLDEN_APPLE_REWARDS_V6;
+        version === 'v6' ? GOLDEN_APPLE_REWARDS_V6 :
+        GOLDEN_APPLE_REWARDS_V7;
     const GRAND_PRIZES = 
         version === 'v1' ? GRAND_PRIZES_V1 : 
         version === 'v2' ? GRAND_PRIZES_V2 : 
         version === 'v3' ? GRAND_PRIZES_V3 : 
         version === 'v4' ? GRAND_PRIZES_V4 : 
         version === 'v5' ? GRAND_PRIZES_V5 : 
-        GRAND_PRIZES_V6;
+        version === 'v6' ? GRAND_PRIZES_V6 :
+        GRAND_PRIZES_V7;
     const GOLDEN_BOX_REWARDS = 
         version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : 
         version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : 
         version === 'v3' ? GOLDEN_BOX_REWARDS_V3 : 
         version === 'v4' ? GOLDEN_BOX_REWARDS_V4 : 
         version === 'v5' ? GOLDEN_BOX_REWARDS_V5 : 
-        GOLDEN_BOX_REWARDS_V6;
+        version === 'v6' ? GOLDEN_BOX_REWARDS_V6 :
+        GOLDEN_BOX_REWARDS_V7;
 
     // 當版本切換時，重置目標大獎
     useEffect(() => {
@@ -224,6 +230,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV4: '一拳超人',
             versionV5: '第五期',
             versionV6: '第六期',
+            versionV7: '第七期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公寶珠',
             btnTitleV2: '02/11 ~ 02/24',
@@ -235,7 +242,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV5: '06/24 ~ 07/15',
             btnSubtitleV5: '輪迴碑石',
             btnTitleV6: '07/29 ~ 08/12',
+            btnTitleV7: '08/12 ~ 08/26',
             btnSubtitleV6: '天上的氣息',
+            btnSubtitleV7: '現身交換券',
         },
         en: {
             title: 'One Punch Man',
@@ -290,6 +299,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV4: 'OPM',
             versionV5: 'Period 5',
             versionV6: 'Period 6',
+            versionV7: 'Period 7',
             btnTitleV1: 'Jan 28 - Feb 11',
             btnSubtitleV1: 'Wu Gong',
             btnTitleV2: 'Feb 11 - Feb 24',
@@ -301,7 +311,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV5: 'Jun 24 - Jul 15',
             btnSubtitleV5: 'Frenzy',
             btnTitleV6: 'Jul 29 - Aug 12',
+            btnTitleV7: 'Aug 12 - Aug 26',
             btnSubtitleV6: 'Celestial Breath',
+            btnSubtitleV7: 'Apparition Voucher',
         },
         ja: {
             title: 'ワンパンマン',
@@ -356,6 +368,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV4: 'ワンパンマン',
             versionV5: '第5期',
             versionV6: '第6期',
+            versionV7: '第7期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公パンダ',
             btnTitleV2: '02/11 ~ 02/24',
@@ -367,7 +380,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV5: '06/24 ~ 07/15',
             btnSubtitleV5: 'フレンジー',
             btnTitleV6: '07/29 ~ 08/12',
+            btnTitleV7: '08/12 ~ 08/26',
             btnSubtitleV6: '天上の気息',
+            btnSubtitleV7: '現身交換券',
         },
     };
 
@@ -379,7 +394,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v3' ? `${t.versionV3} (${t.btnSubtitleV3})` : 
         version === 'v4' ? `${t.versionV4}` : 
         version === 'v5' ? `${t.versionV5} (${t.btnSubtitleV5})` : 
-        `${t.versionV6} (${t.btnSubtitleV6})`;
+        version === 'v6' ? `${t.versionV6} (${t.btnSubtitleV6})` :
+        `${t.versionV7} (${t.btnSubtitleV7})`;
 
     const currentTitle = 
         version === 'v1' ? t.btnSubtitleV1 : 
@@ -387,7 +403,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v3' ? t.btnSubtitleV3 : 
         version === 'v4' ? t.title : 
         version === 'v5' ? t.btnSubtitleV5 : 
-        t.btnSubtitleV6;
+        version === 'v6' ? t.btnSubtitleV6 :
+        t.btnSubtitleV7;
 
     // 根據權重隨機選擇
     const weightedRandom = (items: GoldenAppleReward[]): string => {
@@ -711,6 +728,16 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         >
                             <span className="text-[10px] opacity-80">{t.btnTitleV6}</span>
                             <span className="text-sm">{t.btnSubtitleV6}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v7')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v7'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV7}</span>
+                            <span className="text-sm">{t.btnSubtitleV7}</span>
                             <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
                                 NEW
                             </span>

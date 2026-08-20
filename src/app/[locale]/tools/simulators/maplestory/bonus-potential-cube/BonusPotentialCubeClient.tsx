@@ -83,6 +83,12 @@ interface TranslationText {
   premiumBonusCube: string;
   memorialBonusCube: string;
   absoluteBonusCube: string;
+  predictionTitle: string;
+  rowN_predicted: string;
+  predictionStatsTitle: string;
+  predictionCorrect: string;
+  predictionWrong: string;
+  predictionAccuracy: string;
   confirmRoll: string;
   reselectLine: string;
   cancel: string;
@@ -175,6 +181,10 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
   const [memorialRowCounts, setMemorialRowCounts] = useState<number[]>([0, 0, 0]);
   const memorialRowCountsRef = useRef<number[]>([0, 0, 0]);
+  
+  const [predictedLine, setPredictedLine] = useState<number>(() => Math.floor(Math.random() * 3));
+  const [predictionStats, setPredictionStats] = useState({ correct: 0, wrong: 0, total: 0 });
+  const predictionStatsRef = useRef({ correct: 0, wrong: 0, total: 0 });
 
   const cubesByTypeRef = useRef<Record<CubeType, number>>({
     premiumBonus: 0,
@@ -836,6 +846,16 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       const picked = Math.floor(Math.random() * 3);
       setMemorialSelectedIndex(picked);
       incrementCubeCount('memorialBonus', picked);
+      
+      // Update Prediction Stats
+      predictionStatsRef.current.total += 1;
+      if (picked === predictedLine) {
+        predictionStatsRef.current.correct += 1;
+      } else {
+        predictionStatsRef.current.wrong += 1;
+      }
+      setPredictionStats({ ...predictionStatsRef.current });
+      
       return;
     }
 
@@ -879,6 +899,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     // 完成後重置結合附加的選擇
     if (selectedCube === 'memorialBonus') {
       setMemorialSelectedIndex(null);
+      setPredictedLine(Math.floor(Math.random() * 3));
     }
   }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, rollCube, incrementCubeCount, recordStatOccurrence, totalDrawsRef, addHistory, setIsRolling, setShowAnimation]);
 
@@ -887,8 +908,19 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
     const nextIdx = Math.floor(Math.random() * 3);
     incrementCubeCount('memorialBonus', nextIdx); // 重新選擇也要消耗一顆
     setMemorialSelectedIndex(nextIdx);
+    
+    // Update Prediction Stats
+    predictionStatsRef.current.total += 1;
+    if (nextIdx === predictedLine) {
+      predictionStatsRef.current.correct += 1;
+    } else {
+      predictionStatsRef.current.wrong += 1;
+    }
+    setPredictionStats({ ...predictionStatsRef.current });
+    setPredictedLine(Math.floor(Math.random() * 3)); // Gen next prediction
+
     return nextIdx;
-  }, [incrementCubeCount]);
+  }, [incrementCubeCount, predictedLine]);
 
   // 自動隨機選到指定排數
   const autoSelectMemorialLine = useCallback((targetSlotIdx: number) => {
@@ -1442,6 +1474,14 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
 
               {/* Action Buttons */}
               <div className="flex flex-wrap justify-center gap-3">
+                {selectedCube === 'memorialBonus' && memorialSelectedIndex === null && !isRolling && (
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 flex items-center justify-center w-max px-4 py-1.5 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-full shadow-sm animate-pulse">
+                    <span className="text-xs font-semibold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 flex items-center gap-1.5">
+                      <svg className="w-4 h-4 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                      {t.predictionTitle} {t.rowN_predicted.replace('{n}', String(predictedLine + 1))}
+                    </span>
+                  </div>
+                )}
                 {selectedCube === 'memorialBonus' && memorialSelectedIndex !== null && !isRolling ? (
                   <>
                     <button
@@ -1659,6 +1699,27 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
                       </div>
                     );
                   })}
+                </div>
+              </div>
+
+              {/* Prediction Accuracy Stats */}
+              <div className="pt-6 border-t border-border">
+                <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">{t.predictionStatsTitle}</h3>
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div className="text-center p-3 bg-green-500/10 rounded-xl border border-green-500/20 shadow-sm">
+                    <p className="text-[10px] text-green-600/80 mb-1 font-semibold">{t.predictionCorrect}</p>
+                    <p className="text-xl font-bold text-green-600">{predictionStats.correct}</p>
+                  </div>
+                  <div className="text-center p-3 bg-red-500/10 rounded-xl border border-red-500/20 shadow-sm">
+                    <p className="text-[10px] text-red-600/80 mb-1 font-semibold">{t.predictionWrong}</p>
+                    <p className="text-xl font-bold text-red-600">{predictionStats.wrong}</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center px-4 py-2 bg-muted/30 rounded-lg">
+                  <span className="text-xs text-muted-foreground font-medium">{t.predictionAccuracy}</span>
+                  <span className="text-sm font-bold text-primary">
+                    {predictionStats.total > 0 ? ((predictionStats.correct / predictionStats.total) * 100).toFixed(1) : '0.0'}%
+                  </span>
                 </div>
               </div>
 
