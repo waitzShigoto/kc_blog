@@ -274,7 +274,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       smallDouble: '小雙 (2罕)',
       doubleS: '雙S (2傳)',
       bigTriple: '大三排 (1傳2罕)',
-      doubleSTriple: '雙S三排 (2傳1罕)',
+      doubleSTriple: '雙S三排 (2傳說+1罕見)',
+      predictionTitle: '【AI預測】下次將會洗到：',
+      rowN_predicted: '第 {n} 排',
+      predictionStatsTitle: 'AI預測準確度',
+      predictionCorrect: '預測成功',
+      predictionWrong: '預測失敗',
+      predictionAccuracy: '準確率',
       cubeSelection: '選擇使用的附加方塊',
       premiumBonusCube: '珍貴附加方塊',
       memorialBonusCube: '結合附加方塊',
@@ -418,7 +424,13 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       smallDouble: 'Small Double (2E)',
       doubleS: 'Double S (2L)',
       bigTriple: 'Big Triple (1L 2E)',
-      doubleSTriple: 'Double S Triple (2L 1E)',
+      doubleSTriple: 'Double S Triple (2 Leg + 1 Epic)',
+      predictionTitle: '[AI Prediction] Next hit:',
+      rowN_predicted: 'Row {n}',
+      predictionStatsTitle: 'AI Prediction Accuracy',
+      predictionCorrect: 'Correct',
+      predictionWrong: 'Wrong',
+      predictionAccuracy: 'Accuracy',
       cubeSelection: 'Select Cube',
       premiumBonusCube: 'Premium Bonus Potential Cube',
       memorialBonusCube: 'Memorial Bonus Potential Cube',
@@ -515,6 +527,12 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       doubleS: 'ダブルS(2L)',
       bigTriple: '大トリプル(1L 2E)',
       doubleSTriple: 'ダブルSトリプル(2L 1E)',
+      predictionTitle: '【AI予測】次に出る列：',
+      rowN_predicted: '{n} 列目',
+      predictionStatsTitle: 'AI予測精度',
+      predictionCorrect: '予測成功',
+      predictionWrong: '予測失敗',
+      predictionAccuracy: '正解率',
       cubeSelection: '使用するキューブを選択',
       premiumBonusCube: 'ミスティックアディショナルキューブ',
       memorialBonusCube: '結合アディショナルキューブ',
@@ -901,7 +919,7 @@ export default function BonusPotentialCubeClient({ locale }: BonusPotentialCubeC
       setMemorialSelectedIndex(null);
       setPredictedLine(Math.floor(Math.random() * 3));
     }
-  }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, rollCube, incrementCubeCount, recordStatOccurrence, totalDrawsRef, addHistory, setIsRolling, setShowAnimation]);
+  }, [currentTier, currentLines, selectedCube, memorialSelectedIndex, rollCube, incrementCubeCount, recordStatOccurrence, totalDrawsRef, addHistory, setIsRolling, setShowAnimation, predictedLine]);
 
   // 重新選擇排數（結合附加專用）
   const reselectMemorialLine = useCallback(() => {
