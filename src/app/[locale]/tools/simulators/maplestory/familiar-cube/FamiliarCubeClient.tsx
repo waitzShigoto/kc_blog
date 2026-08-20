@@ -315,7 +315,8 @@ type TargetMode =
   | 'doubleATT'     // 雙物
   | 'doubleMATT'    // 雙魔
   | 'doubleATT_FD'  // 雙物終
-  | 'doubleMATT_FD'; // 雙魔終
+  | 'doubleMATT_FD' // 雙魔終
+  | (string & {});
 
 export default function FamiliarCubeClient({ locale }: { locale: string }) {
   const [familiarTier, setFamiliarTier] = useState<FamiliarTier>('legendary');
@@ -330,8 +331,7 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
   const [hasStarted, setHasStarted] = useState(false);
   const [targetMode, setTargetMode] = useState<TargetMode>('singleFD');
   const stopRequestedRef = useRef(false);
-  const [targetStats, setTargetStats] = useState<Record<TargetMode | 'trash', number>>({
-    trash: 0,
+  const [targetStats, setTargetStats] = useState<Record<string, number>>({
     singleFD: 0,
     doubleFD: 0,
     tripleFD: 0,
@@ -364,11 +364,13 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     FD_ATT_Passive: 0,
     doubleATT_Passive: 0,
     doubleMATT_Passive: 0,
+    trash: 0,
   });
 
   const [statsViewMode, setStatsViewMode] = useState<'probability' | 'value'>('probability');
   const [exchangeRate, setExchangeRate] = useState<string>('0.27'); // Default 1:0.27 億
   const [categoryPrices, setCategoryPrices] = useState<Record<string, string>>({
+    singleFD: '3',
     tripleFD: '20000',
     doubleFD: '600',
     doubleFD_ATT: '3700',
@@ -798,6 +800,22 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     const hpPercentCount = lines.filter(l => l.stat === 'MaxHP%').length;
     const defPercentCount = lines.filter(l => l.stat === '防禦力%').length;
 
+    // 動態檢查任意三排
+    const statCountsMap: Record<string, number> = {};
+    for (const line of lines) {
+      statCountsMap[line.stat] = (statCountsMap[line.stat] || 0) + 1;
+    }
+    for (const [stat, count] of Object.entries(statCountsMap)) {
+      if (count === 3) {
+        if (stat === '最終傷害%') return 'tripleFD';
+        if (stat === '物理攻擊力%') return 'tripleATT';
+        if (stat === '魔法攻擊力%') return 'tripleMATT';
+        if (stat === '防禦力%') return 'tripleDEF';
+        if (stat === '加持技能持續時間%') return 'tripleBuff';
+        return `triple_${stat}`;
+      }
+    }
+
     // 1. 三終
     if (fdCount >= 3) return 'tripleFD';
 
@@ -1053,40 +1071,12 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
     setHasStarted(false);
     setTargetMode('singleFD');
     stopRequestedRef.current = false;
-    setTargetStats({
-      trash: 0,
-      singleFD: 0,
-      doubleFD: 0,
-      tripleFD: 0,
-      doubleFD_ATT: 0,
-      doubleFD_MATT: 0,
-      doubleFD_Passive: 0,
-      doubleFD_Crit: 0,
-      doubleFD_IED: 0,
-      doubleFD_Buff: 0,
-      doubleFD_STR: 0,
-      doubleFD_DEX: 0,
-      doubleFD_INT: 0,
-      doubleFD_LUK: 0,
-      doubleFD_HP: 0,
-      tripleATT: 0,
-      tripleMATT: 0,
-      tripleDEF: 0,
-      doubleBuff: 0,
-      tripleBuff: 0,
-      doubleATT: 0,
-      doubleMATT: 0,
-      doubleATT_FD: 0,
-      doubleMATT_FD: 0,
-      FD_ATT: 0,
-      FD_MATT: 0,
-      FD_Passive: 0,
-      MATT_Passive: 0,
-      ATT_Passive: 0,
-      FD_MATT_Passive: 0,
-      FD_ATT_Passive: 0,
-      doubleATT_Passive: 0,
-      doubleMATT_Passive: 0,
+    setTargetStats(prev => {
+      const cleared: Record<string, number> = {};
+      for (const key of Object.keys(prev)) {
+        cleared[key] = 0;
+      }
+      return cleared;
     });
   };
 
@@ -1523,7 +1513,15 @@ export default function FamiliarCubeClient({ locale }: { locale: string }) {
                     .map(([mode, count]) => {
                       const probability = ((count / totalCubes) * 100).toFixed(2);
                       const isTrash = mode === 'trash';
-                      const displayName = isTrash ? t.trash : t[mode as TargetMode];
+                      let displayName = mode;
+                      if (isTrash) {
+                        displayName = t.trash;
+                      } else if (mode.startsWith('triple_')) {
+                        const statName = mode.replace('triple_', '');
+                        displayName = `三${statName}`;
+                      } else {
+                        displayName = (t as any)[mode] || mode;
+                      }
 
                       return (
                         <div
