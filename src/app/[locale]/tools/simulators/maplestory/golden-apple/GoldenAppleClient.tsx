@@ -10,6 +10,7 @@ import {
     GOLDEN_APPLE_REWARDS_V5,
     GOLDEN_APPLE_REWARDS_V6,
     GOLDEN_APPLE_REWARDS_V7,
+    GOLDEN_APPLE_REWARDS_V8,
     GoldenAppleReward,
     GRAND_PRIZES_V1,
     GRAND_PRIZES_V2,
@@ -18,13 +19,15 @@ import {
     GRAND_PRIZES_V5,
     GRAND_PRIZES_V6,
     GRAND_PRIZES_V7,
+    GRAND_PRIZES_V8,
     GOLDEN_BOX_REWARDS_V1,
     GOLDEN_BOX_REWARDS_V2,
     GOLDEN_BOX_REWARDS_V3,
     GOLDEN_BOX_REWARDS_V4,
     GOLDEN_BOX_REWARDS_V5,
     GOLDEN_BOX_REWARDS_V6,
-    GOLDEN_BOX_REWARDS_V7
+    GOLDEN_BOX_REWARDS_V7,
+    GOLDEN_BOX_REWARDS_V8
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -109,7 +112,7 @@ function CustomSelect<T extends string | number>({
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 版本選擇狀態
-    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6' | 'v7'>('v7'); // 默認使用最新版本 (第七期)
+    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6' | 'v7' | 'v8'>('v8'); // 默認使用最新版本 (第八期)
 
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
@@ -142,7 +145,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v4' ? GOLDEN_APPLE_REWARDS_V4 : 
         version === 'v5' ? GOLDEN_APPLE_REWARDS_V5 : 
         version === 'v6' ? GOLDEN_APPLE_REWARDS_V6 :
-        GOLDEN_APPLE_REWARDS_V7;
+        version === 'v7' ? GOLDEN_APPLE_REWARDS_V7 :
+        GOLDEN_APPLE_REWARDS_V8;
     const GRAND_PRIZES = 
         version === 'v1' ? GRAND_PRIZES_V1 : 
         version === 'v2' ? GRAND_PRIZES_V2 : 
@@ -150,7 +154,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v4' ? GRAND_PRIZES_V4 : 
         version === 'v5' ? GRAND_PRIZES_V5 : 
         version === 'v6' ? GRAND_PRIZES_V6 :
-        GRAND_PRIZES_V7;
+        version === 'v7' ? GRAND_PRIZES_V7 :
+        GRAND_PRIZES_V8;
     const GOLDEN_BOX_REWARDS = 
         version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : 
         version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : 
@@ -158,7 +163,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v4' ? GOLDEN_BOX_REWARDS_V4 : 
         version === 'v5' ? GOLDEN_BOX_REWARDS_V5 : 
         version === 'v6' ? GOLDEN_BOX_REWARDS_V6 :
-        GOLDEN_BOX_REWARDS_V7;
+        version === 'v7' ? GOLDEN_BOX_REWARDS_V7 :
+        GOLDEN_BOX_REWARDS_V8;
 
     // 當版本切換時，重置目標大獎
     useEffect(() => {
@@ -213,6 +219,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             eventDateV5: '2026/06/24 09:00 ～ 2026/07/15 07:59',
             eventDateV6: '2026/07/29 09:00 ～ 2026/08/12 07:59',
+            eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
+            eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -231,6 +239,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV5: '第五期',
             versionV6: '第六期',
             versionV7: '第七期',
+            versionV8: '第八期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公寶珠',
             btnTitleV2: '02/11 ~ 02/24',
@@ -243,8 +252,10 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnSubtitleV5: '輪迴碑石',
             btnTitleV6: '07/29 ~ 08/12',
             btnTitleV7: '08/12 ~ 08/26',
+            btnTitleV8: '08/26 ~ 09/08',
             btnSubtitleV6: '天上的氣息',
             btnSubtitleV7: '現身交換券',
+            btnSubtitleV8: '凝聚戒指/露希妲耳環',
         },
         en: {
             title: 'One Punch Man',
@@ -282,6 +293,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             eventDateV5: '2026/06/24 09:00 ～ 2026/07/15 07:59',
             eventDateV6: '2026/07/29 09:00 ～ 2026/08/12 07:59',
+            eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
+            eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -300,6 +313,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV5: 'Period 5',
             versionV6: 'Period 6',
             versionV7: 'Period 7',
+            versionV8: 'Period 8',
             btnTitleV1: 'Jan 28 - Feb 11',
             btnSubtitleV1: 'Wu Gong',
             btnTitleV2: 'Feb 11 - Feb 24',
@@ -312,8 +326,10 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnSubtitleV5: 'Frenzy',
             btnTitleV6: 'Jul 29 - Aug 12',
             btnTitleV7: 'Aug 12 - Aug 26',
+            btnTitleV8: 'Aug 26 - Sep 08',
             btnSubtitleV6: 'Celestial Breath',
             btnSubtitleV7: 'Apparition Voucher',
+            btnSubtitleV8: 'Condensed Ring / Lucid Earrings',
         },
         ja: {
             title: 'ワンパンマン',
@@ -351,6 +367,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV4: '2026/04/08 09:00 ～ 2026/04/22 07:59',
             eventDateV5: '2026/06/24 09:00 ～ 2026/07/15 07:59',
             eventDateV6: '2026/07/29 09:00 ～ 2026/08/12 07:59',
+            eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
+            eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標大賞',
@@ -369,6 +387,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV5: '第5期',
             versionV6: '第6期',
             versionV7: '第7期',
+            versionV8: '第8期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公パンダ',
             btnTitleV2: '02/11 ~ 02/24',
@@ -381,8 +400,10 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnSubtitleV5: 'フレンジー',
             btnTitleV6: '07/29 ~ 08/12',
             btnTitleV7: '08/12 ~ 08/26',
+            btnTitleV8: '08/26 ~ 09/08',
             btnSubtitleV6: '天上の気息',
             btnSubtitleV7: '現身交換券',
+            btnSubtitleV8: '凝聚戒指/露希妲耳環',
         },
     };
 
@@ -395,7 +416,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v4' ? `${t.versionV4}` : 
         version === 'v5' ? `${t.versionV5} (${t.btnSubtitleV5})` : 
         version === 'v6' ? `${t.versionV6} (${t.btnSubtitleV6})` :
-        `${t.versionV7} (${t.btnSubtitleV7})`;
+        version === 'v7' ? `${t.versionV7} (${t.btnSubtitleV7})` :
+        `${t.versionV8} (${t.btnSubtitleV8})`;
 
     const currentTitle = 
         version === 'v1' ? t.btnSubtitleV1 : 
@@ -404,7 +426,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v4' ? t.title : 
         version === 'v5' ? t.btnSubtitleV5 : 
         version === 'v6' ? t.btnSubtitleV6 :
-        t.btnSubtitleV7;
+        version === 'v7' ? t.btnSubtitleV7 :
+        t.btnSubtitleV8;
 
     // 根據權重隨機選擇
     const weightedRandom = (items: GoldenAppleReward[]): string => {
@@ -738,6 +761,16 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         >
                             <span className="text-[10px] opacity-80">{t.btnTitleV7}</span>
                             <span className="text-sm">{t.btnSubtitleV7}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v8')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v8'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV8}</span>
+                            <span className="text-sm">{t.btnSubtitleV8}</span>
                             <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
                                 NEW
                             </span>
@@ -927,7 +960,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                          version === 'v3' ? t.eventDateV3 : 
                                          version === 'v4' ? t.eventDateV4 : 
                                          version === 'v5' ? t.eventDateV5 : 
-                                         t.eventDateV6}
+                                         version === 'v6' ? t.eventDateV6 : 
+                                         version === 'v7' ? t.eventDateV7 : 
+                                         t.eventDateV8}
                                     </div>
                                 </div>
                             )}
@@ -1147,7 +1182,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                              version === 'v3' ? t.eventDateV3 : 
                                              version === 'v4' ? t.eventDateV4 : 
                                              version === 'v5' ? t.eventDateV5 : 
-                                             t.eventDateV6}
+                                             version === 'v6' ? t.eventDateV6 : 
+                                             version === 'v7' ? t.eventDateV7 : 
+                                             t.eventDateV8}
                                         </p>
                                     </div>
                                 )}
