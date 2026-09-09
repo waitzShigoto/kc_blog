@@ -600,14 +600,10 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                             </div>
 
                             {/* Overview stats */}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4">
                                 <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
                                     <p className="text-2xl font-bold text-foreground">{totalDraws}</p>
                                     <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed}</p>
-                                </div>
-                                <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
-                                    <p className="text-2xl font-bold text-cyan-500">{(totalDraws * 35).toLocaleString()}</p>
-                                    <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.estimatedCost} (35/次)</p>
                                 </div>
                             </div>
 
@@ -645,8 +641,6 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     {GRAND_PRIZES.map((prizeName) => {
                                         const count = rewardCounts[prizeName] || 0;
-                                        const rewardData = REWARDS.find(r => r.name === prizeName);
-                                        const prob = rewardData?.probability || 0;
                                         const actualRate = totalDraws > 0 ? ((count / totalDraws) * 100).toFixed(2) : '0.00';
 
                                         return (
@@ -657,7 +651,7 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                                 </div>
                                                 <div className="text-right ml-3 flex-shrink-0 flex items-center gap-2">
                                                     <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
-                                                    <span className="text-muted-foreground text-[10px]">({actualRate}% / 標稱 {prob.toFixed(2)}%)</span>
+                                                    <span className="text-muted-foreground text-[10px]">({actualRate}%)</span>
                                                 </div>
                                             </div>
                                         );

@@ -406,6 +406,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'royal-beauty',
+          name: {
+            zh: '皇家美容院模擬器',
+            en: 'Royal Beauty Simulator',
+            ja: 'ロイヤル美容シミュレーター',
+          },
+          description: {
+            zh: '模擬皇家美髮、皇家整形與葬送的芙莉蓮聯名限定造型抽取',
+            en: 'Simulate Royal Hair, Royal Face and Frieren collaboration appearances',
+            ja: 'ロイヤルヘア・整形および葬送のフリーレンコラボスタイルの抽選をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/royal-beauty`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879a3 3 0 11-4.242-4.242L7.757 7.757m0 0L12 12m-4.243-4.243l-4.242 4.242a3 3 0 104.242 4.242L12 12" />
+            </svg>
+          ),
+        },
+        {
           id: 'starforce',
           name: {
             zh: '星力強化模擬器',

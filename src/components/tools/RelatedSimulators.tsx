@@ -107,6 +107,17 @@ const SIMULATORS = [
         path: 'maplestory/shining-comet',
         icon: '☄️',
         color: 'from-cyan-500 to-blue-600'
+    },
+    {
+        id: 'royal-beauty',
+        title: {
+            zh: '皇家美容院',
+            en: 'Royal Beauty',
+            ja: 'ロイヤル美容室'
+        },
+        path: 'maplestory/royal-beauty',
+        icon: '💇‍♂️',
+        color: 'from-pink-500 to-rose-600'
     }
 ];
 
