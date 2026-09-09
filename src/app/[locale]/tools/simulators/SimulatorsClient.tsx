@@ -386,6 +386,26 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
           ),
         },
         {
+          id: 'shining-comet',
+          name: {
+            zh: '閃亮彗星模擬器',
+            en: 'Shining Comet Simulator',
+            ja: 'シャイニングコメットシミュレーター',
+          },
+          description: {
+            zh: '模擬閃亮彗星開啟與葬送的芙莉蓮聯名時裝外觀抽取',
+            en: 'Simulate Shining Comet box opening and Frieren collaboration cosmetic draws',
+            ja: 'シャイニングコメット開封と葬送のフリーレンコラボアバター抽選をシミュレート',
+          },
+          href: `/tools/simulators/maplestory/shining-comet`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z" />
+            </svg>
+          ),
+        },
+        {
           id: 'starforce',
           name: {
             zh: '星力強化模擬器',

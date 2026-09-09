@@ -96,6 +96,17 @@ const SIMULATORS = [
         path: 'maplestory/familiar-card-pack',
         icon: '🎴',
         color: 'from-violet-500 to-purple-500'
+    },
+    {
+        id: 'shining-comet',
+        title: {
+            zh: '閃亮彗星',
+            en: 'Shining Comet',
+            ja: 'シャイニングコメット'
+        },
+        path: 'maplestory/shining-comet',
+        icon: '☄️',
+        color: 'from-cyan-500 to-blue-600'
     }
 ];
 
