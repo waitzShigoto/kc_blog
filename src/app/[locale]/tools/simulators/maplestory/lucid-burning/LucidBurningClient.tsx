@@ -233,7 +233,7 @@ export default function LucidBurningClient({ locale }: LucidBurningClientProps) 
       {/* 社群分享 & 相關模擬器 */}
       <div className="pt-6 border-t border-border space-y-6">
         <ShareButtons
-          title="變身燃燒：露希妲 模擬器 & 1~300等經驗值表 | Elgant Access Blog"
+          title="變身燃燒：露希妲 模擬器"
           url={`/${locale}/tools/simulators/maplestory/lucid-burning/`}
           locale={locale}
         />

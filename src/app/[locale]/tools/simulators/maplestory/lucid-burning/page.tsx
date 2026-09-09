@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: LucidBurningPageProps): Promi
 
   const seoData = {
     zh: {
-      title: '變身燃燒：露希妲 模擬器 & 1~300等經驗值表 | Elgant Access Blog',
+      title: '變身燃燒：露希妲 模擬器',
       description:
         '新楓之谷 2026 變身燃燒：露希妲 活動升等模擬器。精準試算活動任務、野外狩獵食夢者能升多少等，支援最新 v282 1~300 等經驗值表、小數點兩位 % 數、各階成長秘藥與高級 EXP 票券！',
       keywords:
@@ -28,14 +28,14 @@ export async function generateMetadata({ params }: LucidBurningPageProps): Promi
         '楓之谷計算機, 練等模擬, 6轉升等, 260等升等, 免費工具'
     },
     en: {
-      title: 'Lucid Morph Burning Leveling Simulator & 1~300 EXP Table | Elgant Access Blog',
+      title: 'Lucid Morph Burning Simulator',
       description:
         'MapleStory Lucid Morph Burning Leveling Simulator. Calculate level gains from event tasks, hunting, growth potions, and VIP EXP tickets with complete 1~300 EXP table.',
       keywords:
         'Lucid Burning, Morph Burning, MapleStory Lucid, Leveling Simulator, EXP Table, 1-300 EXP Table, Growth Potions, MapleStory Calculator'
     },
     ja: {
-      title: '変身バーニング：ルシッド レベルアップシミュレーター & 1~300経験値表 | Elgant Access Blog',
+      title: '変身バーニング：ルシッド 計算機',
       description:
         'メイプルストーリー 変身バーニング：ルシッド イベント計算機。イベント任務や成長秘薬、VIP経験値によるレベル上昇を精密シミュレーション。',
       keywords:
