@@ -4,9 +4,9 @@
   --color-foreground: #1f2937;
   --color-muted: #f9fafb;
   --color-muted-foreground: #6b7280;
-  --color-border: #e5e7eb;
+  --color-border: #e2e8f0; /* slate-200 */
   --color-card: #ffffff;
-  --color-card-border: #f3f4f6;
+  --color-card-border: #e2e8f0;
   --color-primary: #3b82f6;
   --color-primary-foreground: #ffffff;
   --color-secondary: #f1f5f9;
@@ -51,7 +51,7 @@
   
   /* 卡片陰影顏色系統 */
   --color-card-shadow: rgba(40, 41, 48, 0.20);
-  --color-card-outline: #ECECEE;
+  --color-card-outline: #e2e8f0;
   
   /* 卡片文字顏色系統 */
   --color-card-time: #878D9A;
@@ -64,9 +64,9 @@
   --color-foreground: #f1f5f9;
   --color-muted: #1e293b;
   --color-muted-foreground: #94a3b8;
-  --color-border: #334155;
+  --color-border: #475569; /* slate-600 */
   --color-card: #1e293b;
-  --color-card-border: #334155;
+  --color-card-border: #475569;
   --color-primary: #60a5fa;
   --color-primary-foreground: #0f172a;
   --color-secondary: #334155;

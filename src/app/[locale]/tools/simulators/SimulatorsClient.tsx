@@ -78,23 +78,47 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
   // 模擬器分類資料
   const categories: SimulatorCategory[] = [
     {
-      id: 'sport',
+      id: 'event',
       name: {
-        zh: 'SPORT',
-        en: 'Sports',
-        ja: 'スポーツ',
+        zh: 'Event 特定模擬器',
+        en: 'Event Specific Simulators',
+        ja: 'イベント専用シミュレーター',
       },
       description: {
-        zh: '運動賽事模擬器',
-        en: 'Sports tournament simulators',
-        ja: 'スポーツ大会シミュレーター',
+        zh: '活動專屬模擬器',
+        en: 'Event-specific simulators',
+        ja: 'イベント専用シミュレーター',
       },
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
       ),
       simulators: [
+        {
+          id: 'lucid-burning',
+          name: {
+            zh: '變身燃燒：露希妲 模擬器',
+            en: 'Lucid Burning Simulator',
+            ja: '変身バーニング：ルシッド 計算機',
+          },
+          description: {
+            zh: '試算活動任務、食夢者狩獵能升多少等，含 1~300 等經驗表與傳說秘藥',
+            en: 'Simulate level gains from Lucid Burning event, 1~300 EXP table, and Growth Potions',
+            ja: 'イベント任務や成長秘薬、1~300経験値表によるレベルアップシミュレーター',
+          },
+          href: `/tools/simulators/maplestory/lucid-burning`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          ),
+          designedBy: {
+            name: 'Elegant Access',
+            logo: '/images/kc_cover_logo.png',
+          },
+        },
         {
           id: 'wbc-simulator',
           name: {
