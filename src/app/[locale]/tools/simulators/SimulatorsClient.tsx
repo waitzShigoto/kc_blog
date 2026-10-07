@@ -144,6 +144,30 @@ export default function SimulatorsClient({ locale }: SimulatorsClientProps) {
             logo: '/images/kc_cover_logo.png'
           }
         },
+        {
+          id: 'lucky-bag',
+          name: {
+            zh: '線上福袋模擬器 (一拳超人)',
+            en: 'Lucky Bag Simulator (One Punch Man)',
+            ja: 'オンライン福袋ガチャ (ワンパンマン)',
+          },
+          description: {
+            zh: '新楓之谷 線上福袋抽獎模擬、花費試算與機率統計',
+            en: 'MapleStory online lucky bag gacha simulator and statistics',
+            ja: 'メイプルストーリー オンライン福袋ガチャシミュレーターと確率統計',
+          },
+          href: `/tools/simulators/maplestory/lucky-bag`,
+          status: 'available',
+          icon: (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+          ),
+          designedBy: {
+            name: 'Elegant Access',
+            logo: '/images/kc_cover_logo.png'
+          }
+        },
       ],
     },
     {

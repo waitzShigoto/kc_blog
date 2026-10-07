@@ -12,6 +12,8 @@ import {
     GOLDEN_APPLE_REWARDS_V7,
     GOLDEN_APPLE_REWARDS_V8,
     GOLDEN_APPLE_REWARDS_V9,
+    GOLDEN_APPLE_REWARDS_V10,
+    GOLDEN_APPLE_REWARDS_V11,
     GoldenAppleReward,
     GRAND_PRIZES_V1,
     GRAND_PRIZES_V2,
@@ -22,6 +24,8 @@ import {
     GRAND_PRIZES_V7,
     GRAND_PRIZES_V8,
     GRAND_PRIZES_V9,
+    GRAND_PRIZES_V10,
+    GRAND_PRIZES_V11,
     GOLDEN_BOX_REWARDS_V1,
     GOLDEN_BOX_REWARDS_V2,
     GOLDEN_BOX_REWARDS_V3,
@@ -30,7 +34,9 @@ import {
     GOLDEN_BOX_REWARDS_V6,
     GOLDEN_BOX_REWARDS_V7,
     GOLDEN_BOX_REWARDS_V8,
-    GOLDEN_BOX_REWARDS_V9
+    GOLDEN_BOX_REWARDS_V9,
+    GOLDEN_BOX_REWARDS_V10,
+    GOLDEN_BOX_REWARDS_V11
 } from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
@@ -115,7 +121,7 @@ function CustomSelect<T extends string | number>({
 
 export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
     // 版本選擇狀態
-    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6' | 'v7' | 'v8' | 'v9'>('v9'); // 默認使用最新版本 (第九期 - 葬送的芙莉蓮)
+    const [version, setVersion] = useState<'v1' | 'v2' | 'v3' | 'v4' | 'v5' | 'v6' | 'v7' | 'v8' | 'v9' | 'v10' | 'v11'>('v11'); // 默認使用最新版本 (第十一期 - 靈魂赫卡忒)
 
     const [currentReward, setCurrentReward] = useState<string>('');
     const [history, setHistory] = useState<AppleHistory[]>([]);
@@ -150,7 +156,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v6' ? GOLDEN_APPLE_REWARDS_V6 :
         version === 'v7' ? GOLDEN_APPLE_REWARDS_V7 :
         version === 'v8' ? GOLDEN_APPLE_REWARDS_V8 :
-        GOLDEN_APPLE_REWARDS_V9;
+        version === 'v9' ? GOLDEN_APPLE_REWARDS_V9 :
+        version === 'v10' ? GOLDEN_APPLE_REWARDS_V10 :
+        GOLDEN_APPLE_REWARDS_V11;
     const GRAND_PRIZES = 
         version === 'v1' ? GRAND_PRIZES_V1 : 
         version === 'v2' ? GRAND_PRIZES_V2 : 
@@ -160,7 +168,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v6' ? GRAND_PRIZES_V6 :
         version === 'v7' ? GRAND_PRIZES_V7 :
         version === 'v8' ? GRAND_PRIZES_V8 :
-        GRAND_PRIZES_V9;
+        version === 'v9' ? GRAND_PRIZES_V9 :
+        version === 'v10' ? GRAND_PRIZES_V10 :
+        GRAND_PRIZES_V11;
     const GOLDEN_BOX_REWARDS = 
         version === 'v1' ? GOLDEN_BOX_REWARDS_V1 : 
         version === 'v2' ? GOLDEN_BOX_REWARDS_V2 : 
@@ -170,7 +180,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v6' ? GOLDEN_BOX_REWARDS_V6 :
         version === 'v7' ? GOLDEN_BOX_REWARDS_V7 :
         version === 'v8' ? GOLDEN_BOX_REWARDS_V8 :
-        GOLDEN_BOX_REWARDS_V9;
+        version === 'v9' ? GOLDEN_BOX_REWARDS_V9 :
+        version === 'v10' ? GOLDEN_BOX_REWARDS_V10 :
+        GOLDEN_BOX_REWARDS_V11;
 
     // 當版本切換時，重置目標大獎
     useEffect(() => {
@@ -228,6 +240,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
             eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             eventDateV9: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV10: '2026/09/23 09:00 ～ 2026/10/06 23:59',
+            eventDateV11: '2026/10/07 09:00 ～ 2026/10/20 23:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -247,7 +261,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV6: '第六期',
             versionV7: '第七期',
             versionV8: '第八期',
-            versionV9: '葬送的芙莉蓮',
+            versionV9: '第九期',
+            versionV10: '第十期',
+            versionV11: '第十一期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公寶珠',
             btnTitleV2: '02/11 ~ 02/24',
@@ -262,10 +278,14 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV7: '08/12 ~ 08/26',
             btnTitleV8: '08/26 ~ 09/08',
             btnTitleV9: '09/09 ~ 09/23',
+            btnTitleV10: '09/23 ~ 10/06',
+            btnTitleV11: '10/07 ~ 10/20',
             btnSubtitleV6: '天上的氣息',
             btnSubtitleV7: '現身交換券',
             btnSubtitleV8: '凝聚戒指/露希妲耳環',
-            btnSubtitleV9: '葬送的芙莉蓮',
+            btnSubtitleV9: '芙莉蓮/欣梅爾',
+            btnSubtitleV10: '費倫/尤蓓爾',
+            btnSubtitleV11: '靈魂赫卡忒',
         },
         en: {
             title: "Frieren: Beyond Journey's End",
@@ -306,6 +326,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
             eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             eventDateV9: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV10: '2026/09/23 09:00 ～ 2026/10/06 23:59',
+            eventDateV11: '2026/10/07 09:00 ～ 2026/10/20 23:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -325,7 +347,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV6: 'Period 6',
             versionV7: 'Period 7',
             versionV8: 'Period 8',
-            versionV9: 'Frieren',
+            versionV9: 'Period 9',
+            versionV10: 'Period 10',
+            versionV11: 'Period 11',
             btnTitleV1: 'Jan 28 - Feb 11',
             btnSubtitleV1: 'Wu Gong',
             btnTitleV2: 'Feb 11 - Feb 24',
@@ -340,10 +364,14 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV7: 'Aug 12 - Aug 26',
             btnTitleV8: 'Aug 26 - Sep 08',
             btnTitleV9: 'Sep 09 - Sep 23',
+            btnTitleV10: 'Sep 23 - Oct 06',
+            btnTitleV11: 'Oct 07 - Oct 20',
             btnSubtitleV6: 'Celestial Breath',
             btnSubtitleV7: 'Apparition Voucher',
             btnSubtitleV8: 'Condensed Ring / Lucid Earrings',
-            btnSubtitleV9: 'Frieren',
+            btnSubtitleV9: 'Frieren / Himmel',
+            btnSubtitleV10: 'Fern / Ubel',
+            btnSubtitleV11: 'Soul Hecate',
         },
         ja: {
             title: '葬送のフリーレン',
@@ -384,6 +412,8 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             eventDateV7: '2026/08/12 09:00 ～ 2026/08/26 07:59',
             eventDateV8: '2026/08/26 09:00 ～ 2026/09/08 23:59',
             eventDateV9: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV10: '2026/09/23 09:00 ～ 2026/10/06 23:59',
+            eventDateV11: '2026/10/07 09:00 ～ 2026/10/20 23:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標大賞',
@@ -403,7 +433,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             versionV6: '第6期',
             versionV7: '第7期',
             versionV8: '第8期',
-            versionV9: '葬送のフリーレン',
+            versionV9: '第9期',
+            versionV10: '第10期',
+            versionV11: '第11期',
             btnTitleV1: '01/28 ~ 02/11',
             btnSubtitleV1: '武公パンダ',
             btnTitleV2: '02/11 ~ 02/24',
@@ -418,10 +450,14 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
             btnTitleV7: '08/12 ~ 08/26',
             btnTitleV8: '08/26 ~ 09/08',
             btnTitleV9: '09/09 ~ 09/23',
+            btnTitleV10: '09/23 ~ 10/06',
+            btnTitleV11: '10/07 ~ 10/20',
             btnSubtitleV6: '天上の気息',
             btnSubtitleV7: '現身交換券',
             btnSubtitleV8: '凝聚戒指/露希妲耳環',
-            btnSubtitleV9: '葬送的芙莉蓮',
+            btnSubtitleV9: 'フリーレン/ヒンメル',
+            btnSubtitleV10: 'フェルン/ユーベル',
+            btnSubtitleV11: 'ソウルヘカテー',
         },
     };
 
@@ -436,7 +472,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v6' ? `${t.versionV6} (${t.btnSubtitleV6})` :
         version === 'v7' ? `${t.versionV7} (${t.btnSubtitleV7})` :
         version === 'v8' ? `${t.versionV8} (${t.btnSubtitleV8})` :
-        `${t.versionV9}`;
+        version === 'v9' ? `${t.versionV9} (${t.btnSubtitleV9})` :
+        version === 'v10' ? `${t.versionV10} (${t.btnSubtitleV10})` :
+        `${t.versionV11} (${t.btnSubtitleV11})`;
 
     const currentTitle = 
         version === 'v1' ? t.btnSubtitleV1 : 
@@ -447,7 +485,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
         version === 'v6' ? t.btnSubtitleV6 :
         version === 'v7' ? t.btnSubtitleV7 :
         version === 'v8' ? t.btnSubtitleV8 :
-        t.title;
+        version === 'v9' ? `${t.title} (${t.btnSubtitleV9})` :
+        version === 'v10' ? `${t.title} (${t.btnSubtitleV10})` :
+        t.btnSubtitleV11;
 
     // 根據權重隨機選擇
     const weightedRandom = (items: GoldenAppleReward[]): string => {
@@ -706,10 +746,10 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
 
                 {/* Version Selection Tab */}
                 <div className="flex justify-center mb-8">
-                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border overflow-x-auto max-w-full">
                         <button
                             onClick={() => setVersion('v1')}
-                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v1'
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v1'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -719,7 +759,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v2')}
-                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v2'
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v2'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -734,7 +774,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v3')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v3'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v3'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -744,7 +784,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v4')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v4'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v4'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -754,7 +794,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v5')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v5'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v5'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -764,7 +804,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v6')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v6'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v6'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -774,7 +814,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v7')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v7'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v7'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -784,7 +824,7 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v8')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v8'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v8'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
@@ -794,13 +834,33 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                         </button>
                         <button
                             onClick={() => setVersion('v9')}
-                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 ${version === 'v9'
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v9'
                                 ? 'bg-background shadow-sm text-foreground'
                                 : 'text-muted-foreground hover:text-foreground'
                                 }`}
                         >
                             <span className="text-[10px] opacity-80">{t.btnTitleV9}</span>
                             <span className="text-sm">{t.btnSubtitleV9}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v10')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v10'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV10}</span>
+                            <span className="text-sm">{t.btnSubtitleV10}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v11')}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-1 shrink-0 ${version === 'v11'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">{t.btnTitleV11}</span>
+                            <span className="text-sm">{t.btnSubtitleV11}</span>
                             <span className="absolute -top-2.5 -right-3 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
                                 NEW
                             </span>
@@ -1216,7 +1276,9 @@ export default function GoldenAppleClient({ locale }: GoldenAppleClientProps) {
                                              version === 'v6' ? t.eventDateV6 : 
                                              version === 'v7' ? t.eventDateV7 : 
                                              version === 'v8' ? t.eventDateV8 : 
-                                             t.eventDateV9}
+                                             version === 'v9' ? t.eventDateV9 : 
+                                             version === 'v10' ? t.eventDateV10 : 
+                                             t.eventDateV11}
                                         </p>
                                     </div>
                                 )}

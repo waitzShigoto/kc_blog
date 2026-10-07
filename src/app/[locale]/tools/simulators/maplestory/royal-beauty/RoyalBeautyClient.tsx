@@ -2,7 +2,14 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { ROYAL_BEAUTY_DATA, GRAND_PRIZES, BeautyReward, BeautyType } from './data';
+import {
+    ROYAL_BEAUTY_DATA_V1,
+    GRAND_PRIZES_V1,
+    ROYAL_BEAUTY_DATA_V2,
+    GRAND_PRIZES_V2,
+    BeautyReward,
+    BeautyType
+} from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
@@ -86,42 +93,37 @@ function CustomSelect<T extends string | number>({
 }
 
 export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
+    const [version, setVersion] = useState<'v1' | 'v2'>('v2');
     const [mode, setMode] = useState<'hair' | 'face'>('hair');
     const [gender, setGender] = useState<'male' | 'female'>('male');
 
     const currentType: BeautyType = `${mode}_${gender}` as BeautyType;
+    const poolKey = `${version}_${currentType}`;
 
     const [currentReward, setCurrentReward] = useState<BeautyReward | null>(null);
     const [history, setHistory] = useState<BeautyHistory[]>([]);
-    const [totalDraws, setTotalDraws] = useState<Record<BeautyType, number>>({
-        hair_male: 0,
-        hair_female: 0,
-        face_male: 0,
-        face_female: 0,
-    });
+    const [totalDraws, setTotalDraws] = useState<Record<string, number>>({});
     const [isRolling, setIsRolling] = useState(false);
-    const [rewardCounts, setRewardCounts] = useState<Record<BeautyType, Record<string, number>>>({
-        hair_male: {},
-        hair_female: {},
-        face_male: {},
-        face_female: {},
-    });
-    const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES[currentType][0]);
+    const [rewardCounts, setRewardCounts] = useState<Record<string, Record<string, number>>>({});
+    const [targetPrize, setTargetPrize] = useState<string>('');
 
-    const totalDrawsRef = useRef(totalDraws);
-    const rewardCountsRef = useRef(rewardCounts);
+    const totalDrawsRef = useRef<Record<string, number>>({});
+    const rewardCountsRef = useRef<Record<string, Record<string, number>>>({});
     const historyContainerRef = useRef<HTMLDivElement>(null);
     const stopAutoRollRef = useRef(false);
 
-    const REWARDS = ROYAL_BEAUTY_DATA[currentType];
-    const GRAND_PRIZES_LIST = GRAND_PRIZES[currentType];
+    const ACTIVE_DATA = version === 'v1' ? ROYAL_BEAUTY_DATA_V1 : ROYAL_BEAUTY_DATA_V2;
+    const ACTIVE_GRAND_PRIZES = version === 'v1' ? GRAND_PRIZES_V1 : GRAND_PRIZES_V2;
 
-    // 切換模式或性別時重置預設目標大獎
+    const REWARDS = ACTIVE_DATA[currentType];
+    const GRAND_PRIZES_LIST = ACTIVE_GRAND_PRIZES[currentType];
+
+    // 切換版本、模式或性別時重置預設目標大獎
     useEffect(() => {
-        if (GRAND_PRIZES[currentType].length > 0) {
-            setTargetPrize(GRAND_PRIZES[currentType][0]);
+        if (ACTIVE_GRAND_PRIZES[currentType].length > 0) {
+            setTargetPrize(ACTIVE_GRAND_PRIZES[currentType][0]);
         }
-    }, [currentType]);
+    }, [version, currentType, ACTIVE_GRAND_PRIZES]);
 
     // 自動捲動歷史紀錄
     useEffect(() => {
@@ -151,10 +153,15 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             noHistory: '尚無記錄',
             currentReward: '當前獲得造型',
             rules: '活動說明',
-            rulesList: [
-                '皇家美髮與皇家整形包含本次《葬送的芙莉蓮》聯名限定造型',
+            rulesList: version === 'v1' ? [
+                '皇家美髮與皇家整形包含本次《葬送的芙莉蓮》第一彈聯名造型',
                 '美髮大獎包含：芙莉蓮髮型、欣梅爾髮型、尤蓓爾髮型（機率各 1.00%）',
-                '整形大獎包含：芙莉蓮臉型、欣梅爾臉型、尤蓓爾臉型、琉古納臉型（機率各 1.25%）',
+                '整形大獎包含：芙莉蓮臉型、欣梅爾臉型、尤蓓爾的臉型、琉古納臉型（機率各 1.25%）',
+                '機率依據官方公告數據設定',
+            ] : [
+                '皇家美髮與皇家整形包含本次《葬送的芙莉蓮》第二彈聯名造型',
+                '美髮大獎包含：芙莉蓮髮型(睡衣)、費倫髮型、修塔爾克髮型（機率各 1.00%）',
+                '整形大獎包含：費倫臉型、修塔爾克臉型、阿烏拉臉型、莉妮耶臉型（機率各 1.25%）',
                 '機率依據官方公告數據設定',
             ],
             disclaimer: '此模擬器僅供娛樂參考，實際遊戲機率以遊戲內為準',
@@ -163,7 +170,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             probabilities: '造型機率表',
             probability: '機率',
             eventPeriod: '活動時間',
-            eventDate: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV1: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV2: '2026/09/23 00:00 ～ 2026/10/06 23:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
@@ -171,6 +179,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             tierCollab: '聯名限定',
             tierFeatured: '主打造型',
             tierNormal: '一般造型',
+            subV1: '欣梅爾/尤蓓爾',
+            subV2: '費倫/修塔爾克',
         },
         en: {
             title: 'Royal Beauty Simulator',
@@ -182,7 +192,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             useCoupon: 'Use 1 Coupon',
             use10Coupons: 'Use 10 Coupons',
             use100Coupons: 'Use 100 Coupons',
-            reset: 'Reset Category',
+            reset: 'Reset',
             statistics: 'Statistics',
             totalUsed: 'Coupons Used',
             history: 'Draw History',
@@ -191,10 +201,15 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             noHistory: 'No history yet',
             currentReward: 'Current Style',
             rules: 'Event Rules',
-            rulesList: [
-                'Royal Hair and Royal Face feature exclusive Frieren collaboration appearances',
+            rulesList: version === 'v1' ? [
+                'Royal Hair and Royal Face feature exclusive Frieren collaboration appearances (Part 1)',
                 'Hair grand prizes: Frieren, Himmel, Ubel Hairstyles (1.00% each)',
                 'Face grand prizes: Frieren, Himmel, Ubel, Lugner Faces (1.25% each)',
+                'Probabilities strictly match the official announcement rates',
+            ] : [
+                'Royal Hair and Royal Face feature exclusive Frieren collaboration appearances (Part 2)',
+                'Hair grand prizes: Frieren (Pajama), Fern, Stark Hairstyles (1.00% each)',
+                'Face grand prizes: Fern, Stark, Aura, Linie Faces (1.25% each)',
                 'Probabilities strictly match the official announcement rates',
             ],
             disclaimer: 'This simulator is for entertainment only. Actual game rates may vary.',
@@ -203,7 +218,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             probabilities: 'Style Probabilities',
             probability: 'Rate',
             eventPeriod: 'Event Period',
-            eventDate: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV1: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV2: '2026/09/23 00:00 ～ 2026/10/06 23:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
@@ -211,6 +227,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             tierCollab: 'Collab Special',
             tierFeatured: 'Featured',
             tierNormal: 'Regular',
+            subV1: 'Himmel / Ubel',
+            subV2: 'Fern / Stark',
         },
         ja: {
             title: 'ロイヤル美容シミュレーター',
@@ -231,10 +249,15 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             noHistory: '履歴なし',
             currentReward: '現在の獲得スタイル',
             rules: 'ルール説明',
-            rulesList: [
-                'ロイヤルヘア・ロイヤル整形に『葬送のフリーレン』コラボスタイルが登場',
+            rulesList: version === 'v1' ? [
+                'ロイヤルヘア・ロイヤル整形に『葬送のフリーレン』第1弾コラボスタイルが登場',
                 'ヘア大賞：フリーレン、ヒンメル、ユーベルヘア（各 1.00%）',
                 '整形大賞：フリーレン、ヒンメル、ユーベル、リュグナー整形（各 1.25%）',
+                '確率は公式公開データに基づきます',
+            ] : [
+                'ロイヤルヘア・ロイヤル整形に『葬送のフリーレン』第2弾コラボスタイルが登場',
+                'ヘア大賞：フリーレン(パジャマ)、フェルン、シュタルクヘア（各 1.00%）',
+                '整形大賞：フェルン、シュタルク、アウラ、リーニエ整形（各 1.25%）',
                 '確率は公式公開データに基づきます',
             ],
             disclaimer: 'このシミュレーターは娯楽目的です。実際のゲーム確率と若干異なる場合があります。',
@@ -243,7 +266,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             probabilities: '確率表',
             probability: '確率',
             eventPeriod: 'イベント期間',
-            eventDate: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV1: '2026/09/09 00:00 ～ 2026/09/22 23:59',
+            eventDateV2: '2026/09/23 00:00 ～ 2026/10/06 23:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標スタイル',
@@ -251,6 +275,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
             tierCollab: 'コラボ限定',
             tierFeatured: '注目スタイル',
             tierNormal: '一般スタイル',
+            subV1: 'ヒンメル/ユーベル',
+            subV2: 'フェルン/シュタルク',
         },
     };
 
@@ -274,27 +300,26 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
         const reward = weightedRandom(REWARDS);
         setCurrentReward(reward);
 
-        const nextDraws = { ...totalDrawsRef.current, [currentType]: totalDrawsRef.current[currentType] + 1 };
+        const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
         totalDrawsRef.current = nextDraws;
         setTotalDraws(nextDraws);
 
-        const currentCategoryCounts = { ...(rewardCountsRef.current[currentType] || {}) };
+        const currentCategoryCounts = { ...(rewardCountsRef.current[poolKey] || {}) };
         currentCategoryCounts[reward.name] = (currentCategoryCounts[reward.name] || 0) + 1;
-        const nextRewardCounts = { ...rewardCountsRef.current, [currentType]: currentCategoryCounts };
+        const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: currentCategoryCounts };
         rewardCountsRef.current = nextRewardCounts;
         setRewardCounts(nextRewardCounts);
 
         const newEntry: BeautyHistory = {
             id: Date.now() + Math.random(),
-            drawNumber: nextDraws[currentType],
+            drawNumber: nextDraws[poolKey],
             reward,
             type: currentType,
         };
 
         setHistory(prev => [newEntry, ...prev].slice(0, 100));
-
         setTimeout(() => setIsRolling(false), 200);
-    }, [REWARDS, currentType]);
+    }, [REWARDS, poolKey, currentType]);
 
     // 多次抽取（依序逐一非同步抽取）
     const handleDrawMultiple = useCallback(async (count: number) => {
@@ -309,13 +334,13 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
 
             const reward = weightedRandom(REWARDS);
 
-            const nextDraws = { ...totalDrawsRef.current, [currentType]: totalDrawsRef.current[currentType] + 1 };
+            const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
             totalDrawsRef.current = nextDraws;
             setTotalDraws(nextDraws);
 
-            const currentCategoryCounts = { ...(rewardCountsRef.current[currentType] || {}) };
+            const currentCategoryCounts = { ...(rewardCountsRef.current[poolKey] || {}) };
             currentCategoryCounts[reward.name] = (currentCategoryCounts[reward.name] || 0) + 1;
-            const nextRewardCounts = { ...rewardCountsRef.current, [currentType]: currentCategoryCounts };
+            const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: currentCategoryCounts };
             rewardCountsRef.current = nextRewardCounts;
             setRewardCounts(nextRewardCounts);
 
@@ -323,18 +348,17 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
 
             const newEntry: BeautyHistory = {
                 id: Date.now() + i + Math.random(),
-                drawNumber: nextDraws[currentType],
+                drawNumber: nextDraws[poolKey],
                 reward,
                 type: currentType,
             };
 
             setHistory(prev => [newEntry, ...prev].slice(0, 100));
-
             await new Promise(resolve => setTimeout(resolve, delay));
         }
 
         setIsRolling(false);
-    }, [REWARDS, currentType, isRolling]);
+    }, [REWARDS, poolKey, currentType, isRolling]);
 
     // 自動抽獎直到抽到目標大獎
     const startAutoRoll = useCallback(async () => {
@@ -352,13 +376,13 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
 
                 const reward = weightedRandom(REWARDS);
 
-                const nextDraws = { ...totalDrawsRef.current, [currentType]: totalDrawsRef.current[currentType] + 1 };
+                const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
                 totalDrawsRef.current = nextDraws;
                 setTotalDraws(nextDraws);
 
-                const currentCategoryCounts = { ...(rewardCountsRef.current[currentType] || {}) };
+                const currentCategoryCounts = { ...(rewardCountsRef.current[poolKey] || {}) };
                 currentCategoryCounts[reward.name] = (currentCategoryCounts[reward.name] || 0) + 1;
-                const nextRewardCounts = { ...rewardCountsRef.current, [currentType]: currentCategoryCounts };
+                const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: currentCategoryCounts };
                 rewardCountsRef.current = nextRewardCounts;
                 setRewardCounts(nextRewardCounts);
 
@@ -366,7 +390,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
 
                 const newEntry: BeautyHistory = {
                     id: Date.now() + i + Math.random(),
-                    drawNumber: nextDraws[currentType],
+                    drawNumber: nextDraws[poolKey],
                     reward,
                     type: currentType,
                 };
@@ -384,7 +408,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
         }
 
         setIsRolling(false);
-    }, [REWARDS, currentType, targetPrize]);
+    }, [REWARDS, poolKey, currentType, targetPrize]);
 
     const stopAutoRoll = () => {
         stopAutoRollRef.current = true;
@@ -393,17 +417,17 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
 
     // 重置當前類別資料
     const resetCurrent = useCallback(() => {
-        const nextDraws = { ...totalDrawsRef.current, [currentType]: 0 };
+        const nextDraws = { ...totalDrawsRef.current, [poolKey]: 0 };
         totalDrawsRef.current = nextDraws;
         setTotalDraws(nextDraws);
 
-        const nextRewardCounts = { ...rewardCountsRef.current, [currentType]: {} };
+        const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: {} };
         rewardCountsRef.current = nextRewardCounts;
         setRewardCounts(nextRewardCounts);
 
         setCurrentReward(null);
         setHistory(prev => prev.filter(h => h.type !== currentType));
-    }, [currentType]);
+    }, [poolKey, currentType]);
 
     const getTierBadge = (tier: 'collab' | 'featured' | 'normal') => {
         switch (tier) {
@@ -432,8 +456,8 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
         label: prize,
     }));
 
-    const currentCategoryDraws = totalDraws[currentType] || 0;
-    const currentCategoryCounts = rewardCounts[currentType] || {};
+    const currentCategoryDraws = totalDraws[poolKey] || 0;
+    const currentCategoryCounts = rewardCounts[poolKey] || {};
 
     return (
         <div className="min-h-screen py-8">
@@ -464,7 +488,38 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                     </p>
                 </div>
 
-                {/* Mode & Gender Switchers */}
+                {/* Version Selector Tabs */}
+                <div className="flex justify-center mb-6">
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                        <button
+                            onClick={() => setVersion('v1')}
+                            disabled={isRolling}
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-0.5 ${version === 'v1'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">09/09 ~ 09/22</span>
+                            <span className="text-sm">{t.subV1}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v2')}
+                            disabled={isRolling}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-0.5 ${version === 'v2'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">09/23 ~ 10/06</span>
+                            <span className="text-sm">{t.subV2}</span>
+                            <span className="absolute -top-2.5 -right-2.5 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
+                                NEW
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Mode & Gender Switchers (Plain text, no emojis) */}
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-8 max-w-xl mx-auto">
                     {/* Hair vs Face Selector */}
                     <div className="grid grid-cols-2 p-1 bg-muted/60 rounded-xl border border-border w-full sm:w-1/2">
@@ -514,7 +569,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                     {/* Glowing Aura */}
                                     <div className={`absolute inset-0 rounded-full bg-gradient-to-tr from-pink-400 via-rose-400 to-purple-500 blur-xl transition-all duration-300 ${isRolling ? 'opacity-70 scale-110' : 'opacity-30'}`}></div>
                                     
-                                    {/* Sphere Container without dark borders */}
+                                    {/* Sphere Container */}
                                     <div className="relative w-full h-full rounded-full bg-gradient-to-b from-pink-500/15 via-rose-500/5 to-purple-500/15 flex items-center justify-center overflow-hidden border border-pink-300/30 dark:border-pink-500/20 shadow-inner">
                                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-pink-400/20 via-transparent to-transparent"></div>
 
@@ -536,26 +591,19 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                             {/* Scissors / Mirror Illustration */}
                                             {mode === 'hair' ? (
                                                 <g>
-                                                    {/* Scissor Left Blade */}
                                                     <path d="M20 44 C20 48, 16 52, 12 52 C8 52, 6 48, 6 44 C6 40, 10 38, 14 38 L28 32 L46 14 C48 12, 52 14, 50 18 L34 34 L20 44 Z" fill="url(#beautyGrad1)" opacity="0.9" />
                                                     <circle cx="12" cy="44" r="3.5" fill="#ffffff" />
-                                                    {/* Scissor Right Blade */}
                                                     <path d="M44 44 C44 48, 48 52, 52 52 C56 52, 58 48, 58 44 C58 40, 54 38, 50 38 L36 32 L18 14 C16 12, 12 14, 14 18 L30 34 L44 44 Z" fill="url(#beautyGrad1)" opacity="0.9" />
                                                     <circle cx="52" cy="44" r="3.5" fill="#ffffff" />
-                                                    {/* Central Pivot */}
                                                     <circle cx="32" cy="33" r="2.5" fill="#ffffff" stroke="#fb7185" strokeWidth="1" />
-                                                    {/* Sparkles */}
                                                     <path d="M32 8L33.2 12.8L38 14L33.2 15.2L32 20L30.8 15.2L26 14L30.8 12.8Z" fill="url(#sparkleGrad)" />
                                                     <path d="M48 24L48.8 26.8L51 27.5L48.8 28.2L48 31L47.2 28.2L45 27.5L47.2 26.8Z" fill="#fdf2f8" />
                                                 </g>
                                             ) : (
                                                 <g>
-                                                    {/* Mirror Frame */}
                                                     <circle cx="32" cy="26" r="15" stroke="url(#beautyGrad1)" strokeWidth="3.5" fill="none" />
                                                     <circle cx="32" cy="26" r="12" fill="#fdf2f8" opacity="0.4" />
-                                                    {/* Mirror Handle */}
                                                     <path d="M30 41 L34 41 L33 55 C33 57, 31 57, 31 55 Z" fill="url(#beautyGrad1)" />
-                                                    {/* Sparkle Reflection */}
                                                     <path d="M28 20L29 23.5L32.5 24.5L29 25.5L28 29L27 25.5L23.5 24.5L27 23.5Z" fill="#ffffff" />
                                                     <path d="M48 14L49 17L52 18L49 19L48 22L47 19L44 18L47 17Z" fill="url(#sparkleGrad)" />
                                                     <path d="M16 32L16.8 34.2L19 35L16.8 35.8L16 38L15.2 35.8L13 35L15.2 34.2Z" fill="#fdf2f8" />
@@ -598,14 +646,14 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                 <button
                                     onClick={() => handleDrawMultiple(10)}
                                     disabled={isRolling}
-                                    className="px-4 py-3 bg-gradient-to-r from-rose-600 to-purple-600 text-white font-semibold rounded-xl hover:from-rose-500 hover:to-purple-500 active:scale-95 transition-all shadow-md shadow-rose-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-4 py-3 bg-gradient-to-r from-rose-500 to-purple-600 text-white font-semibold rounded-xl hover:from-rose-400 hover:to-purple-500 active:scale-95 transition-all shadow-md shadow-rose-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {t.use10Coupons}
                                 </button>
                                 <button
                                     onClick={() => handleDrawMultiple(100)}
                                     disabled={isRolling}
-                                    className="col-span-2 sm:col-span-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-xl hover:from-purple-500 hover:to-indigo-500 active:scale-95 transition-all shadow-md shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="col-span-2 sm:col-span-1 px-4 py-3 bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white font-semibold rounded-xl hover:from-purple-500 hover:to-fuchsia-500 active:scale-95 transition-all shadow-md shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {t.use100Coupons}
                                 </button>
@@ -629,7 +677,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                         {!isRolling ? (
                                             <button
                                                 onClick={startAutoRoll}
-                                                className="w-full py-2 px-4 bg-gradient-to-r from-amber-500 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-400 hover:to-orange-500 transition-all text-sm shadow-sm"
+                                                className="w-full py-2 px-4 bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold rounded-lg hover:from-pink-400 hover:to-rose-500 transition-all text-sm shadow-sm"
                                             >
                                                 {t.rollUntil}
                                             </button>
@@ -669,7 +717,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                     <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                 </div>
                                 <div className="text-foreground font-medium pl-5">
-                                    {t.eventDate}
+                                    {version === 'v1' ? t.eventDateV1 : t.eventDateV2}
                                 </div>
                             </div>
 
@@ -677,23 +725,25 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                             <div className="grid grid-cols-1 gap-4">
                                 <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
                                     <p className="text-2xl font-bold text-foreground">{currentCategoryDraws}</p>
-                                    <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed} ({mode === 'hair' ? t.hair : t.face} - {gender === 'male' ? t.male : t.female})</p>
+                                    <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed}</p>
                                 </div>
                             </div>
 
-                            {/* Collab Prizes Distribution */}
+                            {/* Collaboration Prizes Distribution */}
                             <div className="pt-4 border-t border-border">
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">{t.collabPrizes}</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {GRAND_PRIZES_LIST.map((prizeName) => {
-                                        const count = currentCategoryCounts[prizeName] || 0;
+                                    {REWARDS.filter(r => r.tier === 'collab').map((reward) => {
+                                        const count = currentCategoryCounts[reward.name] || 0;
                                         const actualRate = currentCategoryDraws > 0 ? ((count / currentCategoryDraws) * 100).toFixed(2) : '0.00';
 
                                         return (
-                                            <div key={prizeName} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
+                                            <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
                                                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-amber-500/20 text-amber-500 border border-amber-500/30">★</span>
-                                                    <span className="font-medium truncate text-amber-500 dark:text-amber-400">{prizeName}</span>
+                                                    <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded border ${getTierBadge(reward.tier)}`}>
+                                                        {t.tierCollab}
+                                                    </span>
+                                                    <span className="font-medium truncate text-amber-500 dark:text-amber-400">{reward.name}</span>
                                                 </div>
                                                 <div className="text-right ml-3 flex-shrink-0 flex items-center gap-2">
                                                     <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
@@ -705,21 +755,21 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                 </div>
                             </div>
 
-                            {/* All Appearances Distribution */}
+                            {/* All Prizes Distribution */}
                             <div className="pt-4 border-t border-border">
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">{t.allPrizes}</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                    {REWARDS.map((item) => {
-                                        const count = currentCategoryCounts[item.name] || 0;
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
+                                    {REWARDS.filter(r => r.tier !== 'collab').map((reward) => {
+                                        const count = currentCategoryCounts[reward.name] || 0;
                                         const actualRate = currentCategoryDraws > 0 ? ((count / currentCategoryDraws) * 100).toFixed(2) : '0.00';
 
                                         return (
-                                            <div key={item.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
+                                            <div key={reward.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
                                                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                    <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded border ${getTierBadge(item.tier)}`}>
-                                                        {item.tier === 'collab' ? '聯名' : item.tier === 'featured' ? '主打' : '一般'}
+                                                    <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded border ${getTierBadge(reward.tier)}`}>
+                                                        {reward.tier === 'featured' ? t.tierFeatured : t.tierNormal}
                                                     </span>
-                                                    <span className="font-medium truncate text-foreground">{item.name}</span>
+                                                    <span className="font-medium truncate text-foreground">{reward.name}</span>
                                                 </div>
                                                 <div className="text-right ml-3 flex-shrink-0 flex items-center gap-2">
                                                     <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
@@ -755,14 +805,14 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                 <span className="text-xs text-muted-foreground font-mono">{REWARDS.length} 項</span>
                             </div>
 
-                            <div className="space-y-1.5 max-h-[460px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="space-y-1.5 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">
                                 {REWARDS.map((reward, idx) => (
                                     <div key={idx} className="flex justify-between items-center text-xs border-b border-border/50 py-1.5 last:border-0 hover:bg-muted/40 transition-colors rounded px-1.5">
                                         <div className="flex items-center gap-2 min-w-0 flex-1 mr-2">
                                             <span className={`px-1 py-0.2 text-[9px] font-bold rounded border ${getTierBadge(reward.tier)}`}>
-                                                {reward.tier === 'collab' ? '聯名' : reward.tier === 'featured' ? '主打' : '一般'}
+                                                {reward.tier === 'collab' ? t.tierCollab : reward.tier === 'featured' ? t.tierFeatured : t.tierNormal}
                                             </span>
-                                            <span className={`font-medium truncate ${reward.tier === 'collab' ? 'text-amber-500 dark:text-amber-400 font-bold' : 'text-foreground'}`}>
+                                            <span className="font-medium truncate text-foreground">
                                                 {reward.name}
                                             </span>
                                         </div>
@@ -792,7 +842,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                                             <div className="flex items-center gap-2 min-w-0 flex-1">
                                                 <span className="text-muted-foreground font-mono text-[10px]">#{entry.drawNumber}</span>
                                                 <span className={`px-1 py-0.2 text-[9px] font-bold rounded border ${getTierBadge(entry.reward.tier)}`}>
-                                                    {entry.type.includes('hair') ? '美髮' : '整形'}
+                                                    {entry.reward.tier === 'collab' ? t.tierCollab : entry.reward.tier === 'featured' ? t.tierFeatured : t.tierNormal}
                                                 </span>
                                                 <span className="font-medium truncate text-foreground">{entry.reward.name}</span>
                                             </div>
@@ -813,7 +863,7 @@ export default function RoyalBeautyClient({ locale }: RoyalBeautyClientProps) {
                         <ShareButtons
                             title={`${t.title}`}
                             url={`${siteConfig.siteUrl}/${locale}/tools/simulators/maplestory/royal-beauty`}
-                            description={`${t.title}，包含皇家美髮、皇家整形與葬送的芙莉蓮聯名限定造型機率。`}
+                            description={`${t.title}，包含葬送的芙莉蓮聯名髮型與臉型抽取機率。`}
                             locale={locale}
                         />
                     </div>

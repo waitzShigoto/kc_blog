@@ -2,7 +2,15 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { SHINING_COMET_REWARDS_V1, GRAND_PRIZES_V1, ShiningCometReward } from './data';
+import {
+    SHINING_COMET_REWARDS_V1,
+    GRAND_PRIZES_V1,
+    SHINING_COMET_REWARDS_V2,
+    GRAND_PRIZES_V2,
+    BRILLIANT_COMET_REWARDS_V2,
+    GRAND_PRIZES_BRILLIANT_V2,
+    ShiningCometReward
+} from './data';
 import ShareButtons from '@/components/blog/ShareButtons';
 import RelatedSimulators from '@/components/tools/RelatedSimulators';
 import { siteConfig } from '@/lib/config';
@@ -85,23 +93,46 @@ function CustomSelect<T extends string | number>({
 }
 
 export default function ShiningCometClient({ locale }: ShiningCometClientProps) {
+    const [version, setVersion] = useState<'v1' | 'v2'>('v2');
+    const [mode, setMode] = useState<'shining' | 'brilliant'>('shining');
+
     const [currentReward, setCurrentReward] = useState<ShiningCometReward | null>(null);
     const [history, setHistory] = useState<CometHistory[]>([]);
-    const [totalDraws, setTotalDraws] = useState(0);
+    const [totalDraws, setTotalDraws] = useState<Record<string, number>>({});
     const [isRolling, setIsRolling] = useState(false);
-    const [rewardCounts, setRewardCounts] = useState<Record<string, number>>({});
-    const [gradeCounts, setGradeCounts] = useState<{ A: number; B: number; C: number }>({ A: 0, B: 0, C: 0 });
-    const [targetPrize, setTargetPrize] = useState<string>(GRAND_PRIZES_V1[0]);
-    const [activeGradeFilter, setActiveGradeFilter] = useState<'ALL' | 'A' | 'B' | 'C'>('ALL');
+    const [rewardCounts, setRewardCounts] = useState<Record<string, Record<string, number>>>({});
+    const [gradeCounts, setGradeCounts] = useState<Record<string, { S: number; A: number; B: number; C: number }>>({});
+    const [targetPrize, setTargetPrize] = useState<string>('');
+    const [activeGradeFilter, setActiveGradeFilter] = useState<'ALL' | 'S' | 'A' | 'B' | 'C'>('ALL');
 
-    const totalDrawsRef = useRef(0);
-    const rewardCountsRef = useRef<Record<string, number>>({});
-    const gradeCountsRef = useRef<{ A: number; B: number; C: number }>({ A: 0, B: 0, C: 0 });
+    const poolKey = `${version}_${mode}`;
+
+    const totalDrawsRef = useRef<Record<string, number>>({});
+    const rewardCountsRef = useRef<Record<string, Record<string, number>>>({});
+    const gradeCountsRef = useRef<Record<string, { S: number; A: number; B: number; C: number }>>({});
     const historyContainerRef = useRef<HTMLDivElement>(null);
     const stopAutoRollRef = useRef(false);
 
-    const REWARDS = SHINING_COMET_REWARDS_V1;
-    const GRAND_PRIZES = GRAND_PRIZES_V1;
+    // 根據當前版本與模式決定獎勵池
+    const REWARDS = version === 'v1'
+        ? SHINING_COMET_REWARDS_V1
+        : mode === 'brilliant'
+            ? BRILLIANT_COMET_REWARDS_V2
+            : SHINING_COMET_REWARDS_V2;
+
+    const GRAND_PRIZES = version === 'v1'
+        ? GRAND_PRIZES_V1
+        : mode === 'brilliant'
+            ? GRAND_PRIZES_BRILLIANT_V2
+            : GRAND_PRIZES_V2;
+
+    // 當卡池切換時更新目標大獎
+    useEffect(() => {
+        if (GRAND_PRIZES.length > 0) {
+            setTargetPrize(GRAND_PRIZES[0]);
+        }
+        setActiveGradeFilter('ALL');
+    }, [version, mode, GRAND_PRIZES]);
 
     // 自動捲動歷史紀錄
     useEffect(() => {
@@ -115,23 +146,28 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         zh: {
             title: '閃亮彗星模擬器',
             subtitle: '葬送的芙莉蓮',
-            useComet: '使用閃亮彗星',
+            useComet: mode === 'brilliant' ? '開啟璀璨彗星' : '使用閃亮彗星',
             use10Comets: '使用 10 個',
             use100Comets: '使用 100 個',
             reset: '重置',
             statistics: '統計資料',
             totalUsed: '已使用數量',
             history: '抽獎歷史',
-            grandPrizes: 'A 等級大獎 (芙莉蓮 & 欣梅爾)',
-            bTierPrizes: 'B 等級 (尤蓓爾 & 琉古納)',
+            grandPrizes: mode === 'brilliant' ? 'S 等級大獎 (深海系列)' : version === 'v1' ? 'A 等級大獎 (芙莉蓮 & 欣梅爾)' : 'A 等級大獎 (費倫 & 修塔爾克 & 芙莉蓮)',
+            bTierPrizes: version === 'v1' ? 'B 等級 (尤蓓爾 & 琉古納)' : mode === 'brilliant' ? 'B 等級部件' : 'B 等級 (莉妮耶 & 阿烏拉)',
             gradeDist: '等級分佈',
             noHistory: '尚無記錄',
             currentReward: '當前獲得道具',
             rules: '活動說明',
-            rulesList: [
+            rulesList: mode === 'brilliant' ? [
+                '璀璨彗星可抽取包含 S 等級深海系列等高階外觀道具',
+                'S 等級為深海系列專屬套裝部件（月亮蝴蝶結、王子襯衫、公主禮服等）',
+                'A 等級與 B 等級包含各類主題外觀飾品',
+                '機率完全依據官方公告之數據設定',
+            ] : [
                 '每次使用閃亮彗星會隨機獲得一個外觀道具',
-                'A 等級為本次聯名大獎（芙莉蓮與欣梅爾外觀部件）',
-                'B 等級為聯名角色部件（尤蓓爾與琉古納外觀）',
+                version === 'v1' ? 'A 等級為第一彈聯名大獎（芙莉蓮與欣梅爾外觀部件）' : 'A 等級為第二彈聯名大獎（費倫、修塔爾克與芙莉蓮外觀部件）',
+                version === 'v1' ? 'B 等級為聯名角色部件（尤蓓爾與琉古納外觀）' : 'B 等級為聯名角色部件（莉妮耶與阿烏拉外觀）',
                 'C 等級為精選時裝與外觀部件',
                 '機率完全依據官方公告之數據設定',
             ],
@@ -141,37 +177,45 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
             probabilities: '道具機率表',
             probability: '機率',
             eventPeriod: '活動時間',
-            eventDate: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV1: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV2: '2026/09/23 09:00 ～ 2026/10/06 23:59',
             autoRoll: '自動抽獎',
             stop: '停止',
             targetPrize: '目標大獎',
             rollUntil: '抽到為止',
-            gradeA: 'A 等級 (8.20%)',
-            gradeB: 'B 等級 (8.90%)',
-            gradeC: 'C 等級 (82.88%)',
             filterAll: '全部',
-            estimatedCost: '預估花費 (NT$)',
+            shiningTab: '閃亮彗星',
+            brilliantTab: '璀璨彗星',
+            versionV1: '第一彈 (09/09 ~ 09/23)',
+            versionV2: '第二彈 (09/23 ~ 10/06)',
+            subV1: '欣梅爾/尤蓓爾',
+            subV2: '費倫/修塔爾克',
         },
         en: {
             title: 'Shining Comet Simulator',
             subtitle: "Frieren: Beyond Journey's End",
-            useComet: 'Use Shining Comet',
+            useComet: mode === 'brilliant' ? 'Open Brilliant Comet' : 'Use Shining Comet',
             use10Comets: 'Use 10 Comets',
             use100Comets: 'Use 100 Comets',
             reset: 'Reset',
             statistics: 'Statistics',
             totalUsed: 'Comets Used',
             history: 'Draw History',
-            grandPrizes: 'Grade A Prizes (Frieren & Himmel)',
-            bTierPrizes: 'Grade B (Ubel & Lugner)',
+            grandPrizes: mode === 'brilliant' ? 'Grade S Prizes (Deep Sea)' : version === 'v1' ? 'Grade A (Frieren & Himmel)' : 'Grade A (Fern & Stark & Frieren)',
+            bTierPrizes: version === 'v1' ? 'Grade B (Ubel & Lugner)' : mode === 'brilliant' ? 'Grade B Items' : 'Grade B (Linie & Aura)',
             gradeDist: 'Grade Distribution',
             noHistory: 'No history yet',
             currentReward: 'Current Reward',
             rules: 'Event Rules',
-            rulesList: [
+            rulesList: mode === 'brilliant' ? [
+                'Brilliant Comet contains exclusive Grade S Deep Sea cosmetic sets',
+                'Grade S includes Moon Bow, Prince Shirt, Princess Dress, etc.',
+                'Grade A and B contain featured thematic accessories',
+                'Probabilities strictly follow the official game rates',
+            ] : [
                 'Each Shining Comet grants one random cosmetic item',
-                'Grade A includes Frieren & Himmel collaboration sets',
-                'Grade B includes Ubel & Lugner outfit parts',
+                version === 'v1' ? 'Grade A includes Frieren & Himmel collaboration sets' : 'Grade A includes Fern, Stark & Frieren collaboration sets',
+                version === 'v1' ? 'Grade B includes Ubel & Lugner outfit parts' : 'Grade B includes Linie & Aura outfit parts',
                 'Grade C includes selected classic fashion cosmetics',
                 'Probabilities strictly follow the official game rates',
             ],
@@ -181,37 +225,44 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
             probabilities: 'Reward Probabilities',
             probability: 'Rate',
             eventPeriod: 'Event Period',
-            eventDate: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV1: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV2: '2026/09/23 09:00 ～ 2026/10/06 23:59',
             autoRoll: 'Auto Roll',
             stop: 'Stop',
             targetPrize: 'Target Prize',
             rollUntil: 'Roll Until',
-            gradeA: 'Grade A (8.20%)',
-            gradeB: 'Grade B (8.90%)',
-            gradeC: 'Grade C (82.88%)',
             filterAll: 'All',
-            estimatedCost: 'Est. Cost (NT$)',
+            shiningTab: 'Shining Comet',
+            brilliantTab: 'Brilliant Comet',
+            versionV1: 'Part 1 (Sep 09 - Sep 23)',
+            versionV2: 'Part 2 (Sep 23 - Oct 06)',
+            subV1: 'Himmel / Ubel',
+            subV2: 'Fern / Stark',
         },
         ja: {
             title: 'シャイニングコメットシミュレーター',
             subtitle: '葬送のフリーレン',
-            useComet: 'コメット使用',
+            useComet: mode === 'brilliant' ? '璀璨コメット開封' : 'コメット使用',
             use10Comets: '10個使用',
             use100Comets: '100個使用',
             reset: 'リセット',
             statistics: '統計',
             totalUsed: '使用個数',
             history: '抽選履歴',
-            grandPrizes: 'A等級大賞（フリーレン＆ヒンメル）',
-            bTierPrizes: 'B等級（ユーベル＆リュグナー）',
+            grandPrizes: mode === 'brilliant' ? 'S等級大賞（深海シリーズ）' : version === 'v1' ? 'A等級大賞（フリーレン＆ヒンメル）' : 'A等級大賞（フェルン＆シュタルク＆フリーレン）',
+            bTierPrizes: version === 'v1' ? 'B等級（ユーベル＆リュグナー）' : mode === 'brilliant' ? 'B等級アバター' : 'B等級（リーニエ＆アウラ）',
             gradeDist: '等級分布',
             noHistory: '履歴なし',
             currentReward: '現在の獲得アイテム',
             rules: 'ルール説明',
-            rulesList: [
+            rulesList: mode === 'brilliant' ? [
+                '璀璨コメットはS等級深海シリーズなどの高級アバターアイテムを含みます',
+                'S等級は深海シリーズ限定アバター',
+                '確率は公式公開データに基づきます',
+            ] : [
                 'シャイニングコメット使用ごとにランダムなアバターを1つ獲得',
-                'A等級はコラボ限定フリーレン＆ヒンメル衣装',
-                'B等級はユーベル＆リュグナーのアバターパーツ',
+                version === 'v1' ? 'A等級はコラボ限定フリーレン＆ヒンメル衣装' : 'A等級はコラボ第2弾フェルン＆シュタルク＆フリーレン衣装',
+                version === 'v1' ? 'B等級はユーベル＆リュグナーのアバターパーツ' : 'B等級はリーニエ＆アウラのアバターパーツ',
                 'C等級は厳選されたクラシックアバターアイテム',
                 '確率は公式公開データに基づきます',
             ],
@@ -221,16 +272,19 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
             probabilities: '確率表',
             probability: '確率',
             eventPeriod: 'イベント期間',
-            eventDate: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV1: '2026/09/09 09:00 ～ 2026/09/23 07:59',
+            eventDateV2: '2026/09/23 09:00 ～ 2026/10/06 23:59',
             autoRoll: '自動抽選',
             stop: '停止',
             targetPrize: '目標アイテム',
             rollUntil: '出るまで回す',
-            gradeA: 'A等級 (8.20%)',
-            gradeB: 'B等級 (8.90%)',
-            gradeC: 'C等級 (82.88%)',
             filterAll: 'すべて',
-            estimatedCost: '推定費用 (NT$)',
+            shiningTab: 'シャイニングコメット',
+            brilliantTab: '璀璨コメット',
+            versionV1: '第1弾 (09/09 ~ 09/23)',
+            versionV2: '第2弾 (09/23 ~ 10/06)',
+            subV1: 'ヒンメル/ユーベル',
+            subV2: 'フェルン/シュタルク',
         },
     };
 
@@ -247,6 +301,11 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         return items[items.length - 1];
     };
 
+    // 當前類別抽取次數與等級計數
+    const currentDraws = totalDraws[poolKey] || 0;
+    const currentRewardCounts = rewardCounts[poolKey] || {};
+    const currentGradeCounts = gradeCounts[poolKey] || { S: 0, A: 0, B: 0, C: 0 };
+
     // 單次抽獎
     const handleDrawSingle = useCallback(() => {
         setIsRolling(true);
@@ -254,25 +313,31 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         const reward = weightedRandom(REWARDS);
         setCurrentReward(reward);
 
-        totalDrawsRef.current += 1;
-        setTotalDraws(totalDrawsRef.current);
+        const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
+        totalDrawsRef.current = nextDraws;
+        setTotalDraws(nextDraws);
 
-        rewardCountsRef.current[reward.name] = (rewardCountsRef.current[reward.name] || 0) + 1;
-        setRewardCounts({ ...rewardCountsRef.current });
+        const categoryRewards = { ...(rewardCountsRef.current[poolKey] || {}) };
+        categoryRewards[reward.name] = (categoryRewards[reward.name] || 0) + 1;
+        const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: categoryRewards };
+        rewardCountsRef.current = nextRewardCounts;
+        setRewardCounts(nextRewardCounts);
 
-        gradeCountsRef.current[reward.grade] += 1;
-        setGradeCounts({ ...gradeCountsRef.current });
+        const categoryGrades = { ...(gradeCountsRef.current[poolKey] || { S: 0, A: 0, B: 0, C: 0 }) };
+        categoryGrades[reward.grade] = (categoryGrades[reward.grade] || 0) + 1;
+        const nextGradeCounts = { ...gradeCountsRef.current, [poolKey]: categoryGrades };
+        gradeCountsRef.current = nextGradeCounts;
+        setGradeCounts(nextGradeCounts);
 
         const newEntry: CometHistory = {
             id: Date.now() + Math.random(),
-            drawNumber: totalDrawsRef.current,
+            drawNumber: nextDraws[poolKey],
             reward,
         };
 
         setHistory(prev => [newEntry, ...prev].slice(0, 100));
-
         setTimeout(() => setIsRolling(false), 200);
-    }, [REWARDS]);
+    }, [REWARDS, poolKey]);
 
     // 多次抽獎（依序逐一抽取並即時展示動畫與結果）
     const handleDrawMultiple = useCallback(async (count: number) => {
@@ -280,27 +345,35 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         setIsRolling(true);
         stopAutoRollRef.current = false;
 
-        // 10 抽每抽間隔 60ms，100 抽每抽間隔 18ms
         const delay = count <= 10 ? 60 : 18;
 
         for (let i = 0; i < count; i++) {
             if (stopAutoRollRef.current) break;
 
-            totalDrawsRef.current += 1;
             const reward = weightedRandom(REWARDS);
 
-            rewardCountsRef.current[reward.name] = (rewardCountsRef.current[reward.name] || 0) + 1;
-            gradeCountsRef.current[reward.grade] += 1;
+            const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
+            totalDrawsRef.current = nextDraws;
+            setTotalDraws(nextDraws);
+
+            const categoryRewards = { ...(rewardCountsRef.current[poolKey] || {}) };
+            categoryRewards[reward.name] = (categoryRewards[reward.name] || 0) + 1;
+            const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: categoryRewards };
+            rewardCountsRef.current = nextRewardCounts;
+            setRewardCounts(nextRewardCounts);
+
+            const categoryGrades = { ...(gradeCountsRef.current[poolKey] || { S: 0, A: 0, B: 0, C: 0 }) };
+            categoryGrades[reward.grade] = (categoryGrades[reward.grade] || 0) + 1;
+            const nextGradeCounts = { ...gradeCountsRef.current, [poolKey]: categoryGrades };
+            gradeCountsRef.current = nextGradeCounts;
+            setGradeCounts(nextGradeCounts);
 
             const newEntry: CometHistory = {
                 id: Date.now() + i + Math.random(),
-                drawNumber: totalDrawsRef.current,
+                drawNumber: nextDraws[poolKey],
                 reward,
             };
 
-            setTotalDraws(totalDrawsRef.current);
-            setRewardCounts({ ...rewardCountsRef.current });
-            setGradeCounts({ ...gradeCountsRef.current });
             setCurrentReward(reward);
             setHistory(prev => [newEntry, ...prev].slice(0, 100));
 
@@ -308,7 +381,7 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         }
 
         setIsRolling(false);
-    }, [REWARDS, isRolling]);
+    }, [REWARDS, poolKey, isRolling]);
 
     // 自動抽獎直到抽到目標大獎
     const startAutoRoll = useCallback(async () => {
@@ -325,16 +398,30 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
             let lastReward: ShiningCometReward | null = null;
 
             for (let i = 0; i < batchSize; i++) {
-                totalDrawsRef.current += 1;
+                if (stopAutoRollRef.current) break;
+
                 const reward = weightedRandom(REWARDS);
                 lastReward = reward;
 
-                rewardCountsRef.current[reward.name] = (rewardCountsRef.current[reward.name] || 0) + 1;
-                gradeCountsRef.current[reward.grade] += 1;
+                const nextDraws = { ...totalDrawsRef.current, [poolKey]: (totalDrawsRef.current[poolKey] || 0) + 1 };
+                totalDrawsRef.current = nextDraws;
+                setTotalDraws(nextDraws);
+
+                const categoryRewards = { ...(rewardCountsRef.current[poolKey] || {}) };
+                categoryRewards[reward.name] = (categoryRewards[reward.name] || 0) + 1;
+                const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: categoryRewards };
+                rewardCountsRef.current = nextRewardCounts;
+                setRewardCounts(nextRewardCounts);
+
+                const categoryGrades = { ...(gradeCountsRef.current[poolKey] || { S: 0, A: 0, B: 0, C: 0 }) };
+                categoryGrades[reward.grade] = (categoryGrades[reward.grade] || 0) + 1;
+                const nextGradeCounts = { ...gradeCountsRef.current, [poolKey]: categoryGrades };
+                gradeCountsRef.current = nextGradeCounts;
+                setGradeCounts(nextGradeCounts);
 
                 newEntries.unshift({
                     id: Date.now() + i + Math.random(),
-                    drawNumber: totalDrawsRef.current,
+                    drawNumber: nextDraws[poolKey],
                     reward,
                 });
 
@@ -344,9 +431,6 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                 }
             }
 
-            setTotalDraws(totalDrawsRef.current);
-            setRewardCounts({ ...rewardCountsRef.current });
-            setGradeCounts({ ...gradeCountsRef.current });
             if (lastReward) setCurrentReward(lastReward);
             setHistory(prev => [...newEntries, ...prev].slice(0, 100));
 
@@ -355,27 +439,35 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         }
 
         setIsRolling(false);
-    }, [REWARDS, targetPrize]);
+    }, [REWARDS, poolKey, targetPrize]);
 
     const stopAutoRoll = () => {
         stopAutoRollRef.current = true;
         setIsRolling(false);
     };
 
-    // 重置所有資料
+    // 重置當前卡池資料
     const reset = useCallback(() => {
-        totalDrawsRef.current = 0;
-        rewardCountsRef.current = {};
-        gradeCountsRef.current = { A: 0, B: 0, C: 0 };
-        setTotalDraws(0);
+        const nextDraws = { ...totalDrawsRef.current, [poolKey]: 0 };
+        totalDrawsRef.current = nextDraws;
+        setTotalDraws(nextDraws);
+
+        const nextRewardCounts = { ...rewardCountsRef.current, [poolKey]: {} };
+        rewardCountsRef.current = nextRewardCounts;
+        setRewardCounts(nextRewardCounts);
+
+        const nextGradeCounts = { ...gradeCountsRef.current, [poolKey]: { S: 0, A: 0, B: 0, C: 0 } };
+        gradeCountsRef.current = nextGradeCounts;
+        setGradeCounts(nextGradeCounts);
+
         setCurrentReward(null);
         setHistory([]);
-        setRewardCounts({});
-        setGradeCounts({ A: 0, B: 0, C: 0 });
-    }, []);
+    }, [poolKey]);
 
-    const getGradeBadge = (grade: 'A' | 'B' | 'C') => {
+    const getGradeBadge = (grade: 'S' | 'A' | 'B' | 'C') => {
         switch (grade) {
+            case 'S':
+                return 'bg-rose-500/20 text-rose-500 border-rose-500/30';
             case 'A':
                 return 'bg-amber-500/20 text-amber-500 border-amber-500/30';
             case 'B':
@@ -385,8 +477,10 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         }
     };
 
-    const getGradeGlow = (grade: 'A' | 'B' | 'C') => {
+    const getGradeGlow = (grade: 'S' | 'A' | 'B' | 'C') => {
         switch (grade) {
+            case 'S':
+                return 'border-rose-500/50 bg-rose-500/10 shadow-rose-500/10 shadow-md';
             case 'A':
                 return 'border-amber-500/50 bg-amber-500/10 shadow-amber-500/10 shadow-md';
             case 'B':
@@ -405,6 +499,8 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
         value: prize,
         label: prize,
     }));
+
+    const availableGrades: ('S' | 'A' | 'B' | 'C')[] = mode === 'brilliant' ? ['S', 'A', 'B'] : ['A', 'B', 'C'];
 
     return (
         <div className="min-h-screen py-8">
@@ -435,6 +531,59 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                     </p>
                 </div>
 
+                {/* Version Selector Tabs */}
+                <div className="flex justify-center mb-6">
+                    <div className="inline-flex p-1 bg-muted rounded-xl border border-border">
+                        <button
+                            onClick={() => { setVersion('v1'); setMode('shining'); }}
+                            disabled={isRolling}
+                            className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-0.5 ${version === 'v1'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">09/09 ~ 09/23</span>
+                            <span className="text-sm">{t.subV1}</span>
+                        </button>
+                        <button
+                            onClick={() => setVersion('v2')}
+                            disabled={isRolling}
+                            className={`relative px-4 py-2 font-semibold rounded-lg transition-all duration-200 flex flex-col items-center gap-0.5 ${version === 'v2'
+                                ? 'bg-background shadow-sm text-foreground'
+                                : 'text-muted-foreground hover:text-foreground'
+                                }`}
+                        >
+                            <span className="text-[10px] opacity-80">09/23 ~ 10/06</span>
+                            <span className="text-sm">{t.subV2}</span>
+                            <span className="absolute -top-2.5 -right-2.5 bg-yellow-400 text-black text-[10px] font-bold px-1 py-0.5 border-2 border-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transform rotate-12 z-20 leading-none">
+                                NEW
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* V2 Pool Mode Switcher (閃亮彗星 vs 璀璨彗星) */}
+                {version === 'v2' && (
+                    <div className="flex justify-center mb-8">
+                        <div className="grid grid-cols-2 p-1 bg-muted/60 rounded-xl border border-border w-full max-w-xs">
+                            <button
+                                onClick={() => setMode('shining')}
+                                disabled={isRolling}
+                                className={`py-2 px-4 text-sm font-semibold rounded-lg transition-all ${mode === 'shining' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                            >
+                                {t.shiningTab}
+                            </button>
+                            <button
+                                onClick={() => setMode('brilliant')}
+                                disabled={isRolling}
+                                className={`py-2 px-4 text-sm font-semibold rounded-lg transition-all ${mode === 'brilliant' ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+                            >
+                                {t.brilliantTab}
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Main Area */}
                     <div className="lg:col-span-2 space-y-6">
@@ -444,53 +593,52 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                             <div className="flex justify-center mb-8">
                                 <div className={`relative w-28 h-28 sm:w-36 sm:h-36 ${isRolling ? 'animate-bounce' : ''}`}>
                                     {/* Glowing Aura */}
-                                    <div className={`absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-400 via-sky-400 to-indigo-500 blur-xl transition-all duration-300 ${isRolling ? 'opacity-70 scale-110' : 'opacity-30'}`}></div>
+                                    <div className={`absolute inset-0 rounded-full bg-gradient-to-tr ${mode === 'brilliant' ? 'from-rose-400 via-pink-400 to-amber-500' : 'from-cyan-400 via-sky-400 to-indigo-500'} blur-xl transition-all duration-300 ${isRolling ? 'opacity-70 scale-110' : 'opacity-30'}`}></div>
                                     
-                                    {/* Sphere Container without dark borders */}
-                                    <div className="relative w-full h-full rounded-full bg-gradient-to-b from-cyan-500/15 via-sky-500/5 to-indigo-500/15 flex items-center justify-center overflow-hidden border border-cyan-300/30 dark:border-cyan-500/20 shadow-inner">
-                                        {/* Background glow radial */}
+                                    {/* Sphere Container */}
+                                    <div className={`relative w-full h-full rounded-full bg-gradient-to-b ${mode === 'brilliant' ? 'from-rose-500/15 via-pink-500/5 to-amber-500/15 border-rose-300/30' : 'from-cyan-500/15 via-sky-500/5 to-indigo-500/15 border-cyan-300/30'} flex items-center justify-center overflow-hidden border shadow-inner`}>
                                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-400/20 via-transparent to-transparent"></div>
 
-                                            {/* Custom Stylized Shining Comet SVG */}
-                                            <svg className={`w-16 h-16 sm:w-20 sm:h-20 transition-transform duration-300 ${isRolling ? 'scale-110 -rotate-6' : 'rotate-0'}`} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <defs>
-                                                    <linearGradient id="cometTailGrad1" x1="56" y1="8" x2="20" y2="44" gradientUnits="userSpaceOnUse">
-                                                        <stop offset="0%" stopColor="#38bdf8" stopOpacity="0" />
-                                                        <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.5" />
-                                                        <stop offset="100%" stopColor="#6366f1" stopOpacity="0.9" />
-                                                    </linearGradient>
-                                                    <linearGradient id="cometTailGrad2" x1="50" y1="4" x2="16" y2="48" gradientUnits="userSpaceOnUse">
-                                                        <stop offset="0%" stopColor="#e0f2fe" stopOpacity="0.1" />
-                                                        <stop offset="40%" stopColor="#38bdf8" stopOpacity="0.7" />
-                                                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="1" />
-                                                    </linearGradient>
-                                                    <radialGradient id="cometCoreGrad" cx="35%" cy="35%" r="65%">
-                                                        <stop offset="0%" stopColor="#ffffff" />
-                                                        <stop offset="30%" stopColor="#67e8f9" />
-                                                        <stop offset="70%" stopColor="#0284c7" />
-                                                        <stop offset="100%" stopColor="#1e1b4b" />
-                                                    </radialGradient>
-                                                </defs>
+                                        {/* Stylized Comet SVG */}
+                                        <svg className={`w-16 h-16 sm:w-20 sm:h-20 transition-transform duration-300 ${isRolling ? 'scale-110 -rotate-6' : 'rotate-0'}`} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <linearGradient id="cometTailGrad1" x1="56" y1="8" x2="20" y2="44" gradientUnits="userSpaceOnUse">
+                                                    <stop offset="0%" stopColor={mode === 'brilliant' ? '#fb7185' : '#38bdf8'} stopOpacity="0" />
+                                                    <stop offset="50%" stopColor={mode === 'brilliant' ? '#f43f5e' : '#06b6d4'} stopOpacity="0.5" />
+                                                    <stop offset="100%" stopColor={mode === 'brilliant' ? '#e11d48' : '#6366f1'} stopOpacity="0.9" />
+                                                </linearGradient>
+                                                <linearGradient id="cometTailGrad2" x1="50" y1="4" x2="16" y2="48" gradientUnits="userSpaceOnUse">
+                                                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.1" />
+                                                    <stop offset="40%" stopColor={mode === 'brilliant' ? '#fda4af' : '#38bdf8'} stopOpacity="0.7" />
+                                                    <stop offset="100%" stopColor={mode === 'brilliant' ? '#e11d48' : '#3b82f6'} stopOpacity="1" />
+                                                </linearGradient>
+                                                <radialGradient id="cometCoreGrad" cx="35%" cy="35%" r="65%">
+                                                    <stop offset="0%" stopColor="#ffffff" />
+                                                    <stop offset="30%" stopColor={mode === 'brilliant' ? '#fbcfe8' : '#67e8f9'} />
+                                                    <stop offset="70%" stopColor={mode === 'brilliant' ? '#f43f5e' : '#0284c7'} />
+                                                    <stop offset="100%" stopColor={mode === 'brilliant' ? '#881337' : '#1e1b4b'} />
+                                                </radialGradient>
+                                            </defs>
 
-                                                {/* Comet Tails */}
-                                                <path d="M54 10 C46 20, 34 32, 22 42" stroke="url(#cometTailGrad1)" strokeWidth="3.5" strokeLinecap="round" />
-                                                <path d="M48 6 C38 18, 28 32, 17 45" stroke="url(#cometTailGrad2)" strokeWidth="5.5" strokeLinecap="round" />
-                                                <path d="M40 4 C32 18, 24 34, 13 49" stroke="url(#cometTailGrad1)" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
+                                            {/* Comet Tails */}
+                                            <path d="M54 10 C46 20, 34 32, 22 42" stroke="url(#cometTailGrad1)" strokeWidth="3.5" strokeLinecap="round" />
+                                            <path d="M48 6 C38 18, 28 32, 17 45" stroke="url(#cometTailGrad2)" strokeWidth="5.5" strokeLinecap="round" />
+                                            <path d="M40 4 C32 18, 24 34, 13 49" stroke="url(#cometTailGrad1)" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
 
-                                                {/* Star Sparkles */}
-                                                <path d="M44 14L45.2 17.8L49 19L45.2 20.2L44 24L42.8 20.2L39 19L42.8 17.8Z" fill="#a5f3fc" />
-                                                <path d="M30 8L30.8 10.2L33 11L30.8 11.8L30 14L29.2 11.8L27 11L29.2 10.2Z" fill="#e0f2fe" opacity="0.9" />
-                                                <path d="M52 28L52.8 30.2L55 31L52.8 31.8L52 34L51.2 31.8L49 31L51.2 30.2Z" fill="#38bdf8" opacity="0.8" />
+                                            {/* Star Sparkles */}
+                                            <path d="M44 14L45.2 17.8L49 19L45.2 20.2L44 24L42.8 20.2L39 19L42.8 17.8Z" fill="#a5f3fc" />
+                                            <path d="M30 8L30.8 10.2L33 11L30.8 11.8L30 14L29.2 11.8L27 11L29.2 10.2Z" fill="#e0f2fe" opacity="0.9" />
+                                            <path d="M52 28L52.8 30.2L55 31L52.8 31.8L52 34L51.2 31.8L49 31L51.2 30.2Z" fill="#38bdf8" opacity="0.8" />
 
-                                                {/* Comet Head Core */}
-                                                <circle cx="17" cy="45" r="9" fill="url(#cometCoreGrad)" />
-                                                <circle cx="17" cy="45" r="9" stroke="#a5f3fc" strokeWidth="1.2" opacity="0.8" />
-                                                <circle cx="14" cy="42" r="2.5" fill="#ffffff" opacity="0.95" />
-                                                <circle cx="19" cy="47" r="1" fill="#ffffff" opacity="0.7" />
-                                            </svg>
-                                        </div>
+                                            {/* Comet Head Core */}
+                                            <circle cx="17" cy="45" r="9" fill="url(#cometCoreGrad)" />
+                                            <circle cx="17" cy="45" r="9" stroke="#a5f3fc" strokeWidth="1.2" opacity="0.8" />
+                                            <circle cx="14" cy="42" r="2.5" fill="#ffffff" opacity="0.95" />
+                                            <circle cx="19" cy="47" r="1" fill="#ffffff" opacity="0.7" />
+                                        </svg>
                                     </div>
                                 </div>
+                            </div>
 
                             {/* Current Reward */}
                             {currentReward && (
@@ -500,7 +648,7 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                     </p>
                                     <div className="flex items-center justify-center gap-2">
                                         <span className={`px-2 py-0.5 text-xs font-bold rounded border ${getGradeBadge(currentReward.grade)}`}>
-                                            {currentReward.grade}
+                                            {currentReward.grade} 等級
                                         </span>
                                         <p className="text-lg sm:text-xl font-bold text-foreground text-center">
                                             {currentReward.name}
@@ -595,14 +743,14 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                     <span className="font-semibold text-muted-foreground">{t.eventPeriod}</span>
                                 </div>
                                 <div className="text-foreground font-medium pl-5">
-                                    {t.eventDate}
+                                    {version === 'v1' ? t.eventDateV1 : t.eventDateV2}
                                 </div>
                             </div>
 
                             {/* Overview stats */}
                             <div className="grid grid-cols-1 gap-4">
                                 <div className="p-4 bg-muted/50 rounded-xl flex flex-col justify-center border border-border shadow-sm">
-                                    <p className="text-2xl font-bold text-foreground">{totalDraws}</p>
+                                    <p className="text-2xl font-bold text-foreground">{currentDraws}</p>
                                     <p className="text-[10px] text-muted-foreground font-medium uppercase">{t.totalUsed}</p>
                                 </div>
                             </div>
@@ -611,27 +759,55 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                             <div className="pt-4 border-t border-border">
                                 <h3 className="text-sm font-medium text-muted-foreground mb-3 uppercase tracking-wider">{t.gradeDist}</h3>
                                 <div className="grid grid-cols-3 gap-3">
-                                    <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center">
-                                        <span className="text-xs font-bold text-amber-500 block mb-1">A 等級</span>
-                                        <p className="text-lg font-bold text-foreground">{gradeCounts.A}</p>
-                                        <p className="text-[10px] text-muted-foreground">
-                                            {totalDraws > 0 ? ((gradeCounts.A / totalDraws) * 100).toFixed(2) : '0.00'}%
-                                        </p>
-                                    </div>
-                                    <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl text-center">
-                                        <span className="text-xs font-bold text-purple-400 block mb-1">B 等級</span>
-                                        <p className="text-lg font-bold text-foreground">{gradeCounts.B}</p>
-                                        <p className="text-[10px] text-muted-foreground">
-                                            {totalDraws > 0 ? ((gradeCounts.B / totalDraws) * 100).toFixed(2) : '0.00'}%
-                                        </p>
-                                    </div>
-                                    <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-center">
-                                        <span className="text-xs font-bold text-blue-400 block mb-1">C 等級</span>
-                                        <p className="text-lg font-bold text-foreground">{gradeCounts.C}</p>
-                                        <p className="text-[10px] text-muted-foreground">
-                                            {totalDraws > 0 ? ((gradeCounts.C / totalDraws) * 100).toFixed(2) : '0.00'}%
-                                        </p>
-                                    </div>
+                                    {mode === 'brilliant' ? (
+                                        <>
+                                            <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-rose-500 block mb-1">S 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.S}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.S / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                            <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-amber-500 block mb-1">A 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.A}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.A / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                            <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-purple-400 block mb-1">B 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.B}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.B / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-amber-500 block mb-1">A 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.A}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.A / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                            <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-purple-400 block mb-1">B 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.B}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.B / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                            <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-xl text-center">
+                                                <span className="text-xs font-bold text-blue-400 block mb-1">C 等級</span>
+                                                <p className="text-lg font-bold text-foreground">{currentGradeCounts.C}</p>
+                                                <p className="text-[10px] text-muted-foreground">
+                                                    {currentDraws > 0 ? ((currentGradeCounts.C / currentDraws) * 100).toFixed(2) : '0.00'}%
+                                                </p>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
 
@@ -640,14 +816,16 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">{t.grandPrizes}</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                                     {GRAND_PRIZES.map((prizeName) => {
-                                        const count = rewardCounts[prizeName] || 0;
-                                        const actualRate = totalDraws > 0 ? ((count / totalDraws) * 100).toFixed(2) : '0.00';
+                                        const count = currentRewardCounts[prizeName] || 0;
+                                        const actualRate = currentDraws > 0 ? ((count / currentDraws) * 100).toFixed(2) : '0.00';
+                                        const prizeReward = REWARDS.find(r => r.name === prizeName);
+                                        const grade = prizeReward?.grade || 'A';
 
                                         return (
                                             <div key={prizeName} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
                                                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-amber-500/20 text-amber-500 border border-amber-500/30">A</span>
-                                                    <span className="font-medium truncate text-amber-500 dark:text-amber-400">{prizeName}</span>
+                                                    <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded ${getGradeBadge(grade)}`}>{grade}</span>
+                                                    <span className="font-medium truncate text-foreground">{prizeName}</span>
                                                 </div>
                                                 <div className="text-right ml-3 flex-shrink-0 flex items-center gap-2">
                                                     <span className="text-primary font-bold">{t.countTimes.replace('{n}', String(count))}</span>
@@ -662,10 +840,10 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                             {/* B Tier Distribution */}
                             <div className="pt-4 border-t border-border">
                                 <h3 className="text-sm font-medium text-muted-foreground mb-4 uppercase tracking-wider">{t.bTierPrizes}</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-2 custom-scrollbar">
                                     {REWARDS.filter(r => r.grade === 'B').map((item) => {
-                                        const count = rewardCounts[item.name] || 0;
-                                        const actualRate = totalDraws > 0 ? ((count / totalDraws) * 100).toFixed(2) : '0.00';
+                                        const count = currentRewardCounts[item.name] || 0;
+                                        const actualRate = currentDraws > 0 ? ((count / currentDraws) * 100).toFixed(2) : '0.00';
 
                                         return (
                                             <div key={item.name} className="flex justify-between items-center p-2.5 rounded-lg text-xs border border-border shadow-sm bg-muted/40 text-foreground">
@@ -715,24 +893,15 @@ export default function ShiningCometClient({ locale }: ShiningCometClientProps) 
                                 >
                                     {t.filterAll}
                                 </button>
-                                <button
-                                    onClick={() => setActiveGradeFilter('A')}
-                                    className={`py-1.5 rounded-md transition-all ${activeGradeFilter === 'A' ? 'bg-background shadow text-amber-500 font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-                                >
-                                    A
-                                </button>
-                                <button
-                                    onClick={() => setActiveGradeFilter('B')}
-                                    className={`py-1.5 rounded-md transition-all ${activeGradeFilter === 'B' ? 'bg-background shadow text-purple-400 font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-                                >
-                                    B
-                                </button>
-                                <button
-                                    onClick={() => setActiveGradeFilter('C')}
-                                    className={`py-1.5 rounded-md transition-all ${activeGradeFilter === 'C' ? 'bg-background shadow text-blue-400 font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-                                >
-                                    C
-                                </button>
+                                {availableGrades.map(g => (
+                                    <button
+                                        key={g}
+                                        onClick={() => setActiveGradeFilter(g)}
+                                        className={`py-1.5 rounded-md transition-all ${activeGradeFilter === g ? 'bg-background shadow font-bold text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+                                    >
+                                        {g}
+                                    </button>
+                                ))}
                             </div>
 
                             <div className="space-y-1.5 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">

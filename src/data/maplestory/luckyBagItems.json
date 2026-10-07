@@ -1,0 +1,240 @@
+[
+  {
+    "name": "地獄的吹雪組合包",
+    "rank": "S",
+    "prob12": 0.2,
+    "prob3": 0.4,
+    "recycleProb": 0.39
+  },
+  {
+    "name": "地獄的吹雪機器人交換券",
+    "rank": "S",
+    "prob12": 0.2,
+    "prob3": 0.4,
+    "recycleProb": 0.39
+  },
+  {
+    "name": "音速的索尼克機器人交換券",
+    "rank": "S",
+    "prob12": 0.2,
+    "prob3": 0.4,
+    "recycleProb": 0.39
+  },
+  {
+    "name": "閃光弗拉休組合包",
+    "rank": "S",
+    "prob12": 0.2,
+    "prob3": 0.4,
+    "recycleProb": 0.39
+  },
+  {
+    "name": "閃光弗拉休機器人交換券",
+    "rank": "S",
+    "prob12": 0.15,
+    "prob3": 0.3,
+    "recycleProb": 0.29
+  },
+  {
+    "name": "餓狼機器人交換券",
+    "rank": "S",
+    "prob12": 0.1,
+    "prob3": 0.2,
+    "recycleProb": 0.2
+  },
+  {
+    "name": "音速的索尼克組合包",
+    "rank": "S",
+    "prob12": 0.1,
+    "prob3": 0.2,
+    "recycleProb": 0.2
+  },
+  {
+    "name": "餓狼組合包",
+    "rank": "S",
+    "prob12": 0.15,
+    "prob3": 0.3,
+    "recycleProb": 0.29
+  },
+  {
+    "name": "VIP加速器*5",
+    "rank": "A",
+    "prob12": 1,
+    "prob3": 13,
+    "recycleProb": 1.96
+  },
+  {
+    "name": "白金神奇剪刀",
+    "rank": "A",
+    "prob12": 1.5,
+    "prob3": 13,
+    "recycleProb": 2.94
+  },
+  {
+    "name": "時裝神奇剪刀",
+    "rank": "A",
+    "prob12": 0.9,
+    "prob3": 12,
+    "recycleProb": 1.76
+  },
+  {
+    "name": "混色染髮交換券",
+    "rank": "A",
+    "prob12": 0.9,
+    "prob3": 11,
+    "recycleProb": 1.76
+  },
+  {
+    "name": "尊貴保護卷軸",
+    "rank": "A",
+    "prob12": 0.9,
+    "prob3": 11,
+    "recycleProb": 1.76
+  },
+  {
+    "name": "經驗值3倍券(30分)*4",
+    "rank": "A",
+    "prob12": 1.5,
+    "prob3": 12,
+    "recycleProb": 2.94
+  },
+  {
+    "name": "選擇符文交換券",
+    "rank": "A",
+    "prob12": 1,
+    "prob3": 9,
+    "recycleProb": 1.96
+  },
+  {
+    "name": "靈魂艾爾達/靈魂艾爾達碎片選擇券",
+    "rank": "A",
+    "prob12": 0.4,
+    "prob3": 2.7,
+    "recycleProb": 0.78
+  },
+  {
+    "name": "神秘鐵砧",
+    "rank": "A",
+    "prob12": 0.4,
+    "prob3": 2.7,
+    "recycleProb": 0.78
+  },
+  {
+    "name": "高級彩色稜鏡",
+    "rank": "A",
+    "prob12": 1.2,
+    "prob3": 11,
+    "recycleProb": 2.35
+  },
+  {
+    "name": "安全盾牌卷軸",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "刻名道具",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "星光裝備保護卷軸",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "稀有潛在能力卷軸80%",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "超性能擴音器",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "樂觀的混沌卷軸50%",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "寵物強化箱",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "驚訝樂觀的混沌卷軸40%",
+    "rank": "B",
+    "prob12": 5,
+    "prob3": 0,
+    "recycleProb": 9.8
+  },
+  {
+    "name": "卷軸保護卡",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "奇幻傳播者",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "附加潛在能力賦予捲 50%",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "星光安全盾牌卷軸",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "星光卷軸保護卡",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "終極成長祕藥*5",
+    "rank": "C",
+    "prob12": 6,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "超級藥水*100",
+    "rank": "C",
+    "prob12": 6.5,
+    "prob3": 0,
+    "recycleProb": 0
+  },
+  {
+    "name": "驚訝的混沌卷軸60%",
+    "rank": "C",
+    "prob12": 6.5,
+    "prob3": 0,
+    "recycleProb": 0
+  }
+]
