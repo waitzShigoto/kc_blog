@@ -181,9 +181,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const getPortfolioComponent = () => {
     if (locale === 'en' || locale === 'ja') {
-      return <AndroidPortfolioContentEn />;
+      return <AndroidPortfolioContentEn locale={locale} />;
     }
-    return <AndroidPortfolioContent />;
+    return <AndroidPortfolioContent locale={locale} />;
   };
 
   // 構建文章 URL 和圖片 URL
@@ -311,20 +311,22 @@ export default async function PostPage({ params }: PostPageProps) {
             </div>
 
             {/* Article Body */}
-            <div className="prose prose-lg max-w-none dark:prose-invert">
-              {isPortfolioPost ? (
-                <div>
-                  <div className="mb-12" dangerouslySetInnerHTML={{
+            {isPortfolioPost ? (
+              <div>
+                <div
+                  className="prose prose-lg max-w-none dark:prose-invert mb-12"
+                  dangerouslySetInnerHTML={{
                     __html: content.replace('<div id="portfolio-content"></div>', '')
-                  }} suppressHydrationWarning />
-                  <div className="mt-12">
-                    {getPortfolioComponent()}
-                  </div>
+                  }}
+                  suppressHydrationWarning
+                />
+                <div className="mt-12">
+                  {getPortfolioComponent()}
                 </div>
-              ) : (
-                <div dangerouslySetInnerHTML={{ __html: content }} suppressHydrationWarning />
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="prose prose-lg max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: content }} suppressHydrationWarning />
+            )}
 
             {/* 程式碼區塊增強功能、Gist 載入器和圖片放大功能 */}
             <CodeBlockEnhancer />

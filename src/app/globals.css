@@ -1,4 +1,6 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* 導入模組化 CSS 架構 */
 @import '../styles/index.css';

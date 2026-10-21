@@ -31,7 +31,6 @@ excerpt: 'Exploring Android Development: My Portfolio'
 Hello everyone, I'm an experienced Android developer proficient in Kotlin and Java.  
 Today, I'd like to share some of my past works and experiences.  
 My portfolio showcases a variety of apps.  
-I hope my work inspires you.  
 Feel free to contact me for more information. Thank you for watching!
 
 <div id="portfolio-content"></div>
